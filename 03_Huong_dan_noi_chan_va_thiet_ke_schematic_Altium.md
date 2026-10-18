@@ -1,5 +1,7 @@
 # Hướng dẫn nối chân và thiết kế schematic Altium
 
+**Quy ước tụ dùng chung cho 4 file:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung 3 chữ số tính theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi điện dung, không khẳng định mọi tụ SMD đều in mã trên thân. Package/footprint phải đối chiếu đúng mã mua, đặc biệt tụ gốm 10 µF (106)–50 V; kích thước 0805 trong bảng là dự kiến cho đến khi xác nhận mã đáp ứng.
+
 Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package; các bảng nối phía dưới chỉ ghi mã/chân, net và điểm nối cho dễ tra. BOM mua hàng và tính toán chi tiết xem [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md); nguyên mẫu module xem [file 01](01_Huong_dan_kiem_thu_phan_cung_nguyen_mau_module_cho_lab.md).
 
 **Trạng thái:** giữ cấu hình thiết kế hiện hành, không tự đổi model/chân. Mã tụ thực, tiếp điểm jack và một số footprint còn phải xác nhận; “chốt bảng” chưa có nghĩa hoàn tất mua hàng/ERC/kiểm thử. Giữ vị trí và số chân trong symbol Altium người dùng cung cấp, không tự bố trí lại chân bên trong symbol.
@@ -39,8 +41,8 @@ Adapter 5 V, ST-Link V2, CT và USB–RS485 CH340 là thiết bị ngoài PCB.
 |---|---|---|---:|
 | J1 | Jack DC cái: 5,5 mm (tham khảo PJ-102AH) | THT | 1 |
 | U1 | LDO: LD1117S33TR, 3,3 V; tới 800 mA, còn phụ thuộc nhiệt | SOT-223 | 1 |
-| C1 | Tụ tantalum: 10 µF, 16 V | 3528 (B case) | 1 |
-| C2 | Tụ tantalum: 22 µF, 16 V | 6032 (C case) | 1 |
+| C1 | Tụ tantalum: 10 µF (106), 16 V | 3528 (B case), cần xác nhận mã thực | 1 |
+| C2 | Tụ tantalum: 22 µF (226), 16 V | 6032 (C case) | 1 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
@@ -66,15 +68,15 @@ J1.3: schematic hiện nối GND cùng J1.2. Chưa xác nhận cấu trúc tiế
 | Mã | Tên linh kiện / thông số cụ thể | Package | SL |
 |---|---|---|---:|
 | U2 | MCU: STM32F103C8T6; 72 MHz; Flash 64 KB; SRAM 20 KB; 2,0–3,6 V | LQFP-48 | 1 |
-| C3–C5 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 3 |
-| C6 | Tụ gốm: 10 µF, X7R, 16 V | 0805 | 1 |
-| C7 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
-| C8 | Tụ gốm: 1 µF, X7R, 16 V | 0805 | 1 |
+| C3–C5 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 3 |
+| C6 | Tụ gốm: 10 µF (106), X7R, 50 V | 0805 | 1 |
+| C7 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
+| C8 | Tụ gốm: 1 µF (105), X7R, 50 V | 0805 | 1 |
 | Y1 | Thạch anh: ABM3B-8.000MHZ-B2-T, 8 MHz; CL = 18 pF | 5,0 × 3,2 mm | 1 |
-| C9, C10 | Tụ gốm: 27 pF, ±5 %, C0G, 50 V (C0805C270J5GACTU) | 0805 | 2 |
+| C9, C10 | Tụ gốm: 27 pF (270), ±5 %, C0G, 50 V (C0805C270J5GACTU) | 0805 | 2 |
 | R1 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
-| C11 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
-| SW1 | Nút nhấn RESET: Thường hở, nhấn nhả, 2 tiếp điểm; mã hãng chưa chốt | SMD, footprint cần xác nhận | 1 |
+| C11 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
+| SW1 | Nút nhấn RESET: 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả; mã hãng chưa xác nhận | SMD 3 × 6 × 2,5 mm; pad cần đối chiếu nút thực | 1 |
 | J2 | Header SWD: 1×5, bước 2,54 mm | Header | 1 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
@@ -134,19 +136,19 @@ Các chân dưới đây để trống, không nối chúng thành cùng một n
 
 | Linh kiện | Đầu 1 | Đầu 2 | Ghi chú |
 | --- | --- | --- | --- |
-| C3 (100 nF) | `+3V3` tại U2.24 | `GND` | Tụ VDD_1 |
-| C4 (100 nF) | `+3V3` tại U2.36 | `GND` | Tụ VDD_2 |
-| C5 (100 nF) | `+3V3` tại U2.48 | `GND` | Tụ VDD_3 |
-| C6 (10 µF) | `+3V3` | `GND` | Tụ nguồn tổng |
-| C7, C8 (100 nF / 1 µF) | `+3V3` tại U2.9 | `GND` | Song song cho VDDA |
+| C3 (100 nF (104)) | `+3V3` tại U2.24 | `GND` | Tụ VDD_1 |
+| C4 (100 nF (104)) | `+3V3` tại U2.36 | `GND` | Tụ VDD_2 |
+| C5 (100 nF (104)) | `+3V3` tại U2.48 | `GND` | Tụ VDD_3 |
+| C6 (10 µF (106)) | `+3V3` | `GND` | Tụ nguồn tổng |
+| C7, C8 (100 nF (104) / 1 µF (105)) | `+3V3` tại U2.9 | `GND` | Song song cho VDDA |
 | Y1.1 | `HSE_IN` | — | Đầu dao động → U2.5 |
 | Y1.3 | `HSE_OUT` | — | Đầu dao động → U2.6 |
 | Y1.2, Y1.4 | `GND` | — | Pad vỏ |
-| C9 (27 pF) | `HSE_IN` | `GND` |  |
-| C10 (27 pF) | `HSE_OUT` | `GND` |  |
+| C9 (27 pF (270)) | `HSE_IN` | `GND` |  |
+| C10 (27 pF (270)) | `HSE_OUT` | `GND` |  |
 | R1 (10 kΩ) | `BOOT0` | `GND` | Kéo xuống |
-| C11 (100 nF) | `NRST` | `GND` | Tụ reset |
-| SW1 (RESET, thường hở) | `NRST` tại U2.7, J2.5, C11 | `GND` | Nhấn kéo NRST xuống thấp; nhả để MCU khởi động lại |
+| C11 (100 nF (104)) | `NRST` | `GND` | Tụ reset |
+| SW1 (RESET, 2 chân SMD 3 × 6 × 2,5 mm, thường hở) | `NRST` tại U2.7, J2.5, C11 | `GND` | Nhấn kéo NRST xuống thấp; nhả để MCU khởi động lại |
 
 ## 3.5. Đầu nối J2 SWD
 
@@ -164,11 +166,11 @@ Khi PCB đã cấp nguồn từ adapter, không nối thêm đầu ra 3,3 V củ
 
 ## 3.6. Nối nút RESET SW1
 
-1. SW1.1 → net `NRST`, cùng U2.7, J2.5 và đầu NRST của C11 100 nF.
+1. SW1.1 → net `NRST`, cùng U2.7, J2.5 và đầu NRST của C11 100 nF (104).
 2. SW1.2 → `GND`. Giữ C11 từ NRST xuống GND; giữ J2.5 để đầu nạp truy cập NRST.
-3. Dùng nút nhấn nhả **thường hở**: bình thường hở, nhấn nối NRST với GND, nhả để MCU khởi động lại. Không nối nút RESET lên +3V3.
+3. Dùng nút **2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả**: bình thường hở, nhấn nối NRST với GND, nhả để MCU khởi động lại. Không nối nút RESET lên +3V3.
 
-SW1.1/2 là quy ước cho symbol hai tiếp điểm đề xuất, chưa phải số chân hãng đã xác nhận. Nếu nút thực có bốn chân, đối chiếu datasheet để nhận diện các cặp chân nối sẵn và ánh xạ symbol–pad; không suy đoán theo vị trí chân. Giữ nguyên vị trí và số chân của symbol Altium người dùng cung cấp.
+SW1 chọn loại “Nut Nhan 2 Chan SMD 3x6x2.5” theo thư viện người dùng cung cấp. SW1.1/2 là quy ước symbol hai chân; đối chiếu ánh xạ symbol–pad với nút thực. Kiểm tra kích thước và khoảng cách hai pad theo datasheet hoặc đo nút thực; tên kích thước và hình 3D chưa đủ xác nhận footprint. Đo thông mạch: thả nút hở, nhấn nút thông. Giữ nguyên vị trí và số chân của symbol Altium người dùng cung cấp.
 
 Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở mạch reset: ST AN2586 và DS5319 (liên kết ở mục 8). Không thêm nút BOOT hoặc R11; BOOT0/R1 và PB2/BOOT1 giữ nguyên cấu hình hiện hành.
 
@@ -184,9 +186,9 @@ Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở m
 | U3 | Op-amp: MCP6002-I/SN; nguồn hãng 1,8–6,0 V; GBW điển hình 1 MHz | SOIC-8 | 1 |
 | R2 | Điện trở: 150 Ω, 1 %, 0,125 W (CRCW0805150RFKEA) | 0805 | 1 |
 | R3, R4 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 2 |
-| C12 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| C12 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 | R5 | Điện trở: 1 kΩ, 1 %, 0,125 W | 0805 | 1 |
-| C13 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| C13 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 | CT1 | CT: DL-CT08CL6-1000/1; tỷ số 1000:1 còn là giả thiết | Ngoài PCB | 1 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
@@ -220,9 +222,9 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | --- | --- | --- |
 | R3 (10 kΩ) | `+3V3` | `BIAS_DIV` |
 | R4 (10 kΩ) | `BIAS_DIV` | `GND` |
-| C12 (100 nF) | `+3V3` tại U3.8 | `GND` |
+| C12 (100 nF (104)) | `+3V3` tại U3.8 | `GND` |
 | R5 (1 kΩ) | `CURRENT_BUF` | `ADC_CURRENT` |
-| C13 (100 nF) | `ADC_CURRENT` | `GND` |
+| C13 (100 nF (104)) | `ADC_CURRENT` | `GND` |
 
 ## 4.3. Nối CT và burden
 
@@ -248,8 +250,8 @@ Burden song song thứ cấp CT. Không nối J3.2 xuống GND.
 | D1 | Photodiode: VBPW34S | SMD gullwing | 1 |
 | U4 | Op-amp: MCP6002-I/SN; nguồn hãng 1,8–6,0 V; GBW điển hình 1 MHz | SOIC-8 | 1 |
 | R6 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
-| C15 | Tụ gốm: 100 pF, ±5 %, C0G/NP0, ≥ 16 V | 0805 | 1 |
-| C14 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| C15 | Tụ gốm: 100 pF (101), ±5 %, C0G/NP0, 50 V | 0805 | 1 |
+| C14 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
@@ -281,8 +283,8 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | Linh kiện | Đầu 1 | Đầu 2 | Ghi chú |
 | --- | --- | --- | --- |
 | R6 (10 kΩ) | `ADC_LIGHT` | `PHOTO_SUM` | Hồi tiếp |
-| C15 (100 pF) | `ADC_LIGHT` | `PHOTO_SUM` | Song song R6 |
-| C14 (100 nF) | `+3V3` tại U4.8 | `GND` | Tụ nguồn |
+| C15 (100 pF (101)) | `ADC_LIGHT` | `PHOTO_SUM` | Song song R6 |
+| C14 (100 nF (104)) | `+3V3` tại U4.8 | `GND` | Tụ nguồn |
 | D1.A (anode) | `GND` | — |  |
 | D1.K (cathode) | `PHOTO_SUM` | — |  |
 
@@ -297,7 +299,7 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | Mã | Tên linh kiện / thông số cụ thể | Package | SL |
 |---|---|---|---:|
 | U5 | RS485: MAX3485ESA+; 3,0–3,6 V; tới 10 Mbps | SOIC-8 | 1 |
-| C16 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| C16 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 | R7 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
 | J4 | Terminal 3 cực A/B/GND, bước 5,08 mm; tham khảo Phoenix 1715734 | THT | 1 |
 | R8 | Điện trở: 120 Ω, 1 %, 0,25 W | 1206 | 1 |
@@ -322,7 +324,7 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 | Linh kiện | Đầu 1 | Đầu 2 | Chức năng |
 | --- | --- | --- | --- |
-| C16 (100 nF) | `+3V3` tại U5.8 | `GND` | Tụ nguồn |
+| C16 (100 nF (104)) | `+3V3` tại U5.8 | `GND` | Tụ nguồn |
 | R7 (10 kΩ) | `RS485_DIR` | `GND` | Mặc định nhận |
 | R8 (120 Ω, tùy chọn) | `RS485_A` | `RS485_B` | Kết thúc đường truyền |
 | R9 (330 Ω, tùy chọn) | `+3V3` | `RS485_A` | Bias kéo A lên |

@@ -1,5 +1,7 @@
 # Hướng dẫn kiểm thử phần cứng nguyên mẫu module cho lab
 
+**Quy ước tụ dùng chung cho 4 file:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung 3 chữ số tính theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi điện dung, không khẳng định mọi tụ SMD đều in mã trên thân. Package/footprint phải đối chiếu đúng mã mua, đặc biệt tụ gốm 10 µF (106)–50 V; kích thước 0805 trong bảng là dự kiến cho đến khi xác nhận mã đáp ứng.
+
 **Đề tài:** Thiết kế hệ thống nhúng IoT phát hiện sớm chớp hồ quang điện trong hệ thống điện hạ áp và trung áp.
 
 Tài liệu hướng dẫn chuẩn bị ở nhà, nối phần cứng module, kiểm thử tại lab và xử lý số liệu sau đo. Cấu hình và ví dụ tính được phân biệt với thông số hãng và kết quả phải đo; nguồn kỹ thuật chính thống liệt kê ở F.
@@ -21,9 +23,9 @@ Tài liệu hướng dẫn chuẩn bị ở nhà, nối phần cứng module, ki
 ## A. Kiến trúc và kế hoạch
 
 ```text
-CT → burden 150 Ω → MCP6002 dòng → RC 1 kΩ–100 nF → PA0 ┐
+CT → burden 150 Ω → MCP6002 dòng → RC 1 kΩ–100 nF (104) → PA0 ┐
                                                        ├→ Blue Pill → module MAX3485 → USB–RS485 → laptop
-BPW34 → MCP6002 quang, Rf 10 kΩ // Cf 100 pF → PA1       ┘                         ↓
+BPW34 → MCP6002 quang, Rf 10 kΩ // Cf 100 pF (101) → PA1       ┘                         ↓
                                                                     gateway/dashboard (làm sau)
 
 Adapter 5 VDC → chân 5V Blue Pill
@@ -53,7 +55,7 @@ Mã **U1/U2 ở file này là hai MCP6002 DIP-8 của module**, không phải m�
 |---|---|
 | Nguồn | Adapter cách ly 5 V → chân 5V Blue Pill; 3V3 Blue Pill → U1/U2 và module MAX3485 |
 | Dòng | CT → burden 150 Ω → U1 → R lọc 1 kΩ → PA0 |
-| Quang | BPW34 → U2 với Rf 10 kΩ/Cf 100 pF → PA1 |
+| Quang | BPW34 → U2 với Rf 10 kΩ/Cf 100 pF (101) → PA1 |
 | Dữ liệu | Blue Pill ↔ module MAX3485 (PB0 điều khiển chiều) ↔ USB–RS485 CH340 ↔ laptop |
 | Tải CT | Nguồn 12 VAC riêng → dây xuyên CT → tải điện trở → về nguồn AC |
 
@@ -69,12 +71,12 @@ Mã **U1/U2 ở file này là hai MCP6002 DIP-8 của module**, không phải m�
 | Dòng | Burden 150 Ω–2 W | 1 | Song song thứ cấp CT |
 | BIAS | Điện trở 10 kΩ | 2 | Cầu chia 3,3 V |
 | Lọc dòng | Điện trở 1 kΩ | 1 | Giữa U1.1 và PA0 |
-| Lọc dòng | Tụ 100 nF, mã 104 | 1 | PA0 xuống GND |
+| Lọc dòng | Tụ gốm 100 nF (104), 50 V | 1 | PA0 xuống GND |
 | Quang | BPW34 chân cắm | 1 | Dùng một cảm biến trong mạch |
 | Quang | MCP6002-I/P | 1 | U2, DIP-8, cấp 3,3 V |
 | Quang | Rf 10 kΩ | 1 | Hồi tiếp giữa U2.1–U2.2 |
-| Quang | Cf 100 pF, mã 101 | 1 | Song song Rf |
-| Nguồn AFE | Tụ 100 nF, mã 104 | 2 | Mỗi IC U1/U2 một tụ |
+| Quang | Cf: tụ gốm 100 pF (101), 50 V | 1 | Song song Rf |
+| Nguồn AFE | Tụ gốm 100 nF (104), 50 V | 2 | Mỗi IC U1/U2 một tụ |
 | RS485 | Module MAX3485, có DI/RO/DE và /RE | 1 | Cấp 3,3 V; PB0 điều khiển chung DE và /RE; hậu tố IC cần xác nhận theo module thực |
 | RS485 laptop | USB–RS485 CH340 | 1 | Cấp nguồn USB laptop |
 | Đấu nối | Breadboard, jumper, dây/header | 1 bộ | Nối theo nhãn chân thực tế |
@@ -132,7 +134,7 @@ BIAS được đưa tới nhánh dòng và quang. Điểm M trước đệm và 
 | U1.2 | U1.1, hồi tiếp trực tiếp |
 | U1.1 | Đầu thứ nhất R lọc 1 kΩ |
 | Đầu còn lại R lọc | PA0 Blue Pill |
-| Tụ lọc 100 nF — 104 thứ ba | PA0 → tụ → GND, đặt gần PA0 |
+| Tụ lọc 100 nF (104) thứ ba | PA0 → tụ → GND, đặt gần PA0 |
 
 **Hồi tiếp U1.2 lấy tại U1.1, trước R lọc.** Dây CT đen về BIAS. Tín hiệu từ U1.1 đi qua R 1 kΩ trước khi tới PA0; tránh dây nối tắt điện trở này. Burden được mắc sẵn trước khi cho dòng qua CT.
 
@@ -144,7 +146,7 @@ BIAS được đưa tới nhánh dòng và quang. Điểm M trước đệm và 
 | BPW34 cathode K | U2.2 |
 | BPW34 anode A | GND |
 | Rf 10 kΩ | Giữa U2.1 và U2.2 |
-| Cf 100 pF, mã 101 | Giữa U2.1 và U2.2, song song Rf |
+| Cf: tụ gốm 100 pF (101), 50 V | Giữa U2.1 và U2.2, song song Rf |
 | U2.1 | PA1 Blue Pill; nối ADC sau khi xác nhận điện áp phù hợp 0–3,3 V |
 | U2.5 | BIAS |
 | U2.6 | U2.7 |
@@ -221,8 +223,8 @@ Nhờ người phụ trách lab xác nhận nguồn AC cách ly và cách nối 
 | Đồ dùng | Số lượng | Mục đích / lưu ý |
 |---|---:|---|
 | BPW34 dự phòng | 1 ngoài chiếc đang lắp | Tổng chuẩn bị 2 chiếc, chỉ lắp một |
-| Tụ 103 = 10 nF; tụ 10 µF | Mỗi loại 1 | Dự phòng, không tự lắp thêm |
-| Rf 100 kΩ; Cf 470 = 47 pF | Mỗi loại 1 | Chỉ thay khi có phương án và lý do, ghi cấu hình mới |
+| Tụ gốm 10 nF (103)–50 V; tụ 10 µF (106): gốm 50 V hoặc tantalum 16 V theo loại thực | Mỗi loại 1 | Dự phòng, không tự lắp thêm |
+| Rf 100 kΩ; Cf 47 pF (470) | Mỗi loại 1 | Chỉ thay khi có phương án và lý do, ghi cấu hình mới |
 | Burden/R/C thay thử | Theo phương án tính trước | Không tháo lọc chỉ để so sánh trước/sau |
 | Laptop, sạc, cáp; PlatformIO; firmware và script log | 1 bộ | Thử build/nạp và mở log trước khi đi |
 | Đồng hồ số, đồng hồ AC/ampe kìm dòng nhỏ | Có hoặc mượn | Kiểm tra nguồn và dòng tham chiếu |
@@ -237,7 +239,7 @@ Nguồn mạch được chọn là adapter cách ly **5 V–2 A**. Đây là kh�
 1. Kiểm tra cực tính jack và điện áp 5 V/3,3 V trước khi nối AFE.
 2. Kiểm tra U1/U2 cấp 3,3 V; BIAS gần 1,65 V. Điểm M trước đệm khác net BIAS sau đệm.
 3. Đo U1.1, PA0 và U2.1 so với GND; xác nhận phù hợp dải ADC 0–3,3 V trước khi nối ADC.
-4. Kiểm tra U1.2 hồi tiếp về U1.1 trước R lọc; R 1 kΩ không bị nối tắt; C 100 nF từ PA0 xuống GND.
+4. Kiểm tra U1.2 hồi tiếp về U1.1 trước R lọc; R 1 kΩ không bị nối tắt; C 100 nF (104) từ PA0 xuống GND.
 5. Build/nạp ST-Link; kiểm tra ADC hai kênh và RS485 theo B.8: **PA9 TX → DI; RO → PA10 RX; PB0 → chung DE và /RE; PB1 để trống.** Khởi tạo PB0 thấp; thử gửi/nhận và thời điểm trả về nhận theo hướng dẫn dưới đây, chưa coi cấu hình mới đã được kiểm thử.
 6. Lưu kết quả CHE–PHONG–DEN (che / ánh sáng phòng / đèn pin), xác nhận nhánh quang phản ứng. Không cần làm lại toàn bộ ở lab nếu cấu hình không đổi.
 7. Lưu ảnh mạch, giá trị linh kiện, tên/phiên bản firmware và thử mở file log/CSV.
@@ -279,7 +281,7 @@ Trước cấp tải: nhờ người phụ trách xác nhận nguồn AC cách l
 
 **Mục tiêu:** kiểm tra tín hiệu theo dòng tải, biên áp phù hợp ADC và tác dụng của bộ lọc. Đo dòng tham chiếu, trước lọc và sau lọc trong **cùng một lượt thử**.
 
-**Giữ nguyên cấu hình:** một lượt dây sơ cấp qua CT; burden 150 Ω–2 W; U1 MCP6002 cấp 3,3 V; RC 1 kΩ–100 nF lắp cố định. Sau khi ghi bảng đo, xử lý và tính toán ngay tại I.3.
+**Giữ nguyên cấu hình:** một lượt dây sơ cấp qua CT; burden 150 Ω–2 W; U1 MCP6002 cấp 3,3 V; RC 1 kΩ–100 nF (104) lắp cố định. Sau khi ghi bảng đo, xử lý và tính toán ngay tại I.3.
 
 #### I.1. Chuẩn bị và nối dụng cụ
 
@@ -363,7 +365,7 @@ Không dùng tỷ số biên độ khi tín hiệu trước gần 0. Đối chi�
 
 **Dải thử:** ghi theo dòng thực lớn nhất đo được; khoảng 0,72 A chỉ là dự kiến. Nguồn 1,5 A là định mức nguồn, không phải một mức thử. Mốc 5 A ở file 02 chỉ phục vụ tính thiết kế PCB, không phải dòng đã thử tại lab và không đại diện dòng sự cố LV/MV.
 
-##### c. Đối chiếu RC 1 kΩ–100 nF
+##### c. Đối chiếu RC 1 kΩ–100 nF (104)
 
 $$f_c=\frac{1}{2\pi RC}\approx1592\ \mathrm{Hz};\qquad |H(f)|=\frac{1}{\sqrt{1+(f/f_c)^2}}$$
 
@@ -396,7 +398,7 @@ Mẫu kết luận: “Nhánh dòng được thử đến … A RMS; burden … 
 
 **Mục tiêu:** kiểm tra chuyển ánh sáng thành điện áp, quan sát dao động dưới ánh sáng cố định, tạo căn cứ chọn Rf/Cf.
 
-1. Giữ U2 cấp 3,3 V, Rf = 10 kΩ, Cf = 100 pF. Dùng lại dữ liệu CHE–PHONG–DEN ở nhà nếu cấu hình không đổi.
+1. Giữ U2 cấp 3,3 V, Rf = 10 kΩ, Cf = 100 pF (101). Dùng lại dữ liệu CHE–PHONG–DEN ở nhà nếu cấu hình không đổi.
 2. Đo 5 V, 3,3 V tại AFE, BIAS và dao động nền.
 3. Probe U2.1, mass GND. Giữ sáng cố định, quan sát và lưu ảnh; chiếu/che xác nhận phản ứng.
 4. Ghi mức đèn, khoảng cách và cách che. Không quy đổi đèn pin thành lux/năng lượng hồ quang khi chưa đo.
@@ -420,7 +422,7 @@ $$f_{RfCf}=\frac{1}{2\pi R_fC_f}\approx159\ \mathrm{kHz}$$
 
 Mốc này là cực của mạng hồi tiếp, **không phải băng thông thực toàn TIA**. Chọn Cf còn phụ thuộc điện dung photodiode, đầu vào op-amp và ký sinh; xem nguồn F.
 
-**Quyết định:** phản ứng sáng/che rõ, đầu ra không sát biên, không thấy dao động bất thường ở cài đặt đã ghi → có cơ sở giữ 10 kΩ/100 pF ban đầu. Thang thời gian chậm chưa loại trừ mọi dao động nhanh; nhờ người phụ trách hỗ trợ mở rộng quan sát khi cần.
+**Quyết định:** phản ứng sáng/che rõ, đầu ra không sát biên, không thấy dao động bất thường ở cài đặt đã ghi → có cơ sở giữ 10 kΩ/100 pF (101) ban đầu. Thang thời gian chậm chưa loại trừ mọi dao động nhanh; nhờ người phụ trách hỗ trợ mở rộng quan sát khi cần.
 
 **Hồ sơ:** ảnh sáng cố định, số che/sáng/nền, nguồn và cấu hình. Mẫu kết luận: “Nhánh quang Rf …, Cf … phản ứng … trong điều kiện …; chưa thấy dao động ở cài đặt …; đáp ứng xung, bão hòa dưới ánh sáng hồ quang và khoảng cách phát hiện chưa kiểm chứng.”
 
@@ -433,7 +435,7 @@ Mốc này là cực của mạng hồi tiếp, **không phải băng thông th�
 | Hạng mục | Cấu hình thực |
 |---|---|
 | Burden | … Ω; … W |
-| Lọc dòng cố định | 1 kΩ; 100 nF |
+| Lọc dòng cố định | 1 kΩ; 100 nF (104) |
 | Quang | Rf … Ω; Cf … pF |
 | Firmware / chu kỳ log thực | … / … ms |
 | RS485 | Module MAX3485; VCC đo … V; PB0 chung DE và /RE; baudrate/định dạng … |
@@ -523,9 +525,9 @@ Phương án PCB hiện hành ở [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_to
 
 Mỗi linh kiện ghi **mã – giá trị – định mức – số lượng – footprint**. Kiểm burden về biên áp/công suất/tải CT; ghi RC/Rf/Cf là ban đầu hay đã kiểm chứng; nguồn tính theo IC PCB. PA0 dòng, PA1 quang, PA9 TX, PA10 RX. Nguyên mẫu dùng module MAX3485 3,3 V; PCB dùng IC MAX3485ESA+ rời 3,3 V. Cả hai dùng PB0 chung DE và /RE; module phải đối chiếu hậu tố IC, header và mạch phụ trợ thực, không mặc định giống PCB.
 
-Phân biệt cấu hình: module dùng burden 150 Ω–2 W và BPW34 chân cắm; PCB dùng R2 150 Ω–0,125 W và VBPW34S SMD. PCB có SW1 RESET thường hở nối NRST–GND, giữ C11 100 nF và J2.5 theo file 02–03; không thêm nút BOOT. Không đưa mã linh kiện PCB sang bảng module.
+Phân biệt cấu hình: module dùng burden 150 Ω–2 W và BPW34 chân cắm; PCB dùng R2 150 Ω–0,125 W và VBPW34S SMD. PCB có SW1 RESET dùng nút nhấn 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả, nối NRST–GND, giữ C11 100 nF (104) và J2.5 theo file 02–03; không thêm nút BOOT. Không đưa mã linh kiện PCB sang bảng module.
 
-Kiểm SWD, khả năng tiếp cận điểm đo nguồn/BIAS/AFE và footprint đúng mã mua. Việc cần điểm đo là yêu cầu bố trí/kiểm tra, không tự bổ sung linh kiện ngoài BOM. Ba tụ 100 nF ở module là ba vị trí riêng, chưa bao gồm các tụ MCU/IC khác trên PCB.
+Kiểm SWD, khả năng tiếp cận điểm đo nguồn/BIAS/AFE và footprint đúng mã mua. Việc cần điểm đo là yêu cầu bố trí/kiểm tra, không tự bổ sung linh kiện ngoài BOM. Ba tụ 100 nF (104) ở module là ba vị trí riêng, chưa bao gồm các tụ MCU/IC khác trên PCB.
 
 | Phần trong quyển đồ án | Nội dung đưa vào |
 |---|---|
