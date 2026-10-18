@@ -1,6 +1,6 @@
 # Hướng dẫn nối chân và thiết kế schematic Altium
 
-Tài liệu hướng dẫn số chân, net và kiểm tra kết nối khi dựng schematic. Bảng linh kiện, BOM, mua hàng và tính toán xem [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md); nguyên mẫu module xem [file 01](01_Huong_dan_kiem_thu_phan_cung_nguyen_mau_module_cho_lab.md).
+Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package; các bảng nối phía dưới chỉ ghi mã/chân, net và điểm nối cho dễ tra. BOM mua hàng và tính toán chi tiết xem [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md); nguyên mẫu module xem [file 01](01_Huong_dan_kiem_thu_phan_cung_nguyen_mau_module_cho_lab.md).
 
 **Trạng thái:** giữ cấu hình thiết kế hiện hành, không tự đổi model/chân. Mã tụ thực, tiếp điểm jack và một số footprint còn phải xác nhận; “chốt bảng” chưa có nghĩa hoàn tất mua hàng/ERC/kiểm thử. Giữ vị trí và số chân trong symbol Altium người dùng cung cấp, không tự bố trí lại chân bên trong symbol.
 
@@ -35,12 +35,19 @@ Adapter 5 V, ST-Link V2, CT và USB–RS485 CH340 là thiết bị ngoài PCB.
 
 ## 2.1. Tra linh kiện
 
-Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md). Các bảng dưới đây chỉ hướng dẫn nối chân/net.
+| Mã | Tên linh kiện / thông số cụ thể | Package | SL |
+|---|---|---|---:|
+| J1 | Jack DC cái: 5,5 mm (tham khảo PJ-102AH) | THT | 1 |
+| U1 | LDO: LD1117S33TR, 3,3 V; tới 800 mA, còn phụ thuộc nhiệt | SOT-223 | 1 |
+| C1 | Tụ tantalum: 10 µF, 16 V | 3528 (B case) | 1 |
+| C2 | Tụ tantalum: 22 µF, 16 V | 6032 (C case) | 1 |
+
+Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
 ## 2.2. Nối nguồn
 
 | Linh kiện / chân | Nối tới net | Cùng net với |
-|---|---|---|
+| --- | --- | --- |
 | J1.1 — nhãn +DC của jack thực | `+5V` | U1.3 IN, C1 cực + |
 | J1.2 — nhãn −DC của jack thực | `GND` | U1.1 GND, C1 cực −, C2 cực − |
 | U1.1 GND | `GND` | Mass toàn PCB |
@@ -56,14 +63,28 @@ J1.3: schematic hiện nối GND cùng J1.2. Chưa xác nhận cấu trúc tiế
 
 ## 3.1. Tra linh kiện
 
-Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md). Các bảng dưới đây chỉ hướng dẫn nối chân/net.
+| Mã | Tên linh kiện / thông số cụ thể | Package | SL |
+|---|---|---|---:|
+| U2 | MCU: STM32F103C8T6; 72 MHz; Flash 64 KB; SRAM 20 KB; 2,0–3,6 V | LQFP-48 | 1 |
+| C3–C5 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 3 |
+| C6 | Tụ gốm: 10 µF, X7R, 16 V | 0805 | 1 |
+| C7 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| C8 | Tụ gốm: 1 µF, X7R, 16 V | 0805 | 1 |
+| Y1 | Thạch anh: ABM3B-8.000MHZ-B2-T, 8 MHz; CL = 18 pF | 5,0 × 3,2 mm | 1 |
+| C9, C10 | Tụ gốm: 27 pF, ±5 %, C0G, 50 V (C0805C270J5GACTU) | 0805 | 2 |
+| R1 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
+| C11 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| SW1 | Nút nhấn RESET: Thường hở, nhấn nhả, 2 tiếp điểm; mã hãng chưa chốt | SMD, footprint cần xác nhận | 1 |
+| J2 | Header SWD: 1×5, bước 2,54 mm | Header | 1 |
+
+Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
 ## 3.2. Nối chân U2 theo chức năng
 
 ### A. Nguồn và mass
 
 | Chân U2 | Tên chân | Net | Điểm nối |
-|---:|---|---|---|
+| ---: | --- | --- | --- |
 | 1 | VBAT | `+3V3` | Nguồn chung |
 | 8 | VSSA | `GND` | Mass phần tương tự |
 | 9 | VDDA | `+3V3` | C7, C8 |
@@ -77,7 +98,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ### B. ADC và RS485
 
 | Chân U2 | Tên chân | Net | Điểm nối |
-|---:|---|---|---|
+| ---: | --- | --- | --- |
 | 10 | PA0 / ADC_IN0 | `ADC_CURRENT` | Đầu ra bộ lọc dòng |
 | 11 | PA1 / ADC_IN1 | `ADC_LIGHT` | Đầu ra AFE quang |
 | 18 | PB0 | `RS485_DIR` | U5.2, U5.3, R7 |
@@ -87,7 +108,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ### C. Clock, reset và nạp/debug
 
 | Chân U2 | Tên chân | Net | Điểm nối |
-|---:|---|---|---|
+| ---: | --- | --- | --- |
 | 5 | PD0 / OSC_IN | `HSE_IN` | Y1, C9 |
 | 6 | PD1 / OSC_OUT | `HSE_OUT` | Y1, C10 |
 | 7 | NRST | `NRST` | C11, J2.5, SW1.1 |
@@ -112,7 +133,7 @@ Các chân dưới đây để trống, không nối chúng thành cùng một n
 ## 3.4. Nối tụ, thạch anh, BOOT0 và reset
 
 | Linh kiện | Đầu 1 | Đầu 2 | Ghi chú |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | C3 (100 nF) | `+3V3` tại U2.24 | `GND` | Tụ VDD_1 |
 | C4 (100 nF) | `+3V3` tại U2.36 | `GND` | Tụ VDD_2 |
 | C5 (100 nF) | `+3V3` tại U2.48 | `GND` | Tụ VDD_3 |
@@ -121,8 +142,8 @@ Các chân dưới đây để trống, không nối chúng thành cùng một n
 | Y1.1 | `HSE_IN` | — | Đầu dao động → U2.5 |
 | Y1.3 | `HSE_OUT` | — | Đầu dao động → U2.6 |
 | Y1.2, Y1.4 | `GND` | — | Pad vỏ |
-| C9 (27 pF) | `HSE_IN` | `GND` | |
-| C10 (27 pF) | `HSE_OUT` | `GND` | |
+| C9 (27 pF) | `HSE_IN` | `GND` |  |
+| C10 (27 pF) | `HSE_OUT` | `GND` |  |
 | R1 (10 kΩ) | `BOOT0` | `GND` | Kéo xuống |
 | C11 (100 nF) | `NRST` | `GND` | Tụ reset |
 | SW1 (RESET, thường hở) | `NRST` tại U2.7, J2.5, C11 | `GND` | Nhấn kéo NRST xuống thấp; nhả để MCU khởi động lại |
@@ -130,7 +151,7 @@ Các chân dưới đây để trống, không nối chúng thành cùng một n
 ## 3.5. Đầu nối J2 SWD
 
 | Chân J2 | Net | Chân MCU |
-|---:|---|---|
+| ---: | --- | --- |
 | 1 | `+3V3` | Nguồn mạch đích |
 | 2 | `GND` | GND |
 | 3 | `SWDIO` | U2.34 |
@@ -157,14 +178,25 @@ Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở m
 
 ## 4.1. Tra linh kiện
 
-Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md). Các bảng dưới đây chỉ hướng dẫn nối chân/net.
+| Mã | Tên linh kiện / thông số cụ thể | Package | SL |
+|---|---|---|---:|
+| J3 | Terminal 2 cực: Bước 5,08 mm (Phoenix 1715721) | THT | 1 |
+| U3 | Op-amp: MCP6002-I/SN; nguồn hãng 1,8–6,0 V; GBW điển hình 1 MHz | SOIC-8 | 1 |
+| R2 | Điện trở: 150 Ω, 1 %, 0,125 W (CRCW0805150RFKEA) | 0805 | 1 |
+| R3, R4 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 2 |
+| C12 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| R5 | Điện trở: 1 kΩ, 1 %, 0,125 W | 0805 | 1 |
+| C13 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| CT1 | CT: DL-CT08CL6-1000/1; tỷ số 1000:1 còn là giả thiết | Ngoài PCB | 1 |
+
+Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
 ## 4.2. Chân U3 và mạch BIAS
 
 ### A. U3B — đệm BIAS
 
 | Chân | Chức năng | Net và điểm nối |
-|---:|---|---|
+| ---: | --- | --- |
 | 5 | IN+ B | `BIAS_DIV` |
 | 6 | IN− B | `BIAS_1V65`; nối U3.7 |
 | 7 | OUT B | `BIAS_1V65`; dùng chung hai AFE |
@@ -172,7 +204,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ### B. U3A — đệm dòng
 
 | Chân | Chức năng | Net và điểm nối |
-|---:|---|---|
+| ---: | --- | --- |
 | 1 | OUT A | `CURRENT_BUF`; nối U3.2 và R5.1 |
 | 2 | IN− A | `CURRENT_BUF`; hồi tiếp từ U3.1 |
 | 3 | IN+ A | `CURRENT_SENSE`; nối J3.1 và R2.1 |
@@ -180,12 +212,12 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ### C. Nguồn U3
 
 | Chân | Chức năng | Net |
-|---:|---|---|
+| ---: | --- | --- |
 | 4 | VSS | `GND` |
 | 8 | VDD | `+3V3` |
 
 | Linh kiện | Đầu 1 | Đầu 2 |
-|---|---|---|
+| --- | --- | --- |
 | R3 (10 kΩ) | `+3V3` | `BIAS_DIV` |
 | R4 (10 kΩ) | `BIAS_DIV` | `GND` |
 | C12 (100 nF) | `+3V3` tại U3.8 | `GND` |
@@ -195,7 +227,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ## 4.3. Nối CT và burden
 
 | Chân / linh kiện | Nối tới net | Cùng điểm nối |
-|---|---|---|
+| --- | --- | --- |
 | J3.1 | `CURRENT_SENSE` | R2.1, U3.3 |
 | J3.2 | `BIAS_1V65` | R2.2, U3.7 |
 | R2.1 | `CURRENT_SENSE` | Đầu thứ nhất burden |
@@ -211,14 +243,22 @@ Burden song song thứ cấp CT. Không nối J3.2 xuống GND.
 
 ## 5.1. Tra linh kiện
 
-Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md). Các bảng dưới đây chỉ hướng dẫn nối chân/net.
+| Mã | Tên linh kiện / thông số cụ thể | Package | SL |
+|---|---|---|---:|
+| D1 | Photodiode: VBPW34S | SMD gullwing | 1 |
+| U4 | Op-amp: MCP6002-I/SN; nguồn hãng 1,8–6,0 V; GBW điển hình 1 MHz | SOIC-8 | 1 |
+| R6 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
+| C15 | Tụ gốm: 100 pF, ±5 %, C0G/NP0, ≥ 16 V | 0805 | 1 |
+| C14 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+
+Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
 ## 5.2. Chân U4 và mạng hồi tiếp
 
 ### A. U4A — chuyển dòng quang → áp
 
 | Chân | Chức năng | Net và điểm nối |
-|---:|---|---|
+| ---: | --- | --- |
 | 1 | OUT A | `ADC_LIGHT`; nối U2.11, R6.1, C15.1 |
 | 2 | IN− A | `PHOTO_SUM`; nối R6.2, C15.2, D1.K |
 | 3 | IN+ A | `BIAS_1V65` |
@@ -226,7 +266,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ### B. U4B — đệm BIAS
 
 | Chân | Chức năng | Net và điểm nối |
-|---:|---|---|
+| ---: | --- | --- |
 | 5 | IN+ B | `BIAS_1V65` |
 | 6 | IN− B | `OPT_BIAS_BUF`; nối U4.7 |
 | 7 | OUT B | `OPT_BIAS_BUF`; chỉ hồi tiếp về U4.6 |
@@ -234,17 +274,17 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ### C. Nguồn U4
 
 | Chân | Chức năng | Net |
-|---:|---|---|
+| ---: | --- | --- |
 | 4 | VSS | `GND` |
 | 8 | VDD | `+3V3` |
 
 | Linh kiện | Đầu 1 | Đầu 2 | Ghi chú |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | R6 (10 kΩ) | `ADC_LIGHT` | `PHOTO_SUM` | Hồi tiếp |
 | C15 (100 pF) | `ADC_LIGHT` | `PHOTO_SUM` | Song song R6 |
 | C14 (100 nF) | `+3V3` tại U4.8 | `GND` | Tụ nguồn |
-| D1.A (anode) | `GND` | — | |
-| D1.K (cathode) | `PHOTO_SUM` | — | |
+| D1.A (anode) | `GND` | — |  |
+| D1.K (cathode) | `PHOTO_SUM` | — |  |
 
 **PHOTO_SUM ≠ BIAS_1V65.** Không nối tắt. OPT_BIAS_BUF cũng riêng, không chập U4.7 với U3.7.
 
@@ -254,12 +294,21 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 
 ## 6.1. Tra linh kiện
 
-Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md). Các bảng dưới đây chỉ hướng dẫn nối chân/net.
+| Mã | Tên linh kiện / thông số cụ thể | Package | SL |
+|---|---|---|---:|
+| U5 | RS485: MAX3485ESA+; 3,0–3,6 V; tới 10 Mbps | SOIC-8 | 1 |
+| C16 | Tụ gốm: 100 nF (104), X7R, 16 V | 0805 | 1 |
+| R7 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
+| J4 | Terminal 3 cực A/B/GND, bước 5,08 mm; tham khảo Phoenix 1715734 | THT | 1 |
+| R8 | Điện trở: 120 Ω, 1 %, 0,25 W | 1206 | 1 |
+| R9, R10 | Điện trở: 330 Ω, 1 %, 0,125 W | 0805 | 2 |
+
+Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực. R8–R10 là tùy chọn, không mặc định lắp toàn bộ.
 
 ## 6.2. Chân U5
 
 | Chân U5 | Tên chân | Net | Nối tới |
-|---:|---|---|---|
+| ---: | --- | --- | --- |
 | 1 | RO | `UART1_RX` | U2.31 PA10 |
 | 2 | /RE | `RS485_DIR` | U2.18 PB0, U5.3, R7.1 |
 | 3 | DE | `RS485_DIR` | U2.18 PB0, U5.2, R7.1 |
@@ -272,7 +321,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 ## 6.3. Điện trở và đầu nối
 
 | Linh kiện | Đầu 1 | Đầu 2 | Chức năng |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | C16 (100 nF) | `+3V3` tại U5.8 | `GND` | Tụ nguồn |
 | R7 (10 kΩ) | `RS485_DIR` | `GND` | Mặc định nhận |
 | R8 (120 Ω, tùy chọn) | `RS485_A` | `RS485_B` | Kết thúc đường truyền |
@@ -280,7 +329,7 @@ Mã, giá trị, package, số lượng và thông tin mua xem mục 1 [file 02]
 | R10 (330 Ω, tùy chọn) | `RS485_B` | `GND` | Bias kéo B xuống |
 
 | Chân J4 — terminal 3 cực | Net | Phía ngoài |
-|---:|---|---|
+| ---: | --- | --- |
 | 1 | `RS485_A` | Dây A tới USB–RS485 |
 | 2 | `RS485_B` | Dây B tới USB–RS485 |
 | 3 | `GND` | GND giao tiếp |
