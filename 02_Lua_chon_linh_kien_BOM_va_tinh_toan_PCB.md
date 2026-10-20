@@ -1,5 +1,7 @@
 # Lựa chọn linh kiện, BOM mua hàng và tính toán PCB
 
+**Quy tắc đặt label:** chỉ đặt 6 Net Label tín hiệu nối giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX`, `RS485_DIR`. Đặt cùng tên ở hai khối cần nối, label bám vào dây nối tới chân linh kiện. Nguồn dùng Power Port `+3V3`, `GND`; giữ ký hiệu `+5V` tại đầu vào như sơ đồ nguồn. Các điểm nội bộ nối dây trực tiếp, không đặt Net Label riêng.
+
 **Quy ước tụ dùng chung cho 4 file:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung 3 chữ số tính theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi điện dung, không khẳng định mọi tụ SMD đều in mã trên thân. Package/footprint phải đối chiếu đúng mã mua, đặc biệt tụ gốm 10 µF (106)–50 V; kích thước 0805 trong bảng là dự kiến cho đến khi xác nhận mã đáp ứng.
 
 **Đề tài:** Thiết kế hệ thống nhúng IoT phát hiện sớm chớp hồ quang điện trong hệ thống điện hạ áp và trung áp.

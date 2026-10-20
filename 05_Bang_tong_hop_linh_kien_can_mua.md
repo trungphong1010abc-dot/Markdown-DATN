@@ -1,5 +1,7 @@
 # Bảng tổng hợp linh kiện cần mua
 
+**Đối chiếu schematic:** tên chân BOOT0, NRST, SWDIO, SWCLK và A/B trong bảng dùng để tra chức năng/đầu nối; các dây này nối trực tiếp trong khối. Chỉ đặt 6 Net Label liên khối theo mục 1 file 03; nguồn dùng Power Port.
+
 Tổng hợp từ [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md), đối chiếu [file 03](03_Huong_dan_noi_chan_va_thiet_ke_schematic_Altium.md) và [file 04](04_Giai_thich_so_do_khoi_va_phan_vung_PCB.md). **Số lượng cho 1 PCB và 1 bộ thiết bị ngoài bo**, chưa tính mua dự phòng. Ba file mô tả cùng một mạch nên mỗi vị trí chỉ tính một lần.
 
 Linh kiện cùng thông số và package được gộp một dòng, sắp theo nhóm: **chip/IC → tụ điện → điện trở → linh kiện rời và thiết bị ngoài bo**. STT 1–4: chip/IC; 5–11: tụ; 12–16: trở; 17–27: linh kiện rời và thiết bị ngoài bo. R8–R10 là tùy chọn theo cấu hình RS485, không mặc định lắp. Tụ gốm chọn 50 V; tụ tantalum chọn 16 V. Mã 104/105/106… là mã quy đổi điện dung, không đảm bảo có in trên thân tụ SMD.
