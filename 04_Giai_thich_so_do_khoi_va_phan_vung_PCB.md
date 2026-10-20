@@ -1,6 +1,6 @@
 # Giải thích sơ đồ khối và phân vùng PCB
 
-**Quy tắc đặt label:** chỉ đặt 6 Net Label tín hiệu nối giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX`, `RS485_DIR`. Đặt cùng tên ở hai khối cần nối, label bám vào dây nối tới chân linh kiện. Nguồn dùng Power Port `+3V3`, `GND`; giữ ký hiệu `+5V` tại đầu vào như sơ đồ nguồn. Các điểm nội bộ nối dây trực tiếp, không đặt Net Label riêng. J2 và mạch reset thuộc cụm MCU; J3 thuộc khối dòng; J4 thuộc khối truyền thông. Thạch anh, BOOT0, reset/SWD tới J2, cầu chia BIAS, burden/đệm dòng, hồi tiếp quang và A/B tới J4 đều nối dây trực tiếp trong khối. Tên chân vẫn dùng để tra cứu, không phải yêu cầu đặt label. Chữ mô tả trên sơ đồ khối là chú thích chức năng, không phải danh sách Net Label phải đặt.
+**Quy tắc đặt label:** chỉ đặt 6 Net Label tín hiệu nối giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX`, `RS485_DIR`. Đặt cùng tên ở hai khối cần nối, label bám vào dây nối tới chân linh kiện. Nguồn dùng Power Port `+3V3`, `GND`; giữ ký hiệu `+5V` tại đầu vào như sơ đồ nguồn. Các điểm nội bộ nối dây trực tiếp, không đặt Net Label riêng. H1 và mạch reset thuộc cụm MCU; P1 thuộc khối dòng; J2 thuộc khối truyền thông. Thạch anh, BOOT0, reset/SWD tới H1, cầu chia BIAS, burden/đệm dòng, hồi tiếp quang và A/B tới J2 đều nối dây trực tiếp trong khối. Tên chân vẫn dùng để tra cứu, không phải yêu cầu đặt label. Chữ mô tả trên sơ đồ khối là chú thích chức năng, không phải danh sách Net Label phải đặt.
 
 **Quy ước tụ dùng chung cho 4 file:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung 3 chữ số tính theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi điện dung, không khẳng định mọi tụ SMD đều in mã trên thân. Package/footprint phải đối chiếu đúng mã mua, đặc biệt tụ gốm 10 µF (106)–50 V; kích thước 0805 trong bảng là dự kiến cho đến khi xác nhận mã đáp ứng.
 
@@ -19,7 +19,7 @@ Adapter cấp **5 VDC**; LD1117S33TR hạ xuống **3,3 V** để nuôi STM32, h
 | Quang | VBPW34S, MCP6002 | Biến ánh sáng thành điện áp đưa vào PA1. | Trên PCB |
 | MCU | STM32F103C8T6 | Đọc hai kênh, xử lý và trao đổi dữ liệu với khối truyền thông. | Trên PCB |
 | Truyền thông | MAX3485ESA+ | Chuyển UART của STM32 sang RS485 để nối bộ USB–RS485. | Trên PCB; bộ chuyển đổi ở ngoài |
-| Nạp/reset | Header SWD, SW1 RESET 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả | Cắm ST-Link để nạp/debug; nhấn RESET để khởi động lại MCU. | Header/nút trên PCB; ST-Link ở ngoài |
+| Nạp/reset | Header SWD, BT1 RESET 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả | Cắm ST-Link để nạp/debug; nhấn RESET để khởi động lại MCU. | Header/nút trên PCB; ST-Link ở ngoài |
 
 Hai MCP6002 là **hai IC riêng**, cùng cấp 3,3 V. BIAS là mức nền do AFE hiện có tạo ra, giúp hai nhánh làm việc phù hợp với ADC; không phải IC bổ sung.
 
@@ -47,9 +47,9 @@ MAX3485 không tự tạo bản tin hay xử lý số đo. Firmware STM32 tạo 
 
 | Net Label | Các điểm cần nối |
 |---|---|
-| `ADC_CURRENT` | Đầu ra lọc dòng tại R5.2/C13.1 ↔ U2.10 (PA0) |
+| `ADC_CURRENT` | Đầu ra lọc dòng tại R3.2/C12.1 ↔ U2.10 (PA0) |
 | `ADC_LIGHT` | Đầu ra U4.1, cùng R6.1/C15.1 ↔ U2.11 (PA1) |
-| `BIAS_1V65` | Đầu ra đệm U3.7, hồi tiếp U3.6, J3.2/R2.2 và các chân tham chiếu U4.3/U4.5 |
+| `BIAS_1V65` | Đầu ra đệm U3.7, hồi tiếp U3.6, P1.2/R2.2 và các chân tham chiếu U4.3/U4.5 |
 | `UART_TX` | U2.30 (PA9) → U5.4 (DI) |
 | `UART_RX` | U5.1 (RO) → U2.31 (PA10) |
 | `RS485_DIR` | U2.18 (PB0) → U5.2 (/RE), U5.3 (DE), cùng R7.1 |
@@ -72,8 +72,8 @@ Hai khối thu tín hiệu nằm bên trái, MCU ở giữa và truyền thông 
 | Dòng — giữa trái | Cầu đấu CT, burden, MCP6002 | Cầu đấu hướng về CT ngoài bo; cụm xử lý gần đầu vào, đường ra đi gọn tới PA0. |
 | Quang — dưới trái | VBPW34S, MCP6002, hồi tiếp | Cảm biến gần mép, nhìn về vùng cần quan sát và không bị che. Mạng hồi tiếp sát op-amp để hạn chế ký sinh [2]. |
 | MCU — ở giữa | STM32, thạch anh, tụ nguồn | Phía PA0/PA1 hướng về hai AFE. Thạch anh và tụ nguồn gần chân tương ứng [1]. |
-| Truyền thông — bên phải | MAX3485, terminal J4 A/B/GND | IC gần terminal ở mép bo để đấu dây cáp; tránh đưa đường truyền thông qua đầu vào quang nhạy [1–2]. |
-| Thao tác — phía dưới | RESET, header ST-Link | Dễ nhấn nút và cắm đầu nạp khi kiểm thử. SW1 dùng loại 2 chân SMD 3 × 6 × 2,5 mm; đối chiếu kích thước/khoảng cách pad với nút thực trước khi chốt footprint. |
+| Truyền thông — bên phải | MAX3485, terminal J2 A/B/GND | IC gần terminal ở mép bo để đấu dây cáp; tránh đưa đường truyền thông qua đầu vào quang nhạy [1–2]. |
+| Thao tác — phía dưới | RESET, header ST-Link | Dễ nhấn nút và cắm đầu nạp khi kiểm thử. BT1 dùng loại 2 chân SMD 3 × 6 × 2,5 mm; đối chiếu kích thước/khoảng cách pad với nút thực trước khi chốt footprint. |
 
 **Nguồn tham khảo:**
 

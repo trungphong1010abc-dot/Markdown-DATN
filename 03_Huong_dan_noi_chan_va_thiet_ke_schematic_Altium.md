@@ -11,10 +11,10 @@ Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package
 | Tra cứu | Nội dung |
 |---|---|
 | Khối nguồn — U1, J1 | Mục 2 |
-| Khối MCU — U2, J2 | Mục 3 |
-| Khối dòng — U3, J3 | Mục 4 |
+| Khối MCU — U2, H1 | Mục 3 |
+| Khối dòng — U3, P1 | Mục 4 |
 | Khối quang — U4, D1 | Mục 5 |
-| Khối truyền thông — U5, J4 | Mục 6 |
+| Khối truyền thông — U5, J2 | Mục 6 |
 | Tài liệu đối chiếu chân | Mục 8 |
 
 ---
@@ -24,16 +24,16 @@ Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package
 | Khối | IC chính | Đầu nối | Net liên khối |
 |---|---|---|---|
 | Khối nguồn | U1 LD1117S33TR | J1 jack DC | `+3V3`, `GND` (nguồn chung); `+5V` ở đầu vào nguồn |
-| Khối MCU | U2 STM32F103C8T6 | J2 SWD | `ADC_CURRENT`, `ADC_LIGHT`, `UART_TX`, `UART_RX`, `RS485_DIR` |
-| Khối dòng | U3 MCP6002-I/SN | J3 CT | `BIAS_1V65`, `ADC_CURRENT` |
+| Khối MCU | U2 STM32F103C8T6 | H1 SWD | `ADC_CURRENT`, `ADC_LIGHT`, `UART_TX`, `UART_RX`, `RS485_DIR` |
+| Khối dòng | U3 MCP6002-I/SN | P1 CT | `BIAS_1V65`, `ADC_CURRENT` |
 | Khối quang | U4 MCP6002-I/SN, D1 VBPW34S | — | `BIAS_1V65`, `ADC_LIGHT` |
-| Khối truyền thông | U5 MAX3485ESA+ | J4 terminal 3 cực A/B/GND | `UART_TX`, `UART_RX`, `RS485_DIR` |
+| Khối truyền thông | U5 MAX3485ESA+ | J2 terminal 3 cực A/B/GND | `UART_TX`, `UART_RX`, `RS485_DIR` |
 
 Adapter 5 V, ST-Link V2, CT và USB–RS485 CH340 là thiết bị ngoài PCB.
 
 **Quy tắc đặt label:** chỉ đặt 6 Net Label tín hiệu nối giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX`, `RS485_DIR`. Đặt cùng tên ở hai khối cần nối, label bám vào dây nối tới chân linh kiện. Nguồn dùng Power Port `+3V3`, `GND`; giữ ký hiệu `+5V` tại đầu vào như sơ đồ nguồn. Các điểm nội bộ nối dây trực tiếp, không đặt Net Label riêng.
 
-J2 và mạch reset thuộc cụm MCU; J3 thuộc khối dòng; J4 thuộc khối truyền thông. Thạch anh, BOOT0, reset/SWD tới J2, cầu chia BIAS, burden/đệm dòng, hồi tiếp quang và A/B tới J4 đều nối dây trực tiếp trong khối. Tên chân vẫn dùng để tra cứu, không phải yêu cầu đặt label.
+H1 và mạch reset thuộc cụm MCU; P1 thuộc khối dòng; J2 thuộc khối truyền thông. Thạch anh, BOOT0, reset/SWD tới H1, cầu chia BIAS, burden/đệm dòng, hồi tiếp quang và A/B tới J2 đều nối dây trực tiếp trong khối. Tên chân vẫn dùng để tra cứu, không phải yêu cầu đặt label.
 
 ---
 
@@ -73,15 +73,15 @@ J1.3: schematic hiện nối GND cùng J1.2. Chưa xác nhận cấu trúc tiế
 |---|---|---|---:|
 | U2 | MCU: STM32F103C8T6; 72 MHz; Flash 64 KB; SRAM 20 KB; 2,0–3,6 V | LQFP-48 | 1 |
 | C3–C5 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 3 |
-| C6 | Tụ gốm: 10 µF (106), X7R, 50 V | 0805 | 1 |
-| C7 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
-| C8 | Tụ gốm: 1 µF (105), X7R, 50 V | 0805 | 1 |
+| C9 | Tụ gốm: 10 µF (106), X7R, 50 V | 0805 | 1 |
+| C6 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
+| C10 | Tụ gốm: 1 µF (105), X7R, 50 V | 0805 | 1 |
 | Y1 | Thạch anh: ABM3B-8.000MHZ-B2-T, 8 MHz; CL = 18 pF | 5,0 × 3,2 mm | 1 |
-| C9, C10 | Tụ gốm: 27 pF (270), ±5 %, C0G, 50 V (C0805C270J5GACTU) | 0805 | 2 |
+| C8, C11 | Tụ gốm: 27 pF (270), ±5 %, C0G, 50 V (C0805C270J5GACTU) | 0805 | 2 |
 | R1 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
-| C11 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
-| SW1 | Nút nhấn RESET: 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả; mã hãng chưa xác nhận | SMD 3 × 6 × 2,5 mm; pad cần đối chiếu nút thực | 1 |
-| J2 | Header SWD: 1×5, bước 2,54 mm | Header | 1 |
+| C7 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
+| BT1 | Nút nhấn RESET: 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả; mã hãng chưa xác nhận | SMD 3 × 6 × 2,5 mm; pad cần đối chiếu nút thực | 1 |
+| H1 | Header SWD: 1×5, bước 2,54 mm | Header | 1 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
 
@@ -93,7 +93,7 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | ---: | --- | --- | --- |
 | 1 | VBAT | `+3V3` | Nguồn chung |
 | 8 | VSSA | `GND` | Mass phần tương tự |
-| 9 | VDDA | `+3V3` | C7, C8 |
+| 9 | VDDA | `+3V3` | C6, C10 |
 | 23 | VSS_1 | `GND` | Mass |
 | 24 | VDD_1 | `+3V3` | C3 |
 | 35 | VSS_2 | `GND` | Mass |
@@ -115,11 +115,11 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 | Chân U2 | Tên chân | Nguồn / label liên khối / dây trực tiếp | Điểm nối |
 | ---: | --- | --- | --- |
-| 5 | PD0 / OSC_IN | nối trực tiếp U2.5–Y1.1–C9.1 | Y1, C9 |
-| 6 | PD1 / OSC_OUT | nối trực tiếp U2.6–Y1.3–C10.1 | Y1, C10 |
-| 7 | NRST | nối trực tiếp U2.7–C11.1–SW1.1–J2.5 | C11, J2.5, SW1.1 |
-| 34 | PA13 / SWDIO | nối trực tiếp U2.34–J2.3 | J2.3 |
-| 37 | PA14 / SWCLK | nối trực tiếp U2.37–J2.4 | J2.4 |
+| 5 | PD0 / OSC_IN | nối trực tiếp U2.5–Y1.1–C8.1 | Y1, C8 |
+| 6 | PD1 / OSC_OUT | nối trực tiếp U2.6–Y1.3–C11.1 | Y1, C11 |
+| 7 | NRST | nối trực tiếp U2.7–C7.1–BT1.1–H1.5 | C7, H1.5, BT1.1 |
+| 34 | PA13 / SWDIO | nối trực tiếp U2.34–H1.3 | H1.3 |
+| 37 | PA14 / SWCLK | nối trực tiếp U2.37–H1.4 | H1.4 |
 | 44 | BOOT0 | nối trực tiếp U2.44–R1.1 | R1 đầu 1 |
 
 ## 3.3. Chân MCU để trống
@@ -143,38 +143,38 @@ Các chân dưới đây để trống, không nối chúng thành cùng một n
 | C3 (100 nF (104)) | `+3V3` tại U2.24 | `GND` | Tụ VDD_1 |
 | C4 (100 nF (104)) | `+3V3` tại U2.36 | `GND` | Tụ VDD_2 |
 | C5 (100 nF (104)) | `+3V3` tại U2.48 | `GND` | Tụ VDD_3 |
-| C6 (10 µF (106)) | `+3V3` | `GND` | Tụ nguồn tổng |
-| C7, C8 (100 nF (104) / 1 µF (105)) | `+3V3` tại U2.9 | `GND` | Song song cho VDDA |
-| Y1.1 | nối trực tiếp U2.5–Y1.1–C9.1 | — | Đầu dao động → U2.5 |
-| Y1.3 | nối trực tiếp U2.6–Y1.3–C10.1 | — | Đầu dao động → U2.6 |
+| C9 (10 µF (106)) | `+3V3` | `GND` | Tụ nguồn tổng |
+| C6, C10 (100 nF (104) / 1 µF (105)) | `+3V3` tại U2.9 | `GND` | Song song cho VDDA |
+| Y1.1 | nối trực tiếp U2.5–Y1.1–C8.1 | — | Đầu dao động → U2.5 |
+| Y1.3 | nối trực tiếp U2.6–Y1.3–C11.1 | — | Đầu dao động → U2.6 |
 | Y1.2, Y1.4 | `GND` | — | Pad vỏ |
-| C9 (27 pF (270)) | nối trực tiếp U2.5–Y1.1–C9.1 | `GND` |  |
-| C10 (27 pF (270)) | nối trực tiếp U2.6–Y1.3–C10.1 | `GND` |  |
+| C8 (27 pF (270)) | nối trực tiếp U2.5–Y1.1–C8.1 | `GND` |  |
+| C11 (27 pF (270)) | nối trực tiếp U2.6–Y1.3–C11.1 | `GND` |  |
 | R1 (10 kΩ) | nối trực tiếp U2.44–R1.1 | `GND` | Kéo xuống |
-| C11 (100 nF (104)) | nối trực tiếp U2.7–C11.1–SW1.1–J2.5 | `GND` | Tụ reset |
-| SW1 (RESET, 2 chân SMD 3 × 6 × 2,5 mm, thường hở) | nối trực tiếp U2.7–C11.1–SW1.1–J2.5 tại U2.7, J2.5, C11 | `GND` | Nhấn kéo NRST xuống thấp; nhả để MCU khởi động lại |
+| C7 (100 nF (104)) | nối trực tiếp U2.7–C7.1–BT1.1–H1.5 | `GND` | Tụ reset |
+| BT1 (RESET, 2 chân SMD 3 × 6 × 2,5 mm, thường hở) | nối trực tiếp U2.7–C7.1–BT1.1–H1.5 tại U2.7, H1.5, C7 | `GND` | Nhấn kéo NRST xuống thấp; nhả để MCU khởi động lại |
 
-## 3.5. Đầu nối J2 SWD
+## 3.5. Đầu nối H1 SWD
 
-| Chân J2 | Nguồn / dây trực tiếp | Chân MCU |
+| Chân H1 | Nguồn / dây trực tiếp | Chân MCU |
 | ---: | --- | --- |
 | 1 | `+3V3` | Nguồn mạch đích |
 | 2 | `GND` | GND |
-| 3 | nối trực tiếp U2.34–J2.3 | U2.34 |
-| 4 | nối trực tiếp U2.37–J2.4 | U2.37 |
-| 5 | nối trực tiếp U2.7–C11.1–SW1.1–J2.5 | U2.7 |
+| 3 | nối trực tiếp U2.34–H1.3 | U2.34 |
+| 4 | nối trực tiếp U2.37–H1.4 | U2.37 |
+| 5 | nối trực tiếp U2.7–C7.1–BT1.1–H1.5 | U2.7 |
 
 Khi PCB đã cấp nguồn từ adapter, không nối thêm đầu ra 3,3 V của ST-Link.
 
 ---
 
-## 3.6. Nối nút RESET SW1
+## 3.6. Nối nút RESET BT1
 
-1. SW1.1 nối dây trực tiếp tới U2.7, J2.5 và C11.1 (100 nF (104)); không đặt Net Label reset.
-2. SW1.2 → `GND`. Giữ C11 từ NRST xuống GND; giữ J2.5 để đầu nạp truy cập NRST.
+1. BT1.1 nối dây trực tiếp tới U2.7, H1.5 và C7.1 (100 nF (104)); không đặt Net Label reset.
+2. BT1.2 → `GND`. Giữ C7 từ NRST xuống GND; giữ H1.5 để đầu nạp truy cập NRST.
 3. Dùng nút **2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả**: bình thường hở, nhấn nối NRST với GND, nhả để MCU khởi động lại. Không nối nút RESET lên +3V3.
 
-SW1 chọn loại “Nut Nhan 2 Chan SMD 3x6x2.5” theo thư viện người dùng cung cấp. SW1.1/2 là quy ước symbol hai chân; đối chiếu ánh xạ symbol–pad với nút thực. Kiểm tra kích thước và khoảng cách hai pad theo datasheet hoặc đo nút thực; tên kích thước và hình 3D chưa đủ xác nhận footprint. Đo thông mạch: thả nút hở, nhấn nút thông. Giữ nguyên vị trí và số chân của symbol Altium người dùng cung cấp.
+BT1 chọn loại “Nut Nhan 2 Chan SMD 3x6x2.5” theo thư viện người dùng cung cấp. BT1.1/2 là quy ước symbol hai chân; đối chiếu ánh xạ symbol–pad với nút thực. Kiểm tra kích thước và khoảng cách hai pad theo datasheet hoặc đo nút thực; tên kích thước và hình 3D chưa đủ xác nhận footprint. Đo thông mạch: thả nút hở, nhấn nút thông. Giữ nguyên vị trí và số chân của symbol Altium người dùng cung cấp.
 
 Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở mạch reset: ST AN2586 và DS5319 (liên kết ở mục 8). Không thêm nút BOOT hoặc R11; BOOT0/R1 và PB2/BOOT1 giữ nguyên cấu hình hiện hành.
 
@@ -186,13 +186,13 @@ Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở m
 
 | Mã | Tên linh kiện / thông số cụ thể | Package | SL |
 |---|---|---|---:|
-| J3 | Terminal 2 cực: Bước 5,08 mm (Phoenix 1715721) | THT | 1 |
+| P1 | Terminal 2 cực: Bước 5,08 mm (Phoenix 1715721) | THT | 1 |
 | U3 | Op-amp: MCP6002-I/SN; nguồn hãng 1,8–6,0 V; GBW điển hình 1 MHz | SOIC-8 | 1 |
 | R2 | Điện trở: 150 Ω, 1 %, 0,125 W (CRCW0805150RFKEA) | 0805 | 1 |
-| R3, R4 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 2 |
-| C12 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
-| R5 | Điện trở: 1 kΩ, 1 %, 0,125 W | 0805 | 1 |
+| R5, R4 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 2 |
 | C13 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
+| R3 | Điện trở: 1 kΩ, 1 %, 0,125 W | 0805 | 1 |
+| C12 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 | CT1 | CT: DL-CT08CL6-1000/1; tỷ số 1000:1 còn là giả thiết | Ngoài PCB | 1 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
@@ -203,7 +203,7 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 | Chân | Chức năng | Label liên khối / dây trực tiếp |
 | ---: | --- | --- |
-| 5 | IN+ B | nối trực tiếp R3.2–R4.1–U3.5 |
+| 5 | IN+ B | nối trực tiếp R5.2–R4.1–U3.5 |
 | 6 | IN− B | `BIAS_1V65`; nối U3.7 |
 | 7 | OUT B | `BIAS_1V65`; dùng chung hai AFE |
 
@@ -211,9 +211,9 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 | Chân | Chức năng | Label liên khối / dây trực tiếp |
 | ---: | --- | --- |
-| 1 | OUT A | nối trực tiếp U3.1–U3.2–R5.1; nối U3.2 và R5.1 |
-| 2 | IN− A | nối trực tiếp U3.1–U3.2–R5.1; hồi tiếp từ U3.1 |
-| 3 | IN+ A | nối trực tiếp J3.1–R2.1–U3.3; nối J3.1 và R2.1 |
+| 1 | OUT A | nối trực tiếp U3.1–U3.2–R3.1; nối U3.2 và R3.1 |
+| 2 | IN− A | nối trực tiếp U3.1–U3.2–R3.1; hồi tiếp từ U3.1 |
+| 3 | IN+ A | nối trực tiếp P1.1–R2.1–U3.3; nối P1.1 và R2.1 |
 
 ### C. Nguồn U3
 
@@ -224,24 +224,24 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 | Linh kiện | Đầu 1 | Đầu 2 |
 | --- | --- | --- |
-| R3 (10 kΩ) | `+3V3` | nối trực tiếp R3.2–R4.1–U3.5 |
-| R4 (10 kΩ) | nối trực tiếp R3.2–R4.1–U3.5 | `GND` |
-| C12 (100 nF (104)) | `+3V3` tại U3.8 | `GND` |
-| R5 (1 kΩ) | nối trực tiếp U3.1–U3.2–R5.1 | `ADC_CURRENT` |
-| C13 (100 nF (104)) | `ADC_CURRENT` | `GND` |
+| R5 (10 kΩ) | `+3V3` | nối trực tiếp R5.2–R4.1–U3.5 |
+| R4 (10 kΩ) | nối trực tiếp R5.2–R4.1–U3.5 | `GND` |
+| C13 (100 nF (104)) | `+3V3` tại U3.8 | `GND` |
+| R3 (1 kΩ) | nối trực tiếp U3.1–U3.2–R3.1 | `ADC_CURRENT` |
+| C12 (100 nF (104)) | `ADC_CURRENT` | `GND` |
 
 ## 4.3. Nối CT và burden
 
 | Chân / linh kiện | Nối tới net | Cùng điểm nối |
 | --- | --- | --- |
-| J3.1 | nối trực tiếp J3.1–R2.1–U3.3 | R2.1, U3.3 |
-| J3.2 | `BIAS_1V65` | R2.2, U3.7 |
-| R2.1 | nối trực tiếp J3.1–R2.1–U3.3 | Đầu thứ nhất burden |
+| P1.1 | nối trực tiếp P1.1–R2.1–U3.3 | R2.1, U3.3 |
+| P1.2 | `BIAS_1V65` | R2.2, U3.7 |
+| R2.1 | nối trực tiếp P1.1–R2.1–U3.3 | Đầu thứ nhất burden |
 | R2.2 | `BIAS_1V65` | Đầu thứ hai burden |
-| CT1 dây đỏ | J3.1 | nối trực tiếp R2.1 và U3.3 |
-| CT1 dây đen | J3.2 | BIAS_1V65 → U3.7 |
+| CT1 dây đỏ | P1.1 | nối trực tiếp R2.1 và U3.3 |
+| CT1 dây đen | P1.2 | BIAS_1V65 → U3.7 |
 
-Burden song song thứ cấp CT. Không nối J3.2 xuống GND.
+Burden song song thứ cấp CT. Không nối P1.2 xuống GND.
 
 ---
 
@@ -305,9 +305,9 @@ Không nối điểm U4.2–R6.2–C15.2–D1.K với `BIAS_1V65`. U4.7 chỉ h�
 | U5 | RS485: MAX3485ESA+; 3,0–3,6 V; tới 10 Mbps | SOIC-8 | 1 |
 | C16 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 | R7 | Điện trở: 10 kΩ, 1 %, 0,125 W | 0805 | 1 |
-| J4 | Terminal 3 cực A/B/GND, bước 5,08 mm; tham khảo Phoenix 1715734 | THT | 1 |
-| R8 | Điện trở: 120 Ω, 1 %, 0,25 W | 1206 | 1 |
-| R9, R10 | Điện trở: 330 Ω, 1 %, 0,125 W | 0805 | 2 |
+| J2 | Terminal 3 cực A/B/GND, bước 5,08 mm; tham khảo Phoenix 1715734 | THT | 1 |
+| R9 | Điện trở: 120 Ω, 1 %, 0,25 W | 1206 | 1 |
+| R8, R10 | Điện trở: 330 Ω, 1 %, 0,125 W | 0805 | 2 |
 
 Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực. R8–R10 là tùy chọn, không mặc định lắp toàn bộ.
 
@@ -320,8 +320,8 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | 3 | DE | `RS485_DIR` | U2.18 PB0, U5.2, R7.1 |
 | 4 | DI | `UART_TX` | U2.30 PA9 |
 | 5 | GND | `GND` | Mass |
-| 6 | A | nối trực tiếp U5.6–J4.1–R8.1–R9.2 | J4.1, R8.1, R9.2 |
-| 7 | B | nối trực tiếp U5.7–J4.2–R8.2–R10.1 | J4.2, R8.2, R10.1 |
+| 6 | A | nối trực tiếp U5.6–J2.1–R9.1–R8.2 | J2.1, R9.1, R8.2 |
+| 7 | B | nối trực tiếp U5.7–J2.2–R9.2–R10.1 | J2.2, R9.2, R10.1 |
 | 8 | VCC | `+3V3` | C16.1 |
 
 ## 6.3. Điện trở và đầu nối
@@ -330,14 +330,14 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | --- | --- | --- | --- |
 | C16 (100 nF (104)) | `+3V3` tại U5.8 | `GND` | Tụ nguồn |
 | R7 (10 kΩ) | `RS485_DIR` | `GND` | Mặc định nhận |
-| R8 (120 Ω, tùy chọn) | nối trực tiếp U5.6–J4.1–R8.1–R9.2 | nối trực tiếp U5.7–J4.2–R8.2–R10.1 | Kết thúc đường truyền |
-| R9 (330 Ω, tùy chọn) | `+3V3` | nối trực tiếp U5.6–J4.1–R8.1–R9.2 | Bias kéo A lên |
-| R10 (330 Ω, tùy chọn) | nối trực tiếp U5.7–J4.2–R8.2–R10.1 | `GND` | Bias kéo B xuống |
+| R9 (120 Ω, tùy chọn) | nối trực tiếp U5.6–J2.1–R9.1–R8.2 | nối trực tiếp U5.7–J2.2–R9.2–R10.1 | Kết thúc đường truyền |
+| R8 (330 Ω, tùy chọn) | `+3V3` | nối trực tiếp U5.6–J2.1–R9.1–R8.2 | Bias kéo A lên |
+| R10 (330 Ω, tùy chọn) | nối trực tiếp U5.7–J2.2–R9.2–R10.1 | `GND` | Bias kéo B xuống |
 
-| Chân J4 — terminal 3 cực | Nguồn / dây trực tiếp | Phía ngoài |
+| Chân J2 — terminal 3 cực | Nguồn / dây trực tiếp | Phía ngoài |
 | ---: | --- | --- |
-| 1 | nối trực tiếp U5.6–J4.1–R8.1–R9.2 | Dây A tới USB–RS485 |
-| 2 | nối trực tiếp U5.7–J4.2–R8.2–R10.1 | Dây B tới USB–RS485 |
+| 1 | nối trực tiếp U5.6–J2.1–R9.1–R8.2 | Dây A tới USB–RS485 |
+| 2 | nối trực tiếp U5.7–J2.2–R9.2–R10.1 | Dây B tới USB–RS485 |
 | 3 | `GND` | GND giao tiếp |
 
 ---
@@ -351,7 +351,7 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 - Tụ tantalum C1/C2 có phân cực; ánh xạ số pad theo thư viện.
 - Đối chiếu Pin Designator của symbol với Pad Designator của footprint.
 - Chân MCU để trống: dùng No ERC theo quy tắc dự án.
-- Footprint: J1 theo jack thực; J3/J4 terminal bước 5,08 mm, đối chiếu footprint theo linh kiện thực; Y1 ABM3B 5,0×3,2 mm. J4 giữ 1 = A, 2 = B, 3 = GND; không tự đổi số/vị trí chân symbol.
+- Footprint: J1 theo jack thực; P1/J2 terminal bước 5,08 mm, đối chiếu footprint theo linh kiện thực; Y1 ABM3B 5,0×3,2 mm. J2 giữ 1 = A, 2 = B, 3 = GND; không tự đổi số/vị trí chân symbol.
 
 ---
 
