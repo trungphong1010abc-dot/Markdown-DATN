@@ -1,12 +1,16 @@
-# Hướng dẫn nối chân và thiết kế schematic Altium
+# Giai đoạn 3 — Hướng dẫn nối dây schematic Altium
 
-**Quy ước tụ dùng chung cho 4 file:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung 3 chữ số tính theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi điện dung, không khẳng định mọi tụ SMD đều in mã trên thân. Package/footprint phải đối chiếu đúng mã mua, đặc biệt tụ gốm 10 µF (106)–50 V; kích thước 0805 trong bảng là dự kiến cho đến khi xác nhận mã đáp ứng.
+**Phương pháp tra cứu và kết nối:** xác định khối chức năng trong bảng dưới đây, sau đó kết nối theo số chân và tên net/điểm nối tương ứng. Net Label chỉ được sử dụng cho các tín hiệu liên khối đã liệt kê; các kết nối nội bộ được thể hiện bằng dây. Ký hiệu `U2.30` chỉ chân 30 của IC U2. Giá trị linh kiện được quy định tại [file 2](02_Thiet_ke_phan_cung_PCB_SMD.md); cấu hình nguyên mẫu và kết quả thử nghiệm được trình bày tại [file 1](01_Chon_linh_kien_module_va_noi_day.md).
 
-Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package; các bảng nối phía dưới chỉ ghi mã/chân, net và điểm nối cho dễ tra. BOM mua hàng và tính toán chi tiết xem [file 02](02_Lua_chon_linh_kien_BOM_va_tinh_toan_PCB.md); nguyên mẫu module xem [file 01](01_Huong_dan_kiem_thu_phan_cung_nguyen_mau_module_cho_lab.md).
+### Vị trí của file này trong pipeline
 
-**Trạng thái:** giữ cấu hình thiết kế hiện hành, không tự đổi model/chân. Mã tụ thực, tiếp điểm jack và một số footprint còn phải xác nhận; “chốt bảng” chưa có nghĩa hoàn tất mua hàng/ERC/kiểm thử. Giữ vị trí và số chân trong symbol Altium người dùng cung cấp, không tự bố trí lại chân bên trong symbol.
+Đây là bước 3, được triển khai sau khi cấu hình PCB tại file 2 đã được xác định. Trình tự sử dụng tài liệu gồm: **(1)** kiểm tra bảng linh kiện và net tổng quan; **(2)** kết nối nguồn và mass; **(3)** kết nối MCU, clock, reset và SWD; **(4)** kết nối nhánh dòng và BIAS; **(5)** kết nối nhánh quang; **(6)** kết nối RS485 và đầu nối; **(7)** rà soát net, ánh xạ chân symbol/footprint và ERC. Trình tự này đi từ khối nguồn tới MCU, các kênh đo và cuối cùng là truyền thông.
 
-**Cách đọc:** `U2.30` = IC U2, chân 30. Net là các điểm nối điện với nhau; không phải mọi net đều cần Net Label. Các điểm ghi nối trực tiếp trong bảng phải vẽ dây, không đặt label. Linh kiện hai chân: đầu 1 → net thứ nhất, đầu 2 → net thứ hai.
+Trước khi lập schematic, đối chiếu mã, vị trí và giá trị linh kiện với BOM tại file 2. Kết quả thử nghiệm module tại file 1 giải thích mục đích của các điểm đo; sơ đồ module không thay thế cấu hình net PCB. Mọi khác biệt giữa giá trị hoặc net trong tài liệu này với BOM hoặc phần tính toán tại file 2 phải được giải quyết trước khi hoàn tất schematic. Sau khi hoàn tất kết nối, kiểm tra ERC, ánh xạ pin-to-pad và footprint theo linh kiện thực trước khi triển khai layout PCB.
+
+**Trạng thái cấu hình:** tài liệu mô tả cấu hình thiết kế hiện hành. Model linh kiện, số chân hoặc kết nối chỉ được thay đổi khi có căn cứ kỹ thuật và được cập nhật đồng bộ. Mã tụ thực tế, cấu trúc tiếp điểm jack và một số footprint còn cần xác nhận; BOM hiện tại chưa xác nhận việc hoàn tất mua hàng, ERC hoặc kiểm thử. Vị trí và số chân trong symbol Altium tuân theo thư viện dự án; không thay đổi cách bố trí chân bên trong symbol.
+
+Linh kiện hai chân: đầu 1 → net thứ nhất, đầu 2 → net thứ hai.
 
 | Tra cứu | Nội dung |
 |---|---|
@@ -19,7 +23,7 @@ Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package
 
 ---
 
-# 1. Danh sách khối và net liên kết
+## 1. Danh sách khối và net liên kết
 
 | Khối | IC chính | Đầu nối | Net liên khối |
 |---|---|---|---|
@@ -31,13 +35,15 @@ Mỗi khối có một bảng linh kiện ghi tên/model, giá trị và package
 
 Adapter 5 V, ST-Link V2, CT và USB–RS485 CH340 là thiết bị ngoài PCB.
 
-**Quy tắc đặt label:** chỉ đặt 6 Net Label tín hiệu nối giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX`, `RS485_DIR`. Đặt cùng tên ở hai khối cần nối, label bám vào dây nối tới chân linh kiện. Nguồn dùng Power Port `+3V3`, `GND`; giữ ký hiệu `+5V` tại đầu vào như sơ đồ nguồn. Các điểm nội bộ nối dây trực tiếp, không đặt Net Label riêng.
+**Quy tắc đặt nhãn net:** sử dụng sáu Net Label liên kết giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX` và `RS485_DIR`. Các đầu nối cùng một tín hiệu phải sử dụng nhãn trùng tên; nhãn được gắn trực tiếp vào dây nối tới chân linh kiện. Nguồn sử dụng Power Port `+3V3` và `GND`; ký hiệu `+5V` được sử dụng tại đầu vào theo sơ đồ nguồn. Các kết nối nội bộ được thể hiện bằng dây, không sử dụng nhãn net riêng.
 
 H1 và mạch reset thuộc cụm MCU; P1 thuộc khối dòng; J2 thuộc khối truyền thông. Thạch anh, BOOT0, reset/SWD tới H1, cầu chia BIAS, burden/đệm dòng, hồi tiếp quang và A/B tới J2 đều nối dây trực tiếp trong khối. Tên chân vẫn dùng để tra cứu, không phải yêu cầu đặt label.
 
+**Phân biệt nhánh quang module và PCB:** TIA (Transimpedance Amplifier, bộ khuếch đại chuyển dòng thành điện áp) nằm trong U4A. Trên PCB, đầu ra TIA `TIA_LIGHT` phải đi qua R11/C17 rồi R12/C18 trước khi tới `ADC_LIGHT`; không nối tắt hai điểm này. Cấu hình module nối TIA thẳng hoặc lắp tạm hai tầng RC chỉ dùng để so sánh trong phép thử file 1, không thay đổi đường nối mặc định của PCB.
+
 ---
 
-# 2. Khối nguồn
+## 2. Khối nguồn
 
 ## 2.1. Tra linh kiện
 
@@ -48,7 +54,7 @@ H1 và mạch reset thuộc cụm MCU; P1 thuộc khối dòng; J2 thuộc khố
 | C1 | Tụ tantalum: 10 µF (106), 16 V | 3528 (B case), cần xác nhận mã thực | 1 |
 | C2 | Tụ tantalum: 22 µF (226), 16 V | 6032 (C case) | 1 |
 
-Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
+Thông số được quy định tại file 2. Mã nhà sản xuất và footprint cần được xác minh theo linh kiện thực tế.
 
 ## 2.2. Nối nguồn
 
@@ -61,11 +67,11 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | U1.3 IN | `+5V` | J1 dương, C1 cực + |
 | U1.4 (tab) | `+3V3` | Cùng điện với OUT |
 
-J1.3: schematic hiện nối GND cùng J1.2. Chưa xác nhận cấu trúc tiếp điểm của jack thực; phải đo/đối chiếu trước khi chốt PCB. PJ-102AH chỉ là tham khảo, không coi là model thực. Giữ tên nguồn `+5V`, `+3V3`, `GND`, không thêm hậu tố IN.
+J1.3: schematic hiện nối GND cùng J1.2. Cấu trúc tiếp điểm của jack thực tế chưa được xác nhận; cần đo hoặc đối chiếu trước khi hoàn tất PCB. PJ-102AH chỉ là mã tham khảo, không phải model đã xác nhận. Tên nguồn được quy định là `+5V`, `+3V3` và `GND`; không bổ sung hậu tố IN.
 
 ---
 
-# 3. Khối MCU
+## 3. Khối MCU
 
 ## 3.1. Tra linh kiện
 
@@ -83,7 +89,7 @@ J1.3: schematic hiện nối GND cùng J1.2. Chưa xác nhận cấu trúc tiế
 | BT1 | Nút nhấn RESET: 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả; mã hãng chưa xác nhận | SMD 3 × 6 × 2,5 mm; pad cần đối chiếu nút thực | 1 |
 | H1 | Header SWD: 1×5, bước 2,54 mm | Header | 1 |
 
-Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
+Thông số được quy định tại file 2. Mã nhà sản xuất và footprint cần được xác minh theo linh kiện thực tế.
 
 ## 3.2. Nối chân U2 theo chức năng
 
@@ -106,7 +112,7 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | Chân U2 | Tên chân | Nguồn / label liên khối / dây trực tiếp | Điểm nối |
 | ---: | --- | --- | --- |
 | 10 | PA0 / ADC_IN0 | `ADC_CURRENT` | Đầu ra bộ lọc dòng |
-| 11 | PA1 / ADC_IN1 | `ADC_LIGHT` | Đầu ra AFE quang |
+| 11 | PA1 / ADC_IN1 | `ADC_LIGHT` | Nút sau R12/C18, đầu ra lọc thông thấp quang |
 | 18 | PB0 | `RS485_DIR` | U5.2, U5.3, R7 |
 | 30 | PA9 / USART1_TX | `UART_TX` | U5.4 DI |
 | 31 | PA10 / USART1_RX | `UART_RX` | U5.1 RO |
@@ -122,9 +128,9 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 | 37 | PA14 / SWCLK | nối trực tiếp U2.37–H1.4 | H1.4 |
 | 44 | BOOT0 | nối trực tiếp U2.44–R1.1 | R1 đầu 1 |
 
-## 3.3. Chân MCU để trống
+## 3.3. Các chân MCU không sử dụng
 
-Các chân dưới đây để trống, không nối chúng thành cùng một net NC.
+Các chân liệt kê dưới đây không được sử dụng trong cấu hình hiện tại. Không nối các chân này thành một net NC chung.
 
 | Số chân | Tên chân |
 |---|---|
@@ -176,11 +182,11 @@ Khi PCB đã cấp nguồn từ adapter, không nối thêm đầu ra 3,3 V củ
 
 BT1 chọn loại “Nut Nhan 2 Chan SMD 3x6x2.5” theo thư viện người dùng cung cấp. BT1.1/2 là quy ước symbol hai chân; đối chiếu ánh xạ symbol–pad với nút thực. Kiểm tra kích thước và khoảng cách hai pad theo datasheet hoặc đo nút thực; tên kích thước và hình 3D chưa đủ xác nhận footprint. Đo thông mạch: thả nút hở, nhấn nút thông. Giữ nguyên vị trí và số chân của symbol Altium người dùng cung cấp.
 
-Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở mạch reset: ST AN2586 và DS5319 (liên kết ở mục 8). Không thêm nút BOOT hoặc R11; BOOT0/R1 và PB2/BOOT1 giữ nguyên cấu hình hiện hành.
+Xác định mã nhà sản xuất, kích thước và footprint trước khi triển khai PCB. Cơ sở thiết kế mạch reset: ST AN2586 và DS5319 (liên kết tại mục 8). Không bổ sung nút BOOT; BOOT0/R1 và PB2/BOOT1 giữ nguyên cấu hình hiện hành. R11 ở mục 5 thuộc lọc quang, không thuộc mạch reset.
 
 ---
 
-# 4. Khối dòng
+## 4. Khối dòng
 
 ## 4.1. Tra linh kiện
 
@@ -195,7 +201,7 @@ Chốt mã hãng, kích thước và footprint trước khi làm PCB. Cơ sở m
 | C12 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 | CT1 | CT: DL-CT08CL6-1000/1; tỷ số 1000:1 còn là giả thiết | Ngoài PCB | 1 |
 
-Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
+Thông số được quy định tại file 2. Mã nhà sản xuất và footprint cần được xác minh theo linh kiện thực tế.
 
 ## 4.2. Chân U3 và mạch BIAS
 
@@ -243,9 +249,11 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 Burden song song thứ cấp CT. Không nối P1.2 xuống GND.
 
+**Giá trị trên PCB:** R2 là burden 150 Ω, 1%, 0,125 W theo thiết kế hiện tại. Điện trở 47 Ω, 5%/0,25 W chỉ dùng thử trên module để so với 150 Ω; không lắp song song với R2 và không thay đổi schematic PCB nếu chưa có quyết định thiết kế sau lab.
+
 ---
 
-# 5. Khối quang
+## 5. Khối quang
 
 ## 5.1. Tra linh kiện
 
@@ -257,15 +265,15 @@ Burden song song thứ cấp CT. Không nối P1.2 xuống GND.
 | C15 | Tụ gốm: 100 pF (101), ±5 %, C0G/NP0, 50 V | 0805 | 1 |
 | C14 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 |
 
-Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực.
+Thông số được quy định tại file 2. Mã nhà sản xuất và footprint cần được xác minh theo linh kiện thực tế.
 
 ## 5.2. Chân U4 và mạng hồi tiếp
 
-### A. U4A — chuyển dòng quang → áp
+### A. U4A — TIA, chuyển dòng quang → áp
 
 | Chân | Chức năng | Label liên khối / dây trực tiếp |
 | ---: | --- | --- |
-| 1 | OUT A | `ADC_LIGHT`; nối U2.11, R6.1, C15.1 |
+| 1 | OUT A | Nút `TIA_LIGHT`; nối R6.1, C15.1 và đầu vào mạng lọc quang R11/C17/R12/C18. Không nối trực tiếp chân này tới `ADC_LIGHT`. |
 | 2 | IN− A | nối trực tiếp U4.2–R6.2–C15.2–D1.K; nối R6.2, C15.2, D1.K |
 | 3 | IN+ A | `BIAS_1V65` |
 
@@ -286,17 +294,25 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 | Linh kiện | Đầu 1 | Đầu 2 | Ghi chú |
 | --- | --- | --- | --- |
-| R6 (10 kΩ) | `ADC_LIGHT` | nối trực tiếp U4.2–R6.2–C15.2–D1.K | Hồi tiếp |
-| C15 (100 pF (101)) | `ADC_LIGHT` | nối trực tiếp U4.2–R6.2–C15.2–D1.K | Song song R6 |
+| R6 (10 kΩ) | `TIA_LIGHT` / U4.1 | nối trực tiếp U4.2–R6.2–C15.2–D1.K | Hồi tiếp TIA |
+| C15 (100 pF (101)) | `TIA_LIGHT` / U4.1 | nối trực tiếp U4.2–R6.2–C15.2–D1.K | Mắc song song R6 |
+| R11 (1 kΩ) | `TIA_LIGHT` / U4.1 | Nút X | Điện trở nối tiếp tầng lọc thứ nhất |
+| C17 (10 nF (103)) | Nút X | `GND` | Tụ shunt tầng lọc thứ nhất |
+| R12 (1 kΩ) | Nút X | `ADC_LIGHT` / U2.11 | Điện trở nối tiếp tầng lọc thứ hai |
+| C18 (10 nF (103)) | `ADC_LIGHT` / U2.11 | `GND` | Tụ shunt tầng lọc thứ hai |
 | C14 (100 nF (104)) | `+3V3` tại U4.8 | `GND` | Tụ nguồn |
 | D1.A (anode) | `GND` | — |  |
 | D1.K (cathode) | nối trực tiếp U4.2–R6.2–C15.2–D1.K | — |  |
 
 Không nối điểm U4.2–R6.2–C15.2–D1.K với `BIAS_1V65`. U4.7 chỉ hồi tiếp trực tiếp về U4.6; không chập U4.7 với U3.7.
 
+**Kết nối mặc định trên PCB:** nối `TIA_LIGHT` → R11 → nút X → R12 → `ADC_LIGHT`/U2.11. Mắc C17 từ nút X xuống GND và C18 từ `ADC_LIGHT` xuống GND. Không nối tắt `TIA_LIGHT` tới `ADC_LIGHT`, vì đường tắt sẽ bỏ qua cả hai tầng lọc.
+
+Khi thử trên module, có thể so sánh TIA nối thẳng với TIA qua hai tầng RC để định lượng ảnh hưởng của lọc lên xung. Phép so sánh này dùng để đánh giá đáp ứng; không thay đổi cấu hình mặc định của PCB đã chọn ở trên. Sau khi lắp PCB, đo lại đáp ứng thực và xác nhận xung ngắn nhất cần phát hiện.
+
 ---
 
-# 6. Khối truyền thông
+## 6. Khối truyền thông
 
 ## 6.1. Tra linh kiện
 
@@ -309,7 +325,7 @@ Không nối điểm U4.2–R6.2–C15.2–D1.K với `BIAS_1V65`. U4.7 chỉ h�
 | R9 | Điện trở: 120 Ω, 1 %, 0,25 W | 1206 | 1 |
 | R8, R10 | Điện trở: 330 Ω, 1 %, 0,125 W | 0805 | 2 |
 
-Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nhận theo linh kiện thực. R8–R10 là tùy chọn, không mặc định lắp toàn bộ.
+Thông số được quy định tại file 2. Mã nhà sản xuất và footprint cần được xác minh theo linh kiện thực tế. R8–R10 là các vị trí tùy chọn; việc lắp đặt phụ thuộc topology bus.
 
 ## 6.2. Chân U5
 
@@ -342,16 +358,16 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 
 ---
 
-# 7. Quy ước dựng schematic Altium
+## 7. Quy ước dựng schematic Altium
 
-**Chọn label hay chú thích:** không quyết định theo số chân trên một net. Hai chân nằm gần nhau trong cùng khối thì nối dây trực tiếp; tín hiệu đi giữa các khối dùng label cùng tên ở các đầu. Một label có thể nối nhiều điểm cùng điện thế, ví dụ BIAS cấp hai AFE. Dùng Text String để ghi chức năng như “cầu chia tạo mức nền 1,65 V”, “lọc trước ADC”, “hồi tiếp”, “điều khiển chiều”; các chú thích này không tạo kết nối điện. Giữ tên linh kiện, giá trị và tên chân để tra cứu. `UART_TX`/`UART_RX` là tên net tự đặt; ngoại vi phần cứng vẫn là USART1. Không dùng cùng một Net Label `UART` cho TX và RX.
+**Lựa chọn giữa Net Label và chú thích:** số lượng chân trên một net không phải căn cứ duy nhất để lựa chọn cách thể hiện kết nối. Các chân trong cùng khối được nối trực tiếp bằng dây; tín hiệu liên khối sử dụng Net Label cùng tên tại các đầu kết nối. Một nhãn có thể liên kết nhiều điểm cùng điện thế, chẳng hạn BIAS cấp cho hai AFE. Text String mô tả chức năng như “cầu chia tạo mức nền 1,65 V”, “lọc trước ADC”, “hồi tiếp” hoặc “điều khiển chiều”; chú thích không tạo kết nối điện. Tên linh kiện, giá trị và tên chân được duy trì để phục vụ tra cứu. `UART_TX` và `UART_RX` là tên net của thiết kế; ngoại vi phần cứng tương ứng là USART1. Không sử dụng chung một Net Label `UART` cho cả TX và RX.
 
 - Chỉ đặt 6 Net Label liên khối ở mục 1; dây nội bộ nối trực tiếp. Khi chia sheet, dùng Port/Sheet Entry phù hợp cấu trúc dự án và kiểm tra phạm vi kết nối; không mặc định Net Label cùng tên tự nối xuyên sheet.
 - U3, U4 có đủ hai kênh + chân nguồn 4/8. Nếu symbol tách nguồn thành unit riêng, đặt đủ unit.
 - Tụ tantalum C1/C2 có phân cực; ánh xạ số pad theo thư viện.
 - Đối chiếu Pin Designator của symbol với Pad Designator của footprint.
 - Chân MCU để trống: dùng No ERC theo quy tắc dự án.
-- Footprint: J1 theo jack thực; P1/J2 terminal bước 5,08 mm, đối chiếu footprint theo linh kiện thực; Y1 ABM3B 5,0×3,2 mm. J2 giữ 1 = A, 2 = B, 3 = GND; không tự đổi số/vị trí chân symbol.
+- Footprint: xác định J1 theo jack thực tế; đối chiếu footprint của terminal P1/J2 bước 5,08 mm với linh kiện thực; Y1 ABM3B có kích thước 5,0 × 3,2 mm. J2 sử dụng thứ tự chân 1 = A, 2 = B, 3 = GND; không thay đổi số hoặc vị trí chân symbol.
 
 ---
 
@@ -360,11 +376,11 @@ Thông số theo file 02; mã hãng/footprint chưa chốt vẫn phải xác nh�
 - Khối nguồn: đã kiểm tra trực quan kết nối, chưa đồng nghĩa thử mạch thực hoặc hoàn tất ERC/footprint.
 - Đang dựng MCU và nạp/debug theo mục 3; PA9 là TX, PA10 là RX; PB0 chung DE và /RE của MAX3485.
 - Kiểm Pin Designator ↔ Pad Designator theo đúng symbol/footprint. Không tự di chuyển chân bên trong symbol; có thể bố trí lại cả linh kiện.
-- Không tự thêm/bớt linh kiện; khi phát hiện vấn đề kỹ thuật, giải thích trước khi thay đổi cấu hình.
+- Không bổ sung hoặc loại bỏ linh kiện nếu chưa có căn cứ kỹ thuật; mọi thay đổi cấu hình cần kèm theo giải thích và cập nhật tài liệu liên quan.
 
 ---
 
-# 8. Tài liệu đối chiếu chân và schematic
+## 8. Tài liệu đối chiếu chân và schematic
 
 Hướng dẫn mạch reset: [ST AN2586 — STM32 hardware design guidelines](https://www.st.com/resource/en/application_note/an2586-stm32-hardware-design-guidelines-stmicroelectronics.pdf).
 
