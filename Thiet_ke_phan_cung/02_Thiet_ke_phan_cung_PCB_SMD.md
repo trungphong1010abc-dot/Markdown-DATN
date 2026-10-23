@@ -1,24 +1,18 @@
 # Giai đoạn 2 — Thiết kế phần cứng và chọn linh kiện PCB SMD
 
-**Quy tắc đặt nhãn net:** sử dụng sáu Net Label liên kết giữa các khối: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX` và `RS485_DIR`. Các đầu nối cùng một tín hiệu phải sử dụng nhãn trùng tên; nhãn được gắn trực tiếp vào dây kết nối tới chân linh kiện. Nguồn sử dụng Power Port `+3V3` và `GND`; ký hiệu `+5V` được sử dụng tại đầu vào theo sơ đồ nguồn. Các điểm nối nội bộ được thể hiện bằng dây, không sử dụng nhãn net riêng.
+## Mục tiêu thiết kế và trạng thái hiện tại
 
-**Quy ước tụ dùng chung cho 3 tài liệu:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung 3 chữ số tính theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi điện dung, không khẳng định mọi tụ SMD đều in mã trên thân. Package/footprint phải đối chiếu đúng mã mua, đặc biệt tụ gốm 10 µF (106)–50 V; kích thước 0805 trong bảng là dự kiến cho đến khi xác nhận mã đáp ứng.
+Đồ án thiết kế hệ thống nhúng IoT phát hiện chớp hồ quang điện trong hệ thống điện hạ áp và trung áp. Cấu hình phần cứng ở giai đoạn này thu nhận dòng điện bằng CT, thu ánh sáng bằng photodiode, xử lý tại STM32 rồi truyền dữ liệu qua RS485 tới máy tính hoặc gateway. Định hướng của sản phẩm là cảnh báo; hệ thống không điều khiển máy cắt và không thực hiện ngắt điện. PCB trong tài liệu này mới đảm nhiệm thu nhận và truyền dữ liệu, chưa tích hợp đèn hoặc còi cảnh báo. Phép thử hiện tại giới hạn ở nguyên mẫu hạ áp, còn khả năng triển khai tại trung áp mới được phân tích.
 
-**Đề tài:** Thiết kế hệ thống nhúng IoT phát hiện sớm chớp hồ quang điện trong hệ thống điện hạ áp và trung áp.
+File này chuyển cấu hình nguyên mẫu và số liệu thử nghiệm ở [file 1](01_Chon_linh_kien_module_va_noi_day.md) thành phương án linh kiện SMD cho PCB. Các khối được xem xét theo đường đi của tín hiệu: nguồn cung cấp các rail ổn định; MCU nhận tín hiệu ở ADC; khối CT và khối quang điều hòa hai đại lượng đo; khối RS485 đưa dữ liệu ra ngoài bo. Bảng BOM ghi cấu hình đang dự kiến, còn phần tính toán giải thích vì sao chọn giá trị đó và điều kiện nào vẫn phải kiểm tra. Cách nối từng chân trên schematic được trình bày tại [file 3](03_Huong_dan_noi_day_schematic.md).
 
-Hệ thống thu thập tín hiệu dòng điện và ánh sáng, xử lý bằng STM32, sau đó truyền dữ liệu qua RS485 tới máy tính hoặc gateway. Chức năng dự kiến là phát hiện dấu hiệu khi hiện tượng xuất hiện, không thực hiện dự báo. Thử nghiệm được giới hạn ở cấu hình hạ áp; ứng dụng trung áp chỉ được phân tích. Thiết kế hiện chưa tích hợp cơ cấu ngắt tải, đèn báo hoặc còi báo.
+Khi có số đo nguyên mẫu, quyết định PCB cần được đối chiếu với dòng thực, mức BIAS, biên độ trước/sau lọc và đáp ứng quang. Nếu phép đo chưa được thực hiện, lựa chọn được ghi là phương án tính toán hoặc theo datasheet, không coi là kết quả đã xác nhận. Thay đổi linh kiện so với nguyên mẫu cũng tạo thành một cấu hình mới cần đo lại trên PCB. Riêng kênh quang, PCB có hai tầng RC sau TIA; vì vậy phép đo PA1 trên module nối thẳng chỉ mô tả cấu hình module, không thay thế phép đo riêng tại `TIA_LIGHT` và `ADC_LIGHT` sau khi hàn.
 
-Tài liệu này là giai đoạn 2: chọn linh kiện SMD, tính toán phần cứng PCB và đối chiếu quyết định với kết quả kiểm thử module ở [file 1](01_Chon_linh_kien_module_va_noi_day.md). Hướng dẫn nối chân schematic xem [file 3](03_Huong_dan_noi_day_schematic.md).
+Trong tài liệu, thông số nhà sản xuất, giá trị thiết kế, giả thiết và kết quả đo được phân biệt rõ. BOM hiện tại chưa xác nhận đầy đủ mã đặt hàng, ESR hay footprint của mọi linh kiện; các mục đó chỉ được khóa sau khi đối chiếu với linh kiện thực tế.
 
-**Quy ước:** thông số do nhà sản xuất công bố được xác định theo datasheet; giá trị được chọn là thông số thiết kế; giả thiết hoặc ước lượng được đánh dấu là chưa xác nhận; kết quả đo chỉ được ghi nhận sau kiểm thử. Việc xác định BOM chưa đồng nghĩa với việc mã đặt hàng, ESR hoặc footprint đã được xác minh đầy đủ.
+Khi vẽ schematic, các khối liên kết bằng sáu nhãn net: `ADC_CURRENT`, `ADC_LIGHT`, `BIAS_1V65`, `UART_TX`, `UART_RX` và `RS485_DIR`. Nguồn dùng Power Port `+3V3` và `GND`; đầu vào nguồn mang nhãn `+5V`. Các mối nối trong cùng một khối được vẽ bằng dây để sơ đồ dễ theo dõi.
 
-### Vị trí của file này trong pipeline
-
-Đây là bước 2, nhận đầu vào từ file 1: cấu hình module đã thử, dòng thực tế, BIAS, min/max và dạng sóng trước/sau lọc, phản ứng quang, tốc độ lấy mẫu thực (nếu đã đo), cùng các giới hạn chưa kiểm chứng. Trình tự xử lý trong file này là: **(1)** rà đầu vào và trạng thái linh kiện đã mua → **(2)** tính từng khối, kiểm giới hạn điện áp/dòng/công suất/băng thông → **(3)** quyết định giá trị PCB và ghi phần còn chờ → **(4)** dùng kết quả làm chuẩn nối ở file 3. Bảng BOM đầu file là danh sách cấu hình hiện tại để tra nhanh; phần tính toán phía sau mới giải thích/kiểm tra căn cứ trước khi khóa schematic.
-
-Không có dữ liệu module thì chỉ được đánh dấu lựa chọn là “theo tính toán/datasheet, chưa kiểm thử”. Sau khi thay đổi giá trị so với module, ghi đó là cấu hình PCB mới và lập phép đo xác nhận sau khi hàn. Khi đã chốt, giữ cùng mã linh kiện, giá trị và chân giữa bảng BOM, tính toán và file 3.
-
-Riêng nhánh quang, cấu hình module có thể đo đầu ra TIA nối thẳng tới ADC hoặc lắp tạm hai tầng RC để so sánh. PCB dùng mặc định hai tầng R11/C17 và R12/C18 sau TIA. Vì vậy số đo PA1 trên module chỉ xác nhận đúng cấu hình module đã thử; nó giúp đánh giá ảnh hưởng của hai tầng lọc nhưng không thay cho phép đo `TIA_LIGHT` và `ADC_LIGHT` trên PCB sau khi hàn.
+Quy ước tụ dùng chung cho ba tài liệu: tụ gốm chọn định mức 50 V, tụ tantalum C1/C2 chọn 16 V. Mã điện dung ba chữ số được quy đổi theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Đây là mã quy đổi giá trị, không có nghĩa mọi tụ SMD đều in mã trên thân. Package và footprint phải khớp mã linh kiện mua; riêng tụ gốm 10 µF–50 V kích thước 0805 trong BOM vẫn cần xác minh.
 
 ### Quy tắc đo và lấy mẫu theo cảm biến
 

@@ -1,22 +1,16 @@
-# Giai đoạn 1 — Chọn module, tính toán và kiểm thử tại lab buổi 1
+# Giai đoạn 1 — Nguyên mẫu đo dòng và ánh sáng
 
-**Mục tiêu:** xây dựng nguyên mẫu sử dụng module, đánh giá các kênh đo dòng và ánh sáng, xác định thông số thiết kế và thu thập dữ liệu làm căn cứ cho thiết kế PCB SMD.
+## Mục tiêu và phạm vi
 
-**Phạm vi:** hệ thống đo dòng xoay chiều bằng biến dòng (CT) và ánh sáng bằng photodiode. Nguồn 12 VAC cách ly chỉ cấp cho tải thử nghiệm, không cấu thành kênh đo điện áp. Thử nghiệm với tải 12 VAC và nguồn sáng cầm tay chỉ đánh giá hoạt động của các kênh đo, chưa chứng minh khả năng phát hiện hồ quang thực tế. Hệ thống hiện chưa tích hợp cơ cấu ngắt tải, đèn báo hoặc còi báo. Khả năng ứng dụng ở cấp điện áp trung áp chỉ được phân tích, chưa thử nghiệm.
+Đề tài hướng tới một hệ thống nhúng IoT nhận biết dấu hiệu chớp hồ quang trong hệ thống điện hạ áp và trung áp. Để đi tới mục tiêu đó, trước hết cần kiểm tra hai đại lượng có thể thu nhận bằng nguyên mẫu hiện có: dòng điện xoay chiều qua biến dòng (CT) và ánh sáng qua photodiode. Kết quả của giai đoạn này dùng để đánh giá đường tín hiệu, xác định điểm cần cải thiện và làm căn cứ cho mạch PCB ở [file 2](02_Thiet_ke_phan_cung_PCB_SMD.md).
 
-**Pipeline của ba giai đoạn:**
+Phạm vi thử nghiệm hiện tại hẹp hơn phạm vi đề tài. Nguồn 12 VAC cách ly chỉ cấp cho tải điện trở để tạo dòng thử qua CT; mạch không đo điện áp tải. Nguồn sáng cầm tay hoặc LED chỉ giúp kiểm tra phản ứng của kênh quang. Những phép thử này chưa tạo hồ quang và vì vậy chưa chứng minh khả năng phát hiện hồ quang thực tế. Nguyên mẫu cũng chưa có đầu ra cảnh báo hoàn chỉnh hay cơ cấu ngắt. Việc triển khai ở trung áp mới dừng ở phân tích yêu cầu cách ly và bố trí cảm biến, chưa được thử nghiệm trên thiết bị trung áp.
 
-| Bước | Làm gì | Đầu ra để qua bước sau |
-|---|---|---|
-| 1. Xác định yêu cầu và tính sơ bộ | Đọc phần B trước khi đấu mạch: dải dòng/áp, BIAS, lọc, băng thông, xung, tiêu chuẩn tham khảo và `T_sampling` từng kênh | Giá trị tính ban đầu và các giới hạn cần kiểm tra |
-| 2. Lắp nguyên mẫu | Dùng phần A làm sơ đồ nối module; đối chiếu linh kiện, chân và tải thử thực tế | Cấu hình module có thể cấp nguồn và đo an toàn |
-| 3. Đo tại lab | Làm phần C theo thứ tự: kiểm tra trước cấp nguồn → đo nhánh dòng → nhánh quang → tích hợp | Số đo, dạng sóng, cấu hình, điều kiện và phần chưa xác nhận |
-| 4. Chuyển sang thiết kế PCB | Sử dụng mục E.2–E.5 và bảng bàn giao; đối chiếu lựa chọn tại file 2 theo linh kiện SMD | Quyết định lựa chọn có căn cứ và danh sách hạng mục cần xác nhận trên PCB |
-
-**Cách đọc:** phần A mô tả cấu hình nguyên mẫu ban đầu; phần B nêu cơ sở tính toán và lựa chọn thông số; phần C quy định các phép kiểm tra và ghi nhận kết quả. Sai lệch giữa giá trị tính toán và kết quả đo cần được ghi nhận và đánh giá trong giai đoạn thiết kế PCB; dữ liệu đo gốc phải được bảo toàn.
+Tài liệu đi theo trình tự từ phần cứng tới đánh giá: phần A mô tả linh kiện và cách đấu nguyên mẫu; phần B giải thích cơ sở tính toán, các lựa chọn ban đầu và giới hạn của chúng; phần C hướng dẫn phép đo để thu được dữ liệu có thể so sánh. Cuối cùng, kết quả và các điểm còn thiếu được dùng để rà lại thiết kế PCB. Giá trị tính toán, thông số datasheet và số đo thực nghiệm được phân biệt riêng; khi chưa có số đo thì không xem lựa chọn thiết kế là đã kiểm chứng.
 
 **Quy ước tụ dùng chung:** tụ gốm chọn 50 V; tụ tantalum C1/C2 chọn 16 V. Mã điện dung ba chữ số quy đổi theo pF: 27 pF (270), 47 pF (470), 100 pF (101), 10 nF (103), 100 nF (104), 1 µF (105), 10 µF (106), 22 µF (226). Package phải đối chiếu theo đúng mã mua; 0805 cho tụ gốm 10 µF–50 V vẫn cần xác minh.
-## A. Chọn linh kiện và nối module
+
+## A. Cấu hình nguyên mẫu và cách đấu nối
 
 ```text
 CT → burden 150 Ω → MCP6002 dòng → RC 1 kΩ–100 nF (104) → PA0 ┐
@@ -30,21 +24,15 @@ PB0 Blue Pill → DE và /RE module MAX3485 (điều khiển chiều)
 Nguồn cách ly 12 VAC → dây qua CT → tải điện trở → về nguồn AC (đường tải riêng)
 ```
 
-| Giai đoạn | Việc làm | Nơi làm | Kết quả cần có |
-|---|---|---|---|
-| GĐ1: module và lab buổi 1 | Tính sơ bộ → lắp → đo → ghi dữ liệu | Nhà + lab buổi 1 | Cấu hình và kết quả thử để làm đầu vào file 2 |
-| GĐ2: thiết kế phần cứng PCB SMD | Đối chiếu số đo với tính toán/datasheet → chọn giá trị và footprint | Sau khi có dữ liệu module | BOM/schematic PCB cùng các mục còn phải kiểm chứng |
-| GĐ3: nối schematic | Vẽ đúng net, chân và giá trị đã chốt ở file 2 | Trong lúc thiết kế PCB | Schematic để kiểm tra ERC, footprint và chuyển layout |
+Nguyên mẫu gồm hai đường đo đưa về ADC của STM32F103: CT đo dòng AC qua burden và mạch đệm; BPW34 cùng MCP6002 tạo thành bộ chuyển dòng quang thành điện áp. Dữ liệu được gửi từ MCU qua RS485 để quan sát và lưu trên máy tính. Sơ đồ khối ở trên cho thấy đường tải 12 VAC tách biệt với nguồn 5 V của mạch đo; sự tách biệt này vừa phù hợp mục đích thử nghiệm, vừa tránh nhầm nguồn tải với một kênh đo điện áp.
 
-GĐ2 phụ thuộc dữ liệu GĐ1; GĐ3 phụ thuộc bảng linh kiện/giá trị/net của GĐ2. Nếu chưa có phép đo nào đó, ghi rõ giả định trong file 2 thay vì coi số tính là kết quả thử. Một lượt thu hai kênh có thể dùng cho kiểm tra CT và so sánh lọc. **Lọc dòng lắp cố định từ nhà; “trước lọc” là điểm đo, không phải phiên tháo lọc.**
+Trong phần A, các tên “MCP6002 dòng” và “MCP6002 quang” chỉ hai IC DIP-8 trên nguyên mẫu, phân biệt theo chức năng. Khi chuyển sang PCB, linh kiện và chân kết nối được trình bày theo cấu hình riêng tại [file 3](03_Huong_dan_noi_day_schematic.md). Bộ lọc dòng được lắp cố định; vì vậy “đo trước lọc” ở các phần sau là đo tại điểm trước mạng RC, không phải tháo bộ lọc giữa các lượt thử.
 
 ### A.1. Linh kiện và kết nối nguyên mẫu
 
-Trong file này, hai IC MCP6002 DIP-8 của module được gọi theo chức năng là **MCP6002 dòng** và **MCP6002 quang**. Ký hiệu linh kiện trên PCB có thể khác; xem bảng chân PCB ở [file 3](03_Huong_dan_noi_day_schematic.md).
+Các bảng dưới đây quy định cách đấu đúng theo phần cứng module. Tên gọi MCP6002 dòng/quang dùng để phân biệt hai IC DIP-8 theo nhiệm vụ; số chân của linh kiện SMD trên PCB được tra riêng ở [file 3](03_Huong_dan_noi_day_schematic.md).
 
 #### A.1.1. Quy ước linh kiện và đường tín hiệu
-
-**MCP6002 dòng:** MCP6002-I/P DIP-8 dùng cho nhánh dòng và BIAS. **MCP6002 quang:** MCP6002-I/P DIP-8 dùng cho nhánh quang. Các tên này áp dụng cho mô-đun; xem bảng nối PCB riêng khi chuyển sang SMD.
 
 | Đường | Kết nối chính |
 |---|---|
@@ -232,7 +220,9 @@ Nhờ người phụ trách lab xác nhận nguồn AC cách ly và cách nối 
 
 Nguồn mạch được chọn là adapter cách ly **5 V–2 A**. Đây là khả năng cấp dòng của nguồn, không phải dòng tiêu thụ mạch. Ba tải 50 Ω–25 W là tải sơ cấp, khác burden 150 Ω–2 W ở thứ cấp CT.
 
-## B. Cơ sở tính toán và thông số đo
+## B. Cơ sở tính toán và lựa chọn thông số
+
+Trước khi đánh giá số đo, cần biết mức tín hiệu dự kiến và giới hạn của từng đường đo. Phần này ước lượng điện áp do CT tạo ra với tải thử, xem xét ảnh hưởng của burden và bộ lọc, rồi xác định tốc độ lấy mẫu ban đầu cho CT và photodiode. Các giá trị được tính theo những giả thiết nêu kèm; chúng dùng để chọn thang đo và chuẩn bị phép thử, không phải kết quả thực nghiệm hay bảo đảm về độ chính xác.
 
 ### 1. Phạm vi và đường tín hiệu
 
@@ -422,7 +412,9 @@ Không có một tiêu chuẩn duy nhất quy định mọi giá trị dòng, đ
 Các phép tính nguồn, nhiệt LDO, thạch anh, linh kiện và footprint riêng cho PCB nằm ở [file 2](02_Thiet_ke_phan_cung_PCB_SMD.md).
 
 
-## C. Chuẩn bị và kiểm thử tại lab buổi 1
+## C. Kiểm tra nguyên mẫu tại phòng thí nghiệm
+
+Phép thử được chia thành ba bước để có thể nhận biết nguồn sai lệch: trước tiên kiểm tra nhánh CT ở các mức tải đã biết, sau đó kiểm tra phản ứng của nhánh quang với điều kiện sáng và che có kiểm soát, cuối cùng chạy hai nhánh cùng MCU và RS485 để quan sát tính ổn định. Ở mỗi bước cần lưu cấu hình, điều kiện thử và dữ liệu gốc. Nếu một phép đo chưa thực hiện được, ghi rõ phần còn thiếu thay vì suy ra kết quả từ phép tính.
 
 ### 1. Chuẩn bị và kiểm tra tại nhà
 
@@ -453,7 +445,7 @@ Các phép tính nguồn, nhiệt LDO, thạch anh, linh kiện và footprint ri
 
 ### C.1. Phân biệt các cách thu dữ liệu
 
-Phần B cho biết tín hiệu nào cần giữ, bộ lọc đang có và tốc độ lấy mẫu cần khảo sát. Phần C kiểm tra các ý đó bằng cách đo cùng tín hiệu ở hai điểm: với CT, so đầu ra trước RC với PA0 sau RC; với quang, so đầu ra TIA với PA1 sau lọc. Trên module có thể nối PA1 thẳng hoặc lắp tạm hai tầng RC; PCB mặc định dùng hai tầng RC theo file 2 và file 3. Do đó, kết quả đo trên module chỉ mô tả cấu hình đã thử, không phải kết quả đo PCB. Xem [phần B](#b-cơ-sở-tính-toán-và-thông-số-đo) để đối chiếu tần số cắt và tốc độ lấy mẫu.
+Phần B nêu tín hiệu cần giữ, bộ lọc đang có và tốc độ lấy mẫu cần khảo sát. Phần C kiểm tra các ý đó bằng cách đo cùng tín hiệu ở hai điểm: với CT, so đầu ra trước RC với PA0 sau RC; với quang, so đầu ra TIA với PA1 sau lọc. Trên module có thể nối PA1 thẳng hoặc lắp tạm hai tầng RC; PCB mặc định dùng hai tầng RC theo file 2 và file 3. Do đó, kết quả đo trên module chỉ mô tả cấu hình đã thử, không phải kết quả đo PCB. Đối chiếu [phần B](#b-cơ-sở-tính-toán-và-lựa-chọn-thông-số) để xem tần số cắt và tốc độ lấy mẫu dự kiến.
 
 Khi thu nhanh, dùng timer/trigger và ADC DMA/buffer; ghi N, fs thực, `T_sampling`, đơn vị và firmware riêng cho từng kênh. Không suy ra fs từ chu kỳ UART/log. Log chậm khoảng 500 ms/bản tin chỉ theo dõi xu hướng, không tính RMS 50/60 Hz hay bắt xung ngắn; lưu buffer rồi truyền sau thay vì gửi từng mẫu ASCII. So sánh trước/sau lọc chỉ có ý nghĩa khi cùng tín hiệu vào, cùng tốc độ lấy mẫu và cùng cài đặt đo; phép so sánh đó cho biết bộ lọc làm tín hiệu đổi thế nào, chưa tự chứng minh lọc chống alias đã đủ.
 
@@ -694,9 +686,11 @@ $$N_{kỳ\ vọng}\approx T_{phiên}/T_{gửi}$$
 
 Mẫu kết luận: “Cấu hình … chạy … phút; hai nhánh …; log …; reset …; nguồn thay đổi … . Xác nhận hoạt động tích hợp ban đầu, chưa đánh giá độ bền dài hạn.”
 
-### 3. Sau lab: chuyển số đo sang lựa chọn PCB
+## D. Chuyển kết quả thử nghiệm sang thiết kế PCB
 
-### E.1. Kiểm đủ hồ sơ trước khi rời lab
+Số liệu nguyên mẫu chỉ có giá trị khi gắn với đúng cấu hình đã đo. Vì vậy, trước khi chốt linh kiện PCB cần đối chiếu kết quả với burden, bộ lọc, tốc độ lấy mẫu và mạch khuếch đại tương ứng; những khác biệt giữa module và PCB phải được xem là thay đổi thiết kế cần kiểm tra lại. Các mục dưới đây tổng hợp hồ sơ cần lưu và cách chuyển bằng chứng thành quyết định linh kiện.
+
+### D.1. Hoàn thiện hồ sơ thử nghiệm
 
 - [ ] Mở được ảnh/CSV trước và sau lọc; khớp từng dòng thực.
 - [ ] Có nguồn, BIAS, ảnh quang và điều kiện chiếu.
@@ -706,7 +700,7 @@ Mẫu kết luận: “Cấu hình … chạy … phút; hai nhánh …; log …
 - [ ] Ghi dòng thực lớn nhất; không lấy định mức nguồn 1,5 A làm dải đã thử.
 - [ ] Ghi rõ phép chưa làm, file thiếu, lỗi chưa giải thích.
 
-### E.2. Căn cứ lựa chọn linh kiện
+### D.2. Dùng kết quả để rà soát linh kiện
 
 | Phần cần quyết định | Dữ liệu lab | Còn phải đối chiếu |
 |---|---|---|
@@ -720,11 +714,11 @@ Mẫu kết luận: “Cấu hình … chạy … phút; hai nhánh …; log …
 
 Khi chưa đủ bằng chứng, trạng thái lựa chọn được ghi là “phương án thử, cần kiểm chứng bổ sung”. Không xác định lựa chọn cuối cùng chỉ dựa trên một buổi thử nghiệm.
 
-### E.3. Chuyển kết quả đo sang thiết kế
+### D.3. Chuyển kết quả đo sang thiết kế
 
-Tách số tính, giới hạn datasheet và số đo. Dùng bảng ở E.2 để chốt hoặc ghi rõ quyết định còn chờ xác nhận. Kết quả so sánh TIA nối thẳng với TIA qua hai tầng RC giúp đánh giá mức suy giảm tín hiệu/xung để chọn cấu hình PCB; vì PCB có đường mạch và tải ADC riêng, phải đo lại tại `TIA_LIGHT` và `ADC_LIGHT` sau khi hàn. Phần tính nguồn, nhiệt, footprint và BOM PCB xem [file 2](02_Thiet_ke_phan_cung_PCB_SMD.md); thông số cảm biến, lọc và lấy mẫu xem [phần B](#b-cơ-sở-tính-toán-và-thông-số-đo). Không dùng dòng tiêu thụ Blue Pill/module để thay ngân sách cho MCU rời trên PCB.
+Tách số tính, giới hạn datasheet và số đo. Dùng bảng ở D.2 để chốt hoặc ghi rõ quyết định còn chờ xác nhận. Kết quả so sánh TIA nối thẳng với TIA qua hai tầng RC giúp đánh giá mức suy giảm tín hiệu/xung để chọn cấu hình PCB; vì PCB có đường mạch và tải ADC riêng, phải đo lại tại `TIA_LIGHT` và `ADC_LIGHT` sau khi hàn. Phần tính nguồn, nhiệt, footprint và BOM PCB xem [file 2](02_Thiet_ke_phan_cung_PCB_SMD.md); thông số cảm biến, lọc và lấy mẫu xem [phần B](#b-cơ-sở-tính-toán-và-lựa-chọn-thông-số). Không dùng dòng tiêu thụ Blue Pill/module để thay ngân sách cho MCU rời trên PCB.
 
-### E.4. Hoàn thiện schematic, BOM và báo cáo
+### D.4. Hoàn thiện schematic, BOM và báo cáo
 
 Mỗi linh kiện ghi **mã – giá trị – định mức – số lượng – footprint**. Kiểm burden về biên áp/công suất/tải CT; ghi RC/Rf/Cf là ban đầu hay đã kiểm chứng; nguồn tính theo IC PCB. PA0 dòng, PA1 quang, PA9 TX, PA10 RX. Ở PCB, nhánh quang đi từ đầu ra TIA qua R11/C17 rồi R12/C18 tới `ADC_LIGHT`; đây là hai tầng thông thấp sau TIA, khác với cấu hình module nối thẳng có thể dùng khi thử. Nguyên mẫu dùng module MAX3485 3,3 V; PCB dùng IC MAX3485ESA+ rời 3,3 V. Cả hai dùng PB0 chung DE và /RE; module phải đối chiếu hậu tố IC, header và mạch phụ trợ thực, không mặc định giống PCB.
 
@@ -740,7 +734,7 @@ Kiểm SWD, khả năng tiếp cận điểm đo nguồn/BIAS/AFE và footprint 
 
 Mẫu tổng hợp: “Nguyên mẫu đã kiểm tra dòng trong dải … A, quang dưới điều kiện …, tích hợp … phút. Dữ liệu dùng để … . Lựa chọn … còn cần … trước khi chốt PCB. Phiên thử chưa xác nhận phát hiện chớp hồ quang thực.”
 
-### E.5. Điều kiện chuyển sang thiết kế PCB
+### D.5. Điều kiện chuyển sang thiết kế PCB
 
 - [ ] Có cấu hình cuối và dữ liệu tương ứng, phân biệt số tính/số đo.
 - [ ] Burden/RC/Rf/Cf có căn cứ; thiếu tài liệu hoặc phép đo phải ghi rõ.
@@ -751,7 +745,7 @@ Mẫu tổng hợp: “Nguyên mẫu đã kiểm tra dòng trong dải … A, qu
 
 **Trạng thái triển khai:** kết nối khối nguồn PCB đã được kiểm tra trực quan; thử nghiệm phần cứng, ERC và xác nhận footprint chưa hoàn tất. Khối MCU và giao diện SWD đang được triển khai theo file 3. Sơ đồ luồng tại phần A minh họa cấu hình nguyên mẫu.
 
-### 4. Tài liệu kỹ thuật chính thống
+## E. Tài liệu kỹ thuật chính thống
 
 Chỉ dùng tài liệu công khai của nhà sản xuất làm nguồn kỹ thuật. Cấu hình, trình tự lab và ví dụ số là lựa chọn của kế hoạch thử; không coi là quy trình được hãng chứng nhận.
 
