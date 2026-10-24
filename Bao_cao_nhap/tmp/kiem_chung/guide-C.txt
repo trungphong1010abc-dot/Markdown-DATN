@@ -1,0 +1,1606 @@
+PAGE 1
+Visit                                                            www.morssmitt.com/rms  for the latest product information.                                      Page 1 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ 
+ 
+ 
+ 
+ 
+1S23 User Guide 
+Arc Fault Monitor 
+ 
+RMS Mors Smitt 
+Advanced Protection Devices 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+User Guide 
+ 
+ 
+
+PAGE 2
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 2 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+1S23 
+User Guide 
+ 
+About This Manual 
+This User Guide covers all 1S23 relays manufactured from June 2022. Earlier relays do not 
+necessarily incorporate all the features described. Our policy of continuous development means that 
+extra features & functionality may have been added. 
+The 1S23 User Guide is designed as a generic document to describe the common operating 
+parameters for all relays built on this platform. 
+The copyright and other intellectual property rights in this document, and in any model or article produced from 
+it (and including any registered or unregistered design rights) are the property of RMS Mors Smitt. No part of 
+this document shall be reproduced or modified or stored in another form, in any data retrieval system, without 
+the permission of RMS Mors Smitt, nor shall any model or article be reproduced from this document without 
+consent from RMS Mors Smitt. 
+While the information and guidance given in this document is believed to be correct, no liability shall be 
+accepted for any loss or damage caused by any error or omission, whether such error or omission is the 
+result of negligence or any other cause.  Any and all such liability is disclaimed. 
+ 
+Contact Us 
+RMS Mors Smitt 
+19 Southern Court • Keysborough 3173 • AUSTRALIA 
+Phone 61 3 8544 1200 
+Email sales.rms@wabtec.com   •  Web http://www.morssmitt.com/rms 
+   
+ 
+ 
+
+PAGE 3
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 3 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Contents 
+Technical Bulletin .................................................................................................................................. 5 
+User Guide ............................................................................................................................................ 5 
+Front Layout .......................................................................................................................................... 7 
+Initial Power Up and Model Confirmation .............................................................................................. 7 
+System Healthy ..................................................................................................................................... 8 
+Power Supply or CPU Fail ..................................................................................................................... 8 
+Arc Fault Pickup .................................................................................................................................... 8 
+Sensor FAIL Indications ........................................................................................................................ 8 
+Summary of Indications ......................................................................................................................... 9 
+1S23 Connection diagram ................................................................................................................... 12 
+Example Schematic ............................................................................................................................. 13 
+Over Current Relay Configuration ....................................................................................................... 14 
+Application Example ............................................................................................................................ 14 
+Reyrolle Argus M Configuration .......................................................................................................... 15 
+Input Allocation ........................................................................................................................................ 15 
+Output Allocation ..................................................................................................................................... 16 
+Quick Logic Equation Allocation .............................................................................................................. 16 
+Virtual Allocation ...................................................................................................................................... 16 
+LED Allocation ......................................................................................................................................... 16 
+Settings Tab ............................................................................................................................................ 17 
+Output Matrix ........................................................................................................................................... 18 
+LED Matrix ............................................................................................................................................... 21 
+Sensor Spacing ................................................................................................................................... 23 
+Sensor Placement ............................................................................................................................... 25 
+Sensor Mounting ................................................................................................................................. 25 
+Example Sensor Placement ................................................................................................................ 26 
+ 
+ 
+Contents .......................................................................................................................... 3 
+Documentation ................................................................................................................ 5 
+Introduction ..................................................................................................................... 6 
+1S23 Variants .................................................................................................................. 6 
+1S23 Indications .............................................................................................................. 7 
+Scheme Wiring .............................................................................................................. 12 
+Over Current Relay Configuration ............................................................................... 14 
+1S23 Dimensions and Terminal Layout ...................................................................... 22 
+Sensor Installation ........................................................................................................ 23 
+
+PAGE 4
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 4 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ 
+Commissioning Preliminaries .............................................................................................................. 30 
+Site Commissioning Verification Checklist .......................................................................................... 31 
+System Power Up .................................................................................................................................... 31 
+SUPERVISION Output Verification .......................................................................................................... 32 
+Arc Trip Testing ....................................................................................................................................... 33 
+ARC Trip Trouble Shooting...................................................................................................................... 34 
+Handling of Electronic Equipment ....................................................................................................... 35 
+Safety Section ..................................................................................................................................... 36 
+Explanation of Symbols & Labels ........................................................................................................ 36 
+Equipment Operating Conditions ........................................................................................................ 37 
+Equipment Connections ...................................................................................................................... 37 
+Decommissioning & Disposal .............................................................................................................. 38 
+Mechanical Inspection ......................................................................................................................... 39 
+Defect Report Form ............................................................................................................................. 40 
+ 
+ 
+ 
+Commissioning ............................................................................................................. 30 
+Installation ..................................................................................................................... 35 
+Maintenance .................................................................................................................. 39 
+
+PAGE 5
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 5 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Documentation 
+Technical Bulletin 
+The detailed technical attributes, functional description & performance specifications for the 1S23 
+are described in the product Technical Bulletin.  
+The order of precedence for product information is as follows: 
+ 
+• 
+Technical Bulletin 
+• 
+User Guide 
+ 
+ 
+User Guide 
+This User Guide covers all 1S23 relay versions & describes the generic features & attributes 
+common across all versions. 
+Different relay versions are required to cater for varying customer requirements such as auxiliary 
+voltage range, I/O configuration, case style, relay functionality etc. 
+
+PAGE 6
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 6 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Introduction 
+The 1S23 monitors either one or two 1S30 optical sensors to detect the presence of an arcing fault within 
+Metal Clad air insulated switchgear. 
+The 1S23 is designed to work in conjunction with a third party protection relay to add Arc Fault coverage 
+to a protection scheme.   
+Housed in a compact din rail mounted package the 1S23 provides M4 screw terminals for connection 
+of 1S30 optical sensors and an auxiliary voltage supply. 
+The 1S23 provides an Arc Fault trip output and continuously supervises the optical sensor to ensure 
+maximum availability of the Arc Fault Protection scheme. 
+The interface wiring to the protection relay status inputs is provided by 2m colour coded flying leads, the 
+blue lead provides the Arc Fault Trip output, and the white lead is for the Supervision Status output. 
+1S23 Variants 
+The 1S23 is available in a wide variety of voltages with 2 different optical sensor interfaces: 
+1S23 - A  
+Single 1S30 sensor input 
+1S23 - B  
+Dual 1S30 sensor inputs (i.e.  2 x 1S30 sensors connected in parallel) 
+Note that the correct number of 1S30 sensors must be connected to match the 1S23 optical sensor 
+interface variant to prevent a false sensor supervision alarm. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+PAGE 7
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 7 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+1S23 Indications 
+Front Layout 
+The picture below depicts the indications provided on the front of the module. 
+The Front of the module provides LED indication of Auxiliary supply and Arc Fault Pickup. 
+ 
+                                                            
+                           
+ 
+Initial Power Up and Model Confirmation 
+When the 1S23 is powered up both LEDs will flash a fixed number of times depending on the 
+version of the 1S23 installed. 
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+Single Sensor version : Both LEDs flash 3 times 
+ 
+Two Sensor version    : Both LEDs flash 4 times 
+Power up test 
+
+PAGE 8
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 8 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+System Healthy 
+The Green PWR LED illuminates solid when the module self-checking completes successfully. 
+ 
+ 
+ 
+The Supervision output will conduct to indicate System/Supervision Healthy. 
+ 
+Power Supply or CPU Fail 
+An error in the module self-checking routine will be indicated by a flashing Green PWR LED. 
+ 
+ 
+ 
+ 
+The Supervision output will be non-conducting to indicate a module fault. 
+ 
+Arc Fault Pickup 
+Upon detection of an ARC fault the RED Arc fault pickup LED will illuminate for approximately 2 secs 
+then reset. 
+ 
+ 
+Sensor FAIL Indications 
+The sensor input is equipped with sensor supervision and Sensor Fail Indication. The sensor supervision 
+checks the integrity of the wiring (for short circuit or open circuit) between the 1S30 sensor and the 1S23 
+monitor.  
+Detection of either short circuit or open circuit conditions will cause the Green PWR LED to flash.  
+ 
+ 
+ 
+The Supervision output will be non-conducting to indicate sensor fail conditions. 
+The Sensor FAIL indications will self-reset upon the failure condition being removed. 
+Green solid 
+System healthy 
+Red solid (for 2 seconds) 
+Arc Fault Pickup 
+Green LED Extinguished 
+System Fail 
+Green flashing 
+Sensor Fail  
+
+PAGE 9
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 9 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Summary of Indications 
+All Indications including additional trouble shooting error indications are tabulated below : 
+ 
+Module 
+Type 
+Red Led 
+Green Led 
+Trip Output Supervision 
+Output 
+Condition 
+Notes 
+1 or 2 Sensor Module 
+ 
+Led Extinguished 
+ 
+Led  on solid 
+Non conducting 
+Conducting 
+System Healthy 
+and no Arc Fault 
+Pickup 
+ 
+ 
+Led on for 2 sec 
+ 
+Led  on solid 
+Conducting for 
+100 msec 
+Conducting 
+Arc Fault Pickup 
+ 
+ 
+Led Extinguished 
+ 
+Led Extinguished 
+Non conducting 
+Non conducting 
+Power Supply Fail 
+ 
+ 
+Led Extinguished 
+ 
+Led Extinguished 
+Non conducting 
+Non conducting 
+Module Self 
+Checking Failure 
+ 
+ 
+Led on for 2 sec 
+ 
+Led Extinguished 
+for 2 sec 
+Non conducting 
+for 2 sec1 
+Non conducting for 
+2 sec 
+Trip Output 
+current limit 
+exceeded 
+Scheme needs 
+checking for 
+correct 
+application or a 
+wiring fault 
+ 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern               
+(3 x 300ms 
+illuminations and 
+then 700ms 
+Extinguished) 
+Non conducting 
+Non conducting 
+Supervision 
+Output current 
+limit exceeded 
+Scheme needs 
+checking for 
+correct 
+application or a 
+wiring fault 
+Reset only 
+possible by 
+cycling power off 
+then on 
+ 
+Led on  solid 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Conducting for 
+100 msec  
+and then Non 
+conducting 
+(further Trip 
+outputs are 
+inhibited) 
+Non conducting 
+Sensor 
+continuously 
+picked up 
+Reset when 
+continuous pick 
+up removed 
+ 
+ 
+ 
+1 May exhibit transient operation prior to Trip Output current limit circuitry operating. 
+
+PAGE 10
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 10 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Module 
+Type 
+Red Led 
+Green Led 
+Trip Output 
+Supervision 
+Output 
+Condition 
+Notes 
+Single Sensor Module 
+ 
+Led flashes 3 
+times 
+ 
+Led flashes 3 
+times 
+Non conducting 
+Non conducting 
+Power Up Test 
+for Single 
+Sensor Module 
+ 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+1 Sensor 
+connected and 
+sensor open or 
+short circuited 
+ 
+ 
+Led Extinguished 
+ 
+Led  on solid 
+Non conducting 
+Conducting 
+2 Sensors 
+connected 1 
+Sensor  open 
+circuited 
+Sensor Fault 
+condition is not 
+indicated! 
+This version of 
+1S23 only works 
+correctly with 
+one sensor 
+connected only. 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+2 Sensors 
+connected 1 of 
+2 Sensors  
+short circuited 
+This version of 
+1S23 only works 
+correctly with 
+one sensor 
+connected only 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+2 Sensors 
+connected and 
+both Sensors 
+open or short 
+circuited 
+This version of 
+1S23 only works 
+correctly with 
+one sensor 
+connected only 
+ 
+ 
+
+PAGE 11
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 11 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Module 
+Type 
+Red Led 
+Green Led 
+Trip Output 
+Supervision 
+Output 
+Condition 
+Notes 
+Two Sensor Module 
+ 
+Led flashes 4 
+times 
+ 
+Led flashes 4 
+times 
+Non conducting 
+Non conducting 
+Power Up Test 
+for Two Sensor 
+Module 
+ 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+1 Sensor 
+connected and 
+open circuited 
+This version of 
+1S23 only works 
+correctly with 
+two sensors 
+connected only. 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+2 Sensors 
+connected and 
+1 or  both open 
+circuited 
+ 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+1 Sensor 
+connected and 
+short circuited 
+This version of 
+1S23 only works 
+correctly with 
+two sensors 
+connected only. 
+ 
+Led Extinguished 
+ 
+Led repeat flash 
+pattern                 
+(300ms 
+illuminations) 
+Non conducting 
+Non conducting 
+2 Sensors 
+connected and 
+short circuited 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+PAGE 12
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 12 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Scheme Wiring 
+ 
+1S23 Connection diagram 
+1S23
+ARC 
+FAULT
+                  1 (-)                                         B                             W
+              2 (+)                                 3                   4
+SUPERVISION
+Arc Sensor 
+Input
+}
+SENSOR 
+INPUTS
+WHITE
+BLUE
+ 
+ 
+The above diagram shows the 1S23 connections including the Blue and White flying leads. 
+ 
+The 1S23 is ordered as either a single sensor or 2 sensor version. 
+ 
+Sensor connection is not polarity sensitive. On the 2 sensor version, the red wires and black wires 
+of the ARC Fault Sensor should be paired and terminated on to the 1S23 Arc Sensor Input.  
+ 
+Note : The single sensor version and 2 sensor version must be used for their intended application 
+otherwise a sensor fail condition will arise and correct ARC Trip operation cannot be guaranteed.  
+ 
+• A single sensor must be used with a single sensor version of the 1S23 (1S23-A#). 
+• 2 Sensors must be used with a 2 sensor version of the 1S23 (1S23-B#). 
+ 
+Note : The ARC FAULT and SUPERVISION outputs of the 1S23 employ switched negatives. 
+ 
+
+PAGE 13
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 13 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Example Schematic 
+The following typical schematic shows how the 1S23 is wired to interface with an Overcurrent relay 
+for circuit breaker tripping. 
+ 
+CIRCUIT BREAKER 
+TRIP COIL
+NEG
+POS
+1S23
+SCHEMATIC SHOWING TRIPPING OF 
+CIRCUIT BREAKER VIA ALLOCATED 
+ARC FAULT TRIP OUTPUT OF 
+OVERCURRENT RELAY
+CIRCUIT BREAKER SHOWN IN THE 
+OPEN POSITION
+52a
+ARC 
+FAULT
+                  1 (-)                                         B                             W
+              2 (+)                                 3                   4
+OVERCURRENT RELAY
+I>
+ARC 
+FAULT 
+TRIP
+SUPERVISION
+Arc Sensor 
+Input
+}
+SENSOR 
+INPUTS
+ARC
+FAULT
+INPUT
+SUPV
+INPUT
+WHITE
+BLUE
+ARC FAULT INPUT
+O/C PICKUP
+ARC FAULT TRIP
+ARC FAULT TRIP LOGIC :
+(-)                      (+)  (-)                     (+)
+ 
+ 
+The ARC FAULT and SUPERVISION outputs of the 1S23 employ switched negatives and must be 
+applied to isolated digital inputs.  
+ 
+The digital inputs interfacing with the 1S23 must not have a common negative with any other digital 
+input.  
+ 
+ 
+
+PAGE 14
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 14 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Over Current Relay Configuration 
+Over Current Relay Configuration 
+The 1S23 ARC Module outputs are designed for connection to dedicated binary status inputs on 
+a protection relay. The 1S23 outputs are not suitable for direct tripping applications of auxiliary 
+relays or circuit breaker coils. 
+ 
+The 1S23 ARC Module does not require configuration or setting. 
+ 
+The following section provides an example of the Over Current Relay Configuration to accept an 
+ARC Trip and Supervision inputs from a 1S23 Arc Fault Module.  
+ 
+ 
+Application Example 
+Arc fault protection is to be applied to a Feeder switchboard panel to provide coverage of the 
+Current Transformer and Cable termination chambers as shown in the diagram below. 
+1S23
+Trip CB
+Overcurrent 
+Relay
+1S30
+Arc Sensor
+1S30
+Arc Sensor
+ 
+ 
+
+PAGE 15
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 15 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+The design criteria for this application example are itemised below : 
+1. The Current Transformer and Cable termination chambers are to be covered in a common 
+zone by 2 separate Arc fault sensors connected to a single 1S23 Arc Fault Module. 
+2. The ARC Fault Trip shall be interlocked with a fast current check element in the overcurrent 
+relay using configurable logic within the overcurrent relay. 
+3. The ARC Trip output from the 1S23 shall be wired to an allocated isolated input of the 
+Overcurrent Relay for CB Tripping and ARC Fault Trip Alarm purposes. 
+4. The SUPERVISION output from the 1S23 shall be wired to an allocated isolated input of 
+the Overcurrent Relay for ARC Sensor Alarm purposes. 
+5. The Overcurrent Relay shall have outputs allocated for  
+a. CB Trip  
+b. ARC Fault Trip Alarm 
+c. SUPERVISION Fail Alarm  (For Supervision Fail condition) 
+ 
+For the purposes of this example a Reyrolle Argus M relay shall be employed to demonstrate 
+how to interface an Overcurrent relay with a 1S23 Arc Fault Module.  
+ 
+Equally any protection relay capable of providing a fast overcurrent protection element and 
+configurable logic and assignable inputs may be utilised.   
+ 
+ 
+Reyrolle Argus M Configuration 
+In this application the following allocations are adopted : 
+ 
+Input Allocation 
+ 
+Input Function 
+Binary Input 
+1S23 ARC Trip 
+Input 1 
+1S23 SUPERVISION Fail 
+Input 2 (Input is to be Inverted to indicate Fail 
+condition) 
+ 
+ 
+
+PAGE 16
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 16 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Output Allocation 
+ 
+Output Function 
+Binary Output 
+ARC Fault Trip Output 
+Output 2 
+1S23 SUPERVISION ALARM 
+Output 3 
+ARC Fault Trip Alarm 
+Output 4 
+ 
+Quick Logic Equation Allocation 
+ 
+Quick Logic Equation Function 
+Quick Logic Equation 
+ARC Fault Input and Current Check Interlock 
+(ARC Fault Trip logic) 
+E1 
+ 
+Virtual Allocation 
+ 
+Virtual Function 
+Virtual 
+50-1 Current Check 
+V1 
+ 
+LED Allocation 
+ 
+LED Function 
+LED 
+ARC Fault Trip Output 
+L1 
+1S23 SUPERVISION Fail 
+L2 
+1S23 ARC Trip 
+L3 
+ 
+ 
+
+PAGE 17
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 17 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Using Reydisp Evolution and the above allocation information we create a setting configuration 
+according to the following screen shots : 
+ 
+Settings Tab 
+Here the 50-1 Phase Instantaneous Protection Element has been enabled. 
+ 
+ 
+Quick Logic Equation E1 provides the Current Check interlock for the ARC Fault Input (I1.V1) 
+ 
+ 
+ARC FAULT INPUT
+O/C PICKUP
+ARC FAULT TRIP
+ARC FAULT TRIP LOGIC :
+I1
+V1
+E1
+Quick Logic :
+E1 = I1.V1
+Output Matrix Allocations :
+E1 => B02 (ARC Fault Trip)
+E1 => B04 (ARC Fault Trip Alarm)
+ 
+
+PAGE 18
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 18 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Output Matrix 
+The 50-1 Element is assigned to V1 for our current check logic. 
+  
+ 
+The Quick Logic Equation E1 (ARC Fault Trip incorporating Current Check Interlock logic) is assigned 
+to BO2 (CB Trip output) and BO4 (ARC Fault Trip Alarm). 
+ 
+ 
+
+PAGE 19
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 19 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Quick Logic Equation E1 (ARC Fault Trip incorporating Current Check Interlock logic) is also assigned 
+to LED1 for ARC Fault Trip LED Indication purposes on the relay. 
+ 
+ 
+BI2 which is allocated for 1S23 SUPERVISION Fail is assigned to BO3 to provide the 1S23 
+SUPERVISION ALARM output. 
+  
+ 
+
+PAGE 20
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 20 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+BI2 is inverted to cater for the removal of voltage to indicate the 1S23 SUPERVISION Fail condition. 
+ 
+ 
+BI2 which is allocated for 1S23 SUPERVISION Fail is also assigned to LED2 for LED Indication 
+purposes on the relay. 
+ 
+ 
+
+PAGE 21
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 21 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+BI1 which is allocated for 1S23 ARC Trip is also assigned to LED3 for LED Indication purposes on the 
+relay. 
+ 
+ 
+LED Matrix 
+The LED Matrix defines the colour and latching or self resetting behaviour of the LEDs. 
+LED 1 : ARC Fault Trip : Red LED and latched 
+LED 2 : 1S23 SUPERVISION : Orange LED and self resetting 
+LED 3 : 1S23 ARC Trip : Red LED and latched (Indication of 1S23 Output Operation) 
+ 
+ 
+
+PAGE 22
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 22 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+1S23 Dimensions and Terminal Layout 
+ 
+                                   
+ 
+ 
+ 
+The module is designed for mounting on 35mm top hat din rail. 
+ 
+The flying leads comprise of 2 x 2,000mm 0.75 mm2 cores. 
+ 
+Refer to the 1S23 Technical Bulletin for complete installation details. 
+ 
+
+PAGE 23
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 23 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Sensor Installation 
+Sensor Spacing 
+The 1S30 sensor is available as a single detector or dual detector package.  
+The 1S30A single detector version is depicted below showing the location of the detection window   and 
+the approximate coverage zone : 
+                
+ 
+ 
+The recommended spacing for the 1S30A single detectors is approximately 5 - 6 m to ensure 
+adequate detection overlap. 
+ 
+ 
+3m 
+Detection window 
+Coverage Zone 
+5 - 6 m 
+
+PAGE 24
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 24 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ 
+The 1S30B Dual detector version provides an additional detection window for dual zones of coverage 
+as depicted below : 
+ 
+ 
+ 
+The recommended spacing for the 1S30B single detectors is approximately 5 - 6 m to ensure 
+adequate detection overlap, this combination provides an overall coverage zone of approximately 10 - 
+12 m. 
+ 
+ 
+Detection windows 
+6m 
+10 - 12m 
+
+PAGE 25
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 25 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+The 1S30A and 1S30B sensors may also be mixed to provide various coverage combinations, again  
+spacings of approximately 5 - 6 m should be observed to ensure adequate detection overlap. 
+ 
+ 
+ 
+ 
+ 
+Sensor Placement 
+Sensors need to be mounted to provide full coverage of the switchgear cubicles to be protected. Where 
+the protected zone is larger than the sensor coverage then the use of multiple sensors is required. 
+Precise positioning of the sensors is generally not required as the light caused by the arc is reflected 
+from the switchgear walls. 
+ 
+Sensor Mounting 
+The 1S30 is suitable for flush panel mounting in a number of configurations, for further information 
+on mounting arrangements and mounting hardware refer to the 1S30 Technical Bulletin.  
+10 - 12m 
+
+PAGE 26
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 26 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Example Sensor Placement 
+The following are some typical examples of sensor placement. 
+ 
+Sensor placement inside the CB racking chamber 
+ 
+ 
+Sensor placement inside the busbar chamber 
+
+PAGE 27
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 27 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ 
+Sensor placement inside the cable termination chamber 
+ 
+ 
+Sensor placement for switchgear Busbar coverage (External through Hole Detector) 
+
+PAGE 28
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 28 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ 
+Sensor placement near a Low Voltage Contactor for a Variable Speed Drive 
+ 
+ 
+Sensor placement for a Switchgear cable termination chamber (External through Hole Detector) 
+
+PAGE 29
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 29 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ 
+Sensor placement for an end of Bus chamber (External through Hole Detector) 
+ 
+ 
+Sensor placement for a Switchgear cable termination chamber (External through Hole Detector) 
+ 
+ 
+
+PAGE 30
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 30 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Commissioning 
+Commissioning Preliminaries 
+Carefully examine the module to ensure that no damage has occurred during transit. Check that 
+the model number and rating information are correct. 
+ 
+Insulation 
+ 
+The relay, and its associated wiring, may be insulation tested between: 
+ 
+- all electrically isolated circuits 
+- all circuits and earth 
+ 
+An electronic or brushless insulation tester should be used, having a dc voltage not exceeding 
+1000V.  Accessible terminals of the same circuit should first be strapped together.  Deliberate 
+circuit earthing links, removed for the tests, subsequently must be replaced. 
+ 
+ARC Trip Verification 
+ 
+ARC Trip Verification will require a flash source to initiate sensor operation.  
+ 
+A high powered photographic flash is the most convenient means of initiating a positive sensor 
+operation.  
+ 
+Note that mobile phone or small compact camera flashes may not have sufficient power to cause 
+sensor operation.  
+ 
+The RMS ‘1S23 Arc Flash Timing Test Guide’ outlines a suggested test setup to provide a flash 
+source and determine ARC Trip times. The ‘1S23 Arc Flash Timing Test Guide’ is available on the 
+Mors Smitt website : 
+ 
+https://www.morssmitt.com/uploads/files/catalog/products/1s23-arc-flash-timing-test-guide.pdf 
+ 
+ 
+
+PAGE 31
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 31 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Site Commissioning Verification Checklist 
+Observe all site specific standard safety procedures. 
+ 
+The following tests are undertaken following the completion of all 1S23 ARC Module and 
+Overcurrent Relay scheme wiring and the wiring of all 1S30 sensors. 
+ 
+System Power Up 
+ 
+Item 
+Description 
+Complete 
+1 
+Confirm all necessary primary equipment isolations 
+ 
+2 
+Confirm all necessary secondary equipment isolations (including 
+trip outputs) 
+ 
+3 
+Check fitment of 1S30 optical sensors and cable condition 
+ 
+4 
+Check panel installation of the 1S23 ARC Module 
+ 
+5 
+Check the 1S23 is wired to the protection design schematic  
+ 
+6 
+Confirm 1S23 SUPERVISION output is non conducting by 
+confirming that the associated Overcurrent relay 1S23 
+SUPERVISION input becomes de-asserted (alternatively using a 
+voltmeter check the voltage across the White Supervision Flying 
+lead and Terminal 1 of the 1S23 is +Pos supply voltage) 
+ 
+7 
+Confirm that the correct number of sensors are connected to the 
+module according to the order code. 
+ 
+8 
+Apply correct Auxiliary voltage to power up the 1S23 
+Observe the LED indication upon power up and confirm the 
+module version corresponds to the module order code : 
+Single Sensor version : Red and Green LED flash 3 times 
+Two Sensor version : Red and Green LED flash 4 times 
+ 
+The Green PWR LED will then illuminate solid green to indicate 
+System Healthy 
+ 
+9 
+Confirm 1S23 SUPERVISION output is conducting by confirming 
+that the associated Overcurrent relay 1S23 SUPERVISION input 
+becomes asserted (alternatively using a voltmeter check the 
+voltage across the White Supervision Flying lead and Terminal 1 
+of the 1S23 is  0V (< 0.5V) 
+ 
+10 
+Confirm that the Green PWR LED indicates no sensor fail 
+conditions (Refer Sensor Failure Trouble shooting if sensor failure 
+is indicated) 
+ 
+11 
+Confirm that no ARC fault trips are indicated 
+ 
+ 
+ 
+
+PAGE 32
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 32 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+SUPERVISION Output Verification 
+ 
+Item 
+Description 
+Complete 
+1 
+In turn disconnect each sensor from the associated 1S23 sensor 
+input 
+ 
+2 
+Confirm that the Green PWR LED flashes and the SUPERVISION 
+output becomes non conducting by confirming that the associated 
+Overcurrent relay 1S23 SUPERVISION input becomes de-
+asserted (alternatively using a voltmeter check the voltage across 
+the White Supervision Flying lead and Terminal 1 of the 1S23 is 
++Pos supply voltage) 
+ 
+3 
+Reconnect all sensors back to the associated 1S23 sensor input 
+ 
+4 
+Confirm that the Green PWR LED returns to solid illumination and 
+the 1S23 SUPERVISION output is conducting by confirming that 
+the associated Overcurrent relay 1S23 SUPERVISION input 
+becomes asserted (alternatively using a voltmeter check the 
+voltage across the White Supervision Flying lead and Terminal 1 
+of the 1S23 is  0V (< 0.5V) 
+ 
+5 
+Place a short across the 1S23 sensor input 
+ 
+6 
+Confirm that the Green PWR LED flashes and the 1S23 
+SUPERVISION output becomes non conducting by confirming 
+that the associated Overcurrent relay 1S23 SUPERVISION input 
+becomes de-asserted (alternatively using a voltmeter check the 
+voltage across the White Supervision Flying lead and Terminal 1 
+of the 1S23 is +Pos supply voltage) 
+ 
+7 
+Remove the short from the 1S23 sensor input 
+ 
+8 
+Confirm that the Green PWR LED returns to solid illumination and 
+the 1S23 SUPERVISION output is conducting by confirming that 
+the associated Overcurrent relay 1S23 SUPERVISION input 
+becomes asserted (alternatively using a voltmeter check the 
+voltage across the White Supervision Flying lead and Terminal 1 
+of the 1S23 is  0V (< 0.5V) 
+ 
+ 
+ 
+
+PAGE 33
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 33 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Arc Trip Testing 
+ 
+Item 
+Description 
+Complete 
+1 
+Initiate the operation of each sensor by the use of a suitably 
+powered camera flash 
+* If a current check interlock is employed in your ARC Fault 
+protection scheme ensure that current is injected into the 
+associated Overcurrent relay to cause operation of the current 
+check element at the same time the sensor is flashed  
+ 
+2 
+Check for correct operation of the RED 1S23 ARC fault output 
+LED (2 sec illumination and then self reset) 
+ 
+3 
+Confirm operation of the 1S23 ARC fault output is conducting by 
+confirming that the associated Overcurrent relay 1S23 Arc Fault 
+input becomes asserted and then drops out following the 1S23 
+Arc Fault Output dwell time of approx 100 ms (monitor the 
+operation of the 1S23 output using a Relay test system such as a 
+Doble to monitor that the voltage across the Blue ARC Fault 
+Flying lead and Terminal 1 of the 1S23) 
+ 
+4 
+Confirm operation of the Overcurrent relay ARC Fault Trip Output 
+(For CB tripping) 
+ 
+ 
+Refer also to the RMS ‘1S23 Arc Flash Timing Test Guide’ for a suggested test setup to provide a 
+flash source and determine ARC Trip times. The ‘1S23 Arc Flash Timing Test Guide’ is available 
+on the Mors Smitt website : 
+ 
+https://www.morssmitt.com/uploads/files/catalog/products/1s23-arc-flash-timing-test-guide.pdf 
+ 
+ARC Sensor Supervision Trouble Shooting 
+ 
+Item 
+Description 
+Complete 
+1 
+If there is a SUPERVISION indication re-check the 1S30 wiring 
+integrity 
+ 
+2 
+Check that the correct number of sensors are wired to the arc 
+sensor inputs according to the ARC Module order code  
+ 
+3 
+Check for high ambient lighting conditions for all the sensors 
+ 
+ 
+Make use of the summary of indications to aid in troubleshooting. 
+
+PAGE 34
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 34 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+ARC Trip Trouble Shooting 
+ 
+If an arc trip occurs without an ARC being present this indicates either: 
+- a very high ambient light condition is triggering a sensor  
+or 
+- short circuit wiring of a 1S30 sensor 
+ 
+In both cases if the condition persists the Supervision output will operate after a  0.5 sec delay. 
+ 
+Item 
+Description 
+Complete 
+1 
+Check the 1S30 wiring integrity of the sensors 
+ 
+2 
+Check for high ambient lighting conditions for all the sensors 
+ 
+ 
+Make use of the summary of indications to aid in troubleshooting. 
+ 
+ 
+ 
+ 
+
+PAGE 35
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 35 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Installation 
+Handling of Electronic Equipment 
+A person’s normal movements can easily generate electrostatic potentials of several thousand volts.  
+Discharge of these voltages into semiconductor devices when handling electronic circuits can cause 
+serious damage, which often may not be immediately apparent, but the reliability of the circuit will have 
+been reduced. 
+The electronic circuits of Relay Monitoring Systems Pty Ltd products are immune to the relevant 
+levels of electrostatic discharge when housed in the case.  Do not expose them to the risk of 
+damage by withdrawing modules unnecessarily. 
+Each module incorporates the highest practicable protection for its semiconductor devices.  
+However, if it becomes necessary to withdraw a module, the following precautions should be taken 
+to preserve the high reliability and long life for which the equipment has been designed and 
+manufactured. 
+1. Before removing a module, ensure that you are at the same electrostatic potential as the 
+equipment by touching the case. 
+2. Handle the module by its front-plate, frame, or edges of the printed circuit board. 
+3. Avoid touching the electronic components, printed circuit track or connectors. 
+4. Do not pass the module to any person without first ensuring that you are both at the same 
+electrostatic potential.  Shaking hands achieves equipotential. 
+5. Place the module on an antistatic surface, or on a conducting surface which is at the same 
+potential as you. 
+6. Store or transport the module in a conductive bag. 
+If you are making measurements on the internal electronic circuitry of equipment in service, it is 
+preferable that you are earthed to the case with a conductive wrist strap. 
+Wrist straps should have a resistance to ground between 500k – 10M ohms.  If a wrist strap is not 
+available, you should maintain regular contact with the case to prevent the build-up of static.   
+Instrumentation which may be used for making measurements should be earthed to the case 
+whenever possible. 
+ 
+ 
+
+PAGE 36
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 36 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+  
+Safety Section 
+ 
+ 
+This Safety Section should be read before commencing any work on the equipment. 
+ 
+ 
+The information in the Safety Section of the product documentation is intended to ensure that 
+products are properly installed and handled in order to maintain them in a safe condition. It is 
+assumed that everyone who will be associated with the equipment will be familiar with the contents 
+of the Safety Section.  
+ 
+Explanation of Symbols & Labels 
+The meaning of symbols and labels which may be used on the equipment or in the product 
+documentation is given below. 
+ 
+ 
+ 
+ 
+Caution: 
+refer to product information 
+ 
+ 
+ 
+ 
+ 
+Caution: 
+risk of electric shock 
+ 
+ 
+ 
+ 
+Functional earth terminal 
+ 
+       Note: 
+this symbol may also be used for a  
+   
+Protective/safety earth terminal if that terminal 
+ 
+is part of a terminal block or sub-assembly 
+ 
+e.g. power supply. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+!
+
+PAGE 37
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 37 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Equipment Operating Conditions 
+The equipment should be operated within the specified electrical and environmental limits. 
+Protective relays, although generally of robust construction, require careful treatment prior to 
+installation and a wise selection of site.  By observing a few simple rules, the possibility of 
+premature failure is eliminated, and a high degree of performance can be expected. 
+Care must be taken when unpacking and installing the relays so that none of the parts are damaged 
+or their settings altered and must always be handled by skilled persons only. 
+Relays should be examined for any wedges, clamps, or rubber bands necessary to secure moving 
+parts to prevent damage during transit and these should be removed after installation and before 
+commissioning. 
+The relay should be mounted on the circuit breaker or panel to allow the operator the best access 
+to the relay functions. 
+ 
+Equipment Connections 
+Personnel undertaking installation, commissioning or servicing work on this equipment should be 
+aware of the correct working procedures to ensure safety.  The product documentation should be 
+consulted before installing, commissioning or servicing the equipment. 
+Terminals exposed during installation, commissioning and maintenance may present hazardous 
+voltage unless the equipment is electrically isolated. 
+If there is unlocked access to the rear of the equipment, care should be taken by all personnel to 
+avoid electric shock or energy hazards. 
+Voltage and current connections should be made using insulated crimp terminations to ensure that 
+terminal block insulation requirements are maintained for safety.  To ensure that wires are correctly 
+terminated, the correct crimp terminal and tool for the wire size should be used. 
+Before energising the equipment, it must be earthed using the protective earth terminal, or the 
+appropriate termination of the supply plug in the case of plug connected equipment.  Omitting or 
+disconnecting the equipment earth may cause a safety hazard. 
+The recommended minimum earth wire size is 2.5mm2, unless otherwise stated in the technical 
+data section of the product documentation. 
+Before energising the equipment, the following should be checked: 
+1. Voltage rating and polarity; 
+2. CT circuit rating and integrity of connections; 
+3. Protective fuse rating; 
+4. Integrity of earth connection (where applicable) 
+ 
+ 
+ 
+ 
+
+PAGE 38
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 38 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Decommissioning & Disposal 
+Decommissioning: 
+The auxiliary supply circuit in the relay may include capacitors across the 
+supply or to earth.  To avoid electric shock or energy hazards, after completely 
+isolating the supplies to the relay (both poles of any dc supply), the capacitors 
+should be safely discharged via the external terminals prior to 
+decommissioning. 
+Disposal: 
+It is recommended that incineration and disposal to water courses is avoided.  
+The product should be disposed of in a safe manner. 
+ 
+ 
+ 
+
+PAGE 39
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 39 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Maintenance 
+Mechanical Inspection 
+Relay Assembly 
+Inspect the relay for obvious signs of damage or ingress of moisture or other contamination. 
+Relay Module 
+Isolate the relay, remove any securing screws where fitted and unplug the relay from the terminal base.  
+Inspect the relay for signs of any overheating or burn marks which may have been caused by 
+overvoltage surge or transient conditions on the power supply. 
+ 
+Test Intervals 
+The maintenance tests required will largely depend upon experience and site conditions, but as a 
+general rule it is recommended that the following inspection and tests are performed every twelve 
+months. 
+ Mechanical Inspection 
+ Check of Connections 
+ Insulation Resistance Test 
+ 
+ 
+ 
+
+PAGE 40
+ 
+ 
+ 
+                            www.morssmitt.com/rms  for the latest product information.                                      Page 40 
+Due to RMS continuous product improvement policy this information is subject to change without notice.  1S23_User_Guide/Iss C/06/06/22 
+ 
+Defect Report Form 
+ 
+Please copy this sheet and use it to report any defect which may occur. 
+Customers Name & Address: 
+Contact Name: 
+ 
+ 
+Telephone No: 
+ 
+ 
+Fax No: 
+ 
+ 
+Supplied by: 
+ 
+ 
+Date when installed: 
+ 
+ 
+Site: 
+ 
+ 
+Circuit: 
+ 
+ 
+ 
+When Defect Found  
+Date: 
+Commissioning? 
+Maintenance? 
+Systems Fault? 
+Other, Please State: 
+ 
+Product Part No: 
+Serial Number: 
+Copy any message displayed by the relay: 
+ 
+ 
+ 
+Describe Defect: 
+ 
+ 
+ 
+Describe any other action taken: 
+ 
+ 
+ 
+Signature: 
+ 
+Please Print Name: 
+Date: 
+ 
+For RMS use only  
+Date Received: 
+Contact Name: 
+Reference No: 
+Date Acknowledged: 
+Date of Reply: 
+Date Cleared: 
+ 
+ 
+ 

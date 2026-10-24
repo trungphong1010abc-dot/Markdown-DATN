@@ -1,0 +1,445 @@
+                      Hướng dẫn viết Đồ án tốt nghiệp
+
+Phần mở đầu: viết theo form của khoa gửi.
+
+
+Chương I: tìm hiểu đối tượng ĐA (Đặt tên theo bài toán của mình)
+Chương này mục đích đưa ra được yêu cầu của bài toán thực tế của mình.
+① Tìm hiểu sự cần thiết của nhiệm vụ, tại sao phải thực hiện bài toán này?
+② Tìm hiểu về bài toán của đồ án:
+         o   Với thiết bị đo/điều khiển + hệ nhúng:
+         - Đã có thiết bị gì rồi thì thường nêu 1 vài thiết bị và nêu ưu/nhược
+         điểm của nó.
+         - Tình hình nghiên cứu:
+             * Trong nước
+             * Nước ngoài
+         - Cần bổ sung gì trong Đồ án.
+         o   Đối với hệ thống TĐH (Tự động hóa):
+         – Tìm hiểu tổng quan cả hệ thống (sơ lược).
+         – Tìm hiểu về thiết bị / phần mình thực hiện cần chi tiết bao gồm
+         phần mình thực hiện;bao gồm thiết bị gì, chức năng thiết bị, thông số
+         thiết bị .
+         – Nhận xét sơ bộ dưới dóc độ điều khiển tư động phần mình cần
+         làm.
+③ Kết luận chương I
+Yêu cầu cần thiết kế của đồ án.
+      + Đối với thiết bị: Có cụ thể các thông số Đầu vào: dải đo, độ chính
+xác, sai số , phân giải, dải tần số...
+      – Đầu ra: tương tự đầu vào
+      – Hiển thị/Bàn phím: Hiển thị gì? các phím chức năng?
+      – Cấp nguồn:
+      - Kích thước / trọng lượng / màu sắc
+      - Các cổng truyền thông
+      -Các chức năng: cụ thể có chức năng gì?
+(Yêu cầu phải cụ thể để có thể phục vụ cho việc thiết kế tránh yêu cầu chung
+chung. Ví dụ: Thiết kế đảm bảo độ tin cậy. Thế nào là tin cậy thì phải cụ thể ra
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                          1
+chạy đảm bảo ở thông số trạng thái trong bao lâu, các chức năng chạy đảm
+bảo như thế nào?)
++ Đối với hệ thống tự động:
+   -Yêu cầu đầu vào: số lượng, chất lượng
+   -Đầu ra: số lượng, chất lượng
+   -Các chức năng cần có
+   -Các chế độ hoạt động.
+Yêu cầu chi tiết + có con số cụ thể
+
+
+Chương II: Các cơ sở phục vụ cho thiết kế đồ án
+Trong chương này các em trình bày tất cả các cơ sở mà dựa vào đó ta thiết
+kế nên ĐATN của mình.
+      Cơ sở lý thuyết
+      Các hệ thống chính (Ví dụ: TIA, PCS7...)
+      Các thiết bị chính (PLC, Biến tần, HMI, Động cơ...)
+      Các phần mềm công cụ (Matlab, Labview...)
+Tất cả các tìm hiểu về thiết bị, các phần mềm sử dụng trong ĐATN phải được
+trình bày trong chương này. Các chương sau đó vào thiết kế thì sẽ có bất kỳ
+tìm hiểu nào nữa.
+Kết luận của chương II:
+Sau khi tìm hiểu các em kết luận các thiết bị và công cụ trên là phù hợp với sử
+dụng ở trong ĐA của mình.
+      Có thể nêu chi tiết vì sao nó lại phù hợp
+
+
+Chương III: Thiết kế phần cứng
+      Mạch nguyên lý + mạch in + vỏ máy cho thiết kế thiết bị đo và ĐK (điều
+       khiển)
+      Thiết kế tủ ĐK -> Bản vẽ 1 dây cho động lực. Bản vẽ chi tiết, Bản vẽ lắp
+       đặt và thi công cho tủ động lực và ĐK
+Thiết kế theo mô hình chữ V sẽ trình bày ở phía sau.
+Kết luận chương 3:
+Đánh giá sự phù hợp của thiết kế có đáp ứng được các yêu cầu của đề bài
+hay không.
+      Đạt
+      Không đạt -> Vì sao? Làm thế nào để có thể đạt
+   
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                         2
+Chương IV: Thiết kế phần mềm ĐK (Điều khiển)
+         +Thiết kế phần mềm cho thiết bị đo và ĐK -> Theo hướng dẫn cụ thể
+         +Thiết kế phần mềm cho hệ thống ĐK tự động
+         -> Bao gồm phần mềm PLC và HMI
+         -> Theo hướng dẫn cụ thể
+Kết luận: Đánh giá sự phù hợp của TK (Thiết kế) so với yêu cầu đặt ra ban
+đầu. Đạt / Không đạt -> tại sao? Muốn đạt thì cần bổ sung thêm gì.
+
+
+Phần TK bao gồm chương 3 và 4 -> có thể thêm chương
+Nguyên tắc giống nhau -> đặt ở 1 chương (Ví dụ phần cứng) tuy nhiên nếu
+khác biệt nhiều thì có thể chia ra thành 2 chương.
+Ví dụ: ĐA (Đồ án) có TK phần cứng cho thiết bị nhưng + Thiết kế tủ ĐK -> Có
+thể chia 2 chương khác nhau.
+Phần mềm uC và PC nếu phức tạp thì có thể chia thành 2 chương. Chú ý PLC
++ HMI -> 1 thể thống nhất nên không tách chương.
+
+
+Chương V: Đánh giá + Kết luận + Hướng phát triển
+      Thử nghiệm, test, hướng dẫn sử dụng
+      Đánh giá: đạt yêu cầu ban đầu hay không?
+      Kết luận: Đạt / Không đạt -> lý do
+      Hướng P.T tiếp theo của ĐA, có thể áp dụng thực tế... Như quy mô mở
+       rộng cần cho các tác nghiệm khác của mình.
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                       3
+                  Hướng dẫn thiết kế phần cứng hệ nhúng
+
+Dưới đây là chi tiết các giai đoạn của Mô hình chữ V áp dụng riêng cho kỹ
+thuật phần cứng (Hardware Engineering) của hệ nhúng:
+
+
+
+
+1. Nhánh bên trái: Giai đoạn Thiết kế và Phân rã (Design &
+Decomposition)
+Đi từ bức tranh tổng thể cấp cao xuống chi tiết từng linh kiện. [1]
+      Phân tích yêu cầu phần cứng (Hardware Requirements Analysis):
+       Xác định các thông số kỹ thuật đầu vào như chức năng, hiệu năng, điện
+       áp hoạt động, công suất tiêu thụ, kích thước vật lý (form factor), môi
+       trường làm việc và giá thành mục tiêu.Như đã hướng dẫn ở phần viết
+       đồ án Chương 1 của ĐA sẽ cho ta có đủ thông tin cho bước này. Xem ở
+       đây các em thấy cần có thông tin gì. Chú ý là thông tin đầy đủ, chi tiết
+       có con số cụ thể.
+      Thiết kế kiến trúc hệ thống (System/Architectural Design): Định
+       hình sơ đồ khối tổng thể của bo mạch. Quyết định lựa chọn vi điều
+       khiển/vi xử lý trung tâm, cấu trúc nguồn (Power Tree), và các chuẩn
+       giao tiếp (SPI, I2C, UART, CAN bus). Các khối phải có thông số đầu
+       vào, đầu ra, chức năng. Đồng thời cũng nêu phương thức đo kiểm,
+       đánh giá cho từng khối. Ví dụ: Khối nguồn: điện áp vào 24VDC ( 17-28
+       DC) dòng yêu cầu 2A, dòng inrush 5A, Output: 5V 5%-1A, 3.3V 5%-2A.
+       Ripper <100mV, có bảo vệ quá dòng, quá áp, quá nhiệt.
+      Thiết kế chi tiết mạch nguyên lý (Detailed Schematic Design): Tính
+       toán các mạch điện. Lựa chọn các linh kiện căn cứ vào datasheet và
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                           4
+       yếu cầu thiết kế. Chú ý: yêu cầu thiết kế và chọn lịnh kiện đáp ứng
+       được yêu cầu không thiết kế theo kiểu nêu 3-4 thiết bị rồi chọn 1 không
+       căn cứ vào yêu cầu ban đầu. Vẽ sơ đồ nguyên lý chi tiết (Schematic)
+       trên các phần mềm chuyên dụng (như Altium Designer, KiCad, OrCAD).
+       Giai đoạn này chọn chính xác mã linh kiện (IC, điện trở, tụ điện) và thiết
+       kế mạch logic. Bố trí các điểm đo thử nếu cần thiết. Nêu cách điều
+       chỉnh phần cứng của mạch
+      Thiết kế layout bo mạch (PCB Layout Design): Định vị linh kiện vật lý
+       và đi dây (routing) trên bo mạch in (PCB). Đảm bảo các quy tắc về toàn
+       vẹn tín hiệu (Signal Integrity), toàn vẹn nguồn (Power Integrity) và tương
+       thích điện từ (EMC/EMI). Kích thước, bố trí cơ học theo yêu cầu đã đặt
+       ra
+2. Đỉnh chữ V: Giai đoạn Hiện thực hóa (Implementation)
+      Chế tạo mạch mẫu (Fabrication & Assembly): Gửi file thiết kế
+       (Gerber) đi gia công phôi PCB và tiến hành hàn cắm linh kiện (PCBA)
+       để tạo ra các bo mạch thử nghiệm đầu tiên (Prototypes).
+3. Nhánh bên phải: Giai đoạn Tích hợp và Xác thực (Integration &
+Verification)
+Đi ngược từ cấp độ linh kiện nhỏ lên đến hệ thống hoàn chỉnh.
+    Kiểm thử cấp độ mạch/linh kiện (Hardware Component/Unit
+       Testing): Kiểm tra xem bo mạch vừa hàn xong có bị ngắn mạch, hở
+       mạch hay không. Đo đạc các điểm nguồn (Power-up test) để đảm bảo
+       điện áp chính xác trước khi cấp nguồn toàn mạch nhằm tránh cháy nổ
+       chip.
+      Kiểm thử tích hợp khối (Integration Testing): Kiểm tra chức năng của
+       từng khối mạch riêng biệt (ví dụ: khối giao tiếp RF, khối đọc cảm biến,
+       khối điều khiển động cơ). Đánh giá theo tiêu chí đặt ra. Đánh giá có đạt
+       yêu cầu hay không. Nếu không đạt thì quay lại giai đoạn trước và điều
+       chỉnh thiết kế. Sử dụng các công cụ giả lập phần cứng như Hardware-
+       in-the-Loop (HIL) hoặc Software-in-the-Loop (SIL) để kiểm tra độ phản
+       hồi.
+      Kiểm thử hệ thống phần cứng (System Testing): Ráp nối phần cứng
+       với phần mềm nhúng (Firmware) và vỏ cơ khí hoàn chỉnh để test toàn
+       bộ tính năng sản phẩm. Đánh giá độ bền, dòng tiêu thụ ở các chế độ
+       (Sleep, Active) và kiểm tra nhiệt độ hoạt động bằng camera hồng ngoại.
+      Kiểm định và Chứng nhận chấp nhận (Acceptance/Qualification
+       Testing): Đưa sản phẩm đi đo đạc tại các phòng Lab đạt chuẩn để lấy
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                          5
+      các chứng nhận bắt buộc (như CE, FCC, RoHS) về độ an toàn điện và
+      tương thích điện từ. Đảm bảo thiết bị đáp ứng 100% yêu cầu ban đầu
+      của khách hàng. Cái này có thể nêu ra nhưng chưa cần thực hiện. Đối
+      với thiết bị đo tối thiểu calibration và test xuất sưởng.
+
+
+Mối quan hệ song song (Giao tiếp xuyên suốt chữ V)
+Điểm cốt lõi của mô hình là mỗi giai đoạn ở nhánh trái đều có một giai
+đoạn đối ứng ở nhánh phải:
+     Khi bạn đang Phân tích yêu cầu, bạn phải viết luôn Kế hoạch kiểm định
+      chứng nhận.
+     Khi bạn đang Thiết kế kiến trúc sơ đồ khối, bạn phải thiết kế sẵn Kịch
+      bản kiểm thử hệ thống.
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                        6
+                 Hướng dẫn thiết kế phần mềm hệ nhúng
+
+Dưới đây là chi tiết các giai đoạn của Mô hình chữ V cho phần mềm nhúng:
+
+
+
+
+1. Nhánh bên trái: Giai đoạn Thiết kế và Phát triển (Design &
+Development)
+     Phân tích yêu cầu phần mềm (Software Requirements Specification
+      - SRS): Xác định phần mềm phải làm gì. Ví dụ: Thu thập dữ liệu cảm
+      biến sau mỗi 10ms, truyền dữ liệu qua mạng CAN, tiêu thụ dòng điện
+      dưới 5mA ở chế độ sleep, hoặc đáp ứng tiêu chuẩn an toàn nào.
+     Thiết kế kiến trúc phần mềm (High-Level / Architectural Design):
+      Định hình cấu trúc tổng thể của mã nguồn. Quyết định xem hệ thống sẽ
+      chạy theo dạng Bare-metal (vòng lặp while(1) kết hợp ngắt) hay sử
+      dụng một hệ điều hành thời gian thực (RTOS như FreeRTOS, Zephyr).
+      Chia phần mềm thành các layer rõ ràng (Layer Driver phần cứng, Layer
+      Middleware, Layer Application).
+     Thiết kế phần mềm chi tiết (Low-Level / Detailed Software Design):
+      Thiết kế chi tiết cho từng module, hàm xử lý, thuật toán, cấu trúc dữ
+      liệu, và biểu đồ trạng thái (State Machine). Giai đoạn này xác định cách
+      phần mềm quản lý bộ nhớ, xử lý ưu tiên giữa các Task (Task Priority).
+     Đỉnh chữ V - Lập trình (Coding / Implementation): Viết code thực tế
+      (thường bằng ngôn ngữ C/C++).
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                       7
+2. Nhánh bên phải: Giai đoạn Kiểm thử và Tích hợp (Testing &
+Integration)
+Điểm đặc biệt của phần mềm nhúng là quá trình test đi từ môi trường mô
+phỏng (trên máy tính) dần tiến về môi trường phần cứng thật.
+      Kiểm thử đơn vị (Unit Testing): Kiểm tra các hàm hoặc module độc
+       lập ngay trên máy tính (Host) hoặc thông qua trình mô phỏng
+       (Simulator). Mục tiêu là đảm bảo logic toán học, thuật toán, và các
+       nhánh rẽ trong code chạy đúng mà chưa cần kết nối phần cứng.
+      Kiểm thử tích hợp phần mềm (Software Integration Testing): Ráp
+       các module phần mềm lại với nhau thành một hệ thống hoàn chỉnh (ví
+       dụ: Tích hợp Driver đọc cảm biến với bộ quản lý bộ nhớ). Sử dụng kỹ
+       thuật Mocking để giả lập các dữ liệu phần cứng chưa có sẵn.
+      Kiểm thử hệ thống phần mềm trên phần cứng (System / Hardware-
+       Software Integration Testing): Nạp code vào chip thật (Target
+       Hardware) để kiểm tra. Sử dụng các phương pháp như:
+          o    SIL (Software-in-the-Loop): Chạy thuật toán phần mềm trên PC
+               với dữ liệu giả lập từ môi trường.
+          o    HIL (Hardware-in-the-Loop): Nạp phần mềm vào chip thật,
+               nhưng chip thật này được kết nối với một hệ thống máy tính mô
+               phỏng lại các tín hiệu vật lý của môi trường (ví dụ: mô phỏng
+               động cơ, cảm biến nhiệt độ)(Cái này mình không có nên đề ra
+               cách test nhưng có thể chưa thức hiện).
+      Kiểm thử chấp nhận (Acceptance Testing / Validation): Kiểm tra xem
+       phần mềm nhúng có đáp ứng đầy đủ các yêu cầu ban đầu (SRS) trong
+       các điều kiện khắc nghiệt nhất không (Ví dụ: Chạy liên tục 72 giờ không
+       bị tràn RAM, hoạt động chính xác trong phòng thử nghiệm nhiệt độ
+       cao).
+
+
+Mối quan hệ đối xứng "Thiết kế nào - Kiểm thử nấy"
+Cốt lõi của mô hình chữ V là mọi tài liệu thiết kế ở nhánh trái đều là nền
+tảng để viết kịch bản kiểm thử (Test Case) ở nhánh phải:
+
+
+So sánh Ưu điểm & Nhược điểm đối với Phần mềm nhúng
+Ưu điểm                                    Nhược điểm
+Phát hiện lỗi bộ nhớ sớm: Kiểm thử Cồng kềnh, tốn thời gian làm tài
+đơn vị và tích hợp chặt chẽ giúp phát      liệu: Việc phải chuẩn bị kịch bản kiểm
+hiện sớm các lỗi chí mạng của hệ           thử song song với thiết kế làm chậm
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                          8
+nhúng như: Tràn bộ đệm (Buffer         tốc độ ra mắt phiên bản đầu tiên
+Overflow), Rò rỉ bộ nhớ (Memory        (Prototype).
+Leak).
+Chất lượng code cực cao: Bắt buộc Khó thay đổi: Nếu ở giai đoạn HIL
+phải đạt độ bao phủ mã nguồn (Code     Test phát hiện ra kiến trúc hệ điều
+Coverage) cao, rất phù hợp cho các     hành (RTOS) không đáp ứng kịp thời
+ngành yêu cầu độ an toàn tuyệt đối (Y gian thực, việc quay lại sửa thiết kế
+tế, Hàng không, Ô tô).                 kiến trúc sẽ cực kỳ tốn kém.
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                       9
+                  Hướng dẫn thiết kế phần mềm hệ nhúng
+
+Dưới đây là chi tiết các giai đoạn của Mô hình chữ V áp dụng cho hệ thống
+điều khiển PLC:
+
+
+
+
+1. Nhánh bên trái: Giai đoạn Đặc tả và Thiết kế (Specification & Design)
+      Xác định yêu cầu hệ thống (System Requirements): Thu thập bài
+       toán từ chủ đầu tư. Hệ thống bao gồm các thiết bị nào? mỗi thiết bị bao
+       gồm nhưng thiết bị thành phần và mỗi thành phần cần có mô tả chi tiết.
+       Ví dụ như sau:
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                     10
+   Từ yêu cầu trên sẽ xác định số lượng ngõ vào/ra (I/O), loại cảm biến(có
+  tên-mã hiệu- sơ đồ đấu nối cho từng cảm biến)/biến tần/động cơ(có tên-mã
+  hiệu- sơ đồ đấu nối cho từng thiết bị-Biến tần hay các thiết bị có cài đặt cần
+  có bảng cài đặt các thông số), thời gian đáp ứng (Cycle time), yêu cầu cho
+  giao diện vận hành (HMI/SCADA), và đặc biệt là các tiêu chuẩn an toàn
+  (như Safety SIL2/SIL3, dừng khẩn cấp - Emergency Stop).
+     Thiết kế kiến trúc hệ thống (Architectural Design): Lựa chọn dòng
+      PLC (ví dụ: Siemens S7-1500, Rockwell ControlLogix, Mitsubishi Q-
+      Series-Nêu rõ yêu cầu và đánh giá loại PLC đáp ứng được yêu cầu-
+      không thiết kế cứ nêu 2-3 loại chọn 1 loại). Thiết kế mạng truyền thông
+      công nghiệp (Profinet, EtherNet/IP, Modbus TCP/IP) và phân chia cấu
+      trúc chương trình thành các khối chức năng chính (Manual, Auto,
+      Safety, Alarm). Thiết kế kết nối PLC với các thiết bị như cảm biến, khởi
+      động từ, biến tần......
+     Thiết kế chi tiết mạch điện và Logic (Detailed Design):
+         o   Phần cứng: Thiết kế sơ đồ nguyên lý tủ điện điều khiển (Eplan,
+             AutoCAD Electrical) bao gồm sơ đồ đấu nối I/O, mạch động lực,
+             mạch điều khiển và bảo vệ.
+         o   Phần mềm: Thiết kế lưu đồ thuật toán (Flowchart), biểu đồ trạng
+             thái (SFC - Sequential Function Chart), ma trận nhân quả (Cause
+             & Effect Matrix) cho hệ thống.
+     Đỉnh chữ V - Triển khai thực tế (Implementation):
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                       11
+         o   Lập trình PLC/HMI: Viết code bằng các ngôn ngữ tiêu chuẩn IEC
+             61131-3 (Ladder Logic, FBD, Structured Text) trên các phần mềm
+             như TIA Portal, Studio 5000. Có chương trình tương ứng trong
+             phụ lục.
+         o   Lắp ráp tủ điện: Tiến hành đi dây, gá lắp thiết bị đóng cắt, module
+             PLC vào tủ điện vật lý theo bản vẽ. Có bản vẽ lắp đặt trong phụ
+             lục
+
+
+2. Nhánh bên phải: Giai đoạn Kiểm thử và Nghiệm thu (Testing &
+Commissioning)
+Điểm cốt lõi của hệ tự động hóa hiện đại là ứng dụng công nghệ bản sao số
+(Digital Twin) và mô phỏng ở nhánh phải trước khi ra công trường.
+     Kiểm thử đơn vị (Unit Testing / Software-in-the-Loop): Kiểm tra từng
+      khối hàm (Function Block) riêng lẻ sử dụng PLC với đầu vào/ra trên bàn
+      thí nghiêm hay trong phần mềm giả lập của hãng PLC (ví dụ: PLCSIM
+      Advanced). Đảm bảo logic tính toán, hàm nội suy, hoặc khối điều khiển
+      PID chạy đúng kịch bản toán học. Tối thiểu phải kiểm tra được bước
+      này. Xây dựng được kịch bản test và test có kết quả.
+     Kiểm thử tích hợp & Giả lập hệ thống (Factory Acceptance Test -
+      FAT): Ráp nối chương trình PLC hoàn chỉnh với giao diện HMI/SCADA.
+      Giai đoạn này thường áp dụng công nghệ HIL (Hardware-in-the-Loop):
+      Kết nối PLC thật với một phần mềm mô phỏng nhà máy ảo (như SIMIT,
+      Factory I/O, hoặc NX Emulation) để test toàn bộ kịch bản tự động, liên
+      động (Interlock) và báo động mà không sợ va đập cơ khí.(Cái này hiện
+      không có và kể cả khó cũng khó có thể lên kịch bản test vì mình cũng
+      không hiểu rõ nhà máy thực tế, chỉ nêu cách thức không đánh giá)
+     Chạy thử và Tích hợp tại công trường (Site Acceptance Test - SAT /
+      Commissioning): Đưa tủ điện và chương trình ra nhà máy thật. Tiến
+      hành kiểm tra nguội (đấu nối, thông mạch), kiểm tra nóng (cấp nguồn,
+      kiểm tra chiều quay động cơ), sau đó chạy thử không tải và có tải với
+      dây chuyền máy móc thực tế.(Chỉ nêu các bước không thực hiện được)
+     Bàn giao và Nghiệm thu (System Validation & Handover): Đánh giá
+      toàn bộ hệ thống dựa trên yêu cầu ban đầu. Đo lường năng suất sản
+      xuất, thời gian chu kỳ, độ ổn định của hệ thống SCADA và ký biên bản
+      nghiệm thu bàn giao cho đơn vị vận hành (Chỉ nêu các bước không
+      thực hiện được).
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                        12
+Ví dụ yêu cầu thiết kế của TBĐ:
+Thông số của thiết bị đo:
+   1. Đo Chloride Ion:
+   -   Dải đo: 0.002% - 2% ( theo trọng lượng)
+   -   Sai số thiết bị: 1% ( không bao gồm sai số của điện cực)
+   -   Bù nhiệt độ tự động
+   -   Đầu nối: BNC
+   -   Đầu nối đầu đo nhiệt độ: M12
+   -   Đọc % trực tiếp trên màn hình.
+   -   Bộ nhớ lưu kết quả đo. Đọc lên PC qua cổng USB.
+
+
+   2. Đo pH:
+   -   Dải đo: 0-13pH
+   -   Độ phân giải: 0.05pH
+   -   Sai số thiết bị: 1% ( không bao gồm sai số của điện cực)
+   -   Bù nhiệt độ tự động
+   -   Đầu nối: BNC
+   -   Đầu nối đầu đo nhiệt độ: M12
+   -   Đọc kết quả trực tiếp trên màn hình.
+   -   Bộ nhớ lưu kết quả đo. Đọc lên PC qua cổng USB.
+
+
+   3. Đo điện thế Half-cell:
+   -   Dải đo: ±1000mV
+   -   Độ phân giải: ±1mV
+   -   Sai số: 1%
+   -   Đầu nối: jack 4mm
+   -   Đọc mV trực tiếp trên màn hình.
+   -   Bộ nhớ lưu kết quả đo. Đọc lên PC qua cổng USB.
+
+
+   4. Đo điện trở suất bê-tong:
+   -   Dải đo: 1-1000 kΩcm
+   -   Sai số: <5% ( tuỳ thuộc dòng điện cấp nhưng không nhỏ hơn 1%)
+   -   Dòng điện: max 1mA ( điện áp <35V)
+   -   Tần số: 40Hz ( có thể chọn 0-100Hz Option)
+   -   Đầu nối: jack 4mm
+   -   Đọc kết quả trực tiếp trên màn hình.
+   -   Bộ nhớ lưu kết quả đo. Đọc lên PC qua cổng USB.
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                13
+  5. Đo nhiệt độ/độ ẩm môi trường:
+  -   Nhiệt độ môi trường: 0-50oC, ±2oC
+  -   Độ ẩm: 0-95% không đọng nước ±3%
+  -   Đọc kết quả trên màn hình.
+  -   Bộ nhớ lưu kết quả đo. Đọc lên PC qua cổng USB.
+
+  6. Hiển thị:
+  -   Hiển thị: LCD (không nhỏ hơn) 20 ký tự x 4 hàng. Có đèn nền tự động
+      bật khi thiếu sáng
+  -   Có bàn phím ĐK quá trình đo
+  -   Hiển thị thời gian thực.
+  -   Có LED báo trạng thái hoạt động
+
+
+  7. Kết nối máy tính:
+  -   Kết nối máy tính qua cổng USB (virtual COM)
+  -   Giao thức: Modbus (hay tuỳ chọn)
+
+
+  8. Nguồn nuôi:
+  -   Nguồn nuôi: 220VAC-50Hz
+  -   Pin: tích hợp pin bên trong đảm bảo thời gian hoạt động tối thiểu 2h.
+      Thời gian sạc 3h.
+
+
+  9. Kích thước/vỏ thiết bị:
+  - Kích thước: không quá 300x200x300 mm
+  -   Khối lượng: Không quá 5kg
+  -   Vật liệu: Tôn sơn tĩnh điện hoặc Inox.
+  -   Cấp bảo vệ: IP53
+
+
+
+
+Đào Đức Thịnh-Hướng dẫn thực hiện ĐA TN                                       14
+

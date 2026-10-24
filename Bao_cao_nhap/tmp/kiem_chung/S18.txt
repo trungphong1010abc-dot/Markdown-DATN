@@ -1,0 +1,661 @@
+                                                               Electric Power Systems Research 261 (2026) 113483
+
+
+                                                                    Contents lists available at ScienceDirect
+
+
+                                                         Electric Power Systems Research
+                                                            journal homepage: www.elsevier.com/locate/epsr
+
+
+
+
+Sistematical evaluation of digital wavelet filter selection for identification
+system, case study: DC arcing detection system
+Arief Budi Ksatria , Dimas Anton Asfani * , I Made Yulistya Negara , Bagus Septianto ,
+Daniar Fahmi , I Gusti Ngurah Satriyadi Hernanda
+Department of Electrical Engineering, Institut Teknologi Sepuluh Nopember (ITS), Surabaya 60111, Indonesia
+
+
+
+
+A R T I C L E I N F O                                      A B S T R A C T
+
+Keywords:                                                  The Discrete Wavelet Transform (DWT) is a valuable tool for analyzing waves with nonstationary disturbances,
+Center of gravity                                          yet selecting the most appropriate wavelet type remains a significant challenge. This research presents a sys­
+Discrete wavelet transform                                 tematic evaluation approach to identify the optimal wavelet type, using Series Arc Faults (SAFs) as a case study.
+Seires arc faults
+                                                           The study evaluates several DWT filter techniques, including Haar Level 4, Daubechies (Db) Level 4, Symlet Level
+Wavelet type
+                                                           4, and Coiflet Level 4, establishing uniform SAF threshold values for each wavelet type. The analysis of SAF data
+                                                           was conducted using the center of gravity (CoG) method and feature extraction, with results illustrated in a radar
+                                                           diagram. The findings revealed that the Db 4 method exhibited the highest accuracy in detecting SAFs, sur­
+                                                           passing the other wavelet types by 4%. This indicates that the CoG and feature extraction methods are effective
+                                                           for determining the optimal wavelet type in wave analysis.
+
+
+
+
+1. Introduction                                                                                 provides frequency data, wavelets can detect real-time signal changes,
+                                                                                                making them appropriate for identifying transient and nonperiodic
+    Photovoltaic (PV) systems are increasingly recognized as a rapidly                          arcing patterns. However, the selection of the optimal wavelet type re­
+expanding source of renewable energy, driven by the growing demand                              mains a significant challenge. Recent studies, such as those by Shalby
+for sustainable electricity. Indonesia aims to achieve a solar power ca­                        et al.[9]., demonstrate that the wavelet decomposition level signifi­
+pacity of 5GW by the year 2020 [1]. The International Energy Agency                             cantly affects fault detection accuracy in distribution systems. In this
+(IEA) predicts significant growth in PV development [2], with installa­                         study, we propose a systematic evaluation method that considers both
+tion costs expected to decrease from $1.1 per watt in 2023 to $0.9 per                          detection accuracy and computational efficiency, making it highly
+watt in 2024. Nevertheless, PV installations face potential disruptions,                        suitable for real-time applications in systems with limited resources.
+such as arcing (sparks), which may lead to fires or diminish system ef­                             In its application, the Discrete Wavelet Transform (DWT) has
+ficiency [3]. Protection against Arc failure is highly recommended for                          frequently been utilized seriesto identify nonstationary signals or dis­
+system reliability [4].                                                                         turbances. In reference [10], a method for differential protection
+    According to [5], the failure of photovoltaic (PV) systems is linked to                     featuring adaptive threshold settings was introduced; however, the
+undetected electrical arcing. Timely detection of arcing is crucial for                         specifics of the wavelet filter employed were not thoroughly detailed.
+ensuring system reliability and safety. Identifying low voltage arcing                          The properties of Series Arc Faults (SAFs) within direct current (DC)
+within these systems is challenging due to the resemblance of the signal                        systems have been examined using the DWT, yet the optimal filter uti­
+characteristics to noise and normal power variations [6]. Arcing can                            lized remains unexplained [11]. In underground photovoltaic (PV) cable
+manifest at low voltages, particularly at a minimum PV voltage of                               systems, fault localization has been executed through the use of wavelets
+80Vdc, when a gap exists in the cable [7]. Conventional techniques such                         and Artificial Neural Networks (ANN), albeit solely by decomposing the
+as the Fast Fourier Transform (FFT) are less effective in analyzing                             frequency sub-bands. In reference [12] the detection of failures in rotary
+non-stationary signals [8]. Wavelet transformation has surfaced as a                            machines was conducted using the DWT, but the best filter applied has
+promising alternative, as it facilitates the concurrent analysis of signals                     not been established. In wind turbine systems equipped with lithium-ion
+in both time and frequency domains. In contrast to FFT, which only                              batteries, the DWT, up to a decomposition level of 4, can identify fault
+
+
+ * Corresponding author.
+   E-mail address: da.asfani@its.ac.id (D.A. Asfani).
+
+https://doi.org/10.1016/j.epsr.2026.113483
+Received 20 August 2025; Received in revised form 28 March 2026; Accepted 15 June 2026
+Available online 18 June 2026
+0378-7796/© 2026 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies.
+A.B. Ksatria et al.                                                                                                 Electric Power Systems Research 261 (2026) 113483
+
+
+points and reducing fluctuations [13]. In reference [14], wavelet                  study employs the Center of Gravity (CoG) method alongside radar chart
+transformation was employed on audio signals generated from an                     visualization, utilizing wavelet parameter feature extraction. This
+Internet of Things (IoT) system. Based on [15], Decomposition level 4              approach markedly enhances the accuracy of SAF detection, especially
+for DWT is the most effective value used to improve accuracy.                      in environments characterized by noise and transients. Prior research,
+    In the process of identifying disturbances, the Discrete Wavelet               including that of Wu et al. [29], has investigated the application of
+Transform (DWT) is frequently utilized in conjunction with machine                 wavelet transforms in deep learning for multi-resolution analysis, which
+learning (AI) and machine learning to enhance detection precision [16,             served as an inspiration for our evaluation technique. Moreover, when
+17]. A significant challenge associated with the application of DWT lies           compared to previous methodologies, such as those proposed by Galle­
+in the selection of the appropriate wavelet type and its corresponding             gati [31], which did not provide comprehensive assessments of wavelet
+decomposition level. This reliance on the level often necessitates a               filters, our approach guarantees a more systematic and reproducible
+trial-and-error approach to ascertain optimal accuracy [18]. As noted in           evaluation of wavelet performance in the context of SAF detection. A
+[19], the dependence on the mother wavelet and the decomposition                   comparative analysis is conducted on Haar, Daubechies, Symlet, and
+level represents a limitation in reducing the likelihood of noise detec­           Coiflet wavelets to identify the most effective wavelet type. The choice
+tion. Furthermore, it was elucidated in [20] that DWT exhibits consid­             of wavelets is predicated on the minimal computational resources
+erable sensitivity to highly impulsive and transient disturbances, yet it          required when employing the selected wavelet, thereby ensuring that
+remains heavily reliant on the chosen basis and decomposition level.               the computational load for STM32F4 remains light and efficient.
+Tan et al. [21] and Yin et al. [22] introduced sophisticated techniques            Reference [32] suggests that Meyer wavelets exhibit smooth values on
+that integrate feature extraction with machine learning to enhance both            signals, approaching infinity, which results in substantial computational
+accuracy and robustness in the detection of series arc faults.                     demands. In contrast, bi-orthogonal wavelets are more commonly uti­
+    Numerous investigations have been undertaken regarding the inte­               lized for signal compression and reconstruction, rendering them inade­
+gration of Discrete Wavelet Transform (DWT) with Artificial Intelligence           quate for the detection of very short disturbances [33].
+(AI). Notable advancements have been achieved in reconceptualizing                     In the realm of recent advancements, our research presents a
+arc fault detection as an image recognition challenge through the                  framework for performance-based wavelet filter selection that is appli­
+application of a relative position matrix transformation [23]. The                 cable not only to SAF detection but also adaptable to various fault
+implementation of Hankel-Singular Value Decomposition (Hankel-SVD)                 detection tasks. This method enhances the equilibrium between
+for band-pass filtering significantly mitigates the interference caused by         computational efficiency and detection performance, specifically
+switching frequencies in photovoltaic systems [24]. Furthermore, the               tailored for real-time applications constrained by limited computational
+synergy between Linear Neural Networks (ANN) and Empirical Wavelet                 resources, such as systems based on microcontrollers. In contrast to
+Transform (EWT) enhances fault classification within microgrids by                 current methodologies, which frequently lack a transparent and sys­
+facilitating improved feature extraction and analysis of residual currents         tematic evaluation process for filter selection, our approach addresses a
+[25]. The application of wavelet transform coupled with thresholding is            significant gap in the literature by providing a more objective, repeat­
+also employed to evaluate Series Arc Faults (SAF), leading to enhanced             able, and practical solution for SAF detection.
+accuracy in signal modeling. These advancements underscore the                         SAFs are chosen due to their detection challenges, as they produce
+promise of wavelet filters and AI in augmenting the performance and                minimal current variations that often go unnoticed by protective devices
+dependability of systems that utilize diverse technologies [26,27]. Ac­            [5]. Inverter noise further complicates detection, but variations in en­
+cording to the review presented in [28], persistent challenges exist in            ergy transfer linked to SAFs can be identified, potentially improved by
+areas such as parameter selection, optimal wavelet basis determination,            inductive sensors [34]. This investigation underscores the significant
+activation function choice in machine learning, implementation hurdles,            challenges in fault detection, making SAFs a critical area of study [35,
+and the depth of decomposition. Although wavelet-based techniques                  36]. The current characteristics of series arc faults (SAF) are like noise
+have been investigated across various fields such as fault detection,              and normal power fluctuations. Therefore, it is difficult to analyze based
+signal processing, and time-series analysis, our research makes a distinct         on the time domain. Thus, frequency domain-based method was chosen,
+contribution by methodically comparing several wavelet filters (Haar,              namely the wavelet transforms. The contribution made by the authors is
+Daubechies, Symlet, and Coiflet) within a controlled setting. Our                  determining the threshold values that can be used to identify normal
+methodology provides a more dependable, performance-oriented                       conditions, switching, and SAFs. The threshold value is limited to the
+approach for selecting the most suitable wavelet filters for SAF detec­            wavelet methods used, namely Daubechies level 4, Symlet level 4,
+tion, thereby ensuring both precision and computational efficiency. This           Coiflet level 4, and Haar level 4.
+contribution is in line with recent developments in the discipline, as
+illustrated by the work of Wu et al. [29], who combined wavelet                    2. Proposed method of Sistematical evaluation
+transforms with deep learning frameworks to improve multi-scale
+feature extraction. Additionally, Shalby et al. [9] highlighted the sig­               The Discrete Wavelet Transform (DWT) has surfaced as a promising
+nificance of choosing the optimal decomposition level in wavelet anal­             approach due to its ability to analyze signals concurrently in both the
+ysis for fault detection in distribution networks. Zhao et al. [30] utilized       time and frequency domains. Numerous studies have demonstrated the
+dynamic wavelet techniques for predicting bearing life, demonstrating              efficacy of wavelets in identifying stationary disturbances. The DWT
+how dynamic wavelet decomposition can more effectively capture                     proves to be more dependable in recognizing transient disturbances [37,
+time-varying characteristics. Likewise, Gallegati [31] employed                    38], however, the selection of an inappropriate filter type may result in
+wavelet-based methods to analyze intricate climate data, further                   inaccuracies in disturbance detection. Fig. 1 illustrates the systematic
+underscoring the adaptability and strength of wavelet transforms in                methodology proposed in this research to identify the optimal filter for
+examining non-stationary signals across various fields.                            disturbance detection, utilizing the case study of SAFs within a PV
+    Given the numerous unresolved issues stemming from the challenges              system.
+associated with wavelet selection, this research aims to evaluate wavelet              The implementation of the proposed method facilitates the identifi­
+filters to ascertain the most suitable type for specific applications              cation of the most effective type of wavelet filter, particularly for use as a
+involving difficult-to-detect SAFs. The methodology proposed in this               detection tool. As noted in [18], the selection of wavelet filters and types
+research provides a systematic framework for selecting wavelet filters             often relied on a trial-and-error approach, rendering the determination
+aimed at detecting Series Arc Faults (SAFs) in direct current (DC) sys­            process challenging. The method proposed in this study offers a sys­
+tems. Traditional techniques often depend on a trial-and-error method              tematic approach to aid the selection of appropriate wavelet filters.
+for the selection of wavelet filters, which can prove to be inefficient. The
+
+                                                                               2
+A.B. Ksatria et al.                                                                                                      Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                          Fig. 1. Proposed method for optimal selection wavelet filter (a) flowchart and (b) visualization each stage.
+
+
+2.1. Decomposition signal calculation                                               through (7) are applicable. In this context, Yhigh[k] represents the output
+                                                                                    of the high-pass filter (Mother Wavelet), Ylow[k] indicates the output of
+    Wavelet signal decomposition acts like a movable window to analyze              the low-pass filter (detail coefficient), n corresponds to the number of
+different frequency components of a signal. The equation for the                    points or wave data, g[n] is the low-pass filter, and h[n] is the high-pass
+Discrete Wavelet Transform (DWT) is presented in Eq. (1). In this                   filter.
+context, x(n) represents the input signal to be transformed, φ(n) denotes               The variation in the maximum value of k in (4)–(7) is caused by
+the mother wavelet function, while a and b signify the dilation and                 different wavelet filter lengths, which affect the DWT convolution range
+translation parameters, respectively. The Mallat decomposition algo­                despite all using 4-level decomposition. Haar has the shortest filter with
+rithm facilitates the DWT, dividing the signal into low-frequency                   minimal signal extension, while Db4, Sym4, and Coif4 add +7, +3, and
+(approximation) and high-frequency (detail) components iteratively                  +11 coefficients, respectively, resulting in different output lengths after
+until the desired detail level is reached. This procedure is reiterated until       fourth-level downsampling and thus distinct maximum k values [39].
+the desired decomposition level is reached. To ascertain the high-                                   N− 1          (       )
+frequency value, we utilized Eq. (2), and for the low-frequency value,                          1 ∑                    t− b
+                                                                                    WTa,b (n) = √̅̅̅      x(n) φ                                                      (1)
+Eq. (3) was applied. For a decomposition level of 4, Equations (4)                               a 0                     a
+
+
+                                                                                3
+A.B. Ksatria et al.                                                                                                  Electric Power Systems Research 261 (2026) 113483
+
+
+               n=∞
+               ∑
+Yhigh [k] =           x(n) h[2k − n]                                    (2)        2.3. Evaluation parameter & normalization
+              n=− ∞
+                                                                                       Normalization has been employed in research to evaluate the
+              n
+              ∑                                                                    detected points against the highest ADC value obtained by the micro­
+                =∞
+Ylow [k] =            x(n) g[2k − n]                                    (3)
+              n=− ∞                                                                controller. The peak normalization value is defined as one power unit (p.
+                                                                                   u.). This approach guaranteed a balanced comparison and facilitated the
+                                                  [ ]
+                                                   N                               identification of the suitable wavelet type. The normalization formula is
+Factor for Haar level 4, k = k = 0, 1, 2, …,          − 1               (4)
+                                                   24                              presented in Eq. (15) and Eq. (16).
+                                              [    ]                                                                                     Number Detection (n)
+                                               N+7                                 Normalization of Number Detection Point(p.u) =
+Factor for Db 4 Level 4, k = 0, 1, 2, …,             − 1                (5)                                                               Maximum number
+                                                24
+                                                                                                                                                            (15)
+                                                   [    ]
+                                                    N+3
+Factor for Symlet 4 Level 4, k = 0, 1, 2, …,              − 1           (6)                                          Maximum Current(ADC)
+                                                     24                            Normalization Current(p.u) =                                                 (16)
+                                                                                                                    Maximum Current Number
+                                                  [      ]
+                                                   N + 11
+Factor for Coiflet 4 level 4, k = 0, 1, 2, …,              − 1          (7)        2.4. Wavelet filter evaluation
+                                                     24
+
+                                                                                   2.4.1. Center of gravity (CoG)
+2.2. Detection treshold for DWT and feature extraction
+                                                                                      The center of gravity in data distribution represents the average
+                                                                                   point that equilibrates all values, similar to the center of mass in physical
+     In this research, the signal derived from the ADC measurement is
+                                                                                   entities. In the realm of statistics, this notion corresponds to the mean,
+referred to as i[t], which is subsequently classified into normal current
+                                                                                   which serves as the central point that minimizes the total squared dis­
+(iN [t]) and current exhibiting arcing disturbances (iA [t]). For each
+                                                                                   tance. In the context of spatial data, it is computed as the average co­
+experimental scenario, the normal current data is denoted as iNc [t]. The
+                                                                                   ordinate for the analysis of geographical distribution [40]. To ascertain
+detail coefficient dNc [t] is acquired through a high-pass filtering tech­
+                                                                                   the Centre of Gravity (CoG), one can utilize Eq. (17) for its calculation
+nique utilizing wavelets, followed by the computation of its absolute
+                                                                                   [41]. After obtaining the CoG value, the distance from the point (0,0) to
+value (abs dNc [t]). The peak value of each detail coefficient is docu­
+                                                                                   the CoG can be determined using Eq. (17) and Eq. (18). Where xi is the
+mented as dmax N [c].
+                                                                                   x-axis value, yi is the y-axis value, mi is weighting factor, n is number of
+iNc [t] = i1 , i2 ⋯, it c : 1, 2, …, c. c : case number                 (8)        data, and i is the i -th case or case number and d is the distance of CoG, x
+                                                                                   and y is CoG point in the x-y plane.
+dNc [t] = iNc [t] ∗ h[n]                                                (9)                (∑             ∑          )
+                                                                                                (xi mi )     (yi mi )
+                                                                                   CoG =                ,                                                  (17)
+abs dNc [t] = |dNc [t]|                                                (10)                      n            n
+                                                                                        √̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+dmax N [c] = Max[abs dNc [t]]                                          (11)        d=    x 2 + y2                                                               (18)
+
+    The arcing threshold is established based on the peak value of the
+                                                                                   2.4.2. Radar chart
+DWT detail coefficient under standard conditions, incorporating a safety
+                                                                                      Radar charts, or spider charts, are effective for comparing multiple
+factor (ks ).
+                                                                                   quantitative variables simultaneously. They visualize data as a polygon
+Threshold = ks × Max[dmax N [c]]                                       (12)        with radial axes for each variable, making them useful for analyzing
+                                                                                   comparable data sets. In this research, radar charts illustrated the
+    In This Investigation, a safety factor of 120% is applied. Results from
+                                                                                   optimal wavelet transformation across six grids: average amplitude,
+under steady-state conditions, the maximum DWT coefficient ranges
+                                                                                   maximum amplitude, amplitude deviation, average number of detected
+from 18 to 20 ADC, which after applying (ks ) remains below 30 ADC;
+                                                                                   points, maximum number of detected points, and deviation from
+therefore, the threshold is set at 30 ADC. This value represents the upper
+                                                                                   detected points. The results were analyzed using the Shoelace Formula,
+limit of normal operation, where any coefficient exceeding it is classified
+                                                                                   which calculates the area of a polygon by cross-multiplying coordinates,
+as arcing. Consequently, the threshold clearly distinguishes normal
+                                                                                   summing and subtracting the results, and dividing by two. This method
+fluctuations from disturbance-induced transients (stages 5–8 in Fig. 1
+                                                                                   accurately computes areas for various polygon shapes, including irreg­
+(b)) and is defined based on Eqs. (8)–(12).
+                                                                                   ular ones, when coordinates are organized sequentially. The polygon
+    Following the acquisition of wavelet coefficients via 4-level decom­
+                                                                                   area calculation method involves cross-multiplying x and y coordinates,
+position, feature extraction is conducted to identify the characteristics of
+                                                                                   summing and subtracting the results, and dividing by two. It works for
+signal variations that surpass the detection threshold. This process en­
+                                                                                   various polygon types, including irregular shapes, as long as the vertices
+tails the computation of statistical metrics such as average amplitude,
+                                                                                   are in sequential order. The formula is expressed in Eq. (19), where A
+maximum amplitude, amplitude deviation, and the count of detected
+                                                                                   denotes the orthogonal area [42].
+points. The calculations incorporate standard deviation (σ), the total                     ⃒                               ⃒
+number of data points (n), individual data values (xi), and population                       n
+                                                                                        1 ⃒⃒ ∑               ∑n            ⃒
+                                                                                                                           ⃒
+mean (μ), as illustrated in Eqs. (13) and (14). The features extracted are         A= ⃒         (xi yi+1 ) −     (yi xi+1 )⃒                            (19)
+                                                                                        2 ⃒ i=1              i=1
+                                                                                                                           ⃒
+subsequently utilized in later evaluation phases, which include
+normalization, center-of-gravity analysis, and radar chart comparison.
+                                                                                   3. Experimental setup for SAFs
+       √̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+               n
+         1∑
+σ =                 (xi − μ)2                                           (13)           An arc detection experiment was conducted following the UL1699
+         n i=1
+                                                                                   test standard to validate an integrated arc detection algorithm [43].
+     ∑
+        xi                                                                         Fig. 2 illustrates a circuit diagram for the SAF testing. The setup included
+μ=                                                                     (14)        a circuit diagram for SAF testing, using a BK Precision MR50040 power
+       n
+                                                                                   supply to simulate photovoltaic conditions at 25 ◦ C and 1000 W/m²,
+
+                                                                               4
+A.B. Ksatria et al.                                                                                                   Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                                                  Fig. 2. UL 1699 Test Circuit for DC Series Arc Faults Detection.
+
+
+with a maximum output of 5 kW, 500 V, and 40A Current measurements                   eliminate, ultimately leading to the melting of copper. As a result, a
+utilized various sensors: a Tektronix A622 DC current probe (100 kHz,                significant gap is established, which leads to the cessation of arcing.
+100A peak AC/DC), a Varc voltage sensor (2000 V, 20 MHz), and a Vpv                  Nevertheless, when arcing transpires, it can inflict damage on the sur­
+voltage sensor for data acquisition via NI 9775 (±10 V, 20MS/s) for this             rounding area, potentially causing further harm to equipment connec­
+measurement connected on NI 9775 (± 10 V, 20MS/s per channel).                       tions such as junction boxes, cable duct fires, and similar incidents. The
+Additionally, a YHDC Hall effect sensor (100A AC/DC, 20 kHz) was                     arcing phenomenon discharges energy between connections, generating
+connected to an STM32F4 microcontroller for data storage during SAF                  a continuous arc that can attain temperatures of 3000 K. This phe­
+events. The experiment also included a Solana SOF12–100aH battery, a                 nomenon is primarily triggered by high voltage, which facilitates the
+load bank with a maximum power of 5 kW at 50 Hz and Inverter man­                    creation of an electric arc through ionized air. The process encompasses
+ufactured by ICA Solar (SNV-GH3041 - 3kW/48 V, 450VDC/18A). Fig. 3                   ionization, plasma generation, and the release of energy in the form of
+presents a photograph of the SAFs testing facility located at the                    light and heat. Arcing concludes when the electrodes melt, thereby
+high-voltage laboratory of the Institute of Technology Sepuluh                       increasing the air gap and limiting current flow, which illustrates its
+Nopember (ITS) in Surabaya.                                                          reliance on the physical conditions of the conductors. Fig. 6 shows the
+    The study utilized four distinct loading configurations: 1300 W                  effect caused after arcing testing, where the electrode is oxidized to
+(100Vdc and 13A), 1500 W (110Vdc and 14A), 1800 W (130Vdc and                        black or burnt, causing excessive heat throughout the electrode.
+15A), and 2100 W (150Vdc and 15A). Additionally, two cable config­                   Detection of Series Arc Faults (SAFs) may involve various measure­
+urations were employed: ± 3 m and 50 m, to evaluate the effects of SAFs              ments, such as current measurement (Iarc), voltage measurement (Varc)
+identified at different distances. In this setup, a total of 960 arcing tests        at the arc fault generator, and PV voltage measurement (Vpv). As shown
+were performed using an arc generator, which comprised a stationary                  in Fig. 5, Varc increase, while Iarc and Vpv decrease during SAF initia­
+electrode and a mobile electrode. The mobile electrode was set 2.5 mm                tion. During SAF initiation, Vpv decreases, and when the arc reaches a
+apart and operated at a velocity of 5 mm per second to produce a series              stable condition, the PV voltage returns to normal because the lost
+of arcs.                                                                             voltage passes through the Varc measurement on the arc fault generator.
+
+4. Result and analysis                                                               4.2. Distribution data of SAFs
+
+4.1. The phenomenon of series arc faults                                                 Arc fault signals (SAFs) in photovoltaic systems vary due to electrical
+                                                                                     arcing from issues like loose connections or damaged cables. The
+   Arcing in resistive loads occurs when two conductors are separated                Discrete Wavelet Transform (DWT) decomposes these signals by fre­
+by a gap, allowing air to conduct electricity. As depicted in Fig. 4, the            quency and time, isolating arc-related components from noise. DWT
+arcing phenomenon initiates from the initial stationary electrode to the             employs various wavelet bases (Haar, Daubechies, Symlet, Coiflet) to
+presence of a gap, resulting in arcing that halts once the electrode melts           generate detail and approximation coefficients, with medium and high-
+and creates a substantial gap. The illustration clearly indicates the                scale coefficients indicating energy spikes from arc faults. This method
+prolonged duration during which SAFs in DC systems are challenging to                enhances sensitivity to fault signals while ensuring computational effi­
+                                                                                     ciency, making it suitable for real-time monitoring and improving fault
+                                                                                     detection and system reliability. Fig. 7 illustrates the distribution of 120
+                                                                                     arcing signal datasets that have been processed using various wavelet
+                                                                                     filters. Notably, the DB filter demonstrates a wider distribution
+                                                                                     compared to the others, emphasizing the critical role of wavelet selec­
+                                                                                     tion in influencing the accuracy of SAF detection.
+
+                                                                                     4.3. Evaluation wavelet filter using center of gravity
+
+                                                                                         The center of gravity (COG) is a key principle in both physics and
+                                                                                     engineering, representing the location where an object's weight is uni­
+                                                                                     formly distributed. Analyzing the COG is essential across multiple fields,
+  Fig. 3. Pictures of Test Facility for a Series Arc Faults Systems Detection.       including vehicle design, robotics, and biomechanics, to guarantee
+
+                                                                                 5
+A.B. Ksatria et al.                                                                                                       Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                                                             Fig. 4. Phenomenon of SAFs (start at time=t).
+
+
+
+
+                                                                Fig. 5. Characteristic of series arc faults.
+
+
+                                                                                         illustrates that the distance of the center of gravity (COG) ranges from
+                                                                                         the farthest to the nearest point relative to the coordinates (0,0). Thus, it
+                                                                                         is possible to determine the optimal wavelet filter.
+                                                                                             The findings revealed a notable distinction between the two condi­
+                                                                                         tions. In the wireless scenario, the CoG values recorded were elevated
+                                                                                         across all wavelet types, suggesting that both the signal amplitude and
+                                                                                         the number of detected arcing points were superior to those observed in
+                                                                                         the wired scenario. In contrast, utilizing a 50-meter cable resulted in a
+                                                                                         decrease in the CoG value due to signal attenuation, which leads to a
+                                                                                         reduction in peak amplitude and a diminished count of successfully
+                  Fig. 6. Effects on Conductors after SAFs testing.                      detected arcing points. This suggests that the length of the cable can
+                                                                                         influence the quality of the arcing signal captured by the detection
+stability and efficiency. The calculations related to the COG are detailed               system.
+in Eqs. (17) and (18). The COG value shown in Fig. 8 was determined                          Regarding the performance of each wavelet, Daubechies (Db4)
+using the black dot as the COG value. By applying this formula, one can                  consistently yielded the highest CoG value, both with and without a
+ascertain the COG value; thereafter, the distance d from the point (0,0)                 cable, at 0.347 and 0.525, respectively. The Haar wavelet was posi­
+to the COG will be computed to measure its magnitude. Fig. 9 shows the                   tioned second, followed by the Symlet and Coiflet wavelets. This hier­
+proposed COG values and this illustrates that the COG value is situated                  archy indicates that Db4 exhibits superior sensitivity in capturing the
+at the center of the data distribution spread. The COG results illustrated               characteristics of the arcing signal compared to the other wavelets.
+in Fig. 10, which suggest that Daubechies 4 Level 4 exhibits a distinctive               Furthermore, the disparity in CoG values between the cable and non-
+pattern with a greater number of detection points than the other wavelet                 cable conditions was most pronounced for Db4, signifying that this
+types, despite the amplitude values being generally lower. The image                     wavelet can capture more signal information when not subjected to
+
+
+                                                                                     6
+A.B. Ksatria et al.                                        Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                      Fig. 7. Data distribution of SAFs.
+
+
+
+
+                                      7
+A.B. Ksatria et al.                                                                                                Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                                            Fig. 8. Data distribution and center of gravity of SAFs on no cable.
+
+
+
+
+                                                      Fig. 9. Center of gravity of SAFs on no cable.
+
+
+attenuation. This observation highlights the significance of selecting the       4.4. Evaluation wavelet filter using radar chart
+appropriate wavelet type in early arcing detection systems, especially in
+systems employing cable installations of a specific length, such as                  A radar diagram was illustrated through the distribution of arcing in
+photovoltaic (PV) systems. In this regard, the Daubechies 4 wavelet is           Fig. 11. This visual methodology allows for the intuitive identification of
+advocated as the transformation method due to its ability to deliver             distribution patterns, consistency, and outliers, thus facilitating the
+optimal detection results despite performance degradation caused by              interpretation of data complexity and offering an empirical foundation
+cable attenuation. Consequently, factors related to signal attenuation           for discussing the study's results. Fig. 11 presents a radar diagram rep­
+and the choice of wavelet utilized must be critical considerations in the        resenting the arcing distribution. To ascertain the size of each wavelet
+design of arc-monitoring systems based on signal analysis.                       area, the researcher employed the Shoelace formula as outlined in Eq.
+                                                                                 (19) to compute the area of an orthogonal shape.
+                                                                                     According to the findings derived from the feature extraction radar
+                                                                                 graph based on the arcing data, a notable distinction was observed
+
+
+                                                                             8
+A.B. Ksatria et al.                                                                                                 Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                                           Fig. 10. Center of Gravity SAFs (a) no cable, and (b) with cable 50 m.
+
+
+
+
+                                             Fig. 11. Radar Chart SAFs (a) No cable, and (b) with cable 50 m.
+
+
+between the scenarios with and without cables, particularly with a 50-            5. Discussion
+meter cable extension. In the absence of cables, the wavelet Db4 level
+4 method demonstrated superior performance, achieving an area of                      This paper presents a methodology for assessing the most suitable
+0.333, followed by Haar (0.306), Sym4 (0.290), and Coif4 (0.287). This            wavelet filter selection for scenarios. By employing this evaluation
+suggests that the arcing signals recorded under these circumstances               technique, the selection of wavelet filters can be implemented using an
+possess more pronounced feature characteristics and are uniformly                 STM32F4 microcontroller. As indicated in [18], the process of selecting
+distributed across various parameters, including average amplitude,               wavelet filters and their types frequently depends on a trial-and-error
+maximum amplitude, and the quantity and distribution of detected                  methodology, and the approach for choosing wavelet filters has not
+points.                                                                           been extensively explored. Consequently, there is a deficiency of refer­
+    Conversely, when the cable length was increased to 50 m, all wavelet          ences regarding the selection of the optimal wavelet filter. SAFs in DC
+methods experienced a marked reduction in performance, as evidenced               systems may manifest at low voltage levels, with a threshold voltage of
+by a decrease in the radar graph area. The most significant decline was           80 Vdc, which is sufficient to initiate arc faults.
+noted in the Coif4 method, which only maintained an area of 0.060,                    Series arc faults (SAFs) present significant challenges for detection by
+indicating its heightened vulnerability to signal attenuation or distortion       circuit breakers due to their resemblance to normal operating conditions
+due to the extended cable length. In contrast, the Db4 and Haar methods           and the additional complexity introduced by inverter-generated noise.
+displayed relatively stable performance, with areas of 0.112 and 0.110,           Nevertheless, variations in energy transfer associated with SAFs can be
+respectively. This decline was particularly pronounced in the average             identified, potentially with the aid of inductive sensors [34]. As illus­
+number of detected points and the variability of the amplitude param­             trated in Fig. 12, distinguishing arcing conditions from normal condi­
+eters, suggesting a diminishment in the distinctiveness or characteristic         tions is somewhat challenging. Even with the application of wavelet
+patterns of the arcing signal.                                                    transformation, the differences become apparent, although the arcing
+    In summary, these findings underscore that cable length exerts a              curve exhibits a shape that is somewhat similar to fluctuations but with
+direct influence on the degradation of arcing signals, thereby impacting          elevated values. The phenomenon of arcing within PV system manifests
+the efficacy of feature extraction through wavelet transformation. The            as a sudden and substantial increase in current relative to the standard
+highest area rankings in the absence of cables were Db4, Haar, Sym4,              operating conditions. In the graphs transformed by wavelet analysis, the
+and Coif4. Under conditions involving a 50-meter cable, the area                  arcing event is highlighted more distinctly, exhibiting sharp peaks that
+rankings, from highest to lowest, were Db4, Haar, Sym4, and Coif4.                are absent in the typical current signal. The Haar waveform resembles
+
+                                                                              9
+A.B. Ksatria et al.                                                                                                 Electric Power Systems Research 261 (2026) 113483
+
+
+
+
+                                                Fig. 12. Comparasion SAFs conditions and normal conditions.
+
+
+that of the Daubechies, with the Haar transformation yielding a                     6. Conclusion and future work
+square-shaped result, while the Daubechies transformation produces a
+mountain-shaped result. If absolute values are considered, the peak                     The Discrete Wavelet Transform (DWT) excels in recognizing
+values would differ significantly from those under normal conditions.               nonstationary signal patterns, especially transient and nonperiodic
+The Symlet waveform is akin to the Coiflet waveform, with the trans­                arcing. The performance of wavelets is assessed through two key met­
+formation result manifesting as a three-mountain shape. The peak values             rics: the Center of Gravity (CoG) and the area of the radar chart. An
+in this wavelet type are smaller compared to those in the Haar/Daube­               increased CoG distance signifies enhanced detection sensitivity, whereas
+chies transformation.                                                               a larger radar area suggests improved feature capture of arcing signals.
+    The limitations of this study are primarily associated with the                 The Db4 wavelet exhibits the most robust performance, attaining the
+restricted selection of wavelet filters, which is constrained by the                highest CoG value of 0.406 and the largest radar area of 0.333, thereby
+hardware capabilities of the STM32F4 in detecting serial arc faults.                establishing itself as the most efficient for identifying arc-related tran­
+Consequently, future research will explore alternative wavelet types for            sients. By comparasing those two variables, the best performance of
+studies on serial arc faults. Currently, the selection of wavelet filters is        wavelet filter is able to be identified evethough the different is not sig­
+confined to Haar, Daubechies, Coiflet, and Symlet, as these filters                 nificanly. Experimental findings suggest that the Daubechies4 (db4)
+necessitate minimal computational resources, thereby facilitating the               level 4 method is the most efficient wavelet when compared to Haar,
+STM32F4′s computational processes. In terms of waveform analysis,                   Symlet, and Coiflet, attaining approximately 4% higher scores in both
+Biorthogonal and Dmey wavelet types offer smoother characteristics;                 CoG and Radar Chart assessments. The db4 filter consistently surpasses
+however, they demand more advanced computational capabilities.                      its counterparts in the analysis of nonstationary signals, and although
+    The wavelet selection method outlined in this paper is notably                  the advantage over Haar is relatively modest, meticulous selection of
+effective owing to its systematic framework, which integrates objective             wavelets is essential to avoid detection errors in sensitive applications.
+performance metrics such as the Center of Gravity (CoG) and radar chart             Taking into account the factors illustrated in Fig. 1 can aid in the optimal
+analysis. This approach facilitates a more organized assessment of                  selection of the wavelet type and assess the effectiveness of wavelet
+wavelet filters, thereby removing the necessity for trial-and-error tech­           filters in comparison to other wavelets. The constraints of this research
+niques typically employed in traditional methodologies. For instance,               are mainly linked to the limited variety of wavelet filters, which is
+the Daubechies 4 (Db4) wavelet exhibited exceptional performance in                 restricted by the hardware capabilities of the STM32F4 in identifying
+identifying Series Arc Faults (SAFs), as demonstrated by its elevated CoG           serial arc faults. As a result, subsequent investigations will examine
+value and expanded radar chart area, which signify its enhanced capa­               different types of wavelets for studies concerning serial arc faults.
+bility to detect subtle signal variations compared to other filters such as             Future investigations will concentrate on the real-time identification
+Haar, Symlet, and Coiflet. This performance-driven, repeatable selection            of disturbances within signals. By utilizing both the CoG and Radar
+methodology guarantees that the selected filter is optimal not only for             Chart techniques, the most suitable wavelet can be identified. Further­
+SAF detection but also for practical applications, where signal degra­              more, the detection mechanism alongside the wavelet evaluation
+dation due to cable length may influence detection precision. Conse­                method will aim to minimize detection errors. We also intend to
+quently, the proposed method is deemed more dependable and robust in                implement this evaluation to ascertain the optimal wavelet for the real-
+comparison to conventional techniques. In this research, we found that              time detection of SAFs using very light computing, namely micro­
+the Daubechies wavelet filter (Db4) consistently surpassed other wave­              controllers. This enables highly effective arcing detection.
+lets, including Haar, Symlet, and Coiflet, in the detection of SAFs within
+a real-time context. The exceptional performance of Daubechies can be               CRediT authorship contribution statement
+linked to its capability to capture transient characteristics in non-
+stationary signals, which is crucial for the precise identification of                  Arief Budi Ksatria: Validation. Dimas Anton Asfani: Writing –
+SAFs in power distribution systems.                                                 original draft, Conceptualization. I Made Yulistya Negara: Writing –
+                                                                                    review & editing, Conceptualization. Bagus Septianto: Visualization.
+                                                                                    Daniar Fahmi: Data curation. I Gusti Ngurah Satriyadi Hernanda:
+
+
+                                                                               10
+A.B. Ksatria et al.                                                                                                                         Electric Power Systems Research 261 (2026) 113483
+
+
+Methodology.                                                                                        [14] J.P.L. Escola, U.B. de Souza, R.C. Guido, I.N. da Silva, The Haar wavelet transform
+                                                                                                         in IoT digital audio signal processing, Circuits. Syst. Signal. Process. 41 (7) (2022)
+                                                                                                         4174–4184, https://doi.org/10.1007/s00034-022-01979-8.
+Declaration of competing interest                                                                   [15] S. Zhang, N. Qu, T. Zheng, C. Hu, Series arc fault detection based on wavelet
+                                                                                                         compression reconstruction data enhancement and deep residual network, IEEE
+                                                                                                         Trans. Instrum. Meas. 71 (2022) 1–9, https://doi.org/10.1109/
+    The authors declare the following financial interests/personal re­                                   TIM.2022.3158990.
+lationships which may be considered as potential competing interests:                               [16] W. Dai, X. Zhou, Z. Sun, G. Zhai, Series AC arc fault detection method based on
+                                                                                                         spectrogram and deep residual network, Microelectron. Reliab. 170 (2025)
+    Dimas Anton Asfani, Doctoral reports was provided by Institut                                        115756, https://doi.org/10.1016/j.microrel.2025.115756.
+Teknologi Sepuluh Nopember. Dimas Anton Asfani, Doctoral reports a                                  [17] H. Hua, D. Fang, M. Guo, Series arc fault identification based on a novel Newton-
+relationship with Institute Technology Sepuluh Nopember Department                                       optimized sparse kernel support vector machine, IEEE Trans. Instrum. Meas. 74
+                                                                                                         (2025) 1–13, https://doi.org/10.1109/TIM.2025.3579839.
+of Electrical Engineering that includes: employment and funding grants.
+                                                                                                    [18] Q. Gong, K. Peng, Q. Gao, L. Feng, C. Xiao, Series arc fault identification method
+Given his/her/their role as, had no involvement in the peer review of                                    based on wavelet transform and feature values decomposition fusion DNN, Electr.
+this article and had no access to information regarding its peer review.                                 Power Syst. Res. 221 (2023) 109391, https://doi.org/10.1016/j.
+                                                                                                         epsr.2023.109391.
+Full responsibility for the editorial process for this article was delegated
+                                                                                                    [19] S. Chen, X. Li, Y. Meng, Z. Xie, Wavelet-based protection strategy for series arc
+to another journal editor. If there are other authors, they declare that                                 faults interfered by multicomponent noise signals in grid-connected photovoltaic
+they have no known competing financial interests or personal re­                                         systems, Sol. Energy 183 (2019) 327–336, https://doi.org/10.1016/j.
+lationships that could have appeared to influence the work reported in                                   solener.2019.03.008.
+                                                                                                    [20] Z. Wang, S. McConnell, R.S. Balog, J. Johnson, Arc fault signal detection - fourier
+this paper.                                                                                              transformation vs. wavelet decomposition techniques using synthesized data, in:
+                                                                                                         2014 IEEE 40th Photovoltaic Specialist Conference, PVSC 2014, 2014, https://doi.
+                                                                                                         org/10.1109/PVSC.2014.6925625.
+Acknowledgment
+                                                                                                    [21] M. Tan, Y. Gong, L. Wang, K. Li, J. Tong, Y. Su, LFArc-PFE: a series arc fault
+                                                                                                         detection method based on low-frequency current data and perturbation feature
+    The authors gratefully acknowledge financial support from the                                        extraction, IEEE Trans. Instrum. Meas. 74 (2025) 1–11, https://doi.org/10.1109/
+Institut Teknologi Sepuluh Nopember (ITS) for this work, under project                                   TIM.2025.3544714.
+                                                                                                    [22] Z. Yin, S. Peng, C. Xiao, L. Wang, S. Yang, A series arc fault detection method based
+scheme of the Publication Writing and IPR Incentive Program (PPHKI)                                      on time-frequency markov permutation transition field for photovoltaic systems
+and Program Hilirisasi Riset Prioritas dan Strategis (SINERGI) under                                     with power electronic devices, IEEE Trans. Power. Electron. 40 (8) (2025)
+contract numbers 135/SPK/C.C4/PPK.DHK/IV/2026 - 2264/PKS/ITS/                                            11380–11393, https://doi.org/10.1109/TPEL.2025.3555829.
+                                                                                                    [23] T. Zhang, R. Zhang, H. Wang, R. Tu, K. Yang, Series AC arc fault diagnosis based on
+2026. The authors also gratefully acknowledge facilities support from                                    data enhancement and adaptive asymmetric convolutional neural network, IEEE
+the Renewable Energy Integration Demonstrator of Indonesia (REIDI) –                                     Sens. J. 21 (18) (2021) 20665–20673, https://doi.org/10.1109/
+ITS.                                                                                                     JSEN.2021.3099638.
+                                                                                                    [24] X. Chen, W. Gao, C. Hong, Y. Tu, A novel series arc fault detection method for
+                                                                                                         photovoltaic system based on multi-input neural network, Int J Electr Power
+Data availability                                                                                        Energy Syst. 140 (2022) 108018, https://doi.org/10.1016/j.ijepes.2022.108018.
+                                                                                                    [25] T. Biswal, S.K. Parida, S. Mishra, A combined approach of empirical wavelet
+                                                                                                         transform and artificial neural network based high impedance fault classification in
+    Data will be made available on request.
+                                                                                                         micro-grid system, in: 2022 IEEE Region 10 Symposium, TENSYMP 2022, 2022,
+                                                                                                         https://doi.org/10.1109/TENSYMP54529.2022.9864362.
+References                                                                                          [26] C. Hu, N. Qu, S. Zhang, Series arc fault detection based on continuous wavelet
+                                                                                                         transform and DRSN-CW with limited source data, Sci. Rep. 12 (1) (2022), https://
+                                                                                                         doi.org/10.1038/s41598-022-17235-7.
+ [1] M. Erdiwansyah, R. Mamat, M.S.M. Sani, F. Khoerunnisa, A. Kadarohman, Target
+                                                                                                    [27] M. Farzanehdehkordi, S. Ghaffaripour, K. Tirdad, A.D. Cruz, A. Sadeghian,
+     and demand for renewable energy across 10 ASEAN countries by 2040′, Electr. J.
+                                                                                                         A wavelet feature-based neural network approach to estimate electrical arc
+     32 (10) (2019) 106670 https://doi.org/10.1016/j.tej.2019.106670.
+                                                                                                         characteristics, Electr. Power Syst. Res. 208 (2022) 107893, https://doi.org/
+ [2] IEA PVPS country updates 2024 - IEA-PVPS, Accessed: May 15, https://iea-pvps.
+                                                                                                         10.1016/j.epsr.2022.107893.
+     org/annual-reports/annual-report-2024-country-updates/, 2025.
+                                                                                                    [28] M.K. Alam, F. Khan, J. Johnson, J. Flicker, A comprehensive review of catastrophic
+ [3] J. Yan, Q. Li, S. Duan, A simplified current feature extraction and deployment
+                                                                                                         faults in PV arrays: types, detection, and mitigation techniques, IEEE J. Photovolt.
+     method for DC Series arc fault detection, IEEE Trans. Ind. Electron. 71 (1) (2024)
+                                                                                                         5 (2015) 982–997, https://doi.org/10.1109/JPHOTOV.2015.2397599.
+     625–634, https://doi.org/10.1109/TIE.2023.3247721.
+                                                                                                    [29] J. Wu, J. Li, J. Yang, S. Mei, Wavelet-integrated deep neural networks: a systematic
+ [4] J.R. Riba, M. Moreno-Eguilaz, J.A. Ortega, Arc fault Protections for aeronautic
+                                                                                                         review of applications and synergistic architectures, Neurocomputing 657 (2025)
+     applications: a review identifying the effects, detection methods, current progress,
+                                                                                                         131648, https://doi.org/10.1016/j.neucom.2025.131648.
+     limitations, future challenges, and research needs, IEEE Trans. Instrum. Meas. 71
+                                                                                                    [30] J. Zhao, D. He, Z. Jin, X. Zhang, J. Zhou, A new method for bearing remaining
+     (2022) 1–14, https://doi.org/10.1109/TIM.2022.3141832.
+                                                                                                         useful life prediction based on dynamic wavelet and physical information
+ [5] S.R. Madeti, S.N. Singh, A comprehensive study on different types of faults and
+                                                                                                         constraints, Expert. Syst. Appl. 296 (2026) 129023, https://doi.org/10.1016/j.
+     detection techniques for solar photovoltaic system, Sol. Energy 158 (2017)
+                                                                                                         eswa.2025.129023.
+     161–185, https://doi.org/10.1016/j.solener.2017.08.069.
+                                                                                                    [31] M. Gallegati, A systematic wavelet-based exploratory analysis of climatic variables,
+ [6] A. Amiri, H. Samet, T. Ghanbari, Recurrence plots based method for detecting
+                                                                                                         Clim. Change 148 (1–2) (2018) 325–338, https://doi.org/10.1007/s10584-018-
+     series arc faults in photovoltaic systems, IEEE Trans. Ind. Electron. 69 (6) (2022)
+                                                                                                         2172-8.
+     6308–6315, https://doi.org/10.1109/TIE.2021.3095819.
+                                                                                                    [32] V. Valenzuela, H. Oliveira, Close Expressions for Meyer Wavelet and Scale
+ [7] M.L. Eblen, T.A. Short, Low voltage ARC sustainability, IEEE Trans. Ind. Appl. 54
+                                                                                                         Function, XXXIII Simpósio Brasileiro de Telecomunicações (SBrT2015) (2015),
+     (2018) 2934–2946, https://doi.org/10.1109/TIA.2017.2776208.
+                                                                                                         https://doi.org/10.14209/sbrt.2015.2.
+ [8] G.R. Venkatakrishnan, et al., Detection, location, and diagnosis of different faults in
+                                                                                                    [33] O. Ahmad, N.A. Sheikh, M. Ahmad, Nonuniform biorthogonal wavelets on positive
+     large solar PV system—a review’, Int. J. Low-Carbon Technol. 18 (2023) 659–674,
+                                                                                                         half line via Walsh Fourier transform, J. Egypt Math. Soc. 29 (1) (2021), https://
+     https://doi.org/10.1093/ijlct/ctad018.
+                                                                                                         doi.org/10.1186/s42787-021-00128-5.
+ [9] E.M. Shalby, A.Y. Abdelaziz, E.S. Ahmed, B. Abd-Elhamed Rashad,
+                                                                                                    [34] J.B. Ahn, H. Bin Jo, H.J. Ryoo, Real-time DC series arc fault detection based on
+     A comprehensive guide to selecting suitable wavelet decomposition level and
+                                                                                                         noise pattern analysis in photovoltaic system, IEEE Trans. Ind. Electron. 70 (10)
+     functions in discrete wavelet transform for fault detection in distribution networks,
+                                                                                                         (2023) 10680–10689, https://doi.org/10.1109/TIE.2022.3220883.
+     Sci. Rep. 15 (1) (2025), https://doi.org/10.1038/s41598-024-82025-2.
+                                                                                                    [35] S. Chen, X. Li, J. Xiong, Series arc fault identification for photovoltaic system based
+[10] A.H.N. Tajani, A. Bamshad, N. Ghaffarzadeh, A novel differential protection
+                                                                                                         on time-domain and time-frequency-domain analysis, IEEE J. Photovolt. 7 (4)
+     scheme for AC microgrids based on discrete wavelet transform, Electr. Power Syst.
+                                                                                                         (2017) 1105–1114, https://doi.org/10.1109/JPHOTOV.2017.2694421.
+     Res. 220 (2023) 109292, https://doi.org/10.1016/j.epsr.2023.109292.
+                                                                                                    [36] E. Calderon-Mendoza, P. Schweitzer, S. Weber, A double ended AC series arc fault
+[11] S. Ouarhlent, N. Terki, M. Hamiane, H. Dahmani, Fault detection In robots based
+                                                                                                         location algorithm for a low-voltage indoor power line using impedance
+     on discrete wavelet transformation and eigenvalue of energy, Diagnostyka 24 (4)
+                                                                                                         parameters and a neural network, Electr. Power Syst. Res. 165 (2018) 84–93,
+     (2023) 1–10, https://doi.org/10.29354/diag/174124.
+                                                                                                         https://doi.org/10.1016/j.epsr.2018.08.008.
+[12] S. Sharma, S.K. Tiwari, S. Singh, Integrated approach based on flexible analytical
+                                                                                                    [37] A. Mellit, G.M. Tina, and S.A. Kalogirou, ‘Fault detection and diagnosis methods for
+     wavelet transform and permutation entropy for fault detection in rotary machines,
+                                                                                                         photovoltaic systems: a review’, 2018. doi: 10.1016/j.rser.2018.03.062.
+     Measurement 169 (2021) 108389, https://doi.org/10.1016/j.
+                                                                                                    [38] H. Zhao, J. Liu, J. Lou, Series arc fault detection based on current fluctuation and
+     measurement.2020.108389.
+                                                                                                         zero-current features, Electr. Power Syst. Res. 202 (2022) 107626, https://doi.org/
+[13] A. Mannelli, F. Papi, G. Pechlivanoglou, G. Ferrara, A. Bianchini, Discrete wavelet
+                                                                                                         10.1016/j.epsr.2021.107626.
+     transform for the real-time smoothing of wind turbine power using li-ion batteries,
+     Energies 14 (8) (2021) 2184, https://doi.org/10.3390/en14082184.
+
+
+                                                                                               11
+A.B. Ksatria et al.                                                                                                                Electric Power Systems Research 261 (2026) 113483
+
+[39] Wavelet analysis and its applications, Wavelet Anal. Appl. 1 (100) (1992) ii,            [42] B. Braden, The surveyor’s area formula, Coll. Math. J. 17 (4) (1986) 326–337.
+     https://doi.org/10.1016/B978-0-12-174584-4.50001-3. Jan.                                 [43] D.A. Dini, P.W. Brazis, K.H. Yen, Development of arc-fault circuit-interrupter
+[40] R.C. Hibbeller, Engineering Mechanics Statics 12th Edition, Prentice Hall, 2010.              requirements for photovoltaic systems, in: Conference Record of the IEEE
+[41] J. Gechlik, H. Sedrakyan, Gauss’s area formula for irregular shapes, Ohio J. Sch.             Photovoltaic Specialists Conference, 2011, https://doi.org/10.1109/
+     Math. 97 (1) (2024), https://doi.org/10.18061/ojsm.4172.                                      PVSC.2011.6186301.
+
+
+
+
+                                                                                         12
+

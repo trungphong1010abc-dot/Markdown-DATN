@@ -1,0 +1,584 @@
+                                                                                                       Electric Power Systems Research 129 (2015) 227–234
+
+
+
+                                                                                                            Contents lists available at ScienceDirect
+
+
+                                                                                        Electric Power Systems Research
+                                                                                    journal homepage: www.elsevier.com/locate/epsr
+
+
+
+
+An embedded system for AC series arc detection by inter-period
+correlations of current
+Jinmi Lezama a,b,∗ , Patrick Schweitzer a , Etienne Tisserand a , Jean-Baptiste Humbert a ,
+Serge Weber a , Patrice Joyeux b
+a
+    Université de Lorraine, Institut Jean Lamour, Equipe Mesures et Architectures Electroniques, Nancy F-54000, France
+b
+    Hager Electro SAS, Obernai, France
+
+
+
+
+a r t i c l e                     i n f o                                                       a b s t r a c t
+
+Article history:                                                                               This paper presents a method for detecting series arcs for a 230 V AC–50 Hz residential installation, its
+Received 7 October 2014                                                                        implementation in an embedded circuit and its performance under real conditions. First, we evaluated
+Received in revised form 3 August 2015                                                         the inter-period autocorrelation coefﬁcient r of the line current. The algebraic estimation of the derivative
+Accepted 5 August 2015
+                                                                                               of the signal r was then used to obtain an indicator of arc detection. r was calculated on the current at a
+Available online 1 September 2015
+                                                                                               sampling rate frequency of 5 kHz and the 50 Hz component was attenuated by an high pass (HP) ﬁlter.
+                                                                                               Tests carried out with domestic appliances with different power loads (resistive load, lamp, vacuum
+Keywords:
+                                                                                               cleaner, dimmer etc) show a value for r which is very stable and close to 1 under normal conditions. The
+Series arc fault
+Detection
+                                                                                               coefﬁcient r weakens in the presence of an arc (initiated by a carbon path) and is no longer constant. The
+Residential                                                                                    complete algorithm was implemented in real time on a 32-bit ARM Cortex-M3 microcontroller with a 12-
+Inter-period correlation                                                                       bit ADC. The measuring current, which ranges from 0 to more than 20 A, was provided by a passive toroidal
+Embedded system                                                                                inductive probe. Four typical household loads were tested. The results obtained show that detection is
+230VAC                                                                                         operative and very fast (10 ms) with currents which exceed 400 mA.
+                                                                                                                                                                   © 2015 Elsevier B.V. All rights reserved.
+
+
+
+
+Contents
+
+    1.    Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 228
+    2.    Method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 228
+          2.1.    Theoretical background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 228
+          2.2.    Algorithm for r calculus . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+          2.3.    Detection based on the algebraic derivative of r . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+    3.    Off line correlation coefﬁcient calculus . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+          3.1.    Experimental conditions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+          3.2.    Typical currents . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 230
+          3.3.    Off line simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 230
+          3.4.    Comparison with other arc indicators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 231
+    4.    Embedded detector . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 231
+          4.1.    Hardware . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 231
+          4.2.    Stability of the coefﬁcient r in the absence of an electric arc . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 232
+          4.3.    Limit of detection versus the current I . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 232
+          4.4.    Time response of the arc detector . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 232
+    5.    Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 233
+          Acknowledgment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 233
+          References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 233
+
+
+
+
+ ∗ Corresponding author at: Université de Lorraine, Institut Jean Lamour, Equipe Mesures et Architectures Electroniques, Vandoeuvre lès Nancy, Nancy F-54000, France.
+Tel.: +33 383684154.
+     E-mail address: jinmilezama@gmail.com (J. Lezama).
+
+http://dx.doi.org/10.1016/j.epsr.2015.08.005
+0378-7796/© 2015 Elsevier B.V. All rights reserved.
+228                                           J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234
+
+
+1. Introduction
+
+    Developing reliable arc fault detectors is a major issue in pro-
+tecting AC domestic installations. Indeed, in the United States and
+Europe, several studies have shown that a signiﬁcant proportion of
+domestic ﬁres are caused by arcing faults [1,2]. Unlike the United
+States, where these circuits are imposed in homes, this is not the
+case in the Europe (EEC). However, new European Regulations (IEC
+62606) [3] will make them compulsory in the coming years. Cur-
+rently, some devices are available which are suitable for detection
+in 230 V/50 Hz AC power installations.
+    The main methods for detecting arc faults, as presented in cur-
+rent literature, are based on an analysis of the line current. Several
+detection methods are based on current spectral composition. The                   Fig. 1. Time frequency responses of the notch ﬁlter and second order differentiator.
+analysis is performed in a variety of bands ranging from low fre-
+quencies up to 20 kHz [4–7] and at even higher frequencies [8,9].                  absence of arc are constant throughout a period T0 (the load can be
+Other methods focus speciﬁcally on analyzing the odd harmonics                     linear or not), and that second, the arc phenomenon results from a
+[10], more speciﬁcally third and ﬁfth harmonics [4,5,11]. In gen-                  non-stationary random process [20–23].
+eral the frequency range is selected to avoid interference caused                      In order to produce an arc discharge between two electrodes,
+by the load. Other solutions operate with a time domain feature                    after the zero-crossing of the voltage and current, the increase in
+approach—rapid changes in arcing currents (di/dt) [12], autocorre-                 voltage will cause ionization of the isolator, which must be bro-
+lation [13], crest factor or inter-harmonic distortion [14,15]. Some               ken when the voltage reaches the restrike value. This value may
+methods are based on the implementation of time-frequency anal-                    vary greatly from one cycle to the other, and depends on numerous
+ysis or wavelet packet transform [16], which require long and                      factors: gap width, the surface condition of the electrodes and the
+empirical settings which negatively affect their uses on a large scale.            temperature and presence of ionized air [22]. Therefore the restrike
+    Siemens, for example, proposes a detection device for the Euro-                of arc voltage behaves randomly.
+pean market for use with low and average AC voltage (AFD Siemens                       In practice, we observe an inter-period correlation coefﬁcient r:
+unit [17]) which is suitable for currents between 3 and 16 amps.
+    Very few studies show detection results in the presence of non-                • Stable and close to 1 in normal operation.
+linear or switching (dimmer) loads where the power signature is                    • Lower and variable with the arc presence.
+closed to an arc signature [18]. Finally, it is difﬁcult to ﬁnd studies
+giving the lower current limit above which the detection method                       However, in order to highlight the fall of r, it is necessary to
+is reliable.                                                                       attenuate the deterministic components of the current, especially
+    In a previous paper [19], we presented a detection method based                the fundamental frequency. The DC component (offset of the mea-
+on the algebraic derivation of the line current. This method, which                suring probe and bias circuit) must be totally eliminated.
+can be used in AC or DC regimes, is very robust with respect to mea-                  To meet these constraints, the current I is ﬁltered by a notch
+surement noise, but remains limited to installations which do not                  ﬁlter centered on zero frequency. Its transfer function is given by:
+use switching electrical devices. It is therefore not possible to apply
+the algebraic derivation directly on the current in domestic electri-                                           1 − 2z −1 + z −2
+                                                                                   H(z) = (1 − e)                                                                  (1)
+cal installations where many domestic loads include dimmers.                                           1 − 2(1 − e)z −1 + (1 − e)2 z −2
+    To overcome this limitation, we looked for an arc indicator
+                                                                                      This ﬁlter acts as a high pass (HP) ﬁlter with a low cutoff fre-
+which is far less sensitive to the nature of the load than the
+                                                                                   quency and a very narrow rejected band. e is a positive real value
+current itself. Numerous studies [20–22] have demonstrated the
+                                                                                   well below 1 and the −3 dB cutoff frequency (fcutoff ) is obtained
+non-stationary nature of the statistical characteristics of the cur-
+                                                                                   according to the following equation:
+rent in the presence of a series arc. The random behavior of the
+arc introduces temporary differences between successive periods                                e
+                                                                                   fcutoff ≈     fs                                                                (2)
+which can be demonstrated by measuring the correlation coefﬁ-                                  4
+cient from one period to another. The detection strategy presented                 with f the signal frequency and fs the sampling frequency.
+here is based on the monitoring of real-time ﬂuctuations of this                       Nevertheless, the fundamental component (50 Hz) should not
+coefﬁcient by algebraic derivation.                                                be completely eliminated in order to allow the correct calculation of
+    In the ﬁrst part of this paper, we give the assumptions made in                r for little deformed current. This is the case for linear loads without
+our study and present the theoretical background based on the cal-                 the presence of an arc in the line.
+culation of the inter-period autocorrelation coefﬁcient r from the                     The numerator of H(z) is identical to a second order differentia-
+current line and its derivative by an algebraic estimator. Off-line,               tor function. The notch ﬁlter is adapted to highlight discontinuities
+the calculation of r is performed on real currents in the presence or              generated by the arc current, while being less sensitive to high
+absence of a series arc. The results of the calculations are summa-                frequency noise.
+rized in the second part. The third and ﬁnal parts are devoted to the                  The frequency responses of the notch ﬁlter (where e = 0.2) and
+implementation of the detection method on an embedded operat-                      the second order differentiator are compared in Fig. 1.
+ing system produced around an ARM Cortex-M3 microcontroller.                           The autocorrelation coefﬁcient rk (n) can be estimated at each
+                                                                                   sampling time using the Pearson formula [24]:
+2. Method                                                                                              M                                     
+                                                                                                          j=1
+                                                                                                                 xk−j − xk        xk−n−j − xk−n
+                                                                                   rk (n) =                                                                      (3)
+2.1. Theoretical background                                                                           M              2 M                         2
+                                                                                                       j=1
+                                                                                                           xk−j − xk              k=1
+                                                                                                                                      xk−n−j − xk−n
+   The principle that we propose derives from the double hypoth-
+esis that ﬁrst, the statistical characteristics of the line current in the         where xk is sampled and ﬁltered current signal.
+                                                         J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234                                                   229
+
+
+                                x           x2                                                                 rk            z-1            z-1                z-1
+                  H(z)                            A(z)       a
+            Uk
+                                           xy                c     c    rk(n)
+                          z-n                     A(z)                                                              P ( D)         P(D-1)               P(1)         P(0)
+                                y           y2               b     ab
+                                                  A(z)                                                                 2                                              2
+
+                         Fig. 2. Real time algorithm for r calculus.                                                                        Σ                               rk
+
+                                                                                                                        Fig. 3. Structure of the estimator ﬁlter.
+    The inter-period autocorrelation coefﬁcient is obtained when n
+is equal to n0 .
+                                                                                                 By isolating f’(0) and after return in the temporal space, an esti-
+    Where n0 = fs /f0 represents the number of samples in a funda-
+                                                                                              mator of the ﬁrst derivative is obtained according to the integrated
+mental period of the current T0 = 1/f0 .
+                                                                                              expression:
+    The statistical parameter r is theoretically insensitive to the
+amplitude x of the considered signal. Its deﬁnition domain is the
+                                                                                                       24
+                                                                                                                t
+                                                                                                                    3
+interval [–1 1].                                                                               
+                                                                                              f (0) ≈ − 4                 (t − )2 − 5(t − ) +  2 f ()d                     (7)
+    The formulation (3) is not adapted to the calculus on a sliding                                    t              2
+window. We prefer the equivalent expression (4) that separates all                                             0
+
+mean data.                                                                                        To obtain a real-time estimation, integration must be performed
+                                                                                              over a sliding window of duration T which is to replace t by T in
+                  xk xk−n − xk · xk−n
+rk (n) =                                                                           (4)       expression (7).
+                        2
+                 xk2 − xk            2
+                                    xk−n
+                                            2
+                                         − xk−n                                                   For the sampled signal rk , the integration window has a width
+                                                                                              T = D × Ts where D is a selected integer.
+                                                                                                  The integration variable can be written as:  = d × Ts with
+   As the signal x has a zero DC component (xk and xk−n = 0), (4) is                          0≤d≤D
+reduced to:                                                                                       The digital version of (7) can be synthesized by an FIR ﬁlter with
+             xk xk−n                                                                          (D + 1) coefﬁcients from the polynomial P(d):
+rk (n) =                                                                            (5)                  3
+                                                                                                                           2
+              xk2 .xk−n
+                    2
+                                                                                              P(d) = G         (D − d) − 5d(D − d) + d2                                          (8)
+                                                                                                           2
+                                                                                                                                                 4
+                                                                                                                                                    
+                                                                                                  With 0 ≤ d ≤ D and G = − 24/D fs
+2.2. Algorithm for r calculus
+                                                                                                  Fig. 3 shows the structure of the algebraic derivative ﬁlter. The
+                                                                                              following features comprise the structure of the ﬁlter:
+   The diagram which provides the calculation of r in real time at
+the rate fs is shown in Fig. 2.
+                                                                                              • The end ﬁlter coefﬁcients are halved to produce a numerical inte-
+   Uk is the sampled voltage delivered by the current probe.
+                                                                                                gration according to the trapezoidal method;
+   A(z) is the transfer function of the recursive average ﬁlter upon
+                                                                                              • The integration step Ts is taken into account in the factor G;
+M terms:
+                                                                                              • r  is expressed in s−1 ;
+                                                                                                 k
+           1 1 − z −M                                                                         • The numerical integration is accurate – even more accurate when
+A(z) =                                                                              (6)
+           M 1 − z −1                                                                           D is higher. It may be necessary to adjust the central coefﬁcient
+                                                                                                P(D/2) in order for the sum of the ﬁlter coefﬁcients to be equal to
+    The integer M is set to a value greater than or equal to n0 .                               zero;
+                                                                                              • Further explanations of this method are given in [19].
+2.3. Detection based on the algebraic derivative of r
+                                                                                              3. Off line correlation coefﬁcient calculus
+    The proposed detection is based on monitoring the level of r(n)
+and its variations. The coefﬁcient r being always inferior or equal                           3.1. Experimental conditions
+to 1, the simplest solution is to set a threshold below which the arc
+indicator is activated. In practice, for certain loads and in absence                             The electrical circuit (Fig. 4), designed to evaluate the per-
+of an arc, it is not impossible to see a coefﬁcient r(n0 ) less than 0.9.                     formance of the detection method, consists of a 4 kW generator
+Therefore the choice of a single threshold is problematic.                                    that supplies various domestic charges in an alternating voltage of
+    The passage of r from a quasi-static state to a variable regime                           230 V, f0 = 50 Hz. According to the IEC62606 standard, the ignition
+constitutes a more reliable indicator. Whatever the adopted indi-                             of series arc is performed using a carbon path (CP) inserted in the
+cator, the variations of r due to on/off states, load changes and so                          circuit.
+on, should be inhibited (holdoff) to avoid false detections.                                      The complete experimental setup is given in Fig. 5 [25].
+    To detect signal regime change, we propose to apply an algebraic                          Current measurements are made using a wideband Hall effect sen-
+differentiator. An algebraic differentiator is developed for estimat-                         sor (Lecroy AP015) (1). Measurements are sampled at fs = 5 kHz,
+ing the derivative of a signal f(t) from the limited development of                           digitized and stored on 12 bits using an oscilloscope Lecroy
+Taylor–McLaurin transposed in Laplace space.                                                  HDO 6104 (2).
+    For example, for a limited second order development:
+
+                  f  (0)    f  (0) 2
+f (t) = f (0) +           t+         t
+                    1!          2!
+    This gives, after Laplace transform:
+
+p3 F(p) = p2 f (0) + pf  (0) + f  (0)
+                                                                                                                          Fig. 4. Experimental electrical circuit.
+230                                                  J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234
+
+
+
+
+                                                                                                                                  Fig. 7. Current in the motor (before and after ﬁltering).
+                         Fig. 5. Experimental test bench.
+
+
+Table 1
+Loads under test.
+
+                Load type               Symb.          IRMS (A)         Power (W)
+
+ Test 1         Resistance              R              4.9              1125
+ Test 2         Motor                   M              5.5              1250
+ Test 3         Dimmer                  D              4                 900
+ Test 4         Combined loads          C              6.8              1500
+
+
+
+
+    The arcs are created in a sealed chamber (3) in which we can
+measure pressure and internal temperature.
+    The CP is formed by juxtaposing two insulating electric cables                                                                Fig. 8. Current in the dimmer (before and after ﬁltering).
+which have been damaged with a cutter. The ignition is provided
+with high voltage [3].
+    The nature and characteristics of domestic loads used are sum-
+marized in Table 1.
+    The universal motor is used in a Philips vacuum cleaner. The
+combined load is formed by the parallel association of the dimmer
+with a 600 W resistor. Recordings are made over a period of about
+2 s (10,000 points). They comprise a ﬁrst zone from 0 to 1 s without
+arc (normal operation) and a second zone from 1 to 2 s in which an
+arc is present.
+
+
+3.2. Typical currents
+
+   The currents I(t) and ﬁltered signals x(t) are presented in                                                             Fig. 9. Current in the combined load (before and after ﬁltering).
+Figs. 6–9. The ﬁlter parameter e was set to 0.2.
+   The 50 Hz component is attenuated by about 23 dB and the ﬁlter
+                                                                                          3.3. Off line simulation
+bandwidth begins at 250 Hz.
+   In order to visualize the signal shape, only 8 periods (4 without
+                                                                                             We simulated the algorithm by calculating r using a Simulink
+and 4 with an electric arc) are reproduced.
+                                                                                          model according to Fig. 2 with the following parameters n = M = 100
+   As expected, the notch ﬁlter accentuates the discontinuities and
+                                                                                          and e = 0.2.
+clearly shows the randomness of the disturbances introduced by
+                                                                                             The evolution of r, in Figs. 10 and 11, is obtained for each load,
+the arc.
+                                                                                          with and without arc.
+
+
+                                                                                                                                         Resistance
+                                                                                                                             1
+                                                                                                                                         Motor
+                                                                                                 Correlation coefficient
+
+
+
+
+                                                                                                                           0.8
+
+                                                                                                                           0.6
+
+                                                                                                                           0.4
+
+                                                                                                                           0.2
+
+                                                                                                                             0
+
+                                                                                                                           -0.2
+
+                                                                                                                           -0.4
+                                                                                                                                  0    0.2   0.4      0.6   0.8      1       1.2   1.4   1.6   1.8   2
+                                                                                                                                                                  Time (s)
+
+           Fig. 6. Current in the resistance (before and after ﬁltering).                                         Fig. 10. Evolution of r coefﬁcient for the resistance and the motor.
+                                                                                        J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234                                   231
+
+
+                                             Combined load
+                                 1
+                                             Dimmer
+     Correlation coefficient
+
+                               0.8
+
+                               0.6
+
+                               0.4
+
+                               0.2
+
+                                 0
+
+                               -0.2
+
+                               -0.4
+                                      0    0.2     0.4         0.6   0.8      1       1.2   1.4         1.6   1.8   2
+                                                                           Time (s)
+
+    Fig. 11. Evolution of r coefﬁcient for the dimmer and the combined load.                                                                       Fig. 13. The detector electrical diagram.
+
+                                                                                                                             4. Embedded detector
+    The value n = 100 (delay on a period) guarantees, in the absence
+of arcing, a stable correlation coefﬁcient practically equals to 1,                                                          4.1. Hardware
+whatever load is used.
+    The presence of a series arc can be detected unambiguously as                                                                We have developed our system around the MBED micro-
+soon as it appears, whatever the load. The temporal evolution of r                                                           controller LCP1768 which is particularly well suited for rapid
+is almost horizontal in normal operation and has strong variations                                                           prototyping of embedded electronic systems.
+in the presence of arc.                                                                                                          The LCP1768 board includes an ARM Cortex-M3 processor
+    Rapid changes of r have durations of a few milliseconds which                                                            bits/100 32 MHz, 64 kB SRAM, 512 kB of ﬂash memory, 12-bit ADC
+generate peaks from the derivate of order 10 to 30 s−1 .                                                                     and 10-bit DAC. It has different communication ports and a USB
+                                                                                                                             type 2 MB ﬂash memory, very useful for recording special events
+                                                                                                                             during operation.
+3.4. Comparison with other arc indicators                                                                                        After compilation, the programs are transferred to MBED via the
+                                                                                                                             USB port.
+    Different indicators of varying complexity have been proposed                                                                The LCP1768 board can be powered by a voltage (V) between
+by other teams. For example, indicators based on the crest factor                                                            4.5 V and 9 V. It has an internal voltage regulator of 3.3 V.
+[14] and the variance [18] of the current offer a good compromise                                                                Representing the electronic detector diagrammatically is sim-
+between reliability and the possibility of real-time implementation.                                                         ple, being limited to the microcontroller, an inductive sensor
+We compared the evolution of the coefﬁcient r to these indicators                                                            current and some passive components (Fig. 13).
+by applying to them the same current measured in the dimmer. The                                                                 In order to make gains in mobility, the supply voltage VIN can be
+comparative results are shown in Fig. 12.                                                                                    ensured by a 4.8 V NiMH battery.
+    The stability of an indicator can be deﬁned by its standard devi-                                                            The probe P is a toroidal inductive coil (Fig. 13). Loaded with
+ation  operating without arc. The lower it is, the more the risk of                                                         a resistor R0 = 100 , its sensitivity is approximately 70 mV/A at
+false detection is minimized. For the coefﬁcient r,  is stabilized to                                                       50 Hz.
+3.86 × 10−4 . This value is much lower than that obtained for the                                                                The signal delivered by the probe P is applied by a capacitive
+other two indicators (75 × 10−4 for the creast factor and 83 × 10−4                                                          connection (C = 10 ␮F) to the input (p20) of the ADC. The latter is
+for the variance).                                                                                                           polarized at 1.65 V by two resistors R (10 k).
+    The sensitivity of an arc indicator can be estimated by the ampli-                                                           Given the supply voltages, the dynamic range of current mea-
+tude of its variations in the presence of an arc compared to the                                                             surement I extends from 0 to 23 A.
+baseline without the arc. We observe signiﬁcant level changes                                                                    The different test results can be stored in an internal ﬁle, trans-
+(2.03 dB and −1.36 dB) for the crest factor, but the sign is inversed                                                        mitted by a digital port or as an analog voltage (V0 ).
+from one half period to the next. The average level fall is stabilized                                                           A photograph of the electronic device (MBED and LCD display
+at −1.46 dB for the variance and at −15.68 dB for the coefﬁcient r.                                                          coefﬁcient r) is shown in Fig. 14.
+Although further tests are needed to conﬁrm this ﬁnding, it seems                                                                The main program, developed in C++, synthesizes the algorithm
+that the inter-period autocorrelation coefﬁcient performs better in                                                          given in Fig. 2. We provided some additional routines performing
+terms of sensitivity and stability.                                                                                          the LCD display, internal storage and output (V0 ) of the coefﬁcient
+                                                                                                                             r or its derivative r .
+                                                                                                                                 To avoid multiple memory accesses that may affect the real-
+                                 2                                                                                           time operation of the program, different delays (z−n and z−M ) are
+                                                 Crest Factor
+                                                                                                                             carried out using circular buffers.
+                                                 Variance
+                               1.5               r coefficient
+                                                 r′
+     Value
+
+
+
+
+                                 1
+
+
+                               0.5
+
+
+                                 0
+                                      0                  0.5                  1                   1.5               2
+                                                                           Time [s]
+
+                                          Fig. 12. Comparison between three arc indicators.                                                              Fig. 14. Embedded detector.
+232                                                 J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234
+
+
+
+
+               Fig. 15. Dispersion of r for some domestic loads.
+
+                                                                                         Fig. 17. Level of noise (N) and derivative peaks (S) versus the current I amplitude.
+  The sampling rate fs of 5 kHz is handled by an interrupt function.
+And in all the following tests M = n = 100.
+
+                                                                                             For the estimation of the derivative r , we sized the number D
+4.2. Stability of the coefﬁcient r in the absence of an electric arc
+                                                                                         of FIR ﬁlter coefﬁcients so that the duration of integration is of the
+                                                                                         same order as that for the most rapid variation of r.
+   In order to verify the stability of the correlation coefﬁcient, we
+                                                                                             For D equals 10, the period integration is 2 ms which is appro-
+identiﬁed 1000 values for r delivered by the detector for different
+                                                                                         priate; by choosing this, the detector’s response time is slightly
+domestic loads during normal operation, over a period of about
+                                                                                         increased.
+15 min.
+                                                                                             The algebraic polynomial differentiator implemented in the
+   The dispersion of r for several loads is represented in Fig. 15.r
+                                                                                         microcontroller is then written as:
+has a value greater than 0.94 when the current ﬂowing through the
+load exceeds the RMS value of 250 mA (load of 60 W). For currents                                                                
+greater than 1 A, r shows a value of 0.99 ± 0.01.                                        P(d) = −6 · 3D2 − 16dD + 15d2                                                    (9)
+   In contrast, for currents less than 100 mA (load power less than
+20 W), the stability of r is no longer guaranteed in normal operation.                   with 0 ≤ d ≤ 10
+This lower limit is imposed by the noise generated by the toroidal                          The algebraic method has been reported previously by the
+sensor and the quantization precision of the ADC.                                        authors in [21].
+                                                                                            To visualize the evolution of r , we use the analog scale setting:
+4.3. Limit of detection versus the current I                                                                     r
+                                                                                         V0 (r  ) = 3.3 0.5 +              [V]                                         (10)
+    We periodically applied the signals used in off-line tests to verify                                          50
+the correct operation of the arc detector. This was done by using
+an arbitrary waveform generator (Agilent 33500B) in which ﬁles                              This allows us to view peaks for the derivative up to 25 s−1 ,
+were imported signals. By so doing, the detection performances                           before saturation of the DAC.
+are easier to evaluate than with an isolated electric arc, which is                         The evolution of V0 (r ), relative to the measured current in the
+difﬁcult to reproduce.                                                                   motor, is reproduced in Fig. 16.
+    The output voltage V0 of the DAC is used to display the values                          In order to check its inﬂuence on the detector performance, the
+of r or r on an oscilloscope.                                                           amplitude of the signal U can easily be modiﬁed with the arbitrary
+    For example, Fig. 16 shows the voltage V0 corresponding to the                       shape generator.
+autocorrelation r calculated in real time on the measured current                           We varied the amplitude U from 0 to 1500 mV, which corre-
+in the motor signal. The relation V0 (r) follows the expression:                         sponds to a measured current of from 0 to 21.5 A, by using the
+                                                                                         measured motor current.
+V0 (r) = 3.3 · r [V]                                                                        We measured the digital signal r each time:
+    The evolution of V0 (r) is identical to the calculus of r represented
+in Fig. 10.                                                                              • The mean noise level N (baseline) in the absence of an arc;
+                                                                                         • The average amplitude S of the peaks in the presence of an arc.
+
+
+                                                                                             Fig. 17 shows the changes of N and S depending on the current
+                                                                                         amplitude I.
+                                                                                             As soon as the current exceeds 0.4 A, the presence of an arc is
+                                                                                         indicated with a difference greater than 20 dB compared with the
+                                                                                         baseline. This contrast reaches 50 dB for currents above 10 A.
+                                                                                             By comparing the digital values r to a threshold of 2 s−1 , it is
+                                                                                         possible to reliably detect the presence of an arc for currents whose
+                                                                                         amplitude exceeds 0.4 A. At lower currents, the risk of non detection
+                 Fig. 16. Oscillogram of V0 (r ) for the motor.                         or false alarms is expected.
+                                                    J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234                                                     233
+
+
+                                                                                         different and is original in fundamentally exploiting the random
+                                                                                         behavior of the arc phenomenon. The statistic parameter that we
+                                                                                         use is the normalized autocorrelation inter-period coefﬁcient r of
+                                                                                         the current. The current is ﬁrst ﬁltered by a notch ﬁlter centered on
+                                                                                         zero frequency which, by attenuating the fundamental component
+                                                                                         f0 , highlights the differences between two successive periods. The
+                                                                                         coefﬁcient r has the advantage of being very sensitive to the current
+                                                                                         amplitude when it exceeds the noise level. Our tests show a normal
+                                                                                         value of r which is very stable and above 0.94 for currents above
+                                                                                         250 mA. In the presence of an arc and irrespective of the load (linear
+                  Fig. 18. Current I in the circuit (4.9 A RMS).                         or switching) the coefﬁcient r weakens and is no longer constant.
+                                                                                              The detection algorithm includes two main modules. The ﬁrst
+                                                                                         calculates the coefﬁcient r and the second is an FIR ﬁlter which
+                                                                                         estimates the derivative of r in real time. The estimation is per-
+                                                                                         formed by an algebraic approach that is very resistant to noise. The
+                                                                                         time response of the algorithm, approximately half a current period
+                                                                                         (10 ms in Europe), largely exceeds the requirements imposed by the
+                                                                                         various standards.
+                                                                                              The detection method is currently implemented on an embed-
+                                                                                         ded system based around an ARM microcontroller. Current
+                                                                                         measurement is made by a single toroidal passive probe. Capable
+                                                                                         of being operated with currents of low amplitude and at moder-
+                                                                                         ate cost, this type of detector can be applied to a large number of
+                                                                                         electrical safety applications.
+
+
+                                                                                         Acknowledgment
+
+                                                                                            The authors are grateful to the Hager Group for their support
+    Fig. 19. Derivative coefﬁcient r and binary indicator of the arc presence.           with this research.
+
+
+4.4. Time response of the arc detector                                                   References
+
+    Before concluding, we present a ﬁnal test performed in a real                         [1] FEMA, Topical Fire report series: residential building electrical Fires United
+situation on a circuit comprising a resistive load of 47  in series                          States Fire Administration, 8, 2008.
+                                                                                          [2] Groupe de Réﬂexion sur la sécurité électrique dans le logement (GRE-
+with a CP.                                                                                    SEL). La sécurité électrique. (2014). Available: http://www.gresel.org/
+    This test was designed to evaluate the time response of the                               incidentelectrique-2-4.html
+detector.                                                                                 [3] IEC62606, General requirements for arc fault detection devices, ﬁrst ed., Inter-
+                                                                                              national Electrotechnical Commission, March 2013, pp. 1–150.
+    Initially the CP was short-circuited by a closed switch. It was                       [4] N. Hadziefendic, M. Kostic, Z. Radakovic, Detection of series arcing in low-
+then opened to arc ignition at the required time.                                             voltage electrical installations, Eur. Trans. Electr. Power 19 (2009) 423–432.
+    Fig. 18 represents the current in the circuit. Arc ignition time is                   [5] P. Muller, S. Tenbohlen, R. Maier, M. Anheuser, Characteristics of series and
+                                                                                              parallel low current arc faults in the time and frequency domain, in: 56th IEEE
+indicated on the abscissa by a triangular index.                                              Holm Conference on Electrical Contacts (HOLM), 2010, pp. 1–7.
+    Variations in the coefﬁcient r are related with the appearance of                     [6] P. Dae-won, K. Il-kwon, C. Su-yeon, K. Gyung-suk, Detection algorithm of series
+a current distortion. The only operations that cause delays are the                           arc for electrical ﬁre prediction, in: International Conference on Condition Mon-
+                                                                                              itoring and Diagnosis, Beijing, 2008, pp. 716–719.
+averaging ﬁlter and the algebraic estimator.                                              [7] B.M. Aucoin, B.D. Russell, Distribution high impedance fault detection utilizing
+    We can theoretically estimate the response time of the detection                          high frequency current components, IEEE Trans. Power Apparatus Syst. PAS-
+algorithm by the relationship:                                                                101 (1982) 1596–1606.
+                                                                                          [8] X. Zhou, J.J. Shea, K.L. Parker, and T. J. Miller, Arc fault circuit interrupter and
+         M                                                                                    series arc fault detection method using plural high frequency bands, U.S. Patent
+th =            Ts                                                              (11)         7 633 727, (2009).
+        2+D
+                                                                                          [9] A. A. Haun, B.G. Grattan, K.B. Wong, R.F. Dvorak, and G. W. Scott, Arc fault circuit
+    The signal V0 (r ) and the binary state obtained for a detection                         interrupter, U.S. Patent 6 414 829, (July 2002).
+                                                                                         [10] B.D. Russell, R.P. Chinchali, C.J. Kim, Behaviour of low frequency spectra during
+threshold of 2 s−1 are shown in Fig. 19.                                                      arcing fault and switching events, IEEE Trans. Power Delivery 3 (1988) 1485.
+    The ﬁrst disturbance detected on r is generated by the opening                      [11] D.C. Yu, S.H. Khan, An adaptive high and low impedance fault detection method,
+of the switch.                                                                                IEEE Trans. Power Delivery 9 (1994) 1812–1821.
+                                                                                         [12] K. Phipps, T. Cooke, D. Dorr, P. Keebler, Frequency phenomenon and algorithms
+    These oscillograms indicate a delay of about 10 ms between the                            for arc detection, in: IEEE International Symposium on Electromagnetic Com-
+ignition time of the arc and the ﬁrst indication of presence of the                           patibility (EMC), 2010, pp. 183–188.
+arc.                                                                                     [13] J. Lezama, P. Schweitzer, S. Weber, E. Tisserand, P. Joyeux, Arcing detection at
+                                                                                              home system using correlation analysis, in: The 27th International Conference
+    This experiment conﬁrms the rapidity of the arc detector where
+                                                                                              on Electrical Contacts, 2014, pp. 1–6.
+the response time satisﬁed the IEC62606 standard which imposes                           [14] C. Kim, B. Russell, Analysis of distribution disturbances and arcing faults using
+a maximum time response of 500 ms for a current of 5 A RMS and                                the crest factor, Electr. Power Syst. Res. 35 (1995) 141–148.
+                                                                                         [15] B.D. Russell, R.P. Chinchali, C.J. Kim, Behaviour of low frequency spectra dur-
+250 ms for a current of 10 A RMS.
+                                                                                              ing arcing fault and switching events, IEEE Trans. Power Delivery 3 (1988)
+                                                                                              1485–1492.
+5. Conclusion                                                                            [16] K. Koziy, G. Bei, J. Aslakson, A low-cost power-quality meter with series arc-
+                                                                                              fault detection capability for smart grid, IEEE Trans. Power Delivery 28 (2013)
+                                                                                              1584–1591.
+   Traditional arc detection solutions are based, for the most part,                     [17] Restrepo, P. Staley, A. Nayak, V. Mikani, H. Kinsel, S.R. Titus, et al., Systems and
+on spectral analysis of the line current. The method we propose is                            methods for arc fault detection, U.S. Patent 7,864,492, (Jan 2011).
+234                                                  J. Lezama et al. / Electric Power Systems Research 129 (2015) 227–234
+
+
+[18] J. Lezama, P. Schweitzer, S. Weber, E. Tisserand, P. Joyeux, Arc fault detec-        [22] G. Parise, L. Martirano, M. Laurini, Simpliﬁed arc-fault model: the reduction fac-
+     tion based on temporal analysis, in: 60th IEEE Holm Conference on Electrical              tor of the arc current, IEEE Trans. Ind. Appl. 49 (July–Aug (4)) (2013) 1703–1710.
+     Contacts (Holm), 12–15 Oct 2014, 2014, pp. 1–5.                                      [23] C.J. Kim, An arc/spark detection system as an early warning indicator of electric
+[19] E. Tisserand, J. Lezama, P. Schweitzer, Y. Berviller, Series arcing detection             ﬁre hazard—ﬁnal report for the project, in: Development of a Home Network-
+     by algebraic derivative of the current, Electr. Power Syst. Res. 119 (2015)               ing System for Automation and Security Enhancement, Howard University,
+     91–99.                                                                                    Washington, USA, Ofﬁce of Research Administration, 2002 (June).
+[20] S.-C. Wang, C.-J. Wu, Y.-J. Wang, Detection of arc fault on low voltage power        [24] J. Hine, G.B. Wetherill, Coefﬁcient of correlation, in: A Programmed Text in
+     circuits in time and frequency domain approach, Int. J. Circuits Syst. Signal             Statistics Book 4: Tests on Variance and Regression, Springer, Netherlands,
+     Process. 6 (5) (2012) 324–331.                                                            1975, pp. 32–41.
+[21] N. Zamanan, J.K. Sykulski, Modelling arcing high impedances faults in relation       [25] J. Andrea, P. Schweitzer, E. Tisserand, P. Roth, S. Weber, Calibrated AC and DC
+     to the physical processes in the electric arc, WSEAS Trans. Power Syst. 1 (2006)          Arcing Fault Generator, in: 56th IEEE Holm Conference on Electrical Contacts
+     1507–1512.                                                                                (HOLM), 2010, pp. 1–6.
+

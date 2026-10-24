@@ -1,0 +1,804 @@
+                                                                  Electric Power Systems Research 201 (2021) 107503
+
+
+                                                                       Contents lists available at ScienceDirect
+
+
+                                                            Electric Power Systems Research
+                                                               journal homepage: www.elsevier.com/locate/epsr
+
+
+
+
+Arc fault detection and appliances classification in AC home electrical
+networks using recurrence quantification plots and image analysis
+Francesco Ferracuti a, Patrick Schweitzer *, b, Andrea Monteriù a
+a
+    Università Politecnica delle Marche, Department of Information Engineering via Brecce Bianche, Ancona 60131, Italy
+b
+    Université de Lorraine, Institut Jean Lamour (IJL), CNRS, Nancy F-54000, France
+
+
+
+
+A R T I C L E I N F O                                         A B S T R A C T
+
+Keywords:                                                     This paper presents a method for the detection of series arc faults in electrical circuits, which has been developed
+Recurrence quantification plot                                starting from the recurrence quantification plots that allow to quantify the periodic behavior of time-series and to
+Gray-level co-occurrence matrix                               analyze the recurrences of a dynamical system presented by its phase space trajectory. Starting from this, the
+Image analysis
+                                                              authors have found that it is possible to exploit recurrence quantification plots by using the gray-level co-
+Series arc
+Arc fault detection
+                                                              occurrence matrix from which the extracted textural image features represent a proper set of indicators for
+Appliances classification                                     suitably detecting arc faults. The database of this research is collected from 13 different types of load according
+                                                              to IEC 62606 standard. The proposed method’s effectiveness is shown by means of experimental tests, which
+                                                              were carried out in both arcing and non-arcing conditions and in the presence of different loads.
+
+
+                                                                                                    customized and advanced techniques which are able to extract arc fault
+                                                                                                    signatures [5]. Normally, the current time-series vary according to loads
+1. Introduction                                                                                     and circuit state (normal and arcing). The wave shapes of normal current
+                                                                                                    behave variously on different load types: some are almost sinusoidal,
+    Arc faults are electric arcs that originated in different home areas or                         others have flat shoulders or catastrophe points. When an arc fault is
+virtually in any electrical fixture that occur accidentally in series or                            occurring, many abnormal behaviors arise, such as impulse, or spiking,
+parallel and generally caused by wire’s long-term work with load or                                 increment of high-frequency harmonic component, decrement of the
+overload, junction’s loose connection, external intrusion raised insu­                              conduction angle, abrupt change of AC signal, time-domain waveform
+lation damage, etc. [1]. If an arc fault is maintained for a long time, the                         distortion and amplitude decreases. The variety, complexity and chaotic
+energy produced by the arc may lead to the ignition of a fire accident.                             nature of the current time-series during arc fault and the number of
+According to the Forum for European Electrical Safety (FEEDS), an                                   possible scenarios impose a great challenge on designing reliable arc
+estimated 270, 000 (reported or not) domestic fires of electrical origin                            fault detection methods [6,7].
+(about 20 to 30% of all domestic fires) still occur every year throughout                               Different arcing fault detection based on single or multi-criteria ap­
+the EU, estimated to cause an average of 1000 fatalities and 20, 000                                proaches have been presented in literature. The widely used methods are
+injuries each year and annual property damage of 6.25 billion euro [2].                             correlation analysis, crest factor, Kalman filter, inter-period correlations
+Whereas according to the National Fire Protection Association (NFPA),                               of current, algebraic derivative [4,8–11]. Others are based on
+44880 home fires involving electrical failure or malfunction are re­                                time-frequency analysis and mainly the wavelet transform. In this case,
+ported each year in 2012–2016, with 440 civilian deaths and 1250                                    the detection performances are strongly linked to the sampling fre­
+civilian injuries each year, as well as an estimated 1.3 billion in direct                          quency, the level of signal composition and the mother wavelet ac­
+property damage a year [3].                                                                         cording to the domestic appliance in the circuit [12–16]. With the rise of
+    Arc faults usually present as signature an indistinctive stochastic                             processing power for the embedded system, internet of things and the
+change of current magnitude [4], which makes difficult to detect this                               promising results of machine learning in many fields, several works
+kind of fault with the common circuit protectors. In addition, in the                               propose arc fault detection methods based on machine learning or deep
+literature, it is put in evidence that the features of arc faults are various                       learning techniques [17–21]. Machine learning-based algorithms in
+and complex, especially in the presence of nonlinear or switching loads                             conjunction with classical methods can bring better performance for arc
+[4], therefore arc fault detection and appliances classification require
+
+
+    * Corresponding author.
+      E-mail addresses: f.ferracuti@univpm.it (F. Ferracuti), patrick.schweitzer@univ-lorraine.fr (P. Schweitzer), a.monteriu@univpm.it (A. Monteriù).
+
+https://doi.org/10.1016/j.epsr.2021.107503
+Received 3 November 2020; Received in revised form 12 July 2021; Accepted 4 August 2021
+Available online 28 August 2021
+0378-7796/© 2021 Elsevier B.V. All rights reserved.
+F. Ferracuti et al.                                                                                                                   Electric Power Systems Research 201 (2021) 107503
+
+
+
+    Nomenclature                                                                                      L          quantized gray levels
+                                                                                                      P(i, j)    number of co-occurrences of gray level i and j
+    TDV − CNN temporal Domain visualization convolutional neural                                      μ x , μy   mean deviations of Px (i) and Py (j)
+            network                                                                                   σx , σy    standard deviations of Px (i) and Py (j)
+    RQ      recurrence quantification                                                                 HXY1       GLCM entropy 1
+    RQA     recurrence quantification analysis                                                        HXY2       GLCM entropy 2
+    GLCM    grey level co-occurence matrix                                                            HC         number of half cycle
+    τ       yime delay                                                                                ACF        Autocorrelation function
+    m       embedding dimension in the phase space                                                    AC         alternating current
+    Θ       similarity function                                                                       Fs         sampling frequency
+    S       similarity matrix                                                                         Fd         sampling frequency after downsampling
+    RQP     recurrence quantification plots                                                           f0         fundamental frequency
+    I(x, y) gray image of size Nx pixels by Ny pixels                                                 TW         time window duration
+    d, θ    trigonometric functions
+    C(i, j) co-occurrence probabilities between gray level i and j
+
+
+
+                                                                                                      in the literature in order to appliance recognition [24–26], and the most
+Table 1                                                                                               recent ones are based on a machine learning approach [27–30] but none
+Texture features extracted from GLCM.                                                                 is associated with a detection method. There are few methods in the
+  #             Feature                           Equation
+                                                                                                      literature that combine both arc detection and load classification. Wang
+                                                                                                      et al. [6] proposed a processing procedure with a sparse representation
+                                                  ∑L ∑L
+  f1            Autocorrelation [45]                    i       j (i⋅j)P(i, j)                        with a fully connected neural network methodology for series arc fault
+  f2            Cluster Prominence [45]
+                                                  ∑L ∑L
+                                                        i       j (i + j −   μx − μy )4 P(i, j)       identification. The general classification reaches 94.3% with 10 tested
+  f3            Cluster Shade [45]
+                                                  ∑L ∑L
+                                                                             μx − μy )3 P(i, j)       classes. Chu et al. [16] proposed a temporal domain visualization step
+                                                        i       j (i + j −
+  f4            Dissimilarity [45]
+                                                  ∑L ∑L                                               associated with a convolutional neural network (TDV-CNN). Every
+                                                        i      j |i − j|P(i, j)
+  f5            Entropy [44,45]
+                                                            ∑L ∑L                                     half-cycle of the measured current is transformed into a grey image. The
+                                                  −                 j P(i, j)log(P(i, j))
+                                                             i
+                                                                                                      detection accuracy reaches 98.7% and can be used to distinguish various
+  f6            Maximum probability [45]          max P(i, j)
+                                                      i,j                                             load types. Yang et al. [12] developed a signal processing method to
+  f7            Inverse Difference Moment [44],   ∑L ∑L              P(i, j)
+                or Homogeneity II [45]                  i       j                                     extract the high frequency radiation characteristics, the current wave­
+                                                        1 + |i − j|2
+  f8            Inverse difference [46]           ∑L ∑L P(i, j)                                       form periodic integral characteristics, and the current waveform slope
+                or Homogeneity I [45]              i  j
+                                                        1 + |i − j|                                   characteristics of the arc faults. Then the recognition algorithm is based
+  f9            f7 Normalized                     ∑L ∑L      P(i, j)                                  on multi-information fusion and support vector machines. Arc fault
+                                                        i       j
+                                                        1 + (|i − j|/L)2                              identification is made on single and combined loads.
+  f10           f8 Normalized                     ∑L ∑L      P(i, j)
+                                                   i  j
+                                                  ∑L ∑L 1 + |i2− j|/L
+                                                                                                          In this work, a method for the detection of series arc faults in elec­
+  f11           Contrast [45]                         j |i − j| P(i, j)
+                                                   i                                                  trical circuits and appliances classification is proposed by exploiting the
+                                                  ∑L ∑L
+  f12           Energy [45]                        i  j P(i, j)
+                                                                2
+                                                                                                      Recurrence Quantification (RQ) plots. The Recurrence Quantification
+  f13           Correlation [44],                 ∑L ∑L (i⋅j)P(i, j) − μx μy                          Analysis (RQA) is a methodology that allows quantifying the periodic
+                or Correlation II [45]                  i       j
+                                                                         σx σ y                       behavior of time-series and analyzing the recurrences of a dynamical
+                                                     ∑L− 1
+  f14           Difference entropy [44,45]             i=0 Px− y (k)log(Px− y (k))
+                                                  −                                                   system presented by its phase space trajectory. RQ plots can be analyzed
+                                                  ∑L− 1 2
+  f15           Difference variance [44,45]         i=0 i Px− y (k)                                   by using the gray-level co-occurrence matrix from which the extracted
+  f16           Information measure               HXY − HXY1                                          textural image features represent a proper set of indicators for suitably
+                of correlation I [44,45]          max(HX, HY)
+                                                                                                      detecting arc faults. The effectiveness of the proposed method is shown
+  f17           Information measure               (1 − exp[− 2(HXY2 − HXY)])1/2
+                of correlation II [44,45]
+                                                                                                      by means of experimental tests, which were carried out in both arcing
+  f18           Sum average [44,45]
+                                                  ∑2L                                                 and non-arcing conditions and in the presence of different loads. The
+                                                    i=2 iPx+y (k)
+  f19           Sum entropy [44,45]
+                                                      ∑2L                                             main contribution and novelty of this paper consists of the exploitation
+                                                  −     i=2 Px+y (k)log(Px+y (k))
+                                                  ∑L ∑L                                               of the recurrence plots to discriminate the occurrence of arc faults and
+  f20           Sum of squares [44,45]                            2
+                                                         j (i − μ) P(i, j)
+                                                    i
+                                                  ∑2L                                                 classify the load types. The recurrence quantification analysis demon­
+  f21           Sum variance [44,45]                              2
+                                                    i=2 (i − f19) Px+y (k)                            strated to be a reliable tool to analyze AC signals for electric motor fault
+                                                                                                      detection [31,32] and power system analysis [33]. The recurrence plots
+                                                                                                      are analyzed by using an efficient image analysis technique such as
+fault detection. Machine learning approaches are mainly based on
+                                                                                                      Gray-Level Co-Occurrence Matrix (GLCM). Moreover, the authors pro­
+pattern classification in order to detect the arc fault and, consequently,
+                                                                                                      pose a solution based on the physical knowledge of such arc signals, in
+identify the appliance involved in the fault [22,23]. Duc Vu et al. [20]
+                                                                                                      order to set the time delay that usually is found by the application of
+proposed an original methodology for the choice of optimal arc fault
+                                                                                                      mutual information [34].
+features (transforms or direct feature extraction) in a first step and then
+                                                                                                          The rest of this paper is organized as follows. Section 2 introduces the
+for combining them using a machine learning technique. The method
+                                                                                                      preliminary theory of RQA, and details of textural features extraction
+consists of creating an arc fault feature pool and finding a combination
+                                                                                                      and classification for detecting arc faults. The general experimental test
+of those features which satisfy the desired performance. The method is
+                                                                                                      bench used to generate a series arc faults in an electrical network in
+tested efficiently with twenty-one specific transforms associated with 10
+                                                                                                      order to record the current electrical signatures is described in Section 3.
+different descriptors. A major interest would be to be able to also locate
+                                                                                                      In Section 4, the proposed methodology is evaluated with real data of
+the arc fault on the line, and more precisely identify the load which
+                                                                                                      various load types and work states; the comparison with other methods
+presents a fault for electrical troubleshooting for example. Many
+                                                                                                      is also provided. Section 5 presents the conclusion.
+methods related to non-intrusive load monitoring have been presented
+
+
+                                                                                                  2
+F. Ferracuti et al.                                                                       Electric Power Systems Research 201 (2021) 107503
+
+
+
+
+                      Fig. 1. Flowchart of the proposed fault classification algorithm.
+
+
+
+
+                                                      3
+F. Ferracuti et al.                                                                                                   Electric Power Systems Research 201 (2021) 107503
+
+
+Table 2                                                                               well-known that time-delay coordinates allow to synthesize additional
+Settings of the algorithm.                                                            dynamic variables using a time-series measurement from a single vari­
+  Fd                  Time     Samples (n)   Half-cycles (HC)   Time delay (τ)        able. Considering a time-series of N samples obtained from the sensor
+                                                                                      measurement [y(1), y(2), …, y(N)], its corresponding phase space can be
+  25 kHz              0.02 s   500           2                  125
+                                                                                      constructed through a time-delay approach according to Takens’
+  5 kHz               0.1 s    500           10                 25
+  5 kHz               0.08 s   400           8                  25                    embedding theorem [37]. The dynamics in these time-delay coordinates
+  5 kHz               0.05 s   250           5                  25                    produce a new attractor with the same topology. In particular, the
+  4 kHz               0.1 s    400           10                 20                    following matrix is constructed by stacking delayed time-series of y as
+  4 kHz               0.08 s   320           8                  20                    rows:
+  4 kHz               0.05 s   200           5                  20
+                                                                                      ⎧
+  3.125 kHz           0.1 s    313           10                 16                    ⎪  Y(1) = [y(1), y(1 + τ), …, y(1 + (m − 1)τ)]
+  3.125 kHz           0.08 s   250           8                  16
+                                                                                      ⎪
+                                                                                      ⎪
+                                                                                      ⎪
+                                                                                      ⎨ Y(2) = [y(2), y(2 + τ), …, y(2 + (m − 1)τ)]
+  3.125 kHz           0.05 s   157           5                  16
+                                                                                         …                                                                (1)
+  2.5 kHz             0.1 s    250           10                 12                    ⎪
+                                                                                      ⎪
+  2.5 kHz             0.08 s   200           8                  12
+                                                                                      ⎪ Y(N − (m − 1)τ) =
+                                                                                      ⎪
+                                                                                      ⎩
+  2.5 kHz             0.05 s   125           5                  12                           [y(N − (m − 1)τ), y(N − (m − 2)τ), …, y(N)]
+  2 kHz               0.1 s    200           10                 10
+  2 kHz               0.08 s   160           8                  10                    where τ is the time delay, and m is the embedding dimension in the
+  2 kHz               0.05 s   100           5                  10                    phase space. The representation of time-series in phase is based on
+                                                                                      dynamical systems theory, and the time-delay embedding process is able
+                                                                                      to reconstruct a topologically identical state space to the original state
+                                                                                      space of the system [37–39]. Hence, the features that capture the simi­
+                                                                                      larities and differences of the reconstructed state space are capturing
+                                                                                      similarities and differences of the underlying state structure of the sys­
+                                                                                      tem [40].
+                                                                                          In this paper, a novel features extraction based on similarity matrix
+                                                                                      and statistical properties of the image derived from GLCM is proposed.
+                                                                                      This theoretical relationship between the reconstructed state space and
+                                                                                      the original state space to detect arc faults is then exploited. In order to
+                                                                                      investigate the m-dimensional phase space trajectory through a two-
+                                                                                      dimensional representation, the similarity matrix is exploited:
+                                                                                      Si,j = Θ( ‖ Y(i) − Y(j) ‖ )                                                  (2)
+
+                                                                                      where i, j ∈ [1, N − (m − 1)τ], Θ is a similarity function, and ‖ ⋅ ‖ is a
+                                                                                      norm. The plot generated by Eq. (2), is a graphical description of the
+                                                                                      dynamic properties of a time-series and it can be exploited to extract
+                                                                                      features to detect arc faults. RQA is a related approach that extracts the
+                                                                                      recurrence matrix from the similarity matrix as follows:
+                                                                                                                        {
+                                                                                                                          1 : ‖ Y(i) − Y(j) ‖≤ ϵ
+                                                                                       Rϵi,j = Θ(ϵ− ‖ Y(i) − Y(j) ‖ ) =                                      (3)
+                                                                                                                          0 : ‖ Y(i) − Y(j) ‖> ϵ
+
+                                                                                      where ϵ is a threshold parameter. Recurrence quantification analysis
+                                                                                      converts the similarity matrix into a binary image (i.e., the Recurrence
+                                                                                      Quantification Plots), depending on whether the value of each pixel is
+                                                                                      lower than the predefined threshold ϵ. Recurrence quantification plots
+                                                                                      have demonstrated to be a valuable data visualization and analysis tool
+                                                                                      for time-varying dynamical systems in a wide group of application areas,
+                                                                                      e.g. for engineering, finance, biology and other disciplines [41–43]. The
+                                                                                      characteristics of the system, which can be represented by some statis­
+                                                                                      tical parameters, such as recurrence rate, determinism, divergence,
+                                                                                      Shannon entropy, laminarity, and trapping time, extracted from line
+                                                                                      structure and point density of the recurrence plot in a quantitative
+                                                                                      manner, are referred as RQA. The extracted features from RQA can be
+                                                                                      exploit to detect faults and anomaly by means of a classifier [32].
+                                                                                      However, the setting of the threshold ϵ is not trivial, and the binary
+                                                                                      transformation of the similarity matrix (i.e., the RQP), consequently, it
+                                                                                      leads to a loss of information that could instead be exploited for fault
+                                                                                      detection. For this reason, in this work, the similarity matrix has been
+Fig. 2. ACF of blow heater (a) Fd = 25 kHz, (b) Fd = 5 kHz, (c) Fd = 4 kHz, (d)
+                                                                                      directly exploited to extract features to detect arc faults through its
+Fd = 3.125 kHz, (e) Fd = 2.5 kHz, (f) Fd = 2 kHz.
+                                                                                      graphical description.
+                                                                                          Feature extraction plays a crucial role in fault diagnosis. The
+2. Methodology                                                                        different types of fault can generate different characteristics in the
+                                                                                      current measurements. Here, GLCM is investigated and its based fea­
+   As a nonlinear time-series analysis technique, the proposed one has                tures are extracted to capture spatial distribution information underly­
+been developed from a phase space point of view [35,36]. It is                        ing the reconstructed state space. As described in Haralick et al. [44],
+
+
+
+
+                                                                                  4
+F. Ferracuti et al.                                                                                                    Electric Power Systems Research 201 (2021) 107503
+
+
+
+
+                                                                   Fig. 3. Experimental test bench.
+
+
+
+
+                             Fig. 4. Cables preparation.
+
+
+GLCM represents the conditional joint probabilities of all pair combi­
+                                                                                             Fig. 5. Voltage and current signals of vacuum cleaner 1200 W.
+nations of gray levels in the spatial window of interest with respect to
+two parameters: inter-pixel distance d, and direction θ. Given a gray
+image I(x, y) of size Nx pixels by Ny pixels, the spatial relationship of the         gray level i and j, can be given by:
+pixel pair (i, j) with specified pair (d, θ) is defined by trigonometric                          P(i, j)
+                                                                                      C(i, j) = L L                                                                 (4)
+functions. The joint probabilities measurement is expressed as P(i,j,d,θ)                      ∑∑
+ = [C(i, j)|(d, θ)], where C(i, j), the co-occurrence probabilities between                          P(i, j)
+                                                                                               i=1 j=1
+
+
+                                                                                      where L is the quantized gray level, and P(i, j) represents the number of
+Table 3
+                                                                                      co-occurrences of gray level i and j, given by:
+List of appliances and corresponding labels.
+                                                                                                   [                           (        )
+  Appliance                    Load                   Appliances      Load            P(i, j) = # ((x             ) 2 , y2 )) ∈ Lx × Ly
+                                                                                                     ( 1 , y1 ), (x                                         (5)
+                                                      classes         classes                      × Lx × Ly |I(x1 , y1 ) = i, I(x2 , y2 ) = j]
+  Pump                         Universal motor        1               1
+  Dell Desktop Computer        Converter: switching   2               2               where x2 = x1 + dcos(θ), y2 = y1 + dsin(θ), i,j ∈ [1,…,L], # denotes the
+                               power supply                                           number of the pixel pairs (i, j) satisfying the conditions, and (x1 , y1 ) is
+  Dolce Gusto Espresso         Resistive              3               3               the coordinate with gray level i, (x2 , y2 ) the coordinate with gray level j,
+    Machine
+                                                                                      Lx the horizontal spatial domain (1,…,Nx ), Ly the vertical spatial domain
+  Titan 710 W Drill            Universal motor        4               1
+  Peugeot 550 W Drill          Universal motor        5               1               (1, …, Ny ).
+  Mewal Halogen Lamp           Converter: single-     6               4                   From the gray-tone spatial-dependence matrices, a set of 21 mea­
+                               phase rectifiers                                       sures of textural features has been defined. Some of these measures
+  Blow Heater                  Resistive              7               3
+                                                                                      relate to specific textural characteristics of the image such as homoge­
+  Severin 2200 Kettle          Resistive              8               3
+  Moulinex Mini Food           Universal motor        9               1               neity, contrast, and the presence of organized structure within the
+    Processor                                                                         image. Other measures characterize the complexity and nature of gray-
+  Multi-functional Printer     Universal motor        10              1               tone transitions which occur in the image. The considered textural fea­
+  Sabre Electric Jigsaw        Universal motor        11              1               tures are defined in the Table 1, where L is the number of distinct gray
+  Bluesky Optimo 1200 W        Universal motor        12              1
+    Vacuum Cleaner
+                                                                                      levels in the quantized image, and
+  Phillips 1250 W Vacuum       Universal motor        13              1
+    Cleaner
+
+
+
+                                                                                  5
+F. Ferracuti et al.                                                                                                   Electric Power Systems Research 201 (2021) 107503
+
+
+
+
+         Fig. 6. GLCM features monitoring for vacuum cleaner 1200 W.
+
+                L ∑
+                ∑ L
+Px+y (k) =          P(i, j), k = 2, …, 2L                                (6)
+                 i     j
+                  i+j=k
+
+
+                L ∑
+                ∑ L
+Px− y (k) =         P(i, j), k = 1, …, L − 1                             (7)
+                 i      j
+                 |i− j|=k
+
+
+           ∑
+           L
+Px (i) =         P(i, j)                                                 (8)
+            j
+
+
+           ∑
+           L
+Py (j) =         P(i, j)                                                 (9)
+            i
+
+
+                ∑
+                L ∑
+                  L
+                                          (            )
+HXY1 = −                        P(i, j)log Px (i)Py (j)                 (10)        Fig. 7. Unthresholded RQ plots for (a) Blow heater, (b) Dell desktop computer,
+                  i         j                                                       (c) Titan 710 W drill, (d) Phillips 1250 W Vacuum Cleaner. AC time series for
+                                                                                    (e) Blow heater, (f) Dell desktop computer, (g) Titan 710 W drill, (h) Phillips
+                ∑
+                L ∑
+                  L
+                                               (             )                      1250 W Vacuum Cleaner.
+HXY2 = −                        Px (i)Py (j)log Px (i)Py (j)            (11)
+                  i         j
+                                                                                    to be set. The extracted features are exploited to train a classifier that
+where μx , μy are the means and σx , σy the standard deviations of Px (i) and       predicts the presence or absence of arc faults and and the type of
+Py (j), respectively. More details about the significance of the previous           appliance.
+equations can be found in Haralick et al. [44].
+    The proposed method is shown in Fig. 1, in particular the flowchart             2.1. Linear discriminant analysis
+shows the steps of the proposed arc fault detection and classification
+algorithm. The input of the proposed methodology is the acquisition of a                The regularization operation allows overcoming the issues related to
+time window of AC measurement, the second step regards the trans­                   high dimensionality, where the applicability of the classifier is a
+formation of the acquired signal in phase space through a time-delay τ              demanding task since, in this situation, direct high dimension matrix
+and an embedding dimension m (see Eq. (1)). From phase space, a                     operations are required [47]. To overcome these issues, the unbiased
+similarity matrix is constructed using in this work the Euclidean dis­              estimate of the pooled-in covariance matrices considered in the classifier
+tance. By the previous steps, the original AC signal is transformed into            were replaced with:
+two-dimensional gray-scale image. The features are extracted from the
+                                                                                    Σα = (1 − α)Σ + αdiag(Σ)                                                     (12)
+image by GLCM and to perform this task the parameters d, θ and L have
+
+                                                                                6
+F. Ferracuti et al.                                                                                                                    Electric Power Systems Research 201 (2021) 107503
+
+
+Table 4
+Arc fault detection and appliances classification: F1 score (26 classes).
+                             False positive %    False negative %     Arc vs. normal (2 classes)    Arc (13 classes)   Normal (13 classes)   All appliances arc vs. normal (26 classes)
+
+  0.05 s - 2 kHz             0                   0.31                 0.99                          0.82               0.98                  0.89
+  0.05 s - 2.5 kHz           0.02                0.33                 0.99                          0.85               0.98                  0.91
+  0.05 s - 3.125 kHz         0                   0.63                 0.99                          0.87               0.98                  0.91
+  0.05 s - 4 kHz             0                   1.83                 0.98                          0.89               0.98                  0.92
+  0.05 s - 5 kHz             0                   2.08                 0.98                          0.90               0.99                  0.93
+  0.08 s - 2 kHz             0                   0.10                 0.99                          0.88               0.99                  0.92
+  0.08 s - 2.5 kHz           0.12                0.13                 0.99                          0.90               0.99                  0.93
+  0.08 s - 3.125 kHz         0                   1.21                 0.98                          0.92               0.99                  0.93
+  0.08 s - 4 kHz             0                   0.85                 0.98                          0.93               0.99                  0.95
+  0.08 s - 5 kHz             0                   2.69                 0.97                          0.93               0.99                  0.94
+  0.1 s - 2 kHz              0                   0.04                 0.99                          0.89               0.99                  0.94
+  0.1 s - 2.5 kHz            0.63                0.04                 0.99                          0.92               0.99                  0.94
+  0.1 s - 3.125 kHz          0.83                0.56                 0.99                          0.93               0.99                  0.95
+  0.1 s - 4 kHz              0.06                0.08                 0.99                          0.94               0.99                  0.96
+  0.1 s - 5 kHz              0                   1.85                 0.97                          0.96               0.99                  0.96
+  0.02 s - 25 kHz            2.27                3.29                 0.97                          0.89               0.99                  0.93
+  AVG ± STD                  0.25 ± 0.59         1.00 ± 1.04          0.98 ± 0.01                   0.90 ± 0.04        0.99 ± 0.01           0.93 ± 0.02
+
+
+
+
+                                             Fig. 8. Appliances classification: confusion matrix for 4 kHz and 0.1 s of time acquisition.
+
+
+                                                                                                   where Σ is the empirical, pooled covariance matrix and α is the amount
+Table 5
+                                                                                                   of regularization. For training the classier, the hyperparameter δ has to
+Arc fault detection and appliances classification: F1 score (24 classes).
+                                                                                                   be set. δ is a non-negative scalar shrinkage parameter that specifies a
+                      Arc (12         Normal (12          All appliances arc vs. normal (24        threshold: if a coefficient of the model has magnitude smaller than δ, the
+                      classes)        classes)            classes)
+                                                                                                   coefficient is set to 0. Then α ∈ [0, 1) and δ ∈ [0, ∞) are two parameters
+  0.05 s - 4          0.92            0.98                0.95                                     to optimize over a 2-dimensional grid using crossvalidation on the
+    kHz
+                                                                                                   training samples.
+  0.08 s - 4          0.96            0.99                0.97
+    kHz
+  0.1 s - 4           0.98            0.99                0.98
+    kHz                                                                                            2.2. Setting the hyperparameters
+
+                                                                                                      The time delay τ is set equal to the delay corresponding to the first
+
+                                                                                               7
+F. Ferracuti et al.                                                                                                      Electric Power Systems Research 201 (2021) 107503
+
+
+Table 6                                                                                  frequency, acquisition time and appliances. The last column of the table
+Arc fault detection and load type classification: F1 score (8 classes).                  shows the time delay τ considered in the experimental analysis.
+                      Arc (4        Normal (4        All load types arc vs. normal           As an example, the ACFs of AC signal regarding blow heater for
+                      classes)      classes)         (8 classes)                         different sampling frequencies Fd are shown in Fig. 2 and the minimum
+  0.05 s - 2 kHz      0.97          0.99             0.98                                points of the autocorrelation functions correspond to those defined in
+  0.05 s - 2.5        0.97          0.99             0.98                                the Table 2. Fig. 2(a)–(f) show the sample autocorrelation function at
+    kHz                                                                                  sampling frequency Fd = 25, 5, 4, 3.125, 2.5 and 2 kHz, respectively.
+  0.05 s - 3.125      0.97          0.99             0.97                                    The hyperparameters m, L and d are considered as tradeoff between
+    kHz
+  0.05 s - 4 kHz      0.94          0.99             0.97
+                                                                                         improved prediction accuracy of the classification and increased
+  0.05 s - 5 kHz      0.97          0.99             0.97                                computation burden of the algorithm. In particular, for the experimental
+  0.08 s - 2 kHz      0.99          0.99             0.99                                analysis, the values m = 3, L = 25 , and 16 inter-pixel distances (d) have
+  0.08 s - 2.5        0.98          0.99             0.99                                been considered and set by using the training dataset. The parameters θ
+    kHz
+                                                                                         has been fixed to 45∘ because of the specific pattern of the images in the
+  0.08 s - 3.125      0.99          0.99             0.99
+    kHz                                                                                  shape of diagonal stripes;
+  0.08 s - 4 kHz      0.98          0.99             0.98
+  0.08 s - 5 kHz      0.98          0.99             0.96
+                                                                                         3. Test setup
+  0.1 s - 2 kHz       0.98          0.99             0.99
+  0.1 s - 2.5 kHz     0.99          0.99             0.99
+  0.1 s - 3.125       0.99          0.99             0.98                                    Fig. 3 shows the general experimental test bench used to generate a
+    kHz                                                                                  series arc fault in an electrical network in order to record the current and
+  0.1 s - 4 kHz       0.99          0.99             0.99                                voltage electrical signatures and to build the database.
+  0.1 s - 5 kHz       0.99          0.99             0.97
+                                                                                             The AC mains power source (230 V - 50 Hz) supplies a load which
+  0.02 s - 25         0.98          0.99             0.97
+    kHz                                                                                  may be a single appliance or is composed of several associated appli­
+  AVG ± STD           0.98 ± 0.01   0.99 ± 0.001     0.98 ± 0.01                         ances connected in parallel. The various household appliances consid­
+                                                                                         ered in this study are resistive (Boiler), with switching units (PC
+                                                                                         computer), include universal motor (Vacuum cleaner, drill) or dimmer-
+                                                                                         based (Halogen).
+                                                                                             The measurements are performed with a Lecroy HDO 6104 oscillo­
+                                                                                         scope (2 GHz bandwidth). A sub-sampling is performed if the method of
+                                                                                         analysis requires to operate at a lower frequency. The line current is
+                                                                                         measured at the output of the power source (Lecroy AP 30 probe - 100
+                                                                                         MHz bandwidth). To ensure that the fault is continuously present in the
+                                                                                         circuit, the measurement of the arc voltage across the fault is also
+                                                                                         recorded (TT-SI 9010, 70 MHz bandwidth). The data files are then
+                                                                                         transferred to a computer for a Matlab analysis. The link given in
+                                                                                         Schweitzer and Ferracuti [48] gives access to the database of electrical
+                                                                                         signatures which can be used under certain conditions. The arc fault is
+                                                                                         created according to the protocol defined in the UL 1699 or IEC 62606
+                                                                                         standards [49,50].
+Fig. 9. Load type classification: confusion matrix for 4 kHz and 0.1 s of time               Two copper cables (20 cm length), with a slit across the insulation (5
+acquisition.                                                                             cm length), are closely tied together and then wrapped. A carbonized
+                                                                                         conductive path is created between the two conductors (see Fig. 4). The
+                                                                                         prepared sample cable can be inserted directly into the circuit to
+                                                                                         reproduce the arcing fault. The series arc fault is ignited into the circuit
+                                                                                         at two different times via the switching of a relay. The various household
+                                                                                         appliances considered in this study are listed in Table 3 along with the
+                                                                                         labels associated to each appliance or load type.
+                                                                                             The dataset description can be found in Schweitzer and Ferracuti
+                                                                                         [48].
+
+
+                                                                                         3.1. Data preprocessing
+
+                                                                                             The primary database is created by the raw data collection of 5 s.
+                                                                                         Besides having the primary database of 1 MHz sampling rate, to check
+   Fig. 10. Classification results: F1 scores of the approach based on RQA.              the accuracy of arc detection with a different sampling frequency, six
+                                                                                         databases were created by sampling at 25 kHz, 5 kHz, 4 kHz, 3.125 kHz,
+minimum point the of AutoCorrelation Function (ACF) of the AC time                       2.5 kHz, 2 kHz, respectively. In each of the databases, the training and
+series. Considering Fs the sampling frequency, Fd the sampling frequency                 testing split is the first half part of the raw signal for the training (400
+after downsampling, f0 the fundamental frequency (50 Hz), n the                          samples for each appliance) and the last part for testing (400 samples for
+number of samples and HC the number of half-cycles, the minimum                          each appliance). The dataset is composed of 5200 observations of arcing
+point of the autocorrelation function for the monitored appliances is τ =                and 4800 observations of normal load current resulting in a total of
+n/HC/2 or equivalently τ = Fd /f0 /4. This is explained by the fact that a               10,400 observations. All data are labeled in such a way so that the
+sinusoidal signal and its autocorrelation shows that optimal delay                       proposed algorithm can not only able to identify the arc and normal load
+should be a quarter of its period since it provides for π /2 shift in phase.             currents but also it can specify the load type (i.e., resistive, inductive,
+Table 2 summarizes the time delay for different values of sampling                       switching, dimmer). The load categories, their corresponding labels, and
+                                                                                         the number of respective training and test samples are depicted in
+
+                                                                                     8
+F. Ferracuti et al.                                                                                                                  Electric Power Systems Research 201 (2021) 107503
+
+
+Table 7
+Comparison with prior methods.
+  Reference           Method                                    Category                Loads                              Remarks                 Accuracy
+
+  Ref. [18]           Wavelet transform (db3); Fs = 200 kHz;    Resistive Re;           Resistance, Fluorescent lamp,      Current and voltage     Detection: 99.2%; Classification:
+                      Category recognition: shoulder band       Resistive-Inductive     Halogen lamp, Drill, Air           analysis; Intel PC      100% (7 appliances); 630 sets of
+                      phase analysis; Arcing: time and          RI; RCCF                conditioner, Computer,             computer                data
+                      frequency indicators + BP neural                                  Tungsten lamp
+                      Network
+  Ref. [16]           HCF sensor; Fs = 1 MHz; Gray image        7 load classes (no      Electric heater, Vacuum cleaner,   Current analysis;       Detection: 99.2%; Classification:
+                      analysis + convolution neural network     fault) associated to    Computer, Dimmer Fluorescent       Implemented: Zynq-      98.36 % (7 appliances); 1400
+                                                                7 classes (arc fault)   lamp, Induction cooker, Drill      7020                    tests; Training set: 12.600; Time
+                                                                                                                                                   response:11 ms
+  Ref. [22]           Frequency analysis (1st-3rd-5th           Resistive RE;           Resistive load, Inductive load,    STM32F407ZG time        Detection accuracy: 99% (4
+                      harmonics) for category recognition and   Capacitive-             Capacitive load, Switching load    response: 3 ms; Fs =    appliances); 3950 tests
+                      time domain features + fully connected    inductive CI;                                              20 kHz
+                      neural network                            Switching SW
+  Proposed            Recurrence quantification and Image       Resistive, Motor,       Drill, Expresso machine,           Current Analysis;       Detection 99%; Classification:
+    approach          analysis (gray level co-occurrence        Switching Load,         Halogen Lamp, Blow heater,         Intel PC computer       98% (12 appliances); 5200 sets of
+                      matrix)                                   Rectfier load           Vacuum cleaner, Electric jigsaw,                           data (Arc); 4800 sets of data
+                                                                                        Food processor, Kettle, Printer                            (NoArc)
+
+
+
+                                                                                                unthresholded recurrence plots of blow heater, desktop computer, drill
+                                                                                                and vacuum cleaner are shown in Fig. 7(a)–(d), respectively. It is worth
+                                                                                                to note as unthresholded Recurrence Plots (RPs) of different loads pre­
+                                                                                                sents a different image pattern highlighting the possibility of using this
+                                                                                                information to detect arc faults and load type. The corresponding time
+                                                                                                series of AC signals are shown in Fig. 7(e)–(h), respectively. The figures
+                                                                                                are obtained with decimation of 5 kHz and 0.1 s of time acquisition.
+                                                                                                    The experimental results are summarized in Table 4, where the re­
+                                                                                                sults are shown in terms of F1 score, a commonly used criterion
+                                                                                                measuring the performance of a classification method [51]. The tests are
+                                                                                                reported for different cases varying the decimation factor and length of
+                                                                                                time window as shown in Table 2. The considered time window duration
+                                                                                                is TW = [0.05, 0.08, 0.1] s, whereas the decimation by a factor of r =
+                                                                                                [200,250,320,400,500], i.e., Fd = [5,4,3.125,2.5,2] kHz. In addition, the
+Fig. 11. Testing time evaluated at different sampling frequencies and                           tests were carried out considering also one complete cycle of the current
+time windows.                                                                                   wave (i.e, 2 half-cycle) at 25 kHz of sampling frequency.
+                                                                                                    The first two columns show the false positive and false negative rates
+Table 3. The primary database is not normalized. Each observation of                            related to the arc faults detection (i.e., 2 classes, regardless the identi­
+data having from 1 to 10 half-cycles of the current wave is converted                           fication of the appliance). The third column of the Table 4 shows the
+into an image from which a vector of features is extracted. The 21 de­                          detection of arc fault (i.e., 2 classes, regardless the identification of the
+scriptors considered to describe the textural characteristics of the images                     appliance), the F1 score is 0.98/0.99 for most of considered time win­
+are summarized in Table 1, for a total of 336 features, which is each                           dow duration and decimation factor. The fourth column of the Table 4
+descriptor for each inter-pixel distances d. Others six statistical features                    shows the appliances classification during the occurrence of an arc fault
+are extracted by the raw AC signal, which are the maximum, the mini­                            (i.e., 13 classes), with a F1 score varying from almost 0.82 to 0.96. The
+mum, the mean, the median, the standard deviation and the kurtosis of                           F1 score is always more than 0.89 when the sampling frequency is bigger
+the AC signal.                                                                                  than 4 kHz. The fifth column of the Table 4 shows the appliances clas­
+                                                                                                sification without the occurrence of an arc fault (i.e., 13 classes), the F1
+4. Experimental results and analysis                                                            score is close to 1.00. The last column of the Table 4 shows the appli­
+                                                                                                ances classification with and without the occurrence of an arc fault (i.e.,
+   In this section the experimental analysis of the proposed approach                           26 classes), with a F1 score varying from 0.89 to 0.96. The F1 score is
+and the comparison with the classical RQ analysis are presented.                                always more than 0.94 when the time window is longer than 0.1 s. It is
+                                                                                                worth noting as the case 25 kHz does not give the best results, this is due
+                                                                                                to a small number of half-cycle, i.e. 2, highlighting as the method is
+4.1. Experimental results                                                                       robust in the case of several half-cycles analyzed.
+                                                                                                    The confusion matrix for 4 kHz and 0.1 s of time acquisition is shown
+    Fig. 5 shows the non-stationary trends of the arc voltage and line                          in Fig. 8. The first 13 labels refer to the appliances with arc faults or­
+current signatures of vacuum cleaner with 1200 W nominal power when                             dered as listed in Table 3, whereas the labels from 14 to 26 refer to the
+an arc fault occurs over time and Fig. 6 shows the corresponding                                normal appliances.
+downsampled current signal and the monitoring of two different GLCM                                 Here, it is possible to notice only three missed detection (type II
+features. In particular, Fig. 6(a) shows the feature f17 (information                           error) for fault class 2 (Dell Desktop Computer). The error is highlighted
+measure of correlation II), whereas Fig. 6(b) shows the feature f9 (in­                         in red color in the confusion matrix. In addition, the classification of the
+verse difference moment normalized). Features are calculated with a                             appliances heater and kettle (i.e., resistive loads) in arc fault condition
+window of length 0.1 s, overlap of 0.99 s and decimation to 4 kHz. It is                        finds to be a difficult task. Considering only one class for appliances
+worth to note as the features change the mean value when the arc faults                         heater and kettle (i.e., a total of 24 classes), it is possible to reach better
+occur.                                                                                          classification results as shown in Table 5. For the sake of simplicity only
+    A preliminary visual inspection of the similarity matrices for                              the case of 4 kHz sampling frequency and 0.1 s of time acquisition is
+different appliances without arc faults is shown in Fig. 7, where
+
+                                                                                            9
+F. Ferracuti et al.                                                                                                    Electric Power Systems Research 201 (2021) 107503
+
+
+
+
+                                                                      Fig. 12. Arc detection.
+
+
+reported and, for this case, F1 score reaches 0.98.                                    raw AC signal, which are the maximum, the minimum, the mean, the
+    The experimental results, summarized in Table 6, shows the F1 score                median, the standard deviation and the kurtosis of the AC signal. The
+by grouping the appliances according to the load types as defined in                   results obtained are shown in Fig. 10, where the results are shown in
+Table 3. The first column of the Table 6 shows the load type classifica­               terms of F1 score for the different cases varying the decimation factor
+tion during the occurrence of an arc fault (i.e., 4 classes), with a F1 score          and length of time window. Fig. 10 shows the appliances classification
+varying from almost 0.94 to 0.99. The second column of the Table 6                     during the occurrence of an arc fault (i.e., 13 classes), the F1 score never
+shows the load type classification without the occurrence of an arc fault              reaches 1.00 for each considered time window duration and decimation
+(i.e., 4 classes), the F1 score is 0.99 for all cases. The last column of the          factor. The best value 0.86 is obtained in the case of TW = 0.1 s and Fd =
+Table 6 shows the load type classification with and without the occur­                  5 kHz. RQA based approach achieves the lowest scores across all eval­
+rence of an arc fault (i.e., 8 classes), with a F1 score varying from 0.96 to          uation metrics. This is unsurprising as the binary transformation of the
+0.99.                                                                                  RQP, consequently, leads to a loss of information that could instead be
+    The confusion matrix for 4 kHz and 0.1 s of time acquisition of                    exploited for fault detection. In addition, the features used for prediction
+different types of load type is provided in Fig. 9. The first 4 labels refer to        are 12 with respect to 342 features of the proposed approach since only a
+the loads type with arc faults ordered as listed in Table 3, whereas the               limited number of features for image analysis are proposed in the
+labels from 5 to 8 refer to the normal load types.                                     literature through recurrence plots [52].
+    Here, it is possible to notice only four missed detection (type II error)
+for fault class 2 (Dell Desktop Computer). The errors are highlighted in
+red color in the confusion matrix.                                                     4.3. Comparison with prior methods and discussion
+
+                                                                                           The results on arc fault detection and load classification have been
+4.2. Comparison with standard RQA                                                      compared with different methods from literature and resumed in
+                                                                                       Table 7. First of all, it is important to specify that few methods concern
+    Arc fault detection and appliances classification results are carried              both the detection of arc fault and load classification. In [18] and [22], a
+out by using the RQA metrics as predictors in a Discriminant Analysis                  frequency analysis is associated to a neural network. Furthermore, a
+classifier. The following results are obtained by a 10-fold cross-                     genetic algorithm is necessary to optimize the initial value of the
+validation strategy. In the following results, the RQ parameters m and                 network in Wang et al. [22]. The method is nevertheless tested on a
+τ are set by false nearest neighbor algorithm and mutual information                   limited number of appliances type. In [18], the good results of classifi­
+whereas ϵ is set as the value that gives the best results in terms of clas­            cation have been obtained with a low number of category and the
+sification accuracy. In this work, the characteristics of the system have              analysis require both the current and voltage measurement. The method
+been represented by the following statistical parameters: recurrence                   presented in Chu and Zhang [16], tested on a large variety of different
+rate, determinism, divergence, Shannon entropy, laminarity, and trap­                  appliances, is based on the current analysis measured with HCF sensor at
+ping time and the features extracted from RQA have been exploited for                  a quite high sampling frequency equals to 1 MHz. The method presented
+arc fault detection. Others six statistical features are extracted by the              in this paper give results of detection and classification comparable to
+
+                                                                                  10
+F. Ferracuti et al.                                                                                                      Electric Power Systems Research 201 (2021) 107503
+
+
+other methods. However, the number of appliances and different types              Conceptualization, Validation, Investigation, Resources, Writing –
+of load is higher. One other advantage is that the method is not based on         original draft, Writing – review & editing, Visualization, Supervision.
+a neural network which needs an important training process.
+    The limitations of the proposed approach are related to the compu­
+tational time and the misclassification that is often generated by tran­          Declaration of Competing Interest
+sients. The algorithm computational time is evaluated as the average of
+20 Monte Carlo runs. The simulations are reported considering the                     The authors declare that they have no known competing financial
+sampling frequency of 5 kHz, 4 kHz, 3.125 kHz, 2.5 kHz, 2 kHz, and the            interests or personal relationships that could have appeared to influence
+time window duration of 0.05, 0.08, 0.1 s. The platform used to compute           the work reported in this paper.
+the training time is a laptop with CPU Intel 7700HQ, 16 GB RAM, Matlab
+2019a. Fig. 11 shows the training time versus the sampling frequencies            References
+and the time windows.
+    The computational time is not negligible at high sampling fre­                 [1] M. Rabla, E. Tisserand, P. Schweitzer, J. Lezama, Arc fault analysis and localisation
+                                                                                       by cross-correlation in 270 V DC. 2013 IEEE 59th Holm Conference on Electrical
+quencies and long time windows. The bottleneck of the computational                    Contacts (Holm 2013), 2013, pp. 1–6.
+time is related to the calculation of the GLCM matrix that requires 90%            [2] G. Concas, B.i. Dôme, L. Lhardit, O. Tissot, WHITE PAPER - Residential Electrical
+of the computational time shown in the Fig. 11. This issue can be                      Safety How to Insure Progress. Technical Report, 2020.https://www.feedsnet.org/
+                                                                                   [3] R. Campbell, Home Electrical Fires. Technical Report, 2019.https://www.nfpa.
+reduced by performing fast computation of GLCM matrix with parallel                    org//-/media/Files/News-and-Research/Fire-statistics-and-reports/US-Fire-Proble
+computation [53] or by the adoption of deep learning approaches for                    m/Fire-causes/osHomeElectricalFires.pdf
+analyzing the recurrence images that require longer training computa­              [4] J. Lezama, P. Schweitzer, E. Tisserand, J.-B. Humbert, S. Weber, P. Joyeux, An
+                                                                                       embedded system for AC series arc detection by inter-period correlations of
+tion, but less testing time [16]. The misclassification was analyzed in                current, Electr. Power Syst. Res. 129 (2015) 227–234.
+detail highlighting that most of the errors in the classification are              [5] J.J. Shea, Identifying causes for certain types of electrically initiated fires in
+generated by transients as shown in Fig. 12. The figure shows the AC                   residential circuits, Fire Mater. 35 (1) (2011) 19–42.
+                                                                                   [6] F.Z. Y. Wang, S. Zhang, A new methodology for identifying arc fault by sparse
+signal and the arc alarm index for desktop computer, coffee machine,
+                                                                                       representation and neural network, IEEE Trans. Instrum. Meas. 67 (2018)
+kettle and printer. The AC signals are analyzed considering a time                     2526–2537.
+window of 0.05 s and a sampling frequency of 2 kHz. The red bar means              [7] P. Qi, S. Jovanovic, J. Lezama, P. Schweitzer, Discrete wavelet transform optimal
+                                                                                       parameters estimation for arc fault detection in low-voltage residential power
+that the proposed algorithm has detected arc fault and the green bar
+                                                                                       networks, Electr. Power Syst. Res. 143 (2017) 130–139.
+means no arc is detected. False detection samples are generated when               [8] E. Tisserand, J. Lezama, P. Schweitzer, Y. Berviller, Series arcing detection by
+the appliance moves from one steady-state to another for the cases of the              algebraic derivative of the current, Electr. Power Syst. Res. 119 (2015) 91–99.
+coffee machine, printer and desktop computer. Then a drawback of the               [9] S. Jovanovic, A. Chahid, J. Lezama, P. Schweitzer, Shunt active power filter-based
+                                                                                       approach for arc fault detection, Electr. Power Syst. Res. 141 (2016) 11–21.
+algorithm is related to the detection reliability of arc fault during the         [10] Y. Liu, F. Guo, Z. Ren, P. Wang, Tuan Nghia Nguyen, J. Zheng, X. Zhang, Feature
+transients. This issue could generate false positive and false negative                analysis in time-domain and fault diagnosis of series arc fault. 2017 IEEE Holm
+samples.                                                                               Conference on Electrical Contacts, 2017, pp. 306–311.
+                                                                                  [11] E. Calderon-Mendoza, P. Schweitzer, S. Weber, Kalman filter and a fuzzy logic
+                                                                                       processor for series arcing fault detection in a home electrical network, Int. J.
+5. Conclusion                                                                          Electr. Power Energy Syst. 107 (2019) 251–263.
+                                                                                  [12] K. Yang, R. Zhang, S. Chen, F. Zhang, J. Yang, X. Zhang, Series arc fault detection
+                                                                                       algorithm based on autoregressive bispectrum analysis, Algorithms 8 (4) (2015)
+    In this paper, a new method for series arc faults detection in a do­               929–950.
+mestic AC network (220 V, 50 Hz) is presented. The main originality of            [13] G. Artale, A. Cataliotti, V. Cosentino, D.D. Cara, S. Nuccio, G. Tinè, Arc fault
+the proposed method is the use of recurrence quantification plots and                  detection method based on CZT low-frequency harmonic current analysis, IEEE
+                                                                                       Trans. Instrum. Meas. 66 (2017) 888–896.
+image analysis by using the gray-level co-occurrence matrix from which            [14] H. Guan, B. Bowen, Z. Zhao, S. Bimenyimana, Q. Wang, Arc fault current signal’s
+the extracted textural image features represent a proper set of indicators             power spectrum characteristics and diagnosis based on welch algorithm, Int. J.
+for suitably detecting arc faults. Thirteen different domestic appliances              Eng. Sci. 2852 (2016) 2852–2857.
+                                                                                  [15] R.J. G. Bao, X. Gao, Novel series arc fault detector using high-frequency coupling
+are considered in this article. Series electric arcs are produced on the
+                                                                                       analysis and multi-indicator algorithm, IEEE Access 7 (2019) 92161–92170.
+single-phase AC power line using the carbonized path, which is a com­             [16] P.S.R. Chu, R. Zhang, Series AC arc fault detection method based on high-frequency
+mon arc situation. The analysis is performed on current line measured                  coupling sensor and convolution neural network, Sensors 20 (17) (2020) 4910.
+signatures. The experimental results confirm the good performances of             [17] Y.W.L. C. J. Wu, C.S. Hung, Intelligent detection of serial arc fault on low voltage
+                                                                                       power lines, J. Mar. Sci. Technol. 25 (1) (2017) 43–53.
+the proposed method. Using samples of 26 types of generalized house­              [18] X. Han, D. Li, L. Huang, H. Huang, J. Yang, Y. Zhang, X. Wu, Q. Lu, Series arc fault
+hold load currents, the proposed approach achieved F1 score of 0.99 for                detection method based on category recognition and artificial neural network,
+arc fault detection and F1 score of 0.96 for appliances classification                 Electronics (Switzerland) 9 (9) (2020) 1–21.
+                                                                                  [19] J. Liu, J. Chen, J. Zuo, N. Qu, PSO-SOM neural network algorithm for series arc
+along with arc fault detection. Using samples of 24 type of generalized                fault detection, Adv. Math. Phys. 2020 (2020) 1–8.
+household load currents the proposed approach achieved F1 score of                [20] H.D. Vu, E. Calderon, P. Schweitzer, S. Weber, N. Britsch, Multi criteria series arc
+0.98 for appliances classification along with arc fault detection. More­               fault detection based on supervised feature selection, Int. J. Electr. Power Energy
+                                                                                       Syst. 113 (2019) 23–34.
+over, a higher number of load types have been considered for the                  [21] E. Calderon-Mendoza, P. Schweitzer, S. Weber, A double ended AC series arc fault
+experiment to make it more appropriate for practical applications. The                 location algorithm for a low-voltage indoor power line using impedance
+proposed algorithm can not only detect arc fault but also can identify the             parameters and a neural network, Electr. Power Syst. Res. 165 (2018) 84–93.
+                                                                                  [22] Y. Wang, F. Zhang, X. Zhang, S. Zhang, Series AC arc fault detection method based
+load types for which the fault has occurred. The deployment of the al­                 on hybrid time and frequency analysis and fully connected neural network, IEEE
+gorithm and tests on embedded systems are currently the subject of this                Trans. Ind. Inform. 15 (12) (2019) 6210–6219.
+research.                                                                         [23] N. Qu, J. Zuo, J. Chen, Z. Li, Series arc fault detection of indoor power distribution
+                                                                                       system based on LVQ-NN and PSO-SVM, IEEE Access 7 (2019) 184020–184028.
+                                                                                  [24] P. Bilski, W. Winiecki, Generalized algorithm for the non-intrusive identification of
+CRediT authorship contribution statement                                               electrical appliances in the household. 2017 9th IEEE International Conference on
+                                                                                       Intelligent Data Acquisition and Advanced Computing Systems: Technology and
+                                                                                       Applications (IDAACS) 2, 2017, pp. 730–735.
+   Francesco Ferracuti: Conceptualization, Methodology, Software,
+                                                                                  [25] T. Saitoh, T. Osaki, R. Konishi, K. Sugahara, Current sensor based home appliance
+Validation, Formal analysis, Investigation, Resources, Data curation,                  and state of appliance recognition, SICE J. Control Meas. Syst. Integr. 3 (2) (2010)
+Writing – original draft, Writing – review & editing, Visualization, Su­               86–93.
+pervision. Patrick Schweitzer: Conceptualization, Validation, Investi­            [26] J.Z. Moro, L.F. Duarte, E.C. Ferreira, J.A.S. Dias, et al., A home appliance
+                                                                                       recognition system using the approach of measuring power consumption and
+gation, Resources, Data curation, Writing – original draft, Writing –                  power factor on the electrical panel, based on energy meter ICs, Circuits Syst. 4 (3)
+review & editing, Visualization, Supervision. Andrea Monteriù:                         (2013) 245–251.
+
+
+                                                                             11
+F. Ferracuti et al.                                                                                                                     Electric Power Systems Research 201 (2021) 107503
+
+[27] D. Yan, Y. Jin, H. Sun, B. Dong, Z. Ye, Z. Li, Y. Yuan, Household appliance                 [40] J. Bangura, R. Povinelli, N.A.O. Demerdash, R. Brown, Diagnostics of eccentricities
+     recognition through a Bayes classification model, Sustain. Cities Soc. 46 (2019)                 and bar/end-ring connector breakages in polyphase induction motors through a
+     101393.                                                                                          combination of time-series data mining and time-stepping coupled FE-state-space
+[28] L. Matindife, Y. Sun, Z. Wang, A machine-learning based nonintrusive smart home                  techniques, IEEE Trans. Ind. Appl. 39 (4) (2003) 1005–1013.
+     appliance status recognition, Math. Probl. Eng. (2020) 1–21.                                [41] C.-Z. Yao, Q.-W. Lin, Recurrence plots analysis of the CNY exchange markets based
+[29] R. Bonfigli, S. Squartini, M. Fagiani, F. Piazza, Unsupervised algorithms for non-               on phase space reconstruction, North Am. J. Econ. Finance 42 (2017) 584–596.
+     intrusive load monitoring: an up-to-date overview. 2015 IEEE 15th International             [42] N.C. Anderson, W.F. Bischof, K.E.W. Laidlaw, E.F. Risko, A. Kingstone, Recurrence
+     Conference on Environment and Electrical Engineering (EEEIC), 2015,                              quantification analysis of eye movements, Behav. Res. Methods 45 (3) (2013)
+     pp. 1175–1180.                                                                                   842–856.
+[30] Y. Zhibin, C. Hong, Research on household appliances recognition method based               [43] Y. Qian, R. Yan, S. Hu, Bearing degradation evaluation using recurrence
+     on data screening of deep learning, IFAC-PapersOnLine 52 (24) (2019)                             quantification analysis and Kalman filter, IEEE Trans. Instrum. Meas. 63 (11)
+     140–144.5th IFAC Symposium on Telematics Applications TA 2019                                    (2014) 2599–2610.
+[31] Y. Hsueh, V.R. Ittangihala, W.-B. Wu, H.-C. Chang, C.-C. Kuo, Condition monitor             [44] R.M. Haralick, K. Shanmugam, I. Dinstein, Textural features for image
+     system for rotation machine by CNN with recurrence plot, Energies 12 (17) (2019)                 classification, IEEE Trans. Syst. Man Cybern. SMC-3 (6) (1973) 610–621.
+     3221–3233.                                                                                  [45] W. Gomez, W.C.A. Pereira, A.F.C. Infantosi, Analysis of co-occurrence texture
+[32] F. Ferracuti, A. Freddi, S. Longhi, A. Monteriù, Recurrence quantification analysis              statistics as a function of gray-level quantization for classifying breast ultrasound,
+     of stator-current measurements for electric motor fault classification. IECON 2019 -             IEEE Trans. Med. Imaging 31 (10) (2012) 1889–1899.
+     45th Annual Conference of the IEEE Industrial Electronics Society 1, 2019,                  [46] D.A. Clausi, An analysis of co-occurrence texture statistics as a function of grey
+     pp. 3691–3696.                                                                                   level quantization, Can. J. Remote Sens. 28 (1) (2002) 45–62.
+[33] P. Bhui, N. Senroy, Application of recurrence quantification analysis to power              [47] Y. Guo, T. Hastie, R. Tibshirani, Regularized linear discriminant analysis and its
+     system dynamic studies, IEEE Trans. Power Syst. 31 (1) (2016) 581–591.                           application in microarrays, Biostatistics 8 (1) (2006) 86–100.
+[34] A.M. Fraser, H.L. Swinney, Independent coordinates for strange attractors from              [48] P. Schweitzer, F. Ferracuti, Arc fault detection and appliances classification in AC
+     mutual information, Phys. Rev. A 33 (1986) 1134–1140.                                            home electrical networks using Recurrence Quantification Plots and Image
+[35] R.J. Povinelli, M.T. Johnson, A.C. Lindgren, F.M. Roberts, J. Ye, Statistical models             Analysis [Data set] (2020). 10.5281/zenodo.3931688.
+     of reconstructed phase spaces for signal classification, IEEE Trans. Signal Process.        [49] IEC, General requirements for arc fault detection devices IEC62606, Int.
+     54 (6) (2006) 2178–2186.                                                                         Electrotech. Comm. (2013).
+[36] R.J. Povinelli, J.F. Bangura, N.A.O. Demerdash, R.H. Brown, Diagnostics of bar and          [50] U. L. Inc, UL Standard for Arc-Fault Circuit-Interrupters UL1699, second ed.,
+     end-ring connector breakage faults in polyphase induction motors through a novel                 Underwriters Laboratories Inc., 2011.
+     dual track of time-series data mining and time-stepping coupled FE-state space              [51] D.M.W. Powers, Evaluation: from precision, recall and F-measure to ROC,
+     modeling, IEEE Power Eng. Rev. 22 (2) (2002) 58–59.                                              informedness, markedness and correlation, Int. J. Mach. Learn. Technol. 2 (1)
+[37] F. Takens, Detecting strange attractors in turbulence, in: D. Rand, L.-S. Young                  (2011) 37–63.
+     (Eds.), Dynamical Systems and Turbulence, Warwick 1980, Springer Berlin                     [52] A. Facchini, C. Mocenni, A. Vicino, Generalized recurrence plots for the analysis of
+     Heidelberg, Berlin, Heidelberg, 1981, pp. 366–381.                                               images from spatially distributed systems, Phys. D 238 (2) (2009) 162–169.
+[38] H.D.I. Abarbanel, Analysis of Observed Chaotic Data, Springer, New York, NY,                [53] A. Shahbahrami, T.A. Pham, K. Bertels, Parallel implementation of gray level co-
+     1996.                                                                                            occurrence matrices and Haralick texture features on cell architecture,
+[39] S. Ali, A. Basharat, M. Shah, Chaotic invariants for human action recognition. 2007              J. Supercomput. 59 (3) (2012) 1455–1477.
+     IEEE 11th International Conference on Computer Vision, 2007, pp. 1–8.
+
+
+
+
+                                                                                            12
+

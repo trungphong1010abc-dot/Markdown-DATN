@@ -1,0 +1,43 @@
+CÔNG TY CỔ PHẦN NHIỆT ĐIỆN QUẢNG NINH 
+DỰ ÁN NÂNG CẤP, CẢI TẠO HỆ THỐNG XỬ LÝ KHÍ THẢI NHÀ MÁY NHIỆT ĐIỆN QUẢNG NINH 
+QUANG NINH THERMAL POWER JOINT STOCK COMPANY 
+PROJECT FOR UPGRADING AND RENOVATING THE FLUE GAS TREATMENT SYSTEM OF QUANG NINH 
+THERMAL POWER PLANT 
+Điều chỉnh Báo cáo Nghiên cứu khả thi/Adjusting the Feasibility Study Report 
+Chương 4: Lựa chọn giải giáp công nghệ - kỹ thuật/ Chapter 4: Choosing Technological and 
+Technical Disarmament Methods 
+Viện Năng lượng/Institute of Energy   Trang/page 170/339 
+- Hệ số công suất: ≥ 0.95 
+- Nhiệt độ môi trường tối đa cho phép: ≥ 40°C 
+- Độ ẩm làm việc tối đa cho phép, không đọng sương: ≥ 95% 
+- Chế độ làm mát: Không khí 
+- Cấp bảo vệ: IP42 
+- Chế độ truy cập menu: Bằng màn hình 
+- Chất lượng sóng hài đầu vào: ≤5% 
+- Các chức năng bảo vệ: Bảo vệ ngắn mạch, bảo vệ chạm đất, bảo vệ quá tốc 
+độ, bảo vệ chống mất pha, bảo vệ quá tải, bảo vệ quá áp, bảo vệ quá dòng 
+điện, chức năng phát hiện hồ quang điện: Có 
+- Sụt áp đầu vào lớn nhất cho phép mà biến tần không reset: ≥ 20% 
+- Độ chính xác điều khiển tốc độ (tần số) đầu ra: ≤1% so với mô men định 
+mức 
+- Truyền thông: Có kết nối Modbus, ethernet, ProfiBus-DP 
+- UPS online lắp cùng biến tần dự phòng nguồn điều khiển: Có 
+- Dự phòng hoạt động: 
+ Đối với công nghệ HV IGBT: Đảm bảo khi hư hỏng 01 trong các phần 
+tử của cầu HV IGBT dẫn tới dừng vận hành cầu thì hệ thống biến tần 
+vẫn đáp ứng duy trì động cơ chạy 100% công suất định mức, điện áp 
+đầu ra hệ thống biến tần (điện áp đầu vào động cơ) có khả năng đáp 
+ứng ≥95% điện áp định mức của động cơ, đảm bảo hệ thống khói gió 
+vận hành bình thường, tổ máy không phải giảm công suất khả dụng, 
+không gây dao động dẫn tới trip tổ máy trong quá trình chuyển đổi chế 
+độ vận hành của hệ thống biến tần. 
+ Đối với công nghệ LV IGBT (có công nghệ cell bypass): Đảm bảo 
+trong trường hợp hỏng 01 cell trên 1 pha bất kỳ, vẫn đáp ứng được 
+động cơ chạy 100% công suất định mức, điện áp đầu ra hệ thống biến 
+tần (đầu vào động cơ) có khả năng đáp ứng ≥95% điện áp định mức của 
+động cơ, đảm bảo hệ thống khói, gió vận hành hoạt động bình thường, 
+tổ máy không phải giảm công suất khả dụng, không gây dao động dẫn 
+tới trip tổ máy trong quá trình chuyển đổi chế độ vận hành của hệ thống 
+biến tần. 
+- Tủ bypass: Có tủ bypass 
+- Thiết bị cắt lọc sét (Surage protection device): Có 

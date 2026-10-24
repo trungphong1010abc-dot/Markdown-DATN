@@ -1,0 +1,658 @@
+                                                                                                         Electric Power Systems Research 116 (2014) 77–86
+
+
+
+                                                                                                            Contents lists available at ScienceDirect
+
+
+                                                                                        Electric Power Systems Research
+                                                                                    journal homepage: www.elsevier.com/locate/epsr
+
+
+Review
+
+Aspects of arc-ﬂash protection and prediction
+Lauri Kumpulainen a,∗ , G. Amjad Hussain b , Marc Rival c ,
+Matti Lehtonen b , Kimmo Kauhaniemi d
+a
+  Vamp Ltd., P.O. Box 810, 65101 Vaasa, Finland
+b
+  Aalto University, School of Engineering, P.O. Box 13000, 00076 Aalto, Finland
+c
+  Schneider Electric, Electropole Eybens, 31 rue Pierre Mendés, 38320 Eybens, France
+d
+  University of Vaasa, P.O. Box 700, 65101 Vaasa, Finland
+
+
+
+
+a r t i c l e                     i n f o                                                       a b s t r a c t
+
+Article history:                                                                               This paper provides a technological review of arc-ﬂash protection of air insulated switchgear. It covers the
+Received 9 December 2013                                                                       whole range starting from switchgear design aspects until ultra-fast arc elimination. Special attention
+Received in revised form 26 April 2014                                                         is paid to proactive technologies enabling preemptive detection of slowly developing faults. Various
+Accepted 20 May 2014
+                                                                                               arc faults indicating phenomena are examined, and several sensor technologies for online monitoring
+Available online 7 June 2014
+                                                                                               are evaluated. Because preventive or predictive measures cannot totally eliminate the risk of arc faults,
+                                                                                               reactive protection by fast operating protection is justiﬁed. Two major reactive protection approaches are
+Keywords:
+                                                                                               discussed: the current-limiting approach and the arcing time based approach. The beneﬁts of protection
+Arc-fault prediction
+Arc detection
+                                                                                               based on simultaneous detection of light and overcurrent are explained. Finally the paper discusses arc
+Arc elimination                                                                                elimination technologies and evaluates the concerns related to short-circuit devices.
+On-line monitoring                                                                                                                                                © 2014 Elsevier B.V. All rights reserved.
+Preventive maintenance
+IEC 61850
+
+
+
+Contents
+
+    1.    Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   78
+    2.    A holistic view of existing arc-ﬂash protection technology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                     78
+    3.    Arc-ﬂash prevention . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            78
+          3.1.   Education . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       78
+          3.2.   Design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    78
+          3.3.   High resistance grounding . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                           78
+          3.4.   Insulated vs. bare busbar . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                       78
+          3.5.   Maintenance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .             79
+    4.    Proactive protection: arc-ﬂash prediction technologies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                   79
+          4.1.   Arc-ﬂash prediction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                   79
+          4.2.   Detection of developing faults by analysis of phase currents . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                79
+          4.3.   Detection based on zero sequence voltage or current differential . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      79
+          4.4.   Other phenomena indicating developing arc fault . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                       80
+          4.5.   Sensor technologies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                   80
+    5.    Reactive protection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          81
+          5.1.   Why reactive protection is needed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                     81
+          5.2.   Arc-ﬂash incident energy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                          81
+          5.3.   Arcing current . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            81
+          5.4.   Current-limiting approach in arc-ﬂash protection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                      82
+          5.5.   Limitation of incident energy by reducing arcing time . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                         83
+          5.6.   Light and overcurrent based protection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                          83
+
+
+
+
+    ∗ Corresponding author. Present address: University of Vaasa, P.O. Box 700, 65101 Vaasa, Finland. Tel.: +358 400 548544.
+    E-mail addresses: lauri.kumpulainen@uva.ﬁ, lauri.kumpulainen@netikka.ﬁ (L. Kumpulainen), amjad.hussain@aalto.ﬁ (G.A. Hussain), marc.rival@schneider-electric.com
+(M. Rival), matti.lehtonen@aalto.ﬁ (M. Lehtonen), kimmo.kauhaniemi@uva.ﬁ (K. Kauhaniemi).
+
+http://dx.doi.org/10.1016/j.epsr.2014.05.011
+0378-7796/© 2014 Elsevier B.V. All rights reserved.
+78                                                                                  L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86
+
+ 6.   Fault arc elimination . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            83
+      6.1.   Elimination technologies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                            83
+      6.2.   Circuit breakers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                84
+      6.3.   Arc eliminators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .               84
+ 7.   IEC 61850 based communication in arc-ﬂash protection systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     85
+ 8.   Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    85
+      Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                 85
+      References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   85
+
+
+
+
+1. Introduction                                                                                                                                           operation in an environment with possible arc-ﬂash hazard should
+                                                                                                                                                          be commonplace. Incident energy calculations and arc labeling of
+    Internal high power arc fault in switchgear is a reasonably rare                                                                                      switchgear are a good example of safety culture.
+incident, but can have very serious consequences unless the arc                                                                                               Education of personnel is justiﬁed for safety and economic rea-
+is rapidly extinguished. An arc fault causes hazardous impacts:                                                                                           sons. Arcing faults cause direct damage costs and costs due to
+thermal impact, pressure wave, ﬂying particles, electrical and                                                                                            process interruption, and when humans are involved, high medical
+toxic impact. In addition to the hazard to personnel, substantial                                                                                         or legal costs are possible.
+economic losses due to equipment damage and long system inter-
+ruptions are common consequences.                                                                                                                         3.2. Design
+    There are a number of options to limit the risks related to arc
+faults. Some of the approaches emphasize arc prevention while oth-                                                                                           Prevention of internal arcs in switchgear starts naturally in
+ers focus on technologies for arc mitigation. This paper gives an                                                                                         design. Requirements have been set in IEC and IEEE standards [1–4].
+extensive overview of the whole ﬁeld. Emerging technologies in                                                                                            The IEC standard [1] presents a list of locations where internal arc
+arc fault prevention and very fast reacting protection systems are                                                                                        faults are most likely to occur in metal-enclosed switchgear and
+discussed more in detail.                                                                                                                                 controlgear:
+
+2. A holistic view of existing arc-ﬂash protection                                                                                                        • Connection compartments
+technology                                                                                                                                                • Disconnectors, switches, grounding switches
+                                                                                                                                                          • Bolted connections and contacts
+    Various approaches aiming at prevention or mitigation of arc                                                                                          • Instrument transformers
+ﬂash incidents have been presented. There are signiﬁcant dif-                                                                                             • Circuit breakers
+ferences in the methodology, based on traditions and cultural
+difference. Standardization is only partially a reason for different                                                                                         The standard also lists possible causes of internal arc faults and
+practices. For example in Europe, in spite of the inﬂuence of IEC                                                                                         examples of measures to decrease the probability of faults. These
+standards, there is no universal practice to deal with arc ﬂash issues.                                                                                   measures include both technical solutions and personnel related
+    Arc-ﬂash protection methods can be categorized into many                                                                                              recommendations. Some additional design options are evaluated
+ways. Examples of categorization are division into passive and                                                                                            below.
+active methods, and division into proactive and reactive meth-
+ods. Passive methods do not have any active component. Active                                                                                             3.3. High resistance grounding
+methods include measurements and either reactive response (after
+arc-ﬂash has been detected) or proactive response (pre-arc action                                                                                            High resistance grounding, limiting phase-to-ground fault
+when indication of a developing fault has been detected).                                                                                                 currents, can be seen as an arc-ﬂash preventive technique. It
+    Approaches aiming at prevention of arc-ﬂash, like design of                                                                                           reduces drastically the dissipated energy, and sustained arcing
+switchgear, education of personnel, and maintenance practices, can                                                                                        faults in low voltage (LV) systems. This is why proponents of this
+be categorized into pre-ignition methods and passive methods.                                                                                             system have proposed that it should become a standard of the
+Fig. 1 presents the categorization and a holistic view of arc-ﬂash                                                                                        industry [5].
+protection.                                                                                                                                                  However, high-resistance grounding is only effective in ground
+    In the following sections, the elements of the holistic view are                                                                                      faults and requires that the ﬁrst ground fault can be cleared before
+examined in more detail. Special attention is paid to emerging tech-                                                                                      the second ground fault causes phase-to-phase fault [6]. Although
+nologies of arc prediction, i.e. online monitoring in order to detect                                                                                     majority of arc faults start as phase-to-ground faults, other pro-
+developing fault before they escalate into high power arc faults.                                                                                         tection means are necessary when high resistance grounding is
+    However, there are faults which cannot be predicted by online                                                                                         applied. Additionally, high-resistance neutral grounding seems to
+monitoring, e.g. faults caused by direct human interaction or by ani-                                                                                     have very limited window of application on medium voltage (MV)
+mals, or faults caused by incorrect operation of switching devices.                                                                                       systems for several reasons explained in [7].
+Therefore, reactive arc-ﬂash protection, operating after arc igni-
+tion, is often considered justiﬁed. Along with online monitoring                                                                                          3.4. Insulated vs. bare busbar
+technologies, efﬁcient arc mitigation technologies are reported in
+detail.                                                                                                                                                       Insulated bus appears to be superior to bare bus, but there are
+                                                                                                                                                          different opinions. First, it is obvious that insulation provides means
+3. Arc-ﬂash prevention                                                                                                                                    to reduce the probability of arc faults caused e.g. by falling objects
+                                                                                                                                                          or by vermin. Another advantage is that insulation prevents single-
+3.1. Education                                                                                                                                            phase faults from escalating to high power multi-phase faults [8].
+                                                                                                                                                              The third possible advantage is that the arc may travel to insu-
+   Either direct or indirect human action is a common cause of                                                                                            lated area and become self-extinguishing [9]. This is, however,
+arc faults. Education of workers, safety culture and rules regarding                                                                                      controversial. In tests and real arc faults reported in [10], the arc
+                                           L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86                                   79
+
+
+
+
+                                           Fig. 1. The categorization and the holistic view of arc-ﬂash protection.
+
+
+moved slowly and burned through the insulation, causing more                      of developing faults. This can be called arc fault prediction. Exist-
+damage. The insulation does not necessarily extinguish the arc.                   ing technologies enable on-line monitoring of electrical apparatus.
+    It has also been noticed in partially insulated switchgear tests              A combination of different monitored physical phenomena adds
+that the movement of the arc, which is fast with bare bus, stops                  reliability to detection of developing faults [12].
+at the starting point of the insulation. Somewhat stable arc at the                   In the following, ﬁrst an overview is given of potential arc fault
+insulating barrier point causes melting and vaporization of metal,                prediction methods which are based on common current and volt-
+leading to more signiﬁcant damage compared to moving arc.                         age measurements, then other phenomena and sensor technologies
+    Fig. 2 illustrates the impact of a stationary arc in the point where          are discussed.
+bus insulation starts. The ﬁgure presents LV busbars after an arc-
+ﬂash test with fast protection. It must be noted that in this case the            4.2. Detection of developing faults by analysis of phase currents
+buses are only partially insulated. The insulation does not cover
+the joint area. Although the duration of the arc in this test was only               Since current is practically always measured and analyzed any-
+some tens of milliseconds, the arc melted some of the busbar metal                way for protection purposes, it would be very convenient to use
+at the insulating barrier point.                                                  normal phase current measurements to ﬁnd developing faults. Low
+    This observation is in line with the one made in [10]: if plasma              current arcs, preceding actual high current and high power arcs in
+is allowed to concentrate, the rate of damage will accelerate. Also               low voltage systems (e.g. in loose connections), have been studied.
+according to low voltage testing reported in [11], an insulating                     In [13], the harmonic spectrum of the phase currents in a low
+barrier prevents arc motion, and produces higher arcing currents                  voltage system was analyzed. The focus was on 3rd, 5th and 7th
+and higher incident energy. The barrier effect was increased at the               harmonic. The paper concludes that it is generally possible to design
+higher test voltages.                                                             an operable preventive protection.
+                                                                                     Low voltage systems and harmonics were also discussed in [14].
+                                                                                  The paper examines the characteristics of low current arc faults
+3.5. Maintenance
+                                                                                  which can precede high power arc faults. A detailed harmonic
+                                                                                  analysis is presented for higher frequencies and the frequencies
+   The probability of arc faults can be lowered by appropriate
+                                                                                  in between the harmonics. In lower harmonics area the third har-
+preventive maintenance of equipment. Visual inspection, thermal
+                                                                                  monics could be an indicator of lower power arc faults. In higher
+imaging, partial discharge testing, and time-based testing of pro-
+                                                                                  frequency area up to 2 kHz, the broadband signal of the arc can be
+tection devices are examples of preventive maintenance actions.
+                                                                                  a strong indicator. In the range of 2–5 kHz, the re-ignition of the
+Preventive maintenance is effective against aging, corrosion, pollu-
+                                                                                  parallel arc causes slight elevation in the current spectrum. How-
+tion or vibration related faults. Condition monitoring of equipment,
+                                                                                  ever, because some loads generate harmonics and increased higher
+often by on-line measurements and communication to upper level
+                                                                                  frequency components, this detection method cannot be the only
+information systems, is a very interesting option to prevent arc
+                                                                                  recognition criterion of developing arc faults.
+faults.
+                                                                                  4.3. Detection based on zero sequence voltage or current
+4. Proactive protection: arc-ﬂash prediction technologies                         differential
+
+4.1. Arc-ﬂash prediction                                                             In MV systems with ungrounded or compensated neutral,
+                                                                                  changes in zero sequence voltage can give an indication of a
+   Loose connections and degradation of insulation are common                     developing ground fault. This indication is commonly used by
+causes of arc faults. These fault types develop gradually, and it                 electric utilities in some countries for early detection of high-
+may be possible to analyze pre-arc conditions and ﬁnd early signs                 resistance ground faults. However, for detection of developing
+80                                              L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86
+
+
+
+
+                  Fig. 2. Partial melting of LV busbar after short-time stationary arcing at the insulation barrier. (U = 726 V, Ik = 77 kA, tarc = 65 ms.)
+
+
+
+
+faults in switchgear, monitoring of zero-sequence voltage should                         (2) Acoustic (ultrasonic) emissions: PDs also cause mechanical vibra-
+be used in combination with other indication methods because it                              tions in electrical equipment. An acoustic signal in ultrasonic
+does not reveal the location of the fault.                                                   range of spectrum is emitted as a result of such vibration.
+    Cable termination is a typical location of arc faults. Principle                     (3) Optical emissions: Optical ultraviolet (UV) signals are produced
+of current differential protection may be applied for detection of                           as a result of various ionization, excitation and recombination
+developing faults in cable terminations [15]. In practice this means                         processes during PDs. Every material emits light of different
+comparison of the sum of individual phase current measurements                               wavelengths as a result of these phenomena.
+and the measurement of the core balance current transformer. Fig. 3                      (4) High frequency current components: PD is basically a surge of
+illustrates this principle.                                                                  electrons and hence a current pulse. These current pulses are
+                                                                                             superimposed on the normal load current. These pulses have
+4.4. Other phenomena indicating developing arc fault                                         very small rise time and high frequency.
+                                                                                         (5) Thermal emissions (infrared emission and thermal ionization): The
+   In addition to commonly measured electrical quantities, there                             heating phenomena are mainly caused by increased resistance
+are various physical quantities that can potentially indicate                                of loose contacts, series arcing across bad contacts or termi-
+an arc development. The utilization of these phenomena often                                 nations. Ionization, excitation of atoms, and recombination of
+requires sensor installations in the switchgear. Potential physical                          ions due to PDs also cause thermal emissions. Heat produced
+phenomena have been listed and shortly described below, along                                due to these phenomena lie in the range of infrared spectrum
+with their detection methods. Detailed evaluation of them has been                           of electromagnetic radiation.
+reported in [16,17].                                                                     (6) Chemical emissions: During the process of ionization a neutral
+                                                                                             item or molecule loses or gains electrons thereby acquiring a
+                                                                                             net charge. These ions combine with the ions of other atoms
+(1) Electromagnetic emissions: Load current in loose connection can
+                                                                                             to produce a molecule which is called by-product of PD. Most
+    cause micro sparks and ionization of the air. Partial discharges
+                                                                                             common by-products of PD’s in the air insulated switchgears
+    (PD) and corona also cause ionization. Ref. [18] gives an exten-
+                                                                                             are ozone and nitrogen oxide. When they react with the mois-
+    sive review of PD measurement techniques in gas-insulated
+                                                                                             ture and water molecules, they form nitric acid [19]. Nitric acid
+    switchgear while this paper focuses on air insulated switchgear.
+                                                                                             is corrosive in nature and may cause severe damage to the con-
+                                                                                             tacts as well as dielectrics and insulators. It plays a major role in
+                                                                                             the decomposition of the chemical structure of the insulating
+                                                                                             material.
+
+                                                                                         4.5. Sensor technologies
+
+                                                                                             Many sensor technologies can be applied for detecting the above
+                                                                                         mentioned pre-arc phenomena. A short summary and evaluation
+                                                                                         of the technologies is presented in the following.
+
+                                                                                         (1) RF antenna: Antenna type sensors are widely used for PD detec-
+                                                                                             tion in the higher frequency range (HF/VHF/UHF).
+                                                                                         (2) Coupling capacitor: Coupling capacitors are used to transfer
+                                                                                             partial discharge energy from electrical network to the mea-
+                                                                                             surement setup. Sometimes they are used as proximity sensors
+                                                                                             for current or voltage measurement. The main disadvantage is
+                                                                                             that the capacitors have to be designed in order to withstand
+                Fig. 3. Idiff monitoring of cable termination.                               50/60 Hz rated voltage level of the equipment, and should be
+                                               L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86                                   81
+
+
+    manufactured to have low inductance in order to have good                         5. Reactive protection
+    high-frequency response [20,21].
+(3) High frequency current transformer (HFCT): The working princi-                    5.1. Why reactive protection is needed
+    ple of HFCT is the same as normal 50/60 Hz current transformer.
+    Partial discharges induce a current proportional to the cur-                          Preventive or predictive measures are not able to eliminate the
+    rent of the discharge. HFCT sensor is one of the most popular                     risk of all arc faults. Causes like direct human interaction or equip-
+    inductive sensors in condition monitoring technologies for                        ment malfunction may still lead to serious faults. This is the reason
+    most kind of applications in power systems due to its port-                       why reactive protection, i.e. reacting to phenomena detected after
+    ability, cost effectiveness, and non-intruding characteristics                    arc ignition, is always justiﬁed. However, traditional overcurrent
+    [22].                                                                             protection is fairly inefﬁcient in arc-ﬂash faults because it is too
+(4) Rogowski coil: The air cored sensor is placed around the con-                     slow and leads to long arcing time and high released energy.
+    ductor, where current pulses caused by partial discharge are to
+    be measured. The changing current induces voltage in the coil.                    5.2. Arc-ﬂash incident energy
+    Rogowski coils can be designed for the desired frequency. They
+    are immune to external interferences [23].                                            Incident energy is a concept deﬁned in [27]. Its primary purpose
+(5) Piezoelectric ultrasonic sensor: Piezoelectric sensors are direc-                 is to provide means for evaluating needed safe working distances
+    tional sensors that can detect PD in air insulated switchgear.                    and personal protective equipment (PPE) for employees. However,
+    Internal discharges in insulation do produce ultrasound sig-                      incident energy calculations can also be used when estimating
+    nals, but the signal may get attenuated through the insulation                    potential damage to equipment, and especially when different pro-
+    and through air. Thus piezoelectric sensors are not optimal for                   tection approaches are compared.
+    internal PD detection due to lower sensitivity and directionality                     Incident energy of an arc-ﬂash incident depends on voltage, dis-
+    [24,25].                                                                          tance, current and arcing time [27]. In practice, the key factors
+(6) Ultraviolet sensor: Ultraviolet sensors are sensitive to ultravio-                are arcing current and arcing time. Some protection approaches
+    let light, emitted by PDs in insulation material or arcing across                 emphasize limitation of current while most solutions aim at short
+    loose contacts. Mal-operation is possible due to the availabil-                   arcing time.
+    ity of other light sources, if this technique is implemented
+    alone.                                                                            5.3. Arcing current
+(7) Thermal sensors: There is a wide variety of thermal sensors.
+    Some sensors work on the principle of resistance change of                            Fault arc is a highly random phenomenon. During arcing the
+    the material, whereas others work on electron emission due                        length of the arc varies and the arc resistance is not constant. How-
+    to heat. Such sensors are less sensitive. If these sensors are kept               ever, this is not the only uncertainty related to the estimation of
+    in contact with the insulation, they may melt themselves due                      arcing current. The magnitude of arcing current is often derived
+    to excessive heat produced by arcing. If they are kept at a larger                from bolted fault current, but the bolted fault current is not a con-
+    distance, they may not sense the temperature of the hot spot                      stant either. Both the maximum and minimum values are needed
+    accurately, but rather sense the temperature of the surrounding                   for arc-ﬂash studies [27]. The highest incident energy can be caused
+    air only [26].                                                                    by the highest or lowest bolted and arcing fault current. This is
+                                                                                      because lower arcing fault current often leads to longer trip time
+                                                                                      [27–29].
+    There are some sensors which can measure infrared radiations                          According to [30] the initial symmetrical short-circuit current is
+emitted due to heat. Conventionally, infrared thermal sensors and                     calculated:
+thermographs were widely used to locate the hot spot created due                             cUn
+to loose contacts and partial discharges. Such IR thermal cameras                     Ik = √                                                          (1)
+                                                                                              3Zk
+are very expensive and not practical to implement for online condi-
+tion monitoring. In the market there are infrared sensors which are                   where c = voltage factor (0.95, 1.00, 1.05 or 1.10); Un = nominal sys-
+very small in size, accurate, and easy to install in the switchgear                   tem voltage (line-to-line); Zk = short-circuit impedance
+permanently for the online monitoring purpose [21]. Some man-                            Fig. 4 presents the system diagram and the equivalent circuit
+ufacturers have implemented thermal ionization detectors which                        diagram related to Eq. (1). It illustrates the importance of the
+detect the presence of certain ions produced by thermal effects in                    impedance of the feeding network (consisting of RQt and XQt ).
+the switchgear [26].                                                                     The impact of available fault current variations on arc-ﬂash
+    Table 1 presents a summary of the phenomena, sensor types,                        calculations has been studied in [28,31,32]. The available fault
+and applicable switchgear type.                                                       current data from the utility is not always available. In calcula-
+                                                                                      tions the utility network is assumed to be inﬁnite bus, but this
+                                                                                      leads to incorrect estimation of minimum fault current. The source
+                                                                                      impedance can vary because of changes of network connection or
+                                                                                      connected generators. Often the connection of renewable energy
+Table 1
+                                                                                      sources leads to lower short-circuit power. While conventional syn-
+Summary of sensor technologies.
+                                                                                      chronous generators are able to provide 5–10 times their nominal
+ Phenomenon                        Sensors                   Switchgear type          current, photovoltaic systems, based on power electronics, provide
+ Electromagnetic emissions         RF antenna                MV                       fault currents only close to their nominal current [28]. For example,
+ Acoustic (ultrasonic) emissions   Piezoelectric probe       MV                       in Denmark the high share of wind power has led to reduction of
+ Ultraviolet emissions             Optical sensors           MV                       short-circuit power [33].
+ High frequency PD pulses          HFCT, RC, CC              MV
+ Thermal emissions                 Thermocouples, IR         MV, LV
+                                                                                         The available short-circuit power from the utility has major
+                                   sensors, TID                                       inﬂuence on short circuit current on MV level but minor impact
+ Chemical emissions                Analyzers                 MV, LV                   on LV (<1000 V) level because of the high impedance of MV/LV
+ Fast variation in electric ﬁeld   Differential electric     MV                       transformers. The impedances of the MV/LV transformer and the LV
+                                   ﬁeld sensor
+                                                                                      conductors are very dominating in the circuit. Often inﬁnite source
+82                                                L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86
+
+
+                                                                                             The fault arc always has some impedance, and the arcing cur-
+                                                                                         rent is lower than in a fault without fault impedance (bolted fault).
+                                                                                         For high-voltage arcs, the impedance of the arc is very low, and the
+                                                                                         arcing current is practically the same as the bolted fault current,
+                                                                                         and it can be calculated according to e.g. IEC standard 60909 [34].
+                                                                                         Especially for applications under 1000 V, the impedance of the arc
+                                                                                         is often signiﬁcant, and the arc fault current is lower than the bolted
+                                                                                         fault current [27]. According to [35], the arc fault current can typ-
+                                                                                         ically fall between 20% and 40% of the prospective or bolted fault
+                                                                                         current, and [34] conﬁrms that the arc fault current can be as low as
+                                                                                         33% of the calculated bolted fault current at any particular location
+                                                                                         per [36].
+                                                                                             The fact that arcing current can be signiﬁcantly lower than the
+                                                                                         prospected current sets challenges to protection. The protection
+                                                                                         must be able to detect the fault, and what is especially important
+                                                                                         in arc fault incidents, is that it must be able to operate very fast.
+                                                                                             The impact of the reduction of arcing current should not be
+                                                                                         analyzed without examining the impact on operation time of the
+                                                                                         protection, the arcing time and the released energy. When inverse
+                                                                                         time overcurrent protection is applied the faults with high fault
+Fig. 4. System diagram and equivalent circuit diagram for calculating short-circuit
+                                                                                         currents will be cleared much quicker than the low current faults.
+current according to [26].
+                                                                                         According to [32], the largest arc energy with the normal time
+                                                                                         graded protection is normally produced by the minimum arcing
+                                                                                         fault current. In the tests reported in [29] 361 out of 869 locations
+impedance on the transformer primary has been applied in short-
+                                                                                         had incident energy calculations determined at the low range of
+circuit current calculations, but this does not guarantee the most
+                                                                                         the estimated current. The behavior of current-limiting (CL) fuses
+conservative incident energy calculations [31].
+                                                                                         depends on the current level. When the current is in the current-
+                                                                                         limiting range, CL fuses are very effective in reducing the incident
+5.4. Current-limiting approach in arc-ﬂash protection                                    energy level, the pressure wave and even the mechanical stress
+                                                                                         caused by the high fault current. When high current can be taken
+   Limitation of arcing current leads to reduction of incident                           for granted, CL fuses are an excellent solution. However, current
+energy, provided that the arcing time is not signiﬁcantly affected.                      limiting fuses provide current-limiting action only in case of very
+However, in spite of being widely reported, the fact that lower cur-                     high fault currents [37,38]. When used in combination with switch-
+rent can cause higher incident energy is probably not adequately                         ing devices the maximum arc energy may occur at current levels
+understood.                                                                              below the maximum interrupting rating [1]. The risk of higher
+
+
+
+
+                       Fig. 5. Incident energy as a function of time (according to [24]; U = 15 kV, Ik = 50 kA, gap 152 mm, working distance 910 mm).
+                                                   L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86                                             83
+
+
+
+
+Fig. 6. The basic principle of light and overcurrent based arc-ﬂash protection.
+
+
+
+incident energy level because of lower current is also clearly illus-
+trated in the test result ﬁgures of [27] regarding CL fuses.
+   Differences in arcing current magnitude can also be caused by
+various electrode conﬁgurations. In tests reported in [29], signiﬁ-
+cantly lower arc currents than predicted by the equations in [27]
+were measured. Because of higher clearing times of overcurrent
+protection, incident energy calculations can be greater than three
+times the standard calculations [29].
+   Another signiﬁcant risk caused by low fault current is that the
+protection may not properly respond or even trip at all [37,39].
+Calculation of minimum fault current is essential.
+   In conclusion, current-limiting approach to mitigate the impact
+of arc faults includes many uncertainties and risks related to the                        Fig. 7. An example of a light and overcurrent detection based arc-ﬂash protection
+                                                                                          system.
+arcing time and incident energy.
+
+5.5. Limitation of incident energy by reducing arcing time
+                                                                                          light. Fig. 7 presents a scheme of a simple arc-ﬂash protection sys-
+                                                                                          tem including current measurement, light sensors and the I/O unit
+    Incident energy is directly proportional to the arcing time. This
+                                                                                          for sensors, and the arc-ﬂash relay.
+is illustrated in Fig. 5. Reduction of arcing time has become the
+                                                                                              One of the advantages of light detection is the lack of a require-
+dominant approach in arc-ﬂash mitigation. Various technologies
+                                                                                          ment to coordinate with downstream devices and the ability to
+have been presented in [40].
+                                                                                          operate extremely fast (½ cycle or less) [41]. Another beneﬁt is
+    Compared to traditional overcurrent protection, protection time
+                                                                                          that retroﬁt installation is fairly easy when point type of sensors
+in busbar faults can be improved by zone-selective interlocking.
+                                                                                          are applied.
+Traditional busbar differential protection provides better perfor-
+                                                                                              Existing current transformers can be utilized in detection of
+mance with approximate 1 cycle operation time. However, busbar
+                                                                                          overcurrent. Like the light from the fault arc, the overcurrent can
+differential is not effective if the fault occurs in cable compartment,
+                                                                                          be detected within 1 ms. Thus, the arc detection time using light
+typically in cable terminations. In some countries busbar differen-
+                                                                                          and current based detection is approximately 1 ms.
+tial protection is considered as obsolete technology for arc-ﬂash
+                                                                                              Light and overcurrent based protection can be integrated into
+protection.
+                                                                                          common numerical protection relays or it can be applied by using
+    A maintenance switch, activating instantaneous tripping when
+                                                                                          dedicated arc-ﬂash protection relays. State-of-the art arc-ﬂash
+maintenance work is carried out, provides very fast tripping, but it
+                                                                                          relays provide very short trip time, several protection zones for
+is primarily intended for personnel protection only.
+                                                                                          selective tripping, and versatile communication options. When
+                                                                                          applying this technology, almost all the arcing time consists of
+5.6. Light and overcurrent based protection                                               the operation time of the primary device responsible for arc elim-
+                                                                                          ination, i.e. normally the circuit breaker or in some cases the arc
+    The rising technology to reduce arcing time is based on simul-                        eliminator. Arc eliminator is explained in Section 6.
+taneous detection of light and overcurrent. Together, these two                               Fig. 8 presents a comparison of incident energy levels of a MV
+conditions provide an extremely fast and very secure arc ﬂash                             system case, illustrating the impact of arcing time. Arcing time
+detection scheme [41]. Along with detection of phase overcurrent,                         67 ms of the example corresponds in practice to a system with light
+zero-sequence overcurrent detection can be applied for phase-to-                          and overcurrent based protection tripping circuit breaker, and the
+ground faults. Fig. 6 illustrates the basic operation principle of light                  5 ms case illustrates the efﬁciency of protection system enhance-
+and overcurrent based protection.                                                         ment by an arc eliminator.
+    The light of the fault arc is detected by sensors sensitive to light.                     When applying current and light base arc-ﬂash protection,
+Both point type of sensors and loop type of ﬁber sensors are com-                         selective protection can be achieved, especially with optical point
+monly applied. Point sensors monitor a restricted area, e.g. cable                        sensors indicating the fault location. This means that e.g. in cable
+termination compartment, and they are able to indicate the fault                          termination faults, only the breaker of the outgoing feeder will trip
+location rather accurately enabling selective protection. Fiber optic                     while the rest of the systems remains energized.
+sensors typically monitor larger areas, such as the whole busbar
+area or several circuit breaker compartments [42].
+    The sensitivity level of the sensor is not a critical issue because                   6. Fault arc elimination
+the light intensity caused by an arc fault is normally very high com-
+pared to ambient light intensity, and because of the overcurrent                          6.1. Elimination technologies
+condition. Practice has shown that the only situation where special
+attention has to be paid to the detection of light is the protection                         There are three basic technologies for arc elimination: fuses, cir-
+of the circuit breaker compartment of LV systems, if the CB emits                         cuit breakers, and arc eliminators. CL fuses have been discussed
+84                                              L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86
+
+
+
+
+          Fig. 8. Comparison of incident energy levels with different arcing times (according to [24]; U = 15 kV, Ik = 40 kA, gap = 152 mm, distance = 910 mm).
+
+
+above. The focus of the following subsections is on CB and arc                         eliminator also mitigates the pressure impact. The effectiveness
+eliminator technology.                                                                 of arc eliminator technology against the pressure wave has been
+                                                                                       illustrated in [43,44].
+6.2. Circuit breakers                                                                      The operation principle is simple: when an arc fault is detected,
+                                                                                       the device will create an intentional high speed short circuit in the
+    For light and overcurrent based protection, the relay trip time                    system so that the voltage collapses and the arc is extinguished.
+is typically less than half cycle. When semiconductor output                           Various manufacturers have different technologies in the meth-
+(IGBT, Insulated Gate Bipolar Transistor output) is used instead of                    ods related to the creation of the short circuit, e.g. pyrotechnical
+mechanical output relay, trip time can be as short as 1 ms. Since                      pressure element, Thomson coil, micro gas cartridges, or a spring
+operation times of circuit breakers are some tens of milliseconds,                     mechanism assisted by an electromagnetic repulsion system.
+it is clear that the arcing time depends practically on CB operation                       Arc eliminators are used in combination with light and overcur-
+time only.                                                                             rent based arc-ﬂash detection. The arc detection system is able to
+    Good questions have been raised concerning CB’s:                                   trip the eliminator within 1–2 ms, and the high speed primary cir-
+                                                                                       cuit device operates within a few milliseconds. Fast communication
+• What is the actual operation time, i.e. should a few cycles be                       between the arc-ﬂash protection relay and the short-circuit device
+  added to the value given by the manufacturer?                                        is necessary. A typical arcing time is less than 5 ms. The arc-ﬂash
+• What if the CB fails?                                                                relay also sends a tripping command to the circuit breaker, and the
+                                                                                       CB eliminates the short-circuit current within a few cycles. Since
+   According to [35], CB operation time is the maximum time, and                       the arcing time is minimal, hazard and damage caused by arc fault
+many breakers actually trip faster than what is in the datasheets.                     are almost nonexistent. Of course, a power system interruption is
+This is perfectly in line with experience gained in switchgear arc                     caused when an arc eliminator operates.
+fault testing. Conservative value for total arcing time is thus the                        Short-circuit devices have been opposed because of the concern
+sum of relay time and CB time, the latter being the dominant part.                     on the high current they cause. Of course high current can be detri-
+This aspect should be taken into consideration when selecting CB’s.                    mental to transformers, but the concern seems to be exaggerated.
+   CB is the component that ﬁnally breaks the current. Thus it is                      In MV systems the arcing current is almost equal to bolted fault cur-
+most important to ensure that the CB’s are in working order. Since                     rent. Thus, the creation of an intentional, symmetrical short-circuit
+no device can be 100% reliable, circuit breaker failure protection                     does not signiﬁcantly increase the current. In LV systems, there are
+(CBFP), tripping the upstream breaker, should be applied.                              options to reduce the level of the current. A combination of an arc
+                                                                                       quencher and CL fuses can be used, or a small but current tolerant
+6.3. Arc eliminators                                                                   resistor can be added to the circuit in order to lower the stress to
+                                                                                       power system components.
+   An arc eliminator is a device which eliminates an arc extremely                         When estimating the risks caused by the high current, two addi-
+fast by creating an intentional parallel short circuit. The technol-                   tional issues should be kept in mind. Transformer failures caused
+ogy is also called crowbar technology, arc quenching or high speed                     by short-circuit events are relatively rare, and according to IEEE
+grounding. So far arc eliminators have not been widely applied,                        and IEC standards, transformers shall be designed to withstand the
+although the technology is listed as an option to provide highest                      electromagnetic forces and the thermal stresses produced during
+possible level of protection in IEC standard [1]. One of the most                      the ﬂow of a short-circuit current [45].
+interesting application areas is retroﬁt installation in switchgear                        Additionally, since it is very difﬁcult to ﬁnd any evidence or
+which is not arc resistant. A very signiﬁcant improvement of                           experience of real cases where arc eliminators had caused dam-
+both personnel safety and mitigation of equipment damage can                           age to equipment, the risk level related to high current caused by
+be achieved. In addition to minimization of incident energy, arc                       arc eliminators can be estimated acceptable [46].
+                                          L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86                                                      85
+
+
+7. IEC 61850 based communication in arc-ﬂash protection                          Acknowledgements
+systems
+                                                                                    This research was supported by Vamp Ltd., Finland, the Finnish
+    In arc-ﬂash protection systems, the speed and reliability                    Foundation for Technology Development, Finland, and Schneider
+requirements for communication are very high, because every mil-                 Electric. The authors would like to express their gratitude.
+lisecond increases the released energy and leads to larger damage.
+Exchange of information is essential not only between the relays
+but also between the sensors detecting the arc and the relays, and               References
+between the relays and the circuit breakers. One example of a suc-
+                                                                                 [1] IEC 62271-200, High-voltage switchgear and controlgear – Part 200: AC metal-
+cessful approach is minimization of the transmitted information
+                                                                                     enclosed switchgear and controlgear for rated voltages above 1 kV and up to
+and the use of high-speed serial protocol. Even selective protection                 and including 52 kV, Edition 2.0, 2011.
+is possible, when the transmitted bit includes the information on                [2] IEC 60092-508, Electrical installations in ships – Part 508: switchgear and con-
+                                                                                     trol gear assemblies for rated voltages above 1 kV and up to and including 15 kV,
+the activated sensor and thus the protection zone [47]. Communi-
+                                                                                     1, 4th November, 2002.
+cation delays are very low, enabling less than 2 ms total detection              [3] IEC 60439-1, Low-voltage switchgear and controlgear assemblies – Part 1:
+and trip time.                                                                       Type-tested and partially type-tested assemblies, 4.1, 2004.
+    Ethernet based communication, in particular IEC 61850 [48]                   [4] IEEE C37.20.2, IEEE Standard for Metal-Clad Switchgear, July, 2000.
+                                                                                 [5] J.P. Nelson, P.K. Sen, High-resistance grounding of low-voltage systems: a
+based technology, is widely applied in protection systems but in                     standard for the petroleum and chemical industry, IEEE Trans. Ind. Appl. 35
+arc-ﬂash protection systems it is so far rather rarely deployed.                     (July/August (4)) (1999) 941–948.
+However, when carefully applied, adequate performance and reli-                  [6] D.C. Mohla, T. Driscoll, P.S. Hamer, S.A.R. Panetta, Mitigating electric shock and
+                                                                                     arc ﬂash energy – a total system approach for personnel and equipment pro-
+ability can be achieved along with the beneﬁts this technology                       tection, paper no. PCIC-2010-41, in: IEEE Petroleum and Chemical Industry
+provides.                                                                            Committee Technical Conference, San Antonio, 20–22 September, 2010.
+    Generic Object Oriented Substation Event (GOOSE) messages                    [7] L.R. Kingrey, R.D. Painter, A.S. Locker, Applying high-resistance neutral ground-
+                                                                                     ing in medium-voltage systems, IEEE Trans. Ind. Appl. 47 (May/June (3)) (2011)
+over Ethernet are a standardized method for communication in                         1220–1231.
+protection applications. Zone-selective interlocking (ZSI, reverse               [8] J.R. Dunki-Jacobs, The escalating arcing ground-fault phenomenon, IEEE Trans.
+interlocking) is a common application related to arc-ﬂash protec-                    Ind. Appl. IA–22 (November/December (6)) (1986) 1156–1161.
+                                                                                 [9] R.A. Jones, D.P. Liggett, M. Capelli-Schellpfeffer, T. Macalady, L.F. Saunders, R.E.
+tion where IEC 61850 and GOOSE have successfully been utilized
+                                                                                     Downey, L.B. McClung, A. Smith, S. Jamil, V.J. Saporita, Staged tests increase
+[49]. GOOSE messaging reduces coordination time and simpliﬁes                        awareness of arc-ﬂash hazards in electrical equipment, IEEE Trans. Ind. Appl.
+relay protection coordination [50]. However, ZSI is slower than light                36 (March/April (2)) (2000) 659–667.
+                                                                                [10] H.B. Land III, The behavior of arcing faults in low-voltage switchboards, IEEE
+and overcurrent based arc-ﬂash protection [51].
+                                                                                     Trans. Ind. Appl. 44 (March/April (2)) (2008) 437–444.
+    In [52], GOOSE messages are limited to relay-to-relay com-                  [11] R. Wilkins, M. Lang, M. Allison, Effect of insulating barriers in arc ﬂash test-
+munications in light and overcurrent based arc-ﬂash protection                       ing, paper PCIC-2006-6, in: IEEE Petroleum and Chemical Industry Committee
+system. GOOSE messaging can also be applied in the communica-                        Technical Conference, September, 2006.
+                                                                                [12] T.S. Sidhu, G.S. Sagoo, M.S. Sachdev, On-line detection and location of low-
+tion between other components of the arc-ﬂash protection system:                     level arcing in dry-type transformers, IEEE Trans. Power Deliv. 16 (January (1))
+sensors, input/output units, relays, and circuit breakers.                           (2002) 135–141.
+    In order to increase reliability and to avoid delays caused by              [13] D. Brechtken, Preventive arc fault protection, in: IEEE Transmission and Dis-
+                                                                                     tribution Conference and Exposition, Atlanta, GA, USA, 28th October–2nd
+network trafﬁc, virtual local area networks (VLAN) for separated                     November, 2001, pp. 311–316.
+trafﬁc can be established [50,53]. Another means to enable very                 [14] P. Müller, S. Tenbohlen, R. Maier, M. Anheuser, Characteristics of series and par-
+fast communication is to utilize high speed ﬁber media for connec-                   allel low current arc faults in the time and frequency domain, in: Proceedings
+                                                                                     of the 56th IEEE Holm Conference on Electrical Contacts, Charleston, South
+tion to devices [47,54]. It has been shown that the speed of GOOSE                   Carolina, USA, 4–7 October, 2010.
+based communication is as good as in direct serial communication                [15] J. Arvola, S. Dahl, T. Virtala, Improving medium voltage switchgear protection
+[53].                                                                                in compensated distribution networks, in: CIRED 2013 Conference, Stockholm,
+                                                                                     June 10–13, 2013.
+    There are several important beneﬁts of applying IEC 61850
+                                                                                [16] G.A. Hussain, Methods for arc-ﬂash prediction in MV/LV switchgear (M.Sc. the-
+standard based GOOSE messaging for arc-ﬂash protection. It allows                    sis), Aalto University, School of Electrical Engineering, November, 2011.
+standard Ethernet components and longer distance between the                    [17] L. Kumpulainen, G.A. Hussain, M. Lehtonen, J.A. Kay, Preemptive arc fault
+                                                                                     detection techniques in switchgear and control gear, IEEE Trans. Ind. Appl. 49
+components when ﬁber optic interface is applied. The standard
+                                                                                     (July/August (4)) (2013).
+based solution also is easier to monitor than manufacturer speciﬁc              [18] I.A. Metwally, Status review on partial discharge measurement techniques in
+solution, and it enables multi-vendor systems. One of the major                      gas-insulated switchgear/lines, Electric Power Syst. Res. 69 (2004) 25–36.
+beneﬁts is simpliﬁed and reduced wiring which also reduces costs                [19] M. Goodman, How ultrasound can detect electrical discharge non-invasively
+                                                                                     and help eliminate arc ﬂash incidents, in: Conference Record of Electrical Insu-
+[51].                                                                                lation Conference and Electrical Manufacturing Expo, 2007, pp. 247–252.
+                                                                                [20] D. Russwurm, On-site partial discharge monitoring using the differential Lemke
+                                                                                     probe LDP-5 and its accessories, in: HV Testing, Monitoring and Diagnostics
+8. Conclusions                                                                       Workshop, Alexandria, VA, 13–14 September, 2000.
+                                                                                [21] T. Goodeve, G. Stone, L. Macomber, Experience with compact epoxy-mica
+   This paper has given a holistic view of arc-ﬂash mitigation                       capacitors for rotating machine partial discharge detection, in: Proceedings
+technologies discussing both passive and active methods. Special                     of Electrical/Electronics Insulation Conference, and Electrical Manufacturing &
+                                                                                     Coil Winding Conference, 18–21 September, 1995, pp. 685–689.
+attention has been paid to proactive on-line monitoring techniques              [22] S. Kaneko, S. Okabe, M. Yoshimura, H. Muto, C. Nishida, M. Kamei, Detecting
+that enable detection of slowly developing faults. So far these meth-                characteristics of various type antennas on partial discharge electromagnetic
+ods have not been widely applied. Since these techniques are not                     wave radiating through insulating spacer in gas insulated switchgear, IEEE
+                                                                                     Trans. Dielectr. Electr. Insul. 16 (5) (2009) 1462–1472.
+effective in all faults, reactive protection is justiﬁed.
+                                                                                [23] G. Hashmi, Partial discharge detection for condition monitoring of covered-
+   Incident energy levels can be reduced signiﬁcantly by reac-                       conductor overhead distribution networks using Rogowski coil (Ph.D. thesis),
+tive protection techniques having extremely short operation times                    Helsinki University of Technology, Department of Electrical Engineering,
+                                                                                     Finland, 2008, Ref. No. TKK-DISS-2493, 22 August.
+or by limiting the fault current. Time-limiting approach has been
+                                                                                [24] S. Lima, O. Frazao, R. Farias, F. Araujo, L. Ferreira, J. Santos, V. Miranda, Mandrel-
+preferred to current-limiting approach because the latter includes                   based ﬁber-optic sensors for acoustic detection of partial discharges – a proof
+many uncertainties and risks related to arcing time and incident                     of concept, IEEE Trans. Power Deliv. 25 (4) (2010) 2526–2534.
+energy. In the future, arc-ﬂash protection can be maximized by                  [25] “The AE k-100/AA k-40 Acoustic Emission Probe”, 2013, http://www.
+                                                                                     mandbsystems.co.uk/acousticEmissionProbe.asp
+a combination of passive methods, proactive and reactive tech-                  [26] H. Land, C. Eddins, J. Klimek, Evolution of arc fault protection technology at APL,
+niques, and enhanced by IEC 61850 based communication.                               Johns Hopkins APL Tech. Dig. 25 (2) (2004) 140–153.
+86                                                   L. Kumpulainen et al. / Electric Power Systems Research 116 (2014) 77–86
+
+
+[27] IEEE Std 1584TM -2002, IEEE Guide for Performing Arc-Flash Hazard Calcula-                 China International Conference on Electricity Distribution, December 10–13,
+     tions, IEEE, 2002.                                                                         2008.
+[28] P. Barkhordar, How accurate are your arc ﬂash hazard study results, paper             [41] J. Simms, G. Johnson, Protective relaying methods for reducing arc ﬂash energy,
+     PCIC-2010-20, in: IEEE Petroleum and Chemical Industry Committee Technical                 in: IEEE Industry Applications Society Annual Meeting, 2011, pp. 1–12.
+     Conference, San Antonio, September 20–22, 2010.                                       [42] J.A. Kay, J. Arvola, L. Kumpulainen, Protecting at the speed of light, IEEE Ind.
+[29] M. Lang, K. Jones, T. Neal, Impact of arc ﬂash events with outward convective              Appl. Mag. (May/June) (2011) 12–18.
+     ﬂows on worker protection strategies, IEEE Trans. Ind. Appl. 47 (July/August          [43] R. Garzon, The arc terminator, IEEE Ind. Appl. Mag. (May/June) (2003) 51–55.
+     (4)) (2011) 1597–1603.                                                                [44] J.A. Kay, L. Kumpulainen, Maximizing protection by minimizing arcing times
+[30] IEC 909, International Standard, “Short-circuit Current Calculation in Three-              in medium voltage systems, IEEE Trans. Ind. Appl. 49 (July/August (4)) (2013)
+     phase a.c. Systems”, Second Impression, IEC, 1989.                                         1920–1927.
+[31] I. Balasubramanian, A. Graham, Impact of available fault current variations on        [45] M. Fortin, J. Gerth, R. McLaughlin, P. Riffon, Short-circuit strength and
+     arc-ﬂash calculations, IEEE Trans. Ind. Appl. 46 (September/October (5)) (2010).           short-circuit testing of power and distribution transformers, in: IEEE/PES
+[32] D. Sweeting, Applying IEC 60909, short-circuit current calculations, paper no.             Transformers Committee Spring 2008 Meeting, Charlotte, NC, March, 2008.
+     PCIC-2011-22, in: IEEE Petroleum and Chemical Industry Committee Technical            [46] L. Kumpulainen, G.A. Hussain, M. Rival, The big picture of arc-ﬂash mitigation,
+     Conference, Toronto, Canada, September 19–21, 2011.                                        in: IEEE PCIC Europe Conference, Prague, June 19–21, 2012.
+[33] J. Eli Nielsen, Analysis of how large scale DG affects network business, COD-         [47] L. Kumpulainen, O. Vähämäki, T. Harju, A. Jäntti, Enhancement of arc-ﬂash pro-
+     GUNet project report, 2003.                                                                tection by IEC 61850, in: Conference proceedings of PAC World 2012, Budapest,
+[34] D. Sweeting, Arcing faults in electrical equipment, Paper No. PCIC-2009-1, in:             25–28 June, 2012.
+     IEEE Petroleum and Chemical Industry Committee Technical Conference, Ana-             [48] Communication Networks and Systems in Substations, IEC Standard 61850,
+     heim, CA, September 14–16, 2009.                                                           2013.
+[35] D. Shipp, D. Wood, Mitigating arc-ﬂash exposure, IEEE Ind. Appl. Mag.                 [49] J. Holbach, Mitigation of arc ﬂash hazard by using protection solution, in: 60th
+     (July/August) (2011) 28–37.                                                                Annual Conference for Protective Relay Engineers, IEEE, 2007, pp. 239–250.
+[36] NFPA 70E-2009, Standard for Electrical Safety in the Workplace® , National Fire       [50] L. Sevov, T.W. Zhao, I. Voloh, The power of IEC 61850, IEEE Ind. Appl. Mag.
+     Protection Association, 2009.                                                              (January/February) (2013) 60–67.
+[37] K. Malmedal, P. Sen, Arcing fault current and the criteria for setting                [51] C. Cabrera, S. Chiu, N.K.C. Nair, Implementation of arc-ﬂash protection using IEC
+     ground fault relays in solidly-grounded low voltage systems, in: Conference                61850 goose messaging, in: Conference Record of IEEE International Conference
+     record of Industrial and Commercial Power Systems Technical Conference,                    on Power System Technology (POWERCON), 2012, pp. 1–6.
+     2000.                                                                                 [52] G. Rocha, E. Zanirato, F. Ayello, R. Taninaga, Arc-ﬂash protection for low- and
+[38] S. Swencki, J. Smith, D. Roybal, D. Burns, G. Wetzel, D. Mohla, Electrical safety,         medium voltage panels. Paper no. PCIC-2011-25, in: IEEE Petroleum and Chem-
+     arc ﬂash hazards, and the “standards” a comprehensive overview, in: Paper                  ical Industry Committee Technical Conference, Toronto, 19–21 September,
+     PCIC-2005-39, IEEE Petroleum and Chemical Industry Technical Conference,                   2011.
+     Denver, Co., September 12–14, 2005.                                                   [53] F. Dixon, M.T. Yunas, V. Wedelich, J. Howard, H.E. Brown, S.N. Sauer, Y. Xu, T.
+[39] D. Sweeting, Applying IEC 60909, Short-Circuit Calculations, Paper No. PCIC-               Markello, W. Sheikh, Mitigating arc ﬂashes using IEC 61850, IEEE Ind. Appl.
+     2011-22, in: IEEE Petroleum and Chemical Industry Technical Conference,                    Mag. (January/February) (2014) 64–69.
+     Toronto, September 19–21, 2011.                                                       [54] D.C. Mazur, J.A. Kay, J.H. Kreiter, Beneﬁts of IEC 61850 standard for power mon-
+[40] L. Kumpulainen, S. Dahl, J. Ma, Mitigation of arc-ﬂash hazards and reduction               itoring and management systems in forest product industries, in: Conference
+     of costs by selective arc-ﬂash protection, in: Conference record of CICED 2008,            Record of IEEE Pulp and Paper Industry Technical Conference, 2013, pp. 69–75.
+

@@ -1,0 +1,3561 @@
+=== PDF 1 ===
+Xay dung he thong iot quan ly bai đo xe thong minh 4
+IoT và ứng dụng (Trường Đại học Bách khoa Hà Nội)
+Scan to open on Studeersnel
+Studocu is not sponsored or endorsed by any college or university
+Xay dung he thong iot quan ly bai đo xe thong minh 4
+IoT và ứng dụng (Trường Đại học Bách khoa Hà Nội)
+Scan to open on Studeersnel
+Studocu is not sponsored or endorsed by any college or university
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 2 ===
+ĐẠI HỌC BÁCH KHOA HÀ NỘI 
+ 
+ 
+ 
+ 
+ 
+ 
+ĐỒ ÁN TỐT NGHIỆP 
+Xây dựng hệ thống IoT quản lý bãi đỗ xe 
+thông minh 
+PHẠM VIỆT ANH 
+anh.pv203660@sis.hust.edu.vn 
+PHẠM THỊ HẢI VÂN 
+van.pth203645@sis.hust.edu.vn 
+Ngành Điện tử viễn thông 
+Chuyên ngành Kỹ thuật điện tử 
+ 
+ 
+ 
+ 
+ 
+Giảng viên hướng dẫn: 
+TS. Vương Hoàng Nam 
+ 
+KHOA: 
+ 
+Kỹ thuật truyền thông 
+ 
+ 
+ 
+ 
+ 
+ 
+HÀ NỘI, 2/2025 
+    Chữ ký của GVHD 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 3 ===
+ 
+Lời cảm ơn 
+Trong quá trình thực hiện đồ án này, chúng em xin chân thành cảm ơn TS. 
+Vương Hoàng Nam đã tận tình hướng dẫn, dành thời gian quý báu và tạo điều kiện 
+tốt nhất để chúng em có thể hoàn thành đồ án này. Bên cạnh đó, chúng em cũng 
+xin gửi lời cảm ơn đến thầy Vương Xuân Hiếu và BKFET Lab đã giúp đỡ chúng 
+em trong suốt quá trình thực hiện. 
+Chúng em cũng xin cảm ơn gia đình, bạn bè đã luôn động viên, giúp đỡ chúng 
+em trong suốt thời gian học tập và nghiên cứu, giúp chúng em hoàn thành đồ án 
+này một cách tốt nhất. 
+Chúng em xin chân thành cảm ơn! 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 4 ===
+Tóm tắt nội dung đồ án 
+Đồ án tốt nghiệp trình bày quá trình nghiên cứu và thiết kế hệ thống IoT cho bãi 
+đỗ xe thông minh, nhằm giải quyết vấn đề quản lý và tối ưu hóa việc đỗ xe tại các 
+khu vực đô thị. Hệ thống này giúp tự động hóa quy trình kiểm soát ra/vào xe, giám 
+sát số chỗ trống, nhận diện biển số, thu phí và quản lý khách hàng, giúp tiết kiệm 
+thời gian, nâng cao độ chính xác và giảm nhân lực vận hành. 
+Quá trình thực hiện bao gồm việc phân tích và thiết kế hệ thống phần cứng (cảm 
+biến, module RFID, bộ vi điều khiển) và phần mềm (Website quản lý và ứng dụng 
+di động để quản lý giám sát và hiển thị thông tin). 
+Đồ án trình bày gồm 5 chương: 
+- Chương 1: Tổng quan đề tài và cơ sở lý thuyết 
+- Chương 2: Phân tích và thiết kế hệ thống phần cứng 
+- Chương 3: Phân tích và thiết kế hệ thống phần mềm 
+- Chương 4: Kiểm thử và đánh giá 
+- Chương 5: Kết luận 
+ 
+ 
+Sinh viên thực hiện 
+Ký và ghi rõ họ tên 
+Anh 
+Phạm Việt Anh 
+Vân 
+Phạm Thị Hải Vân 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 5 ===
+MỤC LỤC 
+ 
+DANH MỤC HÌNH VẼ ........................................................................................ i 
+DANH MỤC BẢNG BIỂU ................................................................................. iii 
+DANH MỤC THUẬT NGỮ VIẾT TẮT ........................................................... iv 
+CHƯƠNG 1. TỔNG QUAN ĐỀ TÀI VÀ CƠ SỞ LÝ THUYẾT .................... 1 
+1.1 
+Đặt vấn đề ............................................................................................ 1 
+1.2 
+Hệ sinh thái IoT ................................................................................... 1 
+ 
+Khái niệm IoT .............................................................................. 1 
+ 
+Cấu trúc hệ thống IoT .................................................................. 2 
+ 
+Đặc tính cơ bản của IoT ............................................................... 3 
+ 
+Ứng dụng của IoT ........................................................................ 4 
+1.3 
+Bãi đỗ xe thông minh ........................................................................... 5 
+ 
+Khái niệm bãi đỗ xe thông minh .................................................. 5 
+ 
+Các thành phần của hệ thống bãi đỗ xe thông minh .................... 6 
+1.4 
+Một số mô hình bãi đỗ xe thông minh ở Việt Nam ............................. 6 
+ 
+Mô hình của ETEK Parking ......................................................... 6 
+ 
+Mô hình của Megaparking ........................................................... 7 
+ 
+Mô hình của eParking .................................................................. 8 
+1.5 
+Các thành phần trong xây dựng mô hình bãi đỗ xe thông minh.......... 9 
+ 
+Vi điều khiển ESP32 .................................................................... 9 
+ 
+Module ESP32-CAM MB .......................................................... 11 
+ 
+Công nghệ RFID và module RFID RC522 ................................ 14 
+ 
+Màn hình LCD ........................................................................... 17 
+ 
+Cảm biến hồng ngoại phát hiện vật cản ..................................... 18 
+ 
+Động cơ Servo SG90 .................................................................. 19 
+ 
+WiFi ............................................................................................ 20 
+1.6 
+Firebase .............................................................................................. 20 
+ 
+Firebase Realtime Database ....................................................... 21 
+ 
+Firebase Cloud Storage .............................................................. 22 
+ 
+Firebase Authentication ............................................................. 23 
+ 
+Firebase Cloud Firestore ............................................................ 24 
+ 
+Firebase Cloud Messaging ......................................................... 24 
+ 
+Firebase Cloud Functions ........................................................... 25 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 6 ===
+1.7 
+Lập trình Website .............................................................................. 26 
+ 
+Khái niệm Website ..................................................................... 26 
+ 
+Lập trình Website là gì? ............................................................. 26 
+ 
+HTML/CSS ................................................................................ 26 
+ 
+Bootstrap .................................................................................... 29 
+ 
+NodeJS ....................................................................................... 30 
+ 
+Lập trình ứng dụng Mobile với Dart và Flutter ......................... 30 
+1.8 
+Giao thức HTTP/HTTPS ................................................................... 34 
+ 
+Giới thiệu về giao thức HTTP/HTTPS ...................................... 34 
+ 
+Cấu trúc cơ bản của HTTP ......................................................... 34 
+ 
+Đặc điểm .................................................................................... 34 
+ 
+So sánh HTTP và HTTPS .......................................................... 35 
+1.9 
+Giới thiệu công cụ lập trình VSCode ................................................ 35 
+ 
+Đặc điểm nổi bật của VSCode ................................................... 36 
+ 
+Các thành phần chính trong giao diện VSCode ......................... 36 
+ 
+Tính năng nổi bật........................................................................ 37 
+CHƯƠNG 2. PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG PHẦN CỨNG .... 39 
+2.1 
+Tổng quan hệ thống phần cứng ......................................................... 39 
+2.2 
+Phân tích và thiết kế các module phần cứng ..................................... 40 
+ 
+Sơ đồ khối .................................................................................. 40 
+ 
+Mạch nguyên lý .......................................................................... 42 
+ 
+Mạch in và sản phẩm thực tế ...................................................... 47 
+CHƯƠNG 3. PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG PHẦN MỀM ...... 49 
+3.1 
+Tổng quan hệ thống phần mềm ......................................................... 49 
+ 
+Giới thiệu về hệ thống ................................................................ 49 
+ 
+Mục tiêu của hệ thống phần mềm: ............................................. 49 
+ 
+Yêu cầu chức năng ..................................................................... 50 
+ 
+Yêu cầu phi chức năng ............................................................... 50 
+3.2 
+Phân tích và thiết kế hệ thống phần mềm .......................................... 50 
+3.2.1 
+Phân tích hệ thống về mặt xử lý ................................................. 50 
+3.2.2 
+Phân tích hệ thống về mặt dữ liệu .............................................. 51 
+ 
+Thiết kế giao diện ....................................................................... 65 
+CHƯƠNG 4. KIỂM THỬ VÀ ĐÁNH GIÁ ..................................................... 71 
+4.1 
+Kiểm thử ............................................................................................ 71 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 7 ===
+ 
+Kiểm thử hệ thống phần cứng .................................................... 71 
+ 
+Kiểm thử hệ thống phần mềm .................................................... 71 
+4.2 
+Đánh giá ............................................................................................. 74 
+CHƯƠNG 5. KẾT LUẬN .................................................................................. 75 
+5.1 
+Kết luận .............................................................................................. 75 
+5.2 
+Hướng phát triển của đồ án trong tương lai ....................................... 75 
+TÀI LIỆU THAM KHẢO ................................................................................. 77 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 8 ===
+i 
+ 
+DANH MỤC HÌNH VẼ 
+Hình 1.1 Giới thiệu IoT .......................................................................................... 2 
+Hình 1.2 Cấu trúc hệ thống IoT ............................................................................. 2 
+Hình 1.3 Ứng dụng của IoT ................................................................................... 5 
+Hình 1.4 Mô hình bãi đỗ xe thông minh ................................................................ 5 
+Hình 1.5 Hệ thống bãi đỗ xe thông minh của ETEK Parking ................................ 7 
+Hình 1.6 Hệ thống bãi đỗ xe thông minh của Megaparking .................................. 8 
+Hình 1.7 Hệ thống bãi đỗ xe thông minh của eParking ......................................... 8 
+Hình 1.8 Vi điều khiển ESP32 DevKit V1 ............................................................ 9 
+Hình 1.9 Sơ đồ chân của ESP32 DevKit V1 ........................................................ 10 
+Hình 1.10 Module ESP32-CAM MB ................................................................... 11 
+Hình 1.11 Sơ đồ chân của ESP32-CAM MB ....................................................... 12 
+Hình 1.12 Cấu trúc hệ thống RFID ...................................................................... 14 
+Hình 1.13 Module RFID RC522 .......................................................................... 16 
+Hình 1.14 Sơ đồ chân module RC522 ................................................................. 17 
+Hình 1.15 Màn hình LCD2004 và module I2C ................................................... 18 
+Hình 1.16 Cảm biến hồng ngoại phát hiện vật cản .............................................. 18 
+Hình 1.17 Động cơ Servo SG90 .......................................................................... 19 
+Hình 1.18 Các thành phần chính trong giao diện VSCode .................................. 37 
+Hình 2.1 Hình ảnh tổng quan hệ thống ................................................................ 39 
+Hình 2.2 Sơ đồ khối hệ thống .............................................................................. 40 
+Hình 2.3 Sơ đồ mạch nguyên lý hệ thống ............................................................ 42 
+Hình 2.4 Khối nguồn ............................................................................................ 42 
+Hình 2.5 Hi-Link HLK-10M05 ............................................................................ 43 
+Hình 2.6 Khối xử lý ............................................................................................. 43 
+Hình 2.7 Khối hiển thị .......................................................................................... 44 
+Hình 2.8 Khối báo hiệu ........................................................................................ 44 
+Hình 2.9 Khối cảm biến ....................................................................................... 45 
+Hình 2.10 Khối giao tiếp ...................................................................................... 46 
+Hình 2.11 Mạch in 2 lớp ...................................................................................... 47 
+Hình 2.12 Mạch in 3D .......................................................................................... 47 
+Hình 2.13 Hình ảnh mạch thực tế ........................................................................ 48 
+Hình 3.1 Biểu đồ phân cấp chức năng Website quản lý ...................................... 51 
+Hình 3.2 Biểu đồ phân cấp chức năng ứng dụng người dùng .............................. 51 
+Hình 3.3 Sơ đồ Usecase chính cho website quản lý ............................................ 54 
+Hình 3.4 Biểu đồ trình tự Use case quản lý xe ra/vào ......................................... 56 
+Hình 3.5 Biểu đồ trình tự Use case giám sát chỗ trống ....................................... 57 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 9 ===
+ii 
+ 
+Hình 3.6 Biểu đồ trình tự Use case ghi nhận vị trí đỗ xe ..................................... 58 
+Hình 3.7 Biểu đồ trình tự Use case quản lý khách hàng ...................................... 59 
+Hình 3.8 Sơ đồ Use case chính cho ứng dụng di động ........................................ 60 
+Hình 3.9 Biểu đồ trình tự Use case đăng nhập ..................................................... 61 
+Hình 3.10 Biểu đồ trình tự Use case đặt chỗ trước .............................................. 63 
+Hình 3.11 Biểu đồ trình tự Use case quản lý thanh toán ..................................... 65 
+Hình 3.12 Giao diện trang chủ ............................................................................. 65 
+Hình 3.13 Giao diện trang quản lý tài khoản ....................................................... 66 
+Hình 3.14 Giao diện trang giám sát ..................................................................... 66 
+Hình 3.15 Giao diện trang lịch sử của Website quản lý ...................................... 67 
+Hình 3.16 Màn hình Đăng nhập ........................................................................... 68 
+Hình 3.17 Màn hình đặt chỗ ................................................................................. 69 
+Hình 3.18 Màn hình Lịch sử đặt chỗ.................................................................... 70 
+ 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 10 ===
+iii 
+ 
+DANH MỤC BẢNG BIỂU 
+Bảng 1.1 Thông số kỹ thuật cơ bản của ESP32 ................................................... 10 
+Bảng 1.2 Thông số kỹ thuật của ESP32-CAM MB ............................................. 12 
+Bảng 1.3 So sánh giữa Flutter và React Native ................................................... 32 
+Bảng 1.4 Bảng so sánh HTTP và HTTPS ............................................................ 35 
+Bảng 3.1 Các phân tử của Use case ..................................................................... 53 
+Bảng 4.1 Kết quả kiểm thử hệ thống phần cứng .................................................. 71 
+Bảng 4.2 Testcase kiểm thử chức năng Quản lý xe ra/vào .................................. 72 
+Bảng 4.3 Testcase kiểm thử chức năng Quản lý vị trí đỗ xe ............................... 72 
+Bảng 4.4 Testcase kiểm thử chức năng Quản lý khách hàng .............................. 73 
+Bảng 4.5 Testcase kiểm thử chức năng Giám sát và tính phí .............................. 73 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 11 ===
+iv 
+ 
+DANH MỤC THUẬT NGỮ VIẾT TẮT 
+Thuật ngữ 
+viết tắt 
+Thuật ngữ đẩy đủ 
+Ý nghĩa 
+IoT 
+Internet of Things 
+Mạng lưới kết nối vạn vật 
+AI 
+Artificial Intelligence 
+Trí tuệ nhân tạo 
+IR 
+Infrared 
+Hồng ngoại 
+RFID 
+Radio Frequency Identification 
+Nhận diện qua tần số vô 
+tuyến 
+MQTT 
+Message Queuing Telemetry 
+Transport 
+Giao thức truyền thông 
+hàng đợi tin nhắn 
+PWM 
+Pulse Width Modulation 
+Điều chế độ rộng xung 
+LCD 
+Liquid Crystal Display 
+Màn hình tinh thể lỏng 
+SQL 
+Structured Query Language 
+Ngôn ngữ truy vấn có cấu 
+trúc 
+I2C 
+Inter-Integrated Circuit 
+Giao thức truyền thông nội 
+bộ 
+AC 
+Alternating Current 
+Dòng điện xoay chiều 
+DC 
+Direct Current 
+Dòng điện một chiều 
+API 
+Application Programming 
+Interface 
+Giao diện lập trình ứng 
+dụng 
+SPI 
+Serial Peripheral Interface 
+Giao diện ngoại vi nối tiếp 
+UART 
+Universal Asynchronous 
+Receiver-Transmitter 
+Bộ thu phát không đồng 
+bộ 
+HTTP 
+Hyper Text Transfer Protocol 
+Giao thức truyền tải siêu 
+văn bản 
+ANPR 
+Automatic Number Plate 
+Recognition 
+Nhận dạng biển số xe tự 
+động 
+WiFi 
+Wireless Fidelity 
+Kết nối không dây 
+FCM 
+Firebase Cloud Messaging 
+Dịch vụ đám mây dành 
+cho tin nhắn 
+UI 
+User Interface 
+Giao diện người dùng 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 12 ===
+v 
+ 
+HTML 
+HyperText Markup Language 
+Ngôn ngữ đánh dấu siêu 
+văn bản 
+CSS 
+Cascading Style Sheet Language 
+Ngôn ngữ tạo phong cách 
+cho website 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 13 ===
+1 
+ 
+CHƯƠNG 1. TỔNG QUAN ĐỀ TÀI VÀ CƠ SỞ LÝ THUYẾT 
+1.1 Đặt vấn đề 
+Ngày nay, cùng với sự phát triển không ngừng của công nghệ, "thành phố 
+thông minh" và các hệ thống quản lý thông minh đã trở nên phổ biến, đặc biệt 
+trong bối cảnh nhu cầu nâng cao chất lượng cuộc sống và tối ưu hóa tài nguyên 
+ngày càng được quan tâm. Một trong những lĩnh vực đáng chú ý trong việc xây 
+dựng thành phố thông minh là hệ thống quản lý giao thông và bãi đỗ xe. Với tốc 
+độ đô thị hóa ngày càng cao và sự gia tăng nhanh chóng của các phương tiện giao 
+thông, vấn đề thiếu hụt bãi đỗ xe và sự bất tiện trong việc tìm kiếm chỗ đỗ xe đã 
+trở thành một bài toán cấp thiết cần được giải quyết. 
+Hiện nay, các hệ thống bãi đỗ xe truyền thống còn tồn tại nhiều hạn chế, như 
+quản lý thủ công gây lãng phí thời gian, khó kiểm soát chỗ trống và dễ xảy ra sai 
+sót trong việc thu phí. Điều này không chỉ gây ra sự bất tiện cho người sử dụng mà 
+còn làm giảm hiệu quả vận hành của các bãi đỗ xe. Do đó, việc ứng dụng các giải 
+pháp IoT để xây dựng hệ thống quản lý bãi đỗ xe thông minh là một hướng đi khả 
+thi, giúp tối ưu hóa quy trình vận hành, nâng cao trải nghiệm của người dùng và 
+tiết kiệm nguồn lực. 
+Hệ thống IoT quản lý bãi đỗ xe thông minh cho phép các thiết bị cảm biến 
+và camera giám sát liên kết với nhau, thu thập và xử lý dữ liệu theo thời gian thực. 
+Các tính năng như tự động hoá kiểm soát xe ra/vào, kiểm tra chỗ trống, đặt chỗ 
+trước, hỗ trợ quản lý và thu phí giúp cải thiện đáng kể hiệu quả quản lý. Với chi 
+phí đầu tư hợp lý, các giải pháp này phù hợp với thực tế tại Việt Nam, nơi các khu 
+đô thị và trung tâm thương mại đang có nhu cầu ngày càng cao về các hệ thống đỗ 
+xe hiện đại. 
+Xuất phát từ nhu cầu thực tế và xu hướng phát triển công nghệ, cùng với 
+những kiến thức đã được học, chúng em quyết định lựa chọn đề tài "Xây dựng hệ 
+thống IoT quản lý bãi đỗ xe thông minh" làm đề tài đồ án tốt nghiệp. Mục tiêu 
+của đề tài là nghiên cứu, thiết kế và xây dựng một hệ thống IoT giúp quản lý bãi 
+đỗ xe hiệu quả hơn, mang lại sự tiện lợi cho người dùng, đồng thời góp phần vào 
+sự phát triển của các giải pháp thành phố thông minh tại Việt Nam. 
+1.2 Hệ sinh thái IoT 
+ 
+Khái niệm IoT 
+IoT là một mạng lưới các thiết bị liên kết với nhau, cho phép kết nối và trao 
+đổi dữ liệu giữa các thiết bị IoT khác và với hệ thống đám mây mà không cần đến 
+sự tương tác trực tiếp giữa người với người, hay giữa người với máy tính. Những 
+thiết bị này có thể là bất kỳ thứ gì, từ các vật dụng gia đình hàng ngày đến các công 
+cụ công nghiệp phức tạp. Ngày càng có nhiều tổ chức trong nhiều ngành công 
+nghiệp khác nhau sử dụng IoT để vận hành hiệu quả hơn, cung cấp dịch vụ khách 
+hàng tốt hơn, cải thiện khả năng ra quyết định và gia tăng giá trị cho doanh nghiệp. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 14 ===
+2 
+ 
+ 
+Hình 1.1 Giới thiệu IoT 
+Khi kết nối với internet, các đối tượng này trở nên thông minh hơn, có khả 
+năng gửi, nhận thông tin và thực hiện các hành động tự động dựa trên dữ liệu thu 
+thập được. Các thiết bị IoT có thể là đối tượng được trang bị cảm biến để thu thập 
+thông tin về môi trường xung quanh, máy tính, bộ điều khiển để nhận và xử lý dữ 
+liệu, sau đó tự động tương tác với các thiết bị khác. Ngoài ra, IoT cũng có thể là 
+các đối tượng tích hợp cả hai tính năng trên. 
+ 
+Cấu trúc hệ thống IoT 
+Cấu trúc hệ thống IoT có thể được chia thành 4 tầng chính dựa trên các thành 
+phần cốt lõi: thiết bị (Things), trạm kết nối (Gateways), hạ tầng mạng (Network 
+and Cloud) và bộ phân tích, xử lý dữ liệu (Services - creation and Solution Layers). 
+ 
+Hình 1.2 Cấu trúc hệ thống IoT 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 15 ===
+3 
+ 
+- Thiết bị: là lớp cơ bản nhất trong hệ thống IoT, bao gồm các thiết bị cảm 
+biến và thiết bị chấp hành. Cảm biến có nhiệm vụ thu thập dữ liệu từ môi 
+trường như nhiệt độ, độ ẩm, ánh sáng, chuyển động, hoặc trạng thái của các 
+thiết bị. Các thiết bị chấp hành, ngược lại, thực hiện các hành động cụ thể 
+dựa trên dữ liệu hoặc lệnh điều khiển từ các tầng trên, chẳng hạn như bật/tắt 
+đèn, mở cửa, hoặc điều chỉnh máy móc. 
+Ví dụ: Một cảm biến chuyển động trong nhà thông minh phát hiện có người 
+di chuyển, sau đó gửi dữ liệu này tới hệ thống để kích hoạt đèn chiếu sáng. 
+- Trạm kết nối: là thành phần trung gian giữa tầng thiết bị và các tầng trên, 
+đóng vai trò như một cầu nối để truyền dữ liệu từ thiết bị đến hệ thống mạng 
+hoặc đám mây. Cổng kết nối thu thập dữ liệu từ cảm biến, chuẩn hóa định 
+dạng, và có thể thực hiện xử lý cục bộ để giảm tải cho đám mây. Gateway 
+cũng hỗ trợ các giao thức truyền thông như MQTT, CoAP, hoặc HTTP, 
+đồng thời kết nối qua các công nghệ như Wi-Fi, LoRa, Zigbee, hoặc mạng 
+di động. 
+Ví dụ: Một gateway có thể thu thập dữ liệu từ nhiều cảm biến nhiệt độ và 
+gửi chúng qua Wi-Fi đến máy chủ đám mây để phân tích. 
+- Hạ tầng mạng: tầng Network và Cloud đảm nhận việc truyền dữ liệu giữa 
+các thiết bị và hệ thống xử lý trung tâm. Mạng cung cấp các giao thức và hạ 
+tầng để kết nối thiết bị với đám mây, trong khi đó đám mây lưu trữ và xử lý 
+lượng lớn dữ liệu được thu thập. Các công nghệ kết nối phổ biến bao gồm 
+mạng không dây (Wi-Fi, Zigbee, LoRa), mạng di động (4G, 5G), và mạng 
+có dây (Ethernet). Dữ liệu được lưu trữ trong cơ sở dữ liệu (SQL hoặc 
+NoSQL) và được sử dụng để phân tích hoặc ra quyết định. 
+Ví dụ: Dữ liệu từ một bãi đỗ xe thông minh được truyền qua mạng LoRa 
+đến máy chủ trên nền tảng đám mây như AWS IoT, nơi dữ liệu được xử lý 
+để cung cấp thông tin thời gian thực cho người dùng. 
+- Bộ phân tích, xử lý dữ liệu: đây là tầng cuối cùng, nơi dữ liệu được phân 
+tích và chuyển đổi thành các dịch vụ giá trị gia tăng. Tầng này bao gồm các 
+ứng dụng và dịch vụ cho người dùng cuối, chẳng hạn như ứng dụng di động 
+hoặc giao diện web để giám sát và điều khiển thiết bị. Đồng thời, các công 
+nghệ trí tuệ nhân tạo và học máy cũng được tích hợp để phân tích dữ liệu, 
+dự đoán xu hướng, và tự động hóa các quy trình. 
+Ví dụ: Một ứng dụng di động cho phép người dùng đặt chỗ đỗ xe từ xa, hiển 
+thị trạng thái bãi đỗ và gửi thông báo khi có chỗ trống. 
+ 
+Đặc tính cơ bản của IoT 
+Hệ thống IoT sở hữu những đặc tính cơ bản, giúp phân biệt nó với các công 
+nghệ truyền thống. Dưới đây là các đặc tính nổi bật: 
+- Tính kết nối liên thông (Interconnectivity): IoT cho phép mọi đối tượng 
+(Things) kết nối với nhau thông qua các mạng lưới thông tin và cơ sở hạ 
+tầng liên lạc chung. Điều này tạo nên một hệ sinh thái nơi các thiết bị có thể 
+giao tiếp, trao đổi dữ liệu và phối hợp thực hiện các tác vụ mà không cần 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 16 ===
+4 
+ 
+sự can thiệp của con người. Nhờ tính kết nối này, IoT trở thành một phần 
+quan trọng trong việc xây dựng các hệ thống thông minh. 
+- Những dịch vụ liên quan đến “Things”: IoT có khả năng cung cấp các dịch 
+vụ trực tiếp liên quan đến "Things" – tức các thiết bị vật lý hoặc đối tượng 
+được kết nối. Để hiện thực hóa điều này, cả phần cứng (như cảm biến, thiết 
+bị kết nối) và phần mềm (như nền tảng điều khiển, ứng dụng) cần được thiết 
+kế hoặc điều chỉnh phù hợp. Các dịch vụ này giúp tối ưu hóa việc sử dụng 
+thiết bị, tăng cường tiện ích và hiệu quả hoạt động. 
+- Tính không đồng nhất: Các thiết bị IoT có sự không đồng nhất về phần cứng 
+và mạng, bao gồm các loại cảm biến, giao thức kết nối (Wi-Fi, Bluetooth, 
+LoRa, Zigbee, 4G/5G), và nền tảng điều khiển. Tuy nhiên, nhờ khả năng 
+tích hợp và chuẩn hóa giao thức truyền thông, các thiết bị từ nhiều nhà sản 
+xuất hoặc mạng lưới khác nhau vẫn có thể tương tác với nhau một cách hiệu 
+quả. 
+- Thay đổi linh hoạt: IoT có khả năng thích ứng với những thay đổi động 
+trong trạng thái của các thiết bị: Các thiết bị có thể tự động chuyển giữa 
+trạng thái ngủ và thức dậy. Kết nối thiết bị có thể tự động được thiết lập 
+hoặc ngắt kết nối. Vị trí và tốc độ của các thiết bị có thể thay đổi theo thời 
+gian. Ngoài ra, số lượng thiết bị trong hệ thống cũng có thể tăng hoặc giảm 
+linh hoạt, đáp ứng nhu cầu thực tế mà không làm gián đoạn hoạt động của 
+hệ thống. 
+- Quy mô lớn: IoT hỗ trợ một quy mô cực kỳ lớn, với hàng tỷ thiết bị được 
+kết nối và quản lý trong cùng một hệ thống. Số lượng thiết bị IoT dự kiến 
+vượt xa số lượng máy tính hiện nay. Khả năng xử lý khối lượng lớn thiết bị 
+và dữ liệu là yếu tố quan trọng giúp IoT trở thành nền tảng công nghệ chủ 
+chốt trong thời đại số. 
+ 
+Ứng dụng của IoT 
+Với tính linh hoạt cao, Internet of Things đã và đang trở thành công cụ quan 
+trọng đối với nhiều doanh nghiệp, tổ chức và cả các cơ quan chính phủ. Các ứng 
+dụng của IoT rất đa dạng và xuất hiện trong nhiều lĩnh vực khác nhau. Dưới đây 
+là một số lĩnh vực tiêu biểu: 
+- Ứng dụng trong xây dựng thành phố thông minh: Nhà thông minh, Hệ thống 
+giao thông (cảm biến đo lưu lượng xe, đèn giao thông tự động điều chỉnh, 
+và quản lý bãi đỗ xe thông minh), Quản lý rác thải thông minh,… 
+- Ứng dụng trong công nghiệp: Robot tự động, Quản lý chuỗi cung ứng (theo 
+dõi hàng hóa trong thời gian thực, tối ưu hóa vận chuyển và lưu kho),… 
+- Ứng dụng trong y tế: Thiết bị đeo thông minh, Hệ thống quản lý bệnh nhân 
+từ xa,… 
+- Ứng dụng trong nông nghiệp: Hệ thống tưới tiêu thông minh, Giám sát cây 
+trồng và vật nuôi,… 
+- Ứng dụng trong giao thông - vận tải: Hệ thống định vị GPS, Quản lý đội xe 
+(phân tích dữ liệu từ các cảm biến để cải thiện hiệu suất vận hành, bảo trì 
+xe và tiết kiệm nhiên liệu), Hệ thống xe tự lái,… 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 17 ===
+5 
+ 
+ 
+Hình 1.3 Ứng dụng của IoT 
+Ứng dụng của IoT rất đa dạng, giúp cải thiện hiệu suất, giảm chi phí và nâng 
+cao chất lượng cuộc sống. IoT không chỉ tác động đến cá nhân mà còn góp phần 
+thay đổi cách các tổ chức và cộng đồng hoạt động, mở ra cơ hội phát triển cho 
+nhiều lĩnh vực trong tương lai. 
+1.3 Bãi đỗ xe thông minh 
+ 
+Khái niệm bãi đỗ xe thông minh 
+Tìm kiếm chỗ đỗ xe là một thói quen hàng ngày của rất nhiều người trên khắp 
+thế giới. Tuy nhiên, đây lại là một quá trình tiêu tốn thời gian và gây không ít phiền 
+toái, đồng thời có tác động đáng kể đến môi trường do khí thải từ phương tiện giao 
+thông. 
+Bãi đỗ xe thông minh là giải pháp ứng dụng công nghệ tiên tiến để tối ưu hóa 
+quy trình đỗ xe. Hệ thống này bao gồm các cảm biến đỗ xe thông minh, camera 
+hoặc cảm biến đếm xe. Các thiết bị này được tích hợp tại các vị trí đỗ xe hoặc đặt 
+bên cạnh để phát hiện trạng thái chỗ đỗ (còn trống hoặc đã đầy) thông qua việc thu 
+thập dữ liệu thời gian thực. Dữ liệu sau đó được truyền đến ứng dụng di động hoặc 
+trang web, nơi cung cấp thông tin chỗ đỗ cho người dùng, kèm theo các thông tin 
+bổ sung như giá cả và vị trí. 
+ 
+Hình 1.4 Mô hình bãi đỗ xe thông minh 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 18 ===
+6 
+ 
+Hệ thống bãi đỗ xe thông minh là một phần quan trọng của các thành phố 
+thông minh, nơi sử dụng cơ sở hạ tầng công nghệ thông tin để nâng cao chất lượng 
+cuộc sống và thúc đẩy sự phát triển kinh tế. Thông qua việc thu thập và phân tích 
+dữ liệu lịch sử, các thành phố có thể tối ưu hóa quy trình đỗ xe và giảm thiểu tác 
+động tiêu cực đến giao thông và môi trường. 
+ 
+Các thành phần của hệ thống bãi đỗ xe thông minh 
+Hệ thống bãi đỗ xe thông minh bao gồm các phần:  
+- Cảm biến: Hệ thống cảm biến đóng vai trò quan trọng trong việc thu thập 
+thông tin về trạng thái của các chỗ đỗ xe. Các cảm biến, bao gồm cảm biến 
+siêu âm, cảm biến hồng ngoại, được lắp đặt tại từng chỗ đỗ để nhận diện sự 
+hiện diện của phương tiện. Dữ liệu từ các thiết bị này sẽ được gửi về trung 
+tâm điều khiển để xử lý. 
+- Hệ thống phân tích dữ liệu: Dữ liệu từ cảm biến được xử lý tại trung tâm 
+điều khiển để cung cấp thông tin về số lượng chỗ trống, thời gian đỗ xe và 
+các xu hướng sử dụng bãi đỗ. Bằng cách sử dụng nền tảng đám mây và trí 
+tuệ nhân tạo, hệ thống có thể dự đoán nhu cầu đỗ xe, tối ưu hóa không gian 
+và điều chỉnh giá cả một cách linh hoạt. 
+- Hệ thống giao tiếp: Hệ thống truyền thông kết nối các cảm biến, trung tâm 
+điều khiển và người dùng. Thông tin về chỗ đỗ còn trống được hiển thị trên 
+bảng điện tử, ứng dụng di động hoặc website, giúp người dùng dễ dàng tìm 
+được chỗ đỗ gần nhất. Các công nghệ như Wi-Fi, Bluetooth, RFID và GPS 
+hỗ trợ việc truyền tải thông tin nhanh chóng và chính xác. 
+- Hệ thống thanh toán tự động: Hệ thống thanh toán tự động giúp tối ưu hóa 
+quy trình thanh toán và giảm thiểu sự can thiệp của con người. Người dùng 
+có thể thanh toán qua nhiều phương thức như thẻ tín dụng, ví điện tử hoặc 
+mã QR. Hệ thống cũng tự động tính phí dựa trên thời gian đỗ xe và gửi biên 
+lai qua ứng dụng di động, mang lại sự tiện lợi và minh bạch.  
+1.4 Một số mô hình bãi đỗ xe thông minh ở Việt Nam 
+ 
+Mô hình của ETEK Parking 
+ETEK Parking là một nhà cung cấp giải pháp bãi đỗ xe thông minh hàng đầu 
+tại Việt Nam, tập trung vào việc tích hợp công nghệ cảm biến hiện đại và trí tuệ 
+nhân tạo. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 19 ===
+7 
+ 
+ 
+Hình 1.5 Hệ thống bãi đỗ xe thông minh của ETEK Parking 
+- 
+Tính năng nổi bật: 
+• Hệ thống cảm biến thông minh giúp phát hiện trạng thái chỗ đỗ xe theo 
+thời gian thực. 
+• Ứng dụng di động hỗ trợ người dùng tìm kiếm và đặt chỗ đỗ xe trước 
+khi đến. 
+• Tích hợp giải pháp thanh toán không tiền mặt qua thẻ tín dụng, ví điện 
+tử và mã QR. 
+- 
+Ưu điểm: 
+• Giảm thời gian tìm kiếm chỗ đỗ xe. 
+• Nâng cao hiệu suất quản lý và tối ưu hóa không gian bãi đỗ. 
+• Dễ dàng triển khai tại các khu vực khác nhau. 
+ 
+Mô hình của Megaparking 
+Megaparking là giải pháp kiểm soát xe ra vào thông minh được nghiên cứu 
+và phát triển từ năm 2015 bởi Megatech. Hệ thống được kết hợp từ những công 
+nghệ hiện đại như quẹt thẻ từ, quẹt thẻ tầm xa, quẹt vân tay, nhận diện khuôn mặt 
+cho đến công nghệ nhận dạng biển số xe thông minh, LPR, quét mã QRcode. 
+Megaparking cung cấp một giải pháp bãi đỗ xe thông minh tự động hóa cao, 
+tập trung vào công nghệ nhận diện biển số xe và các hệ thống thanh toán tiện lợi. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 20 ===
+8 
+ 
+ 
+Hình 1.6 Hệ thống bãi đỗ xe thông minh của Megaparking 
+- 
+Tính năng nổi bật: 
+• Nhận diện biển số xe tự động để kiểm soát xe ra vào nhanh chóng. 
+• Hệ thống thanh toán không tiền mặt tích hợp nhiều phương thức như thẻ 
+tín dụng và ví điện tử. 
+• Quản lý dữ liệu thời gian thực với các báo cáo chi tiết về hiệu suất hoạt 
+động của bãi đỗ xe. 
+- 
+Ưu điểm: 
+• Giảm ùn tắc tại các cổng ra vào. 
+• Tăng trải nghiệm người dùng với quy trình tự động và nhanh chóng. 
+• Hỗ trợ tối ưu hóa doanh thu cho nhà quản lý. 
+ 
+Mô hình của eParking 
+eParking là thương hiệu hệ thống giữ xe thông minh với hơn 10 năm hình 
+thành và phát triển. Hệ thống eParking được thiết kế để cung cấp giải pháp quản 
+lý bãi đỗ xe đơn giản, hiệu quả và chi phí hợp lý, phù hợp với nhiều loại hình bãi 
+đỗ. 
+ 
+Hình 1.7 Hệ thống bãi đỗ xe thông minh của eParking 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 21 ===
+9 
+ 
+- 
+Tính năng nổi bật: 
+• Sử dụng công nghệ RFID để nhận diện phương tiện tự động khi ra vào 
+bãi đỗ. 
+• Ứng dụng di động hỗ trợ người dùng theo dõi thời gian đỗ xe và chi phí. 
+• Tích hợp hệ thống báo cáo giúp nhà quản lý dễ dàng theo dõi hiệu quả 
+hoạt động. 
+- 
+Ưu điểm: 
+• Chi phí triển khai thấp, dễ dàng bảo trì và nâng cấp. 
+• Tăng cường tính bảo mật nhờ công nghệ RFID. 
+• Tiện lợi cho người dùng với giao diện thân thiện và tính năng quản lý 
+minh bạch. 
+1.5 Các thành phần trong xây dựng mô hình bãi đỗ xe thông minh 
+ 
+Vi điều khiển ESP32 
+ESP32 là một dòng vi điều khiển được phát triển bởi Espressif Systems, nổi 
+bật với khả năng kết nối Wi-Fi và Bluetooth, cùng hiệu suất xử lý mạnh mẽ. Đây 
+là lựa chọn lý tưởng cho các ứng dụng IoT và các dự án nhúng. 
+ 
+Hình 1.8 Vi điều khiển ESP32 DevKit V1 
+Các đặc điểm chính của ESP32: 
+- 
+Bộ vi xử lý lõi kép: ESP32 được trang bị bộ vi xử lý Tensilica Xtensa® 32-
+bit LX6 lõi kép, hoạt động ở tần số từ 80 MHz đến 240 MHz, cung cấp hiệu 
+suất lên đến 600 DMIPS. 
+- 
+Kết nối Wi-Fi: Hỗ trợ chuẩn 802.11b/g/n với khả năng hoạt động ở chế độ 
+Station (STA) hoặc Soft Access Point (AP), cho phép kết nối linh hoạt trong 
+các mạng không dây. 
+- 
+Kết nối Bluetooth: Tích hợp Bluetooth 4.0, bao gồm cả Bluetooth Low 
+Energy và Bluetooth Classic, mở rộng khả năng giao tiếp với các thiết bị 
+khác. 
+- 
+Tiêu thụ năng lượng thấp: Với nhiều chế độ tiết kiệm năng lượng và khả 
+năng điều chỉnh công suất động, ESP32 phù hợp cho các thiết bị di động và 
+ứng dụng yêu cầu tiêu thụ năng lượng thấp. 
+- 
+Bộ ngoại vi đa dạng: Bao gồm các giao tiếp như UART, SPI, I2C, PWM, 
+ADC, DAC và cảm biến chạm điện dung, hỗ trợ nhiều ứng dụng khác nhau. 
+- 
+Thiết kế bền bỉ: Có khả năng hoạt động ổn định trong môi trường công 
+nghiệp với dải nhiệt độ từ -40°C đến +125°C. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 22 ===
+10 
+ 
+- 
+Chi phí thấp: Với giá thành rẻ, ESP32 là lựa chọn kinh tế cho nhiều dự án. 
+Bảng 1.1 Thông số kỹ thuật cơ bản của ESP32 
+Thông số kỹ thuật 
+Giá trị 
+Điện áp đầu vào 
+3.3V/5V 
+Dải băng tần 
+2.4GHz 
+Wi-Fi 
+802.11 b/g/n 
+Bluetooth 
+Bluetooth v4.2 + BLE 
+Hỗ trợ 
+BLE,SPI, I2C, I2S, UART, ADC,DAC 
+Dải nhiệt độ hoạt động 
+- 40oC ~125oC 
+Giao thức mạng 
+IPv4, TCP/UDP, HTTP, FTP 
+Các bo mạch phát triển ESP32 phổ biến: 
+- 
+ESP32 DevKit V1: Đây là bo mạch phổ biến nhất cho người mới bắt đầu, 
+cung cấp đầy đủ các tính năng cần thiết để phát triển và thử nghiệm các ứng 
+dụng. 
+DEVKIT phát triển dựa trên module ESP-WROOM-32 với các đặc điểm chính 
+như sau: 
+- 
+Số chân GPIO: 30 chân. 
+- 
+Điện áp logic: Hoạt động trong khoảng từ 2,7V đến 3,3V. 
+- 
+Nút bấm: Bao gồm 1 nút Reset và 1 nút Boot. 
+- 
+Giao tiếp UART: Có 3 UART, trong đó UART0 được sử dụng mặc định 
+cho Serial Debug. 
+- 
+Tần số xung nhịp: Lên đến 240 MHz. 
+ 
+Hình 1.9 Sơ đồ chân của ESP32 DevKit V1 
+ESP32 là một vi điều khiển mạnh mẽ, linh hoạt, phù hợp cho các ứng dụng 
+IoT và tự động hóa. Với khả năng kết nối Wi-Fi, hỗ trợ nhiều giao thức giao tiếp, 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 23 ===
+11 
+ 
+ESP32 đóng vai trò quan trọng trong mô hình bãi đỗ xe thông minh, giúp quản lý 
+phương tiện hiệu quả và tối ưu hóa vận hành hệ thống. 
+ 
+Module ESP32-CAM MB 
+1.5.2.1. Giới thiệu về ESP32-CAM MB 
+ESP32-CAM MB là một module nhúng tích hợp vi điều khiển ESP32 cùng 
+với một cảm biến camera (thường là OV2640) và một số tính năng mở rộng như 
+khe cắm thẻ nhớ microSD, LED flash và anten tích hợp. Sự kết hợp này cho phép 
+module không chỉ xử lý các tác vụ truyền thống của vi điều khiển mà còn đảm 
+nhận các nhiệm vụ liên quan đến xử lý hình ảnh, truyền video và giám sát từ xa. 
+Thiết kế nhỏ gọn của ESP32-CAM MB giúp nó trở thành lựa chọn lý tưởng cho 
+các ứng dụng IoT, hệ thống an ninh, nhận diện khuôn mặt và các dự án tự động 
+hóa khác. 
+ 
+Hình 1.10 Module ESP32-CAM MB 
+1.5.2.2. Các đặc điểm chính của ESP32-CAM MB: 
+- 
+Bộ vi xử lý: 
+• Tích hợp module ESP32 với vi xử lý Tensilica Xtensa® 32-bit LX6 lõi 
+kép, hoạt động ở tần số từ 80 MHz đến 240 MHz. 
+- Bộ nhớ: 
+• RAM 520 KB; hỗ trợ flash ngoài (thông thường sử dụng SPI Flash với 
+dung lượng từ 4MB trở lên). 
+- 
+Camera tích hợp: 
+• Bo mạch hỗ trợ camera OV2640 (độ phân giải lên đến 2MP) và có khả 
+năng xử lý hình ảnh mạnh mẽ. 
+- 
+Kết nối không dây: 
+• Hỗ trợ kết nối Wi-Fi chuẩn 802.11 b/g/n với khả năng hoạt động ở chế 
+độ Station hoặc Soft Access Point. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 24 ===
+12 
+ 
+- 
+Lưu trữ: 
+• Có khe cắm thẻ nhớ microSD hỗ trợ dung lượng lên đến 4GB, cho phép 
+lưu trữ hình ảnh và video. 
+- 
+Bộ ngoại vi: 
+• Có các giao tiếp cơ bản như UART, SPI, I2C, và PWM, cùng các chân 
+GPIO cho phép tích hợp thêm cảm biến và thiết bị ngoại vi khác. 
+- 
+Tiêu thụ năng lượng thấp: 
+• Hỗ trợ nhiều chế độ tiết kiệm năng lượng, thích hợp cho các ứng dụng 
+yêu cầu pin có thời lượng dài. 
+- 
+Kích thước nhỏ gọn: 
+• Bo mạch có thiết kế cực kỳ nhỏ gọn (chỉ khoảng 27mm x 40.5mm), phù 
+hợp cho các dự án yêu cầu tiết kiệm không gian. 
+Thông số kỹ thuật cơ bản của ESP32-CAM: 
+Bảng 1.2 Thông số kỹ thuật của ESP32-CAM MB 
+Thông số kỹ thuật 
+Giá trị 
+Điện áp đầu vào 
+5V qua cổng USB 
+Giao tiếp lập trình 
+USB-to-UART (CH340) 
+Bộ nhớ Flash 
+4MB 
+Camera 
+OV2640 (độ phân giải 2MP) 
+Kết nối không dây 
+Wi-Fi 802.11 b/g/n 
+Hỗ trợ giao tiếp ngoại vi 
+UART, SPI, I2C, PWM, ADC 
+Khe cắm thẻ nhớ 
+microSD (tối đa 4GB) 
+Nhiệt độ hoạt động 
+-20°C ~ +85°C 
+1.5.2.3. Cấu trúc và sơ đồ chân của ESP32-CAM MB 
+ESP32-CAM MB được cấu thành từ các thành phần chính sau: 
+ 
+Hình 1.11 Sơ đồ chân của ESP32-CAM MB 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 25 ===
+13 
+ 
+- 
+Vi điều khiển ESP32: Đóng vai trò trung tâm xử lý toàn bộ các chức năng 
+của module, bao gồm điều khiển cảm biến, xử lý tín hiệu và giao tiếp không 
+dây. 
+- 
+Cảm biến OV2640: Chịu trách nhiệm chuyển đổi hình ảnh ánh sáng thành 
+tín hiệu số, hỗ trợ điều chỉnh các tham số như độ sáng, cân bằng trắng và 
+chế độ chụp. 
+- 
+Khe cắm microSD: Cho phép lưu trữ dữ liệu trực tiếp từ module, thuận tiện 
+cho việc lưu trữ ảnh, video hoặc dữ liệu giám sát. 
+- 
+LED Flash: Một số phiên bản tích hợp LED flash hỗ trợ quay video hoặc 
+chụp ảnh trong điều kiện ánh sáng yếu. 
+- 
+Giao tiếp và các chân IO: Module cung cấp các chân GPIO đa chức năng, 
+hỗ trợ các giao thức như UART, SPI, I2C, PWM, ADC, giúp tích hợp với 
+các cảm biến hoặc thiết bị ngoại vi khác. 
+1.5.2.4. Các tính năng nổi bật 
+- Kích thước nhỏ gọn: Dễ dàng lắp đặt vào các không gian hạn chế, phù hợp 
+với các dự án nhúng và giám sát mini. 
+- Tích hợp Wi-Fi và Bluetooth: Cho phép truyền tải dữ liệu hình ảnh và video 
+qua mạng một cách linh hoạt, đồng thời hỗ trợ cập nhật phần mềm OTA 
+(Over-The-Air). 
+- Xử lý hình ảnh hiệu quả: Nhờ tích hợp cảm biến OV2640 và vi xử lý mạnh 
+mẽ, module có thể thực hiện các tác vụ xử lý hình ảnh như nhận dạng khuôn 
+mặt, phân tích video và chụp ảnh tự động. 
+- Khả năng lưu trữ mở rộng: Hỗ trợ thẻ nhớ microSD giúp lưu trữ dữ liệu 
+ngay trên thiết bị, rất tiện lợi cho các ứng dụng giám sát và lưu trữ thông tin 
+dài hạn. 
+- Tiết kiệm năng lượng: Các chế độ hoạt động như Deep Sleep giúp giảm 
+thiểu tiêu thụ điện năng, rất phù hợp với các ứng dụng IoT cần vận hành 
+liên tục. 
+1.5.2.5. Ứng dụng của ESP32-CAM MB 
+- Giám sát và an ninh: Sử dụng module như một camera giám sát nhỏ gọn, 
+truyền hình ảnh và video trực tiếp qua mạng, hỗ trợ các ứng dụng an ninh 
+nhà ở, văn phòng hoặc khu vực công cộng. 
+- Nhận dạng khuôn mặt: Tích hợp trong các hệ thống kiểm soát truy cập hoặc 
+giám sát, sử dụng các thuật toán nhận dạng khuôn mặt để xác định danh 
+tính cá nhân. 
+- Hệ thống IoT thông minh: Kết hợp với các cảm biến khác (nhiệt độ, độ ẩm, 
+chuyển động) để xây dựng hệ thống nhà thông minh hoặc bãi đỗ xe thông 
+minh, giúp giám sát và quản lý môi trường một cách hiệu quả. 
+- Robot và tự động hóa: Là mắt quan sát của robot, giúp thu thập thông tin 
+môi trường, hỗ trợ định vị và nhận diện vật thể trong các dự án tự động hóa 
+và robotics. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 26 ===
+14 
+ 
+ESP32-CAM MB là một module đa năng, tích hợp giữa vi điều khiển ESP32 
+mạnh mẽ và cảm biến camera chất lượng. Với khả năng kết nối không dây, lưu trữ 
+dữ liệu và xử lý hình ảnh trực tiếp, ESP32-CAM MB mở ra nhiều cơ hội ứng dụng 
+trong các lĩnh vực giám sát, an ninh, và các dự án IoT thông minh. 
+ 
+Công nghệ RFID và module RFID RC522 
+1.5.3.6. Công nghệ RFID 
+RFID là công nghệ nhận dạng qua tần số vô tuyến, cho phép nhận diện và 
+theo dõi các đối tượng một cách tự động bằng sóng radio. Công nghệ này dựa trên 
+việc trao đổi thông tin giữa thiết bị đọc (RFID reader) và thẻ RFID (RFID tag) mà 
+không cần tiếp xúc trực tiếp. 
+RFID là một giải pháp hiện đại, được ứng dụng rộng rãi trong quản lý chuỗi 
+cung ứng, giám sát hàng hóa, an ninh, y tế và nhiều lĩnh vực khác. 
+❖ Cấu trúc cơ bản của hệ thống RFID: Hệ thống RFID bao gồm ba thành phần 
+chính: 
+ 
+Hình 1.12 Cấu trúc hệ thống RFID 
+- Thẻ RFID: 
+• Chip: Chứa dữ liệu về đối tượng, bao gồm mã định danh (ID). 
+• Ăng-ten: Gửi và nhận tín hiệu từ RFID reader. 
+• Loại thẻ: 
+o Thẻ thụ động: Không có nguồn điện riêng, sử dụng năng lượng từ 
+sóng của reader để hoạt động. 
+o Thẻ chủ động: Tích hợp nguồn điện, có tầm hoạt động xa hơn và lưu 
+trữ nhiều dữ liệu hơn. 
+- Đầu đọc RFID: 
+• 
+Gửi tín hiệu sóng vô tuyến đến thẻ và nhận thông tin phản hồi từ thẻ. 
+• 
+Có thể kết nối với máy tính hoặc hệ thống điều khiển để xử lý dữ liệu. 
+- Hệ thống phần mềm: 
+• 
+Quản lý và phân tích dữ liệu nhận được từ reader. 
+• 
+Kết nối với các hệ thống khác như quản lý kho, ERP, hoặc phần mềm 
+kiểm kê. 
+❖ Nguyên lý hoạt động của RFID 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 27 ===
+15 
+ 
+- Giao tiếp sóng radio: 
+• 
+Reader phát sóng RF đến thẻ. Sóng này cung cấp năng lượng cho thẻ 
+thụ động hoặc kích hoạt giao tiếp với thẻ chủ động. 
+- Truyền dữ liệu: 
+• 
+Thẻ gửi lại thông tin chứa trong chip (thường là mã ID) đến reader qua 
+sóng phản hồi. 
+- Xử lý thông tin: 
+• 
+Reader chuyển thông tin thu được đến hệ thống phần mềm để phân tích 
+và xử lý. 
+❖ Ưu điểm và hạn chế của RFID 
+- Ưu điểm: 
+• 
+Không tiếp xúc trực tiếp: Không cần quét trực tiếp như mã vạch. 
+• 
+Tốc độ nhanh: Xử lý hàng trăm thẻ trong giây. 
+• 
+Lưu trữ linh hoạt: Có thể lưu trữ nhiều dữ liệu hơn so với mã vạch. 
+• 
+Tầm hoạt động xa: UHF và dải tần cao cho phép đọc thẻ từ xa (lên đến 
+hàng mét). 
+• 
+Độ bền cao: Thẻ RFID không bị mòn như mã vạch in. 
+- Hạn chế: 
+• 
+Chi phí cao hơn mã vạch: Đặc biệt là đối với thẻ chủ động. 
+• 
+Can nhiễu sóng: Sóng RF có thể bị cản bởi kim loại, nước hoặc môi 
+trường nhiễu sóng cao. 
+• 
+Bảo mật: Có nguy cơ bị đánh cắp dữ liệu nếu không có các biện pháp 
+mã hóa. 
+1.5.3.7. Module RC522 
+- Cấu tạo chính: 
+• Chip điều khiển: MFRC522 (do NXP phát triển), hỗ trợ giao tiếp qua 
+các giao thức SPI/I2C/UART. 
+• Ăng-ten: Tích hợp sẵn trên PCB, hoạt động ở tần số 13.56 MHz. 
+• Đèn LED: Báo hiệu trạng thái nguồn hoặc hoạt động đọc thẻ. 
+• Đầu kết nối: 8 chân giao tiếp với vi điều khiển. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 28 ===
+16 
+ 
+ 
+Hình 1.13 Module RFID RC522 
+- Thông số kỹ thuật: 
+• 
+Tần số hoạt động: 13.56 MHz (chuẩn ISO 14443A). 
+• 
+Khoảng cách đọc thẻ: 2-5 cm 
+• 
+Điện áp hoạt động: 2.5V - 3.3V. 
+• 
+Dòng tiêu thụ: 13-26mA khi hoạt động, <80µA ở chế độ chờ. 
+• 
+Giao thức giao tiếp: SPI (mặc định), I2C, UART. 
+• 
+Kích thước PCB: 40mm x 60mm. 
+• 
+Tốc độ truyền dữ liệu: Tối đa 10 Mbps. 
+• 
+Nhiệt độ hoạt động: -20°C đến 80°C. 
+- Sơ đồ chân của RC522: 
+1. VCC: Cấp nguồn cho module (3.3V). Không hỗ trợ điện áp 5V. 
+2. GND: Kết nối với đất (mass). 
+3. RST: Chân reset, dùng để khởi động lại module.  
+4. IRQ: Chân ngắt, dùng để báo hiệu sự kiện (thường ít sử dụng). 
+5. MISO/SCL: Dữ liệu đầu ra từ module (Master In Slave Out). 
+6. MOSI/SDA: Dữ liệu đầu vào từ vi điều khiển (Master Out Slave In). 
+7. SCK: Chân xung nhịp SPI (Serial Clock). 
+8. NSS/SDA : Chân chọn thiết bị SPI (Slave Select). 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 29 ===
+17 
+ 
+ 
+Hình 1.14 Sơ đồ chân module RC522 
+ 
+Màn hình LCD 
+1.5.4.8. Tổng quan về LCD 
+LCD là một loại màn hình phẳng sử dụng các tinh thể lỏng để hiển thị hình 
+ảnh hoặc văn bản. LCD được sử dụng rộng rãi trong nhiều lĩnh vực, từ thiết bị gia 
+dụng, đồng hồ kỹ thuật số, máy tính đến các hệ thống nhúng và IoT. 
+LCD có hai dạng chính: 
+• 
+LCD ma trận điểm (Graphic LCD): Cho phép hiển thị hình ảnh, ký tự đặc 
+biệt, đồ họa tùy chỉnh. 
+• 
+LCD ký tự (Character LCD): Chỉ hiển thị ký tự theo số dòng và số cột cố 
+định (ví dụ: 16x2, 20x4). 
+1.5.4.9. Màn hình LCD2004 và module I2C 
+LCD2004 là một loại LCD ký tự có thể hiển thị 20 ký tự trên 4 dòng, cho 
+phép hiển thị nhiều thông tin hơn so với LCD1602 (16 ký tự trên 2 dòng). 
+Thông số kỹ thuật của LCD2004: 
+- Số lượng ký tự: 20 cột x 4 hàng. 
+- Điện áp hoạt động: 5V DC. 
+- Giao tiếp: Parallel (tương tự LCD1602, sử dụng tối thiểu 6 chân để giao 
+tiếp). 
+- IC điều khiển: HD44780 hoặc tương đương. 
+- Màu sắc: Có các phiên bản nền xanh chữ trắng hoặc nền vàng chữ đen. 
+- Có thể điều chỉnh độ tương phản thông qua biến trở trên mạch. 
+Màn hình LCD2004 sử dụng giao tiếp song song, yêu cầu ít nhất 6 chân GPIO 
+của vi điều khiển (RS, RW, E, D4-D7). Để tiết kiệm số lượng chân GPIO, người 
+ta sử dụng Module I2C để chuyển giao tiếp LCD từ song song sang I2C (2 dây). 
+Thông số kỹ thuật của module I2C (PCF8574): 
+- IC giao tiếp: PCF8574 hoặc PCF8574A. 
+- Điện áp hoạt động: 5V. 
+- Giao tiếp: I2C (chỉ cần 2 dây: SDA và SCL). 
+- Địa chỉ I2C mặc định: 0x27 hoặc 0x3F. 
+- Có biến trở điều chỉnh độ tương phản. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 30 ===
+18 
+ 
+ 
+Hình 1.15 Màn hình LCD2004 và module I2C 
+ 
+Cảm biến hồng ngoại phát hiện vật cản 
+Cảm biến hồng ngoại là một thiết bị điện tử hoạt động dựa trên nguyên lý 
+phát và nhận tín hiệu ánh sáng hồng ngoại. Cảm biến này có khả năng phát hiện 
+vật thể, đo khoảng cách hoặc nhận diện sự thay đổi nhiệt độ của môi trường. 
+ 
+Hình 1.16 Cảm biến hồng ngoại phát hiện vật cản 
+Một cảm biến hồng ngoại bao gồm hai thành phần chính: 
+- 
+LED phát hồng ngoại: Phát ra tia hồng ngoại không nhìn thấy được. 
+- 
+Photodiode hoặc Phototransistor: Nhận tia hồng ngoại phản xạ lại từ vật thể 
+hoặc bị chắn bởi vật thể. 
+Có hai loại cảm biến hồng ngoại phổ biến: 
+- 
+Cảm biến phản xạ hồng ngoại: IR LED phát tín hiệu, nếu có vật thể ở gần, 
+tia hồng ngoại phản xạ lại và được photodiode thu nhận. Dựa vào cường độ 
+tín hiệu phản xạ, cảm biến xác định có vật thể hay không. 
+- 
+Cảm biến thu-phát độc lập: Không phát ra tín hiệu hồng ngoại mà chỉ thu 
+nhận bức xạ hồng ngoại từ môi trường. Thường dùng để phát hiện chuyển 
+động của con người hoặc động vật dựa vào sự thay đổi nhiệt độ môi trường. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 31 ===
+19 
+ 
+ 
+Động cơ Servo SG90 
+Servo SG90 là một loại động cơ servo nhỏ gọn được sử dụng phổ biến trong 
+các ứng dụng điều khiển tự động, robot, cánh tay máy và hệ thống mở cửa. Đây là 
+loại servo analog, có kích thước nhỏ, giá thành rẻ, hoạt động ổn định và dễ dàng 
+điều khiển. Servo SG90 có thể xoay một góc từ 0° đến 180°, giúp kiểm soát vị trí 
+góc chính xác theo tín hiệu điều khiển. 
+ 
+Hình 1.17 Động cơ Servo SG90 
+- Cấu tạo của Servo SG90: 
+• 
+Mô-tơ DC nhỏ: Cung cấp chuyển động quay cho trục servo. 
+• 
+Bộ bánh răng giảm tốc: Tăng mô-men xoắn, giúp trục quay chính xác 
+và mạnh mẽ hơn. 
+• 
+Mạch điều khiển bên trong: Điều khiển tín hiệu đầu vào để định vị góc 
+quay theo yêu cầu. 
+- Nguyên lý hoạt động của Servo SG90: 
+Servo SG90 hoạt động dựa trên tín hiệu PWM để xác định góc quay của trục 
+servo. 
+• 
+Dây cam: Tín hiệu điều khiển PWM 
+• 
+Dây đỏ: Nguồn VCC (4.8V - 6V) 
+• 
+Dây nâu: GND 
+Điều khiển góc quay bằng PWM: 
+• Khi gửi tín hiệu PWM có độ rộng xung khác nhau, servo sẽ di chuyển 
+đến góc tương ứng. 
+• Tín hiệu PWM có tần số khoảng 50Hz (chu kỳ 20ms). 
+• Độ rộng xung quyết định góc quay. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 32 ===
+20 
+ 
+ 
+WiFi 
+WiFi là công nghệ mạng không dây cho phép các thiết bị trao đổi dữ liệu mà 
+không cần sử dụng dây cáp. WiFi hoạt động dựa trên chuẩn IEEE 802.11, sử dụng 
+sóng vô tuyến để truyền và nhận dữ liệu trong một phạm vi nhất định. 
+Trong các hệ thống IoT như bãi đỗ xe thông minh, WiFi đóng vai trò quan 
+trọng trong việc kết nối các thiết bị với nhau và truyền dữ liệu đến hệ thống quản 
+lý. 
+Các chuẩn WiFi phổ biến: 
+- Chuẩn 802.11b: 
+• Tốc độ truyền tối đa 11 Mbps. 
+• Hoạt động ở băng tần 2.4 GHz. 
+• Phạm vi phủ sóng trong nhà khoảng 35m. 
+• Độ ổn định cao nhưng tốc độ thấp, phù hợp với các ứng dụng yêu cầu 
+băng thông nhỏ. 
+- Chuẩn 802.11g: 
+• Tốc độ truyền tối đa 54 Mbps. 
+• Hoạt động ở băng tần 2.4 GHz. 
+• Phạm vi phủ sóng trong nhà khoảng 38m. 
+• Tốc độ cao hơn so với 802.11b, thích hợp cho các ứng dụng IoT cần 
+truyền dữ liệu nhanh hơn. 
+- Chuẩn 802.11n: 
+• Tốc độ truyền tối đa 150 Mbps (trên ESP32) 
+• Hoạt động ở băng tần 2.4 GHz. 
+• Phạm vi phủ sóng trong nhà lên đến 70m. 
+• Hỗ trợ công nghệ MIMO giúp tăng tốc độ và độ ổn định của kết nối. 
+ESP32 sử dụng chủ yếu WiFi 802.11b/g/n trên băng tần 2.4 GHz, phù hợp 
+với các hệ thống IoT như bãi đỗ xe thông minh do phạm vi phủ sóng rộng 
+và tiêu thụ điện năng thấp. 
+Ưu điểm: 
+- Không cần dây mạng, dễ lắp đặt. 
+- Tốc độ truyền cao so với LoRa, Zigbee. 
+- Có thể kết nối Internet để quản lý từ xa. 
+Nhược điểm: 
+- Phụ thuộc vào chất lượng sóng WiFi. 
+- Khoảng cách kết nối bị giới hạn (~50-70m). 
+- Tiêu thụ điện nhiều hơn so với Bluetooth, Zigbee. 
+1.6 Firebase 
+Firebase là một nền tảng phát triển ứng dụng Backend-as-a-Service (BaaS) 
+do Google cung cấp, giúp các nhà phát triển tập trung vào việc xây dựng giao diện 
+người dùng và logic ứng dụng mà không cần phải lo lắng quá nhiều về hạ tầng 
+máy chủ, bảo mật hay đồng bộ dữ liệu theo thời gian thực.  
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 33 ===
+21 
+ 
+Firebase cung cấp một loạt các tính năng mạnh mẽ giúp phát triển ứng dụng 
+dễ dàng và hiệu quả: 
+- Firebase Realtime Database: Lưu trữ dữ liệu trên cloud và đồng bộ theo thời 
+gian thực. 
+- Cloud Firestore: Cơ sở dữ liệu NoSQL mạnh hơn Realtime Database, hỗ 
+trợ truy vấn tốt hơn. 
+- Firebase Authentication: Hỗ trợ xác thực người dùng bằng Email, Google, 
+Facebook, v.v. 
+- Firebase Cloud Messaging (FCM): Gửi thông báo đẩy đến điện thoại hoặc 
+ứng dụng web. 
+- Firebase Hosting: Lưu trữ website tĩnh. 
+- Firebase Storage: Dịch vụ lưu trữ tệp tin (hình ảnh, video, tài liệu,...) an 
+toàn và mở rộng. 
+- Firebase Analytics: Công cụ phân tích và theo dõi hành vi người dùng trên 
+ứng dụng. 
+- Firebase Remote Config: Cho phép thay đổi giao diện và hành vi của ứng 
+dụng mà không cần cập nhật phiên bản mới. 
+- Firebase Crashlytics: Công cụ báo cáo lỗi thời gian thực giúp phát hiện, 
+phân tích và sửa lỗi trong ứng dụng. 
+ 
+Firebase Realtime Database 
+Firebase Realtime Database là cơ sở dữ liệu NoSQL cho phép lưu trữ và đồng 
+bộ dữ liệu theo thời gian thực giữa các thiết bị và người dùng. Dữ liệu trong 
+Realtime Database được lưu trữ dưới dạng một cây JSON, giúp dễ dàng truy cập 
+và quản lý. 
+Firebase Realtime Database hoạt động trên mô hình Client-Server, trong đó 
+dữ liệu được lưu trữ trên máy chủ Firebase và có thể truy cập trực tiếp từ ứng dụng 
+khách (client). Mỗi khi dữ liệu thay đổi, Firebase sẽ tự động cập nhật thông tin đến 
+tất cả các thiết bị đang kết nối, đảm bảo dữ liệu luôn nhất quán và đồng bộ. 
+- Đặc điểm của Firebase Realtime Database: 
+• Đồng bộ dữ liệu thời gian thực: Firebase hỗ trợ cập nhật dữ liệu ngay 
+lập tức đến tất cả các thiết bị kết nối, giúp hệ thống hoạt động nhanh 
+chóng mà không cần tải lại trang hoặc gửi yêu cầu truy vấn liên tục. 
+• Hoạt động trên nền tảng đám mây: Không cần máy chủ, dễ dàng mở 
+rộng quy mô. 
+• Hỗ trợ offline: Firebase Realtime Database có cơ chế lưu trữ dữ liệu cục 
+bộ trên thiết bị, cho phép ứng dụng vẫn có thể hoạt động khi không có 
+kết nối Internet. Khi mạng được khôi phục, dữ liệu sẽ tự động đồng bộ 
+trở lại máy chủ. 
+• Bảo mật dữ liệu bằng quy tắc truy cập (Firebase Security Rules): 
+Firebase Realtime Database sử dụng một hệ thống quy tắc bảo mật dựa 
+trên JSON để kiểm soát quyền đọc và ghi dữ liệu, giúp đảm bảo dữ liệu 
+chỉ có thể được truy cập bởi những người dùng được cấp phép. 
+- Ưu điểm: 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 34 ===
+22 
+ 
+• Đồng bộ dữ liệu nhanh chóng: Dữ liệu cập nhật theo thời gian thực mà 
+không cần truy vấn liên tục. 
+• Dễ sử dụng: Firebase cung cấp SDK cho nhiều nền tảng (Android, iOS, 
+Web) giúp tích hợp nhanh chóng. 
+• Hỗ trợ ngoại tuyến: Ứng dụng vẫn có thể hoạt động khi mất kết nối 
+Internet và tự động đồng bộ khi có mạng trở lại. 
+• Bảo mật cao: Dữ liệu được bảo vệ với Firebase Authentication và 
+Security Rules. 
+- Nhược điểm: 
+• Hạn chế truy vấn dữ liệu: Firebase Realtime Database không hỗ trợ truy 
+vấn phức tạp như SQL, gây khó khăn khi cần lọc dữ liệu nâng cao. 
+• Dữ liệu phân cấp có thể gây khó khăn: Nếu không thiết kế hợp lý, việc 
+truy xuất dữ liệu có thể trở nên khó khăn khi quy mô ứng dụng lớn. 
+• Chi phí có thể cao khi dữ liệu lớn: Firebase tính phí dựa trên số lần 
+đọc/ghi dữ liệu, nếu ứng dụng có nhiều người dùng và thay đổi dữ liệu 
+thường xuyên, chi phí có thể tăng nhanh. 
+- Ứng dụng của Firebase Realtime Database trong thực tế: 
+• Ứng dụng bãi đỗ xe thông minh: Quản lý trạng thái chỗ đỗ, thông tin 
+xe ra/vào, lưu trữ dữ liệu RFID. 
+• Ứng dụng chat trực tuyến: Tin nhắn được đồng bộ ngay lập tức giữa 
+các thiết bị mà không cần tải lại. 
+• Hệ thống giám sát IoT: Thu thập dữ liệu từ các cảm biến (như nhiệt 
+độ, độ ẩm, ánh sáng) và cập nhật theo thời gian thực. 
+• Game nhiều người chơi: Đồng bộ trạng thái trò chơi và hành động của 
+người chơi ngay lập tức. 
+Firebase Realtime Database là một giải pháp lý tưởng cho các ứng dụng yêu 
+cầu cập nhật dữ liệu theo thời gian thực và hỗ trợ làm việc ngoại tuyến. Với khả 
+năng tích hợp dễ dàng và bảo mật cao, hệ thống này giúp các nhà phát triển giảm 
+thời gian và chi phí triển khai ứng dụng. 
+Tuy nhiên, để tối ưu hiệu suất và chi phí, cần có chiến lược thiết kế dữ liệu 
+hợp lý, đặc biệt là khi ứng dụng phát triển ở quy mô lớn. 
+ 
+Firebase Cloud Storage 
+Firebase Cloud Storage là một dịch vụ lưu trữ đám mây do Google cung cấp 
+và được tích hợp trong hệ sinh thái Firebase. Dịch vụ này cho phép bạn lưu trữ và 
+quản lý các tệp dữ liệu lớn như hình ảnh, video, âm thanh, hay các tài liệu khác 
+một cách an toàn, có khả năng mở rộng và dễ dàng tích hợp với các ứng dụng web, 
+Android, iOS và nhiều nền tảng khác.  
+Đặc điểm của Firebase Cloud Storage: 
+- Khả năng mở rộng cao: Firebase Cloud Storage được xây dựng trên hạ tầng 
+của Google Cloud Storage, cho phép tự động mở rộng để đáp ứng nhu cầu 
+lưu trữ từ nhỏ đến lớn mà không cần phải quản lý máy chủ hay cấu hình 
+phức tạp.  
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 35 ===
+23 
+ 
+- Bảo mật: Cho phép bạn định nghĩa các quy tắc kiểm soát truy cập vào tệp 
+dữ liệu dựa trên trạng thái đăng nhập của người dùng, loại tệp hoặc các 
+thuộc tính khác. Điều này giúp đảm bảo rằng chỉ những người dùng được 
+ủy quyền mới có thể truy cập hoặc thao tác với dữ liệu. 
+- Dễ tích hợp và sử dụng: Firebase cung cấp các SDK cho nhiều nền tảng 
+(Android, iOS, Web, C++) giúp việc tích hợp trở nên đơn giản và nhanh 
+chóng. 
+- Độ tin cậy và khả năng phục hồi: Dữ liệu được lưu trữ trên hạ tầng đám 
+mây của Google, đảm bảo tính sẵn sàng cao và phục hồi dữ liệu khi có sự 
+cố. 
+Firebase Cloud Storage là một giải pháp mạnh mẽ và linh hoạt để quản lý dữ 
+liệu đa phương tiện cho các ứng dụng hiện đại. Với khả năng mở rộng, bảo mật 
+chặt chẽ và tích hợp dễ dàng với các dịch vụ khác của Firebase, nó là một công cụ 
+hữu ích cho các nhà phát triển khi cần xây dựng các ứng dụng có tính tương tác 
+cao và yêu cầu lưu trữ dữ liệu lớn. 
+ 
+Firebase Authentication 
+Firebase Authentication là dịch vụ xác thực của Firebase, cho phép các nhà 
+phát triển dễ dàng tích hợp các phương thức đăng nhập cho ứng dụng của mình. 
+Mục tiêu chính của dịch vụ này là giúp xác định danh tính người dùng một cách 
+an toàn và đáng tin cậy, từ đó cung cấp trải nghiệm cá nhân hóa và bảo vệ thông 
+tin. 
+- Các phương thức đăng nhập: Firebase Authentication hỗ trợ nhiều hình thức 
+xác thực, bao gồm: 
+• 
+Email/Password: Phương thức đăng nhập truyền thống với tài khoản và 
+mật khẩu. 
+• 
+Xác thực qua mạng xã hội: Hỗ trợ đăng nhập qua Google, Facebook, 
+Twitter, GitHub, v.v. 
+• 
+Xác thực ẩn danh: Cho phép người dùng truy cập ứng dụng mà không 
+cần cung cấp thông tin cá nhân, hữu ích cho việc trải nghiệm ứng dụng. 
+• 
+Xác thực qua số điện thoại: Gửi mã OTP tới số điện thoại để xác minh 
+danh tính người dùng. 
+- Ưu điểm: 
+• Dễ tích hợp: Firebase cung cấp SDK và các giao diện lập trình ứng dụng 
+(API) hỗ trợ cho nhiều nền tảng như Android, iOS, Web, giúp việc triển 
+khai xác thực trở nên đơn giản. 
+• Bảo mật cao: Hệ thống xác thực được xây dựng với các tiêu chuẩn bảo 
+mật mạnh mẽ, giúp bảo vệ thông tin người dùng và giảm thiểu rủi ro về 
+tấn công. 
+• Quản lý phiên làm việc: Firebase hỗ trợ việc quản lý phiên làm việc của 
+người dùng, bao gồm tự động gia hạn và kết thúc phiên dựa trên các quy 
+tắc bảo mật đã định sẵn. 
+- Ứng dụng thực tiễn: 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 36 ===
+24 
+ 
+• Ứng dụng thương mại điện tử: Quản lý thông tin đăng nhập và lưu trữ 
+hồ sơ khách hàng. 
+• Mạng xã hội: Tạo điều kiện cho người dùng đăng nhập và tương tác an 
+toàn. 
+• Ứng dụng nội bộ doanh nghiệp: Đảm bảo chỉ người dùng được cấp 
+quyền mới có thể truy cập vào các tài nguyên và thông tin nhạy cảm. 
+ 
+Firebase Cloud Firestore 
+Firebase Cloud Firestore là cơ sở dữ liệu NoSQL thời gian thực của Firebase, 
+được thiết kế để lưu trữ và đồng bộ dữ liệu giữa các client và server một cách hiệu 
+quả. Firestore được tối ưu cho việc xây dựng các ứng dụng có tính tương tác cao, 
+hỗ trợ xử lý dữ liệu phức tạp và có khả năng mở rộng mạnh mẽ. 
+- Kiến trúc và cách thức hoạt động: 
+• Cấu trúc dữ liệu dạng tài liệu và bộ sưu tập: Dữ liệu được tổ chức theo 
+các tài liệu chứa dữ liệu dưới dạng cặp key-value, sau đó được nhóm lại 
+thành các bộ sưu tập. Cách tổ chức này giúp dễ dàng mở rộng và tìm 
+kiếm dữ liệu. 
+• Đồng bộ hóa theo thời gian thực: Khi dữ liệu thay đổi, các client kết nối 
+đến Firestore sẽ nhận được cập nhật tức thì, giúp ứng dụng luôn có dữ 
+liệu mới nhất. 
+• Hỗ trợ truy vấn linh hoạt: Firestore cho phép thực hiện các truy vấn phức 
+tạp, từ lọc, sắp xếp đến phân trang dữ liệu, tất cả đều được thực hiện 
+hiệu quả nhờ cơ chế lập chỉ mục tự động. 
+- Ưu điểm: 
+• Khả năng mở rộng cao: Có thể xử lý lượng dữ liệu lớn và số lượng người 
+dùng truy cập đồng thời mà không gặp trở ngại. 
+• Tích hợp offline: Các client có thể hoạt động và tương tác với dữ liệu 
+ngay cả khi mất kết nối, sau đó tự động đồng bộ khi có kết nối lại. 
+• Bảo mật và kiểm soát truy cập: Cho phép cấu hình quy tắc bảo mật chi 
+tiết để kiểm soát quyền truy cập và thao tác dữ liệu. 
+ 
+Firebase Cloud Messaging 
+Firebase Cloud Messaging là dịch vụ nhắn tin đa nền tảng của Firebase, cho 
+phép gửi thông báo và dữ liệu đến các thiết bị di động, trình duyệt web và máy 
+tính. FCM giúp các nhà phát triển dễ dàng giao tiếp với người dùng thông qua các 
+thông báo đẩy cũng như các thông điệp dữ liệu không cần hiển thị giao diện. 
+- Chức năng và cách thức hoạt động: 
+• Thông báo đẩy: Cho phép gửi thông báo từ server đến thiết bị người 
+dùng, giúp cập nhật thông tin, cảnh báo hay nhắc nhở kịp thời. 
+• Thông điệp dữ liệu: Cho phép truyền dữ liệu tùy chỉnh đến ứng dụng, từ 
+đó kích hoạt các hành động hoặc cập nhật dữ liệu bên trong ứng dụng. 
+• Quản lý nhóm và chủ đề: FCM hỗ trợ gửi thông báo tới các nhóm người 
+dùng hoặc chủ đề cụ thể, giúp cá nhân hóa thông điệp dựa trên sở thích 
+hoặc hành vi của người dùng. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 37 ===
+25 
+ 
+- Ưu điểm: 
+• Đa nền tảng: Hỗ trợ nhiều nền tảng như Android, iOS, Web và các thiết 
+bị IoT. 
+• Giao tiếp theo thời gian thực: Cho phép gửi thông báo tức thì, đảm bảo 
+người dùng luôn nhận được thông tin mới nhất. 
+• Tích hợp dễ dàng: Firebase Console cung cấp giao diện quản lý và theo 
+dõi thông báo, giúp dễ dàng triển khai và giám sát chiến dịch thông báo. 
+- Ứng dụng: 
+• Ứng dụng tin tức: Gửi thông báo về tin mới, cập nhật sự kiện theo thời 
+gian thực. 
+• Ứng dụng thương mại điện tử: Thông báo khuyến mãi, giảm giá hay cập 
+nhật trạng thái đơn hàng. 
+• Ứng dụng chăm sóc khách hàng: Nhắc nhở và hỗ trợ người dùng thông 
+qua các thông báo hướng dẫn hoặc cảnh báo. 
+ 
+Firebase Cloud Functions 
+Firebase Cloud Functions là dịch vụ tính toán không máy chủ của Firebase, 
+cho phép chạy các đoạn mã backend theo yêu cầu mà không cần quản lý hạ tầng 
+server. Cloud Functions giúp mở rộng chức năng của ứng dụng bằng cách thực 
+hiện các tác vụ xử lý dữ liệu, tự động hóa và tích hợp với các dịch vụ Firebase 
+khác. 
+- Chức năng và cách thức hoạt động: 
+• Xử lý sự kiện: Cloud Functions có thể được kích hoạt dựa trên các sự 
+kiện xảy ra trong hệ thống như thay đổi dữ liệu trên Cloud Firestore, tải 
+lên tệp trên Cloud Storage, hoặc sự kiện từ Firebase Authentication. 
+• Tích hợp với các dịch vụ khác: Các hàm có thể giao tiếp với nhiều dịch 
+vụ của Firebase và Google Cloud, giúp thực hiện các tác vụ phức tạp 
+như xử lý hình ảnh, tính toán thống kê, hoặc thực hiện các logic nghiệp 
+vụ tùy chỉnh. 
+• Tính mở rộng tự động: Vì không cần quản lý server, các hàm sẽ tự động 
+mở rộng khi có lượng yêu cầu tăng lên, đảm bảo hiệu suất ổn định. 
+- Ưu điểm: 
+• Giảm thiểu quản lý hạ tầng: Nhà phát triển tập trung vào viết mã và logic 
+nghiệp vụ thay vì lo lắng về việc quản lý server. 
+• Tính linh hoạt cao: Dễ dàng tích hợp với các dịch vụ khác và mở rộng 
+các chức năng của ứng dụng theo yêu cầu. 
+• Tính bảo mật và kiểm soát: Có thể kiểm soát và giới hạn quyền truy cập 
+đối với các hàm, đảm bảo an toàn cho hệ thống. 
+- Ứng dụng: 
+• Xử lý dữ liệu tự động: Tự động hóa các tác vụ như gửi email xác nhận, 
+xử lý thanh toán, hoặc cập nhật trạng thái đơn hàng. 
+• Tích hợp bên thứ ba: Liên kết với các API bên ngoài để lấy dữ liệu hoặc 
+thực hiện các hành động bổ trợ. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 38 ===
+26 
+ 
+• Cá nhân hóa nội dung: Dựa trên dữ liệu người dùng hoặc hành vi, các 
+hàm có thể tùy chỉnh nội dung hiển thị hoặc thông báo đến người dùng. 
+1.7 Lập trình Website 
+ 
+Khái niệm Website 
+Web là tên thường gọi của World Wide Web, một tập hợp con của Internet 
+bao gồm các trang có thể được truy cập bằng trình duyệt Web. Website chứa nhiều 
+trang web và được lưu trên các máy chủ. Mỗi trang web có thể chứa nội dung văn 
+bản, hình ảnh, video, âm thanh và các phương tiện truyền thông khác được trình 
+bày dưới dạng trang web đơn lẻ hoặc theo các trang liên kết với nhau,… và sử 
+dụng giao thức HTTP để truyền tải và chia sẻ dữ liệu. 
+Các trang web được định dạng bằng ngôn ngữ gọi là Ngôn ngữ đánh dấu siêu 
+văn bản HTML hoặc XHTML. Ngôn ngữ này cho phép người dùng nhấp qua các 
+trang trên Web thông qua các liên kết. 
+Một website có thể được xây dựng từ nhiều ngôn ngữ lập trình khác nhau 
+như Java, PHP, ASP.NET, … 
+ 
+Lập trình Website là gì? 
+Lập trình Website là quá trình xây dựng và phát triển các ứng dụng hoặc 
+website hoạt động trên nền tảng internet hoặc mạng nội bộ bằng các ngôn ngữ lập 
+trình web như: HTML, CSS, JavaScript, Python, PHP…Công việc này bao gồm 
+thiết kế giao diện người dùng (UI), xử lý dữ liệu và đảm bảo tính năng động, tương 
+tác của website với người dùng. Lập trình web là một phần quan trọng của phát 
+triển phần mềm và công nghệ thông tin. 
+ 
+HTML/CSS 
+1.7.3.1. HTML 
+HTML dùng để mô tả cấu trúc của trang web và tạo ra các tài liệu có thể xem 
+được trong trình duyệt. Các trình duyệt sẽ đọc các file có đuôi .html hay .htm, sau 
+đó xuất bản nội dung để người dùng có thể đọc được. Mỗi trang HTML chứa một 
+bộ tag (hay còn được gọi là element), dùng để tạo ra cấu trúc cho một website 
+(heading, paragraph, section,…). Hiện nay HTML5 đang là phiên bản phổ biến 
+nhất của HTML, được phát hành năm 2014 với nhiều tính năng cực kì quan trọng, 
+đặc biệt là việc hỗ trợ audio và video. HTML có một số ưu điểm như chạy mượt 
+mà trên đa số các trình duyệt, đơn giản và dễ tiếp cận cho người mới, là mã nguồn 
+mở miễn phí, có thể tích hợp với một số ngôn ngữ backend như PHP,… Tuy vậy 
+HTML vẫn còn một số nhược điểm cần kể đến như chỉ có thể thiết kế các website 
+tĩnh, khó kiểm soát việc thực thi của trình duyệt, một số tính năng mới chưa được 
+các trình duyệt hỗ trợ . 
+- Cấu trúc cơ bản của HTML: 
+• <!DOCTYPE html> : Khai báo phiên bản HTML, hiện nay phổ biến là 
+HTML5. 
+• <html> : Thẻ gốc của tài liệu HTML, bao bọc toàn bộ nội dung. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 39 ===
+27 
+ 
+• <head> : Phần đầu của tài liệu chứa các thông tin meta, tiêu đề trang, 
+liên kết đến các tệp CSS, tập tin JavaScript, và các thẻ meta (như charset, 
+viewport,...). 
+• <body> : Phần thân của tài liệu, chứa nội dung hiển thị cho người dùng 
+như văn bản, hình ảnh, liên kết, danh sách, bảng biểu và các thành phần 
+khác. 
+- Các thành phần cơ bản trong HTML: HTML sử dụng các thẻ  để đánh dấu 
+nội dung. Một số thẻ cơ bản gồm: 
+• Thẻ tiêu đề và đoạn văn: 
+▪ <h1> đến <h6>: Các thẻ tiêu đề, với <h1> là tiêu đề quan trọng nhất 
+và <h6> là ít quan trọng nhất. 
+▪ <p>: Thẻ đoạn văn, dùng để chứa nội dung văn bản. 
+• Thẻ liên kết và hình ảnh: 
+▪ <a>: Thẻ liên kết, cho phép tạo các liên kết đến trang khác hoặc các 
+tài nguyên trực tuyến. 
+▪ <img>: Thẻ hình ảnh, dùng để chèn hình ảnh vào trang web, thường 
+đi kèm với thuộc tính src (đường dẫn hình ảnh) và alt (mô tả hình 
+ảnh). 
+• Thẻ danh sách: 
+▪ <ul>: Danh sách không thứ tự, chứa các mục liệt kê được đánh dấu 
+bằng dấu chấm. 
+▪ <ol>: Danh sách có thứ tự, chứa các mục liệt kê theo thứ tự số hoặc 
+chữ. 
+▪ <li>: Thẻ mục danh sách, được sử dụng bên trong <ul> hoặc <ol>. 
+• Thẻ bảng: 
+▪ <table>: Thẻ bảng, dùng để hiển thị dữ liệu theo dạng hàng và cột. 
+▪ <tr>: Thẻ hàng, chứa các ô dữ liệu. 
+▪ <td>: Thẻ ô dữ liệu, chứa dữ liệu bên trong hàng. 
+▪ <th>: Thẻ tiêu đề cột hoặc hàng, thường hiển thị với định dạng in 
+đậm và căn giữa. 
+• Thẻ biểu mẫu (forms): 
+▪ 
+<form>: Thẻ biểu mẫu, dùng để thu thập dữ liệu từ người dùng. 
+▪ 
+<input>: Thẻ nhập liệu, có nhiều loại (text, password, radio, 
+checkbox, v.v.). 
+▪ 
+<textarea>: Thẻ vùng nhập liệu đa dòng. 
+▪ 
+<button>: Thẻ nút bấm, có thể dùng để gửi biểu mẫu hoặc thực hiện 
+các tác vụ khác. 
+- Thuộc tính của các thẻ HTML: 
+Mỗi thẻ HTML có thể có các thuộc tính bổ sung để cung cấp thông tin hoặc 
+cấu hình cho thẻ đó. Một số thuộc tính phổ biến: 
+• 
+id và class: Dùng để định danh và nhóm các phần tử, hỗ trợ việc áp dụng 
+CSS và JavaScript. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 40 ===
+28 
+ 
+• 
+src: Đường dẫn đến tệp tài nguyên, thường dùng cho thẻ <img>, 
+<script>, <iframe>. 
+• 
+href: Đường dẫn đích của liên kết, dùng cho thẻ <a>. 
+• 
+alt: Mô tả hình ảnh cho các thiết bị hỗ trợ truy cập hoặc khi hình ảnh 
+không hiển thị. 
+• 
+style: Thuộc tính nội tuyến dùng để áp dụng các kiểu CSS trực tiếp cho 
+phần tử. 
+HTML là nền tảng của mọi trang web, cho phép tạo ra cấu trúc và định dạng 
+nội dung một cách có tổ chức và chuẩn mực. Khi kết hợp với CSS và JavaScript, 
+HTML không chỉ giúp trình bày thông tin một cách trực quan mà còn tạo điều kiện 
+cho các ứng dụng web trở nên tương tác và thân thiện với người dùng. Hiểu rõ về 
+HTML và cách sử dụng các thẻ, thuộc tính của nó sẽ giúp các nhà phát triển xây 
+dựng các trang web chất lượng, tối ưu cho cả người dùng và công cụ tìm kiếm. 
+1.7.3.2. CSS 
+CSS được sử dụng để tạo phong cách và định kiểu cho ngôn ngữ đánh dấu, 
+phổ biến nhất là HTML. Đồng thời, CSS còn có thể điều khiển định dạng của nhiều 
+trang web một lúc, giúp cho các nhà phát triển tiết kiệm công sức hơn. CSS hoạt 
+động rất đơn giản: người dùng chỉ cần khai báo một element và chỉ ra các kiểu 
+thiết kế cho element đó. Sự ra đời của CSS mang lại rất nhiều lợi ích, đặc biệt là 
+giúp các trang HTML trở nên sinh động, dễ sử dụng hơn cho người dùng. Ngoài 
+ra CSS còn giúp giảm thời gian phát triển ứng dụng cho các lập trình viên, dễ bảo 
+trì và có khả năng tương thích với nhiều thiết bị khác nhau. Tuy nhiên CSS vẫn 
+còn một số nhược điểm như khi thay đổi một số thuộc tính, cần kiểm tra xem trình 
+duyệt có tương thích với những thay đổi không, hay chương trình có thể sẽ bị gián 
+đoạn nếu có sự chỉnh sửa hay mất mát nào trong các file CSS. 
+- Vai trò của ngôn ngữ CSS: 
+• Tạo Giao Diện: CSS giúp định dạng màu sắc, phông chữ, bố cục và hiệu 
+ứng, giúp website trở nên chuyên nghiệp và trực quan hơn. 
+• Thiết Kế Responsive: Cho phép website hiển thị tốt trên nhiều loại thiết 
+bị với kích thước màn hình khác nhau. 
+• Dễ Dàng Quản Lý: Giúp việc thay đổi và cập nhật giao diện trở nên 
+nhanh chóng, tiết kiệm thời gian phát triển và bảo trì. 
+- Cấu trúc và thành phần chính: 
+• Bộ Chọn: Dùng để xác định phần tử cần định dạng, có thể chọn theo tên 
+thẻ, class, id hoặc thuộc tính. 
+• Mô Hình Hộp: Xác định cách hiển thị của phần tử trên trang web, bao 
+gồm nội dung, lề trong, viền và lề ngoài. 
+• Các Thuộc Tính Bố Cục: CSS cung cấp nhiều cách để sắp xếp nội dung, 
+như sử dụng flexbox, grid để thiết kế bố cục trang web. 
+• Hiệu Ứng và Chuyển Động: CSS hỗ trợ tạo hiệu ứng chuyển động, giúp 
+trang web trở nên sinh động và thu hút hơn. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 41 ===
+29 
+ 
+CSS là một công cụ quan trọng giúp định dạng và tối ưu hóa giao diện 
+website. Với khả năng kiểm soát bố cục, màu sắc, hiệu ứng và thiết kế responsive, 
+CSS góp phần nâng cao trải nghiệm người dùng, đồng thời giúp việc phát triển và 
+bảo trì trang web trở nên dễ dàng hơn. 
+ 
+Bootstrap 
+Bootstrap là một framework phát triển giao diện người dùng mã nguồn mở, 
+được thiết kế nhằm giúp các nhà phát triển xây dựng giao diện web một cách nhanh 
+chóng, nhất quán và đáp ứng trên nhiều loại thiết bị khác nhau. Với việc tích hợp 
+sẵn các mẫu thiết kế và các thành phần giao diện, Bootstrap không chỉ hỗ trợ quá 
+trình phát triển mà còn giúp đảm bảo tính thẩm mỹ và khả năng tương thích của 
+trang web. 
+Các thành phần chính của Bootstrap: 
+- Các Components: 
+• Buttons: Nút bấm với nhiều kiểu dáng khác nhau. 
+• Forms: Các mẫu form với kiểu dáng chuyên nghiệp, hỗ trợ xác thực và 
+bố cục linh hoạt. 
+• Navbars và Dropdowns: Các thanh điều hướng và menu thả xuống được 
+tối ưu cho cả desktop và mobile. 
+• Modals: Cửa sổ pop-up hiển thị thông tin hoặc form đăng nhập. 
+• Alerts và Badges: Các thành phần hiển thị thông báo và chỉ số, giúp làm 
+nổi bật các thông tin quan trọng. 
+• Cards: Một cách tổ chức nội dung hiện đại, linh hoạt và dễ dàng tùy 
+biến. 
+- Utilities: 
+• Classes tiện ích: Bootstrap cung cấp nhiều lớp CSS tiện ích để xử lý việc 
+căn chỉnh, khoảng cách, hiển thị, màu sắc nền, kiểu chữ, và nhiều thuộc 
+tính khác mà không cần viết thêm CSS. 
+• Responsive utilities: Các lớp tiện ích giúp ẩn/hiện thành phần tùy thuộc 
+vào kích thước màn hình. 
+Bootstrap là một công cụ mạnh mẽ và linh hoạt giúp các nhà phát triển tạo ra 
+các giao diện web đẹp, nhất quán và đáp ứng trên nhiều thiết bị. Với sự hỗ trợ của 
+hệ thống lưới responsive, các thành phần UI có sẵn và tài liệu hướng dẫn chi tiết, 
+Bootstrap đã trở thành lựa chọn phổ biến trong cộng đồng phát triển web. Tuy 
+nhiên, để tránh những hạn chế như giao diện “nhàm chán” hay dung lượng tệp lớn, 
+người dùng cần tùy chỉnh và tối ưu lại Bootstrap cho phù hợp với yêu cầu cụ thể 
+của dự án. 
+Nhờ những ưu điểm vượt trội và cộng đồng hỗ trợ mạnh mẽ, Bootstrap không 
+chỉ là một framework hỗ trợ phát triển giao diện mà còn là một nền tảng để các 
+nhà phát triển sáng tạo và tối ưu hóa trải nghiệm người dùng trên web. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 42 ===
+30 
+ 
+ 
+NodeJS 
+Node.js là một nền tảng chạy JavaScript phía máy chủ được xây dựng trên 
+V8 engine của Google Chrome, cho phép các nhà phát triển sử dụng JavaScript để 
+xây dựng ứng dụng mạng và máy chủ. 
+- Các đặc điểm của Node.js: 
+• Non-blocking I/O: Sử dụng mô hình xử lý bất đồng bộ và event-driven, 
+giúp Node.js có khả năng xử lý hàng nghìn kết nối đồng thời mà không 
+bị tắc nghẽn. 
+• Hiệu năng cao: Nhờ vào V8 engine và mô hình bất đồng bộ, Node.js có 
+thể xử lý các tác vụ với hiệu năng cao, phù hợp cho các ứng dụng cần 
+tốc độ và khả năng mở rộng. 
+• Single-threaded với Event Loop: Mặc dù chạy trên một luồng, Node.js 
+sử dụng event loop để quản lý các tác vụ bất đồng bộ, giúp xử lý nhiều 
+yêu cầu cùng lúc mà không gặp vấn đề về tài nguyên. 
+• Module System: Node.js hỗ trợ hệ thống module mạnh mẽ với NPM, 
+cho phép cài đặt và quản lý các thư viện, package dễ dàng. 
+- Ứng dụng: 
+• Ứng dụng web và API: Node.js thường được sử dụng để xây dựng các 
+ứng dụng web quy mô lớn, RESTful API và dịch vụ microservices. 
+• Ứng dụng thời gian thực: Các ứng dụng chat, trò chơi trực tuyến, hay 
+ứng dụng theo dõi dữ liệu thời gian thực được xây dựng trên Node.js để 
+tận dụng tính năng event-driven. 
+• Dịch vụ xử lý dữ liệu: Node.js có thể được dùng để xây dựng các hệ 
+thống streaming data hoặc proxy server, nơi yêu cầu tốc độ và hiệu suất 
+trong việc xử lý dữ liệu là rất cao. 
+ 
+Lập trình ứng dụng Mobile với Dart và Flutter  
+1.7.6.1. Ngôn ngữ Dart 
+- Dart là một ngôn ngữ lập trình đa mục đích mã nguồn mở, đã được đặt nền 
+móng bởi Google. Đây là một khía cạnh của ngôn ngữ lập trình hướng đối 
+tượng, đặc trưng bởi cú pháp kiểu C. Tinh thần lập trình hướng đối tượng 
+thể hiện qua việc hỗ trợ giao diện và lớp, mở ra khả năng sáng tạo không 
+giới hạn. 
+- Không chỉ dừng lại ở việc phát triển ứng dụng cho một nền tảng, Dart mở 
+ra cánh cửa cho sự sáng tạo trên cả hai nền tảng quan trọng: Android và 
+iOS. Và từ đó Flutter, một framework ra đời từ Google, trở thành điểm đặc 
+biệt giúp xây dựng những ứng dụng tuyệt đẹp trên cả hai nền tảng bằng một 
+nền tảng mã nguồn duy nhất. 
+1.7.6.2. Framework Flutter 
+Flutter là gì? 
+- Flutter là mobile UI framework của Google để tạo ra các giao diện chất 
+lượng cao trên iOS và Android trong khoảng thời gian ngắn. Flutter hoạt 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 43 ===
+31 
+ 
+động với những code sẵn có được sử dụng bởi các lập trình viên, các tổ 
+chức. 
+- Flutter sử dụng ngôn ngữ lập trình nguồn mở Dart, ngôn ngữ này cũng do 
+Google phát triển. Dart được tối ưu hóa để xây dựng UI và nhiều điểm mạnh 
+của Dart được sử dụng trong Flutter. 
+Ưu/Nhược điểm của Flutter 
+- Ưu điểm: 
+• 
+Ngôn ngữ Dart: Dart - OOP, nó khá dài, nhưng những người quen viết 
+bằng Java / C # sẽ hài lòng với Dart. 
+• 
+Ít phải viết các config khi tạo project mới theo cách thủ công, ngược lại 
+với React Native. 
+• 
+Chỉ cần tải về Flutter từ git, chạy “flutter doctor”, và nó sẽ cho bạn biết 
+những loại vấn đề bạn có thể có trong hệ thống. Sau đó, tạo một project 
+từ Android Studio hoặc bất kỳ IDE nào sau khi cài đặt Flutter Plug-in 
+sơ bộ và start project. Ngoài ra nó còn có Hot-reload giống như trong 
+React-Native. 
+• 
+Hỗ trợ tuyệt vời cho IDE (Android Studio, IDE IntelliJ, VSCode) 
+• 
+Trình điều hướng tích hợp sẵn. Sau khi tạo ra một ứng dụng trên Flutter, 
+bạn có thể thấy nó có Navigator được xây dựng sẵn. Bạn có thể tạo một 
+route mới mà không cần kết nối bất kỳ thứ gì (không giống như trong 
+React Native, nơi bạn cần kết nối bất kỳ package điều hướng gốc nào) . 
+• 
+Giải pháp quản lý dữ liệu được tạo sẵn, ví dụ trong Flutter này là "Mọi 
+thứ đều có một Widget" cho nó. Có một StatefulWidget đặc biệt, với sự 
+giúp đỡ của nó mà chúng ta có thể quản lý trạng thái widget và thay đổi 
+nó một cách năng động. 
+- Nhược điểm: 
+• 
+Có một rào cản lớn cho những người chỉ học JS, hoặc đến từ React 
+Native. Do thực tế là Dart được sử dụng với sự thừa kế, đa hình của nó 
+và tất cả các thứ về OOP. 
+• 
+Không có JSX mà tất cả chúng ta đã quen khi làm React Native. Nhìn 
+vào tệp Dart trong đó không có phân chia thành template, styling và 
+data, nó trở nên khó chịu. 
+• 
+Styling là một nhược điểm. Thực tế là không có sự tách biệt thành Styles, 
+templates và controller, có một vấn đề khi mô tả một thành phần thì 
+chúng ta cũng cần mô tả các styles cùng một lúc. 
+• 
+Animation còn khó khăn hơn. Mặc dù nó có một animation tốt, nhưng 
+nó sẽ khó hơn khi tạo hiệu ứng động, không giống như trong React 
+Native. 
+• 
+Tối ưu hóa trong Fluter, chỉ có thừa kế widget với các điều kiện có thể 
+thay đổi (trạng thái) và không thể thay đổi (không trạng thái). Trong khi 
+ở React-Native chúng ta có thể quản lý vòng đời. Ngoài ra, một nhược 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 44 ===
+32 
+ 
+điểm lớn là thiếu các công cụ để lưu trạng thái của ứng dụng, vấn đề này 
+có thể, tuy nhiên, được giải quyết bằng cách tuần tự hóa trạng thái hiện 
+tại. 
+Bảng 1.3 So sánh giữa Flutter và React Native 
+Tiêu chí 
+Flutter 
+React Native 
+Khả năng 
+dùng lại 
+code 
+ 
+Flutter cho phép overwriting 
+code. Nếu bạn có kế hoạch cho 
+việc sử dụng lại code thì 
+Flutter là tùy chọn tốt nhất để 
+có thể tối ưu được việc lựa sử 
+dụng lại code. 
+React Native cho phép bạn sử 
+dụng lại code, nhưng điều này 
+lại bị giới hạn trong một vài 
+components cơ bản. Để có thể 
+định nghĩa các style cho nền 
+tảng React Native sẽ mất khá 
+nhiều thời gian. 
+Các thư 
+viện 
+Third 
+Party 
+ 
+Có 
+nhiều 
+các 
+third-party 
+packages đang được sử dụng 
+và đang ngày càng được phát 
+triển, chúng thực sự rất hữu 
+dụng. 
+ 
+Từ khi React Native trở lên 
+phổ biến, đã có rất nhiều các 
+third-party packages được phát 
+triển và được sử dụng rất nhiều 
+trong ứng dụng, chúng có thể 
+được thêm bớt một cách linh 
+động trong ứng dụng của bạn. 
+ 
+Độ phổ 
+biến 
+ 
+Với khoảng 30k Github stars, 
+Flutter đã trở thành trends 
+trong việc phát triển. Như 
+Google đã giới thiệu về 
+framework này. Nó chắc chắn 
+muốn trở thành một nền tảng 
+phổ biến trong sự lựa chọn của 
+các developer. 
+ 
+Với 65k Github stars, React 
+Native có lượng developer sử 
+dụng đang nhiều hơn bởi vì 
+lượng developer sử dụng 
+JavaScript rất dễ dàng để sử 
+dụng với các thư viện của 
+React. 
+Cộng 
+đồng phát 
+triển 
+ 
+Từ khi Flutter mới được giới 
+thiệu, đã có một lượng lớn các 
+bài viết hướng dẫn được đưa 
+lên online, trong đó có rất 
+nhiều các tài nguyên hữu ích 
+để có thể bắt đầu viết ứng dụng 
+đầu tiên trên mobile app. 
+ 
+React Native đã được phổ biến 
+từ lâu, vì thế cho nên nó cũng 
+có rất nhiều các cộng đồng để 
+hỗ trợ online. Những kỹ năng 
+của các lập trình viên có kinh 
+nghiệm trong JavaScript chắc 
+chắn sẽ đưa ra giải pháp cho 
+bất kỳ vấn đề nào trong quá 
+trình phát triển của bạn. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 45 ===
+33 
+ 
+Tại sao lại chọn Flutter? 
+Flutter đã thu hút được sự chú ý của cộng đồng các nhà phát triển bằng cách 
+giới thiệu các style cho phép việc xây dựng UI đẹp hơn và biểu cảm hơn vì thế mà 
+việc code cũng trở nên thú vị hơn nhiều. Nó kết hợp một số khái niệm quen thuộc 
+với những kinh nghiệm phát triển hiện đại như lập trình reactive và widget 
+composition trong khi sử dụng nền tảng Dart làm cơ sở chính cho các hoạt động 
+đó. Flutter có đầy đủ các tính năng hot nhất hiện nay dành cho lập trình di động 
+như: 
+- Tiết kiệm thời gian, công sức: Với single code-base, Flutter cho phép chỉ 
+cần viết mã một lần và có thể triển khai trên nhiều hệ điều hành khác nhau, 
+giúp tiết kiệm thời gian, công sức và giảm chi phí phát triển ứng dụng. 
+- Kiến trúc phân lớp linh hoạt: Flutter sử dụng kiến trúc phân lớp, cho phép 
+tùy chỉnh và kiểm soát toàn bộ giao diện người dùng một cách linh hoạt, 
+không cần phải phân tách thành phần UI cho từng nền tảng riêng. 
+- Xem kết quả ngay lập tức: Tính năng Hot Reload của Flutter giúp xem kết 
+quả ngay lập tức sau khi thay đổi mã code mà không cần phải biên dịch lại 
+từng lần, hỗ trợ tăng tốc độ phát triển, cho phép sửa lỗi và thử nghiệm nhanh 
+chóng với nhiều phiên bản UI khác nhau. 
+- Tùy chỉnh toàn bộ giao diện người dùng: Flutter cung cấp quyền kiểm 
+soát mọi pixel trên màn hình, từ việc tạo hoạt ảnh cho đến điều khiển các 
+phần tử đồ họa, video và văn bản. 
+- 
+Hỗ trợ đa nền tảng, đồng nhất: Flutter không chỉ áp dụng cho di động mà 
+còn cho web, cung cấp tài liệu rõ ràng cho việc kiểm tra chức năng trên các 
+điều khiển gốc. Nó còn loại bỏ lỗi không tương thích giữa các phiên bản hệ 
+thống, đảm bảo giao diện người dùng đồng nhất trên tất cả các nền tảng. 
+- 
+Hiệu suất cao và trải nghiệm người dùng tốt: Ứng dụng Flutter có thể hoạt 
+động tốt trong các tình huống giao diện người dùng phức tạp, loại bỏ các 
+lỗi hiệu suất có thể xảy ra do không sử dụng cầu nối JavaScript hay code 
+trung gian. 
+- 
+Cộng đồng rộng lớn: Flutter có nhiều ưu điểm nổi bật hơn so với các 
+framework khác, do đó đã thu hút một lượng lớn các lập trình viên, tạo nên 
+một cộng đồng tích cực, sẵn sàng cung cấp và hỗ trợ lẫn nhau. 
+Các thành phần chính của một ứng dụng Flutter 
+- Widgets: Tất cả mọi thứ trong Flutter là một widget, từ các điều khiển 
+giao diện người dùng cơ bản như nút bấm và văn bản, đến các bố cục 
+phức tạp như lưới và danh sách. Widgets được tổ chức trong một cây 
+(widget tree). 
+- State: Flutter quản lý trạng thái của các widget thông qua hai loại 
+widget chính: StatefulWidget và StatelessWidget. StatefulWidget là các 
+widget có thể thay đổi trạng thái trong khi ứng dụng đang chạy, còn 
+StatelessWidget thì không. 
+- BuildContext: Được sử dụng để liên kết widget với cây widget của nó 
+và cung cấp thông tin về vị trí của widget trong cây widget. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 46 ===
+34 
+ 
+- MaterialApp và CupertinoApp: Đây là hai lớp chính để tạo ứng dụng 
+theo phong cách Material Design (Android) và Cupertino (iOS). 
+- Scaffold: Một widget quan trọng cung cấp cấu trúc cơ bản của một 
+màn hình, bao gồm AppBar, Drawer, BottomNavigationBar và 
+FloatingActionButton. 
+- Navigator và Routes: Flutter sử dụng Navigator để quản lý điều hướng 
+giữa các màn hình. Bạn có thể xác định các routes trong ứng dụng của 
+mình và sử dụng Navigator để chuyển đổi giữa chúng. 
+1.8 Giao thức HTTP/HTTPS 
+ 
+Giới thiệu về giao thức HTTP/HTTPS 
+HTTP là một giao thức ứng dụng được sử dụng thường xuyên nhất trong bộ 
+các giao thức TCP/IP (gồm một nhóm các giao thức nền tảng cho internet).  
+HTTP hoạt động dựa trên mô hình Client – Server. Các máy tính của người 
+dùng sẽ đóng vai trò làm máy khách. Sau một thao tác nào đó của người dùng, các 
+máy khách sẽ gửi yêu cầu đến máy chủ và chờ đợi câu trả lời từ những máy chủ 
+này. 
+HTTPS là phiên bản an toàn của HTTP, giao thức mà qua đó dữ liệu được 
+gửi giữa trình duyệt và trang web bạn đang kết nối. 
+ 
+Cấu trúc cơ bản của HTTP 
+Cấu trúc hoạt động của HTTP rất đơn giản và dễ hiểu. HTTP là một nền tảng 
+cho phép sự giao tiếp giữa 2 phía là Client và Server. Client ở đây là người dùng, 
+thường truy cập vào HTTP thông qua một công cụ bất kỳ như trình duyệt web. 
+Còn Server sẽ đại diện cho phía website, đằng sau giao diện web gồm có kịch bản 
+phản ứng từ máy chủ và cơ sở dữ liệu. 
+Vậy hoạt động của giao thức HTTP là gì? Quá trình giao tiếp của Client và 
+Server sẽ dựa trên các message độc lập. Đầu tiên, phía khách hàng sẽ gửi một 
+message đến cho máy chủ, thường là các yêu cầu lợi ích khiến khách hàng truy 
+cập website này. Sau khi tiếp nhận yêu cầu và xử lý, máy chủ sẽ trả lại một message 
+được gọi là phản hồi. 
+Mỗi một phản hồi đều là độc lập. Phản hồi sau sẽ không biết và cũng không 
+chịu bất kỳ tác động nào từ phản hồi trước. 
+ 
+Đặc điểm 
+HTTP có thiết kế đơn giản: Đơn giản chính là đáp án nổi bật nhất cho câu 
+hỏi đặc điểm của giao thức HTTP là gì. Thật vậy, mục đích xuất hiện của HTTP 
+là tạo ra một công cụ thật thân thiện, có thể được sử dụng dễ dàng bởi mọi đối 
+tượng. Các HTTP message đều có cấu tạo rất đơn giản để những người mới sử 
+dụng cũng có thể đọc hiểu được. 
+HTTP có khả năng mở rộng: HTTP sở hữu tính linh hoạt rất cao. Nó không 
+có bất kỳ một giới hạn nào về sự nâng cấp và mở rộng. Thậm chí, chỉ cần bằng 
+một thỏa thuận thống nhất giữa client và server là một tính năng mới của HTTP đã 
+được hình thành. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 47 ===
+35 
+ 
+HTTP là stateless: Bởi mọi phản hồi của HTTP là độc lập nên người dùng 
+không thể tạo sự liên kết thông tin giữa các phản hồi được. Điều này có thể sẽ trở 
+thành một nhược điểm đối với những trường hợp người dùng cần có các tương tác 
+mạch lạc và bổ trợ cho nhau, ví dụ như shopping cart trên các trang thương mại 
+điện tử. Để khắc phục vấn đề này, HTTP cho phép mở rộng tự do các header. 
+Trong đó, người dùng có thể tự tạo cho mình session trên mỗi request nhằm mục 
+đích chia sẻ các ngữ cảnh hoặc trạng thái giữa các request với nhau. Sở dĩ trường 
+hợp này có thể thực hiện được vì bản thân HTTP là stateless. 
+ 
+So sánh HTTP và HTTPS 
+Bảng 1.4 Bảng so sánh HTTP và HTTPS 
+Đặc 
+điểm 
+HTTP 
+HTTPS 
+Mô hình 
+hoạt 
+động 
+Mô hình máy khách - 
+máy chủ thông qua giao 
+thức của HTTP. 
+Mô hình máy khách máy chủ, bổ 
+sung thêm giao thức SSL và 
+TSL (đảm bảo rằng không ai khác 
+ngoài các máy khách và máy chủ có 
+thể hack thông tin, dữ liệu ra ngoài). 
+Mã hóa 
+Không được mã hóa 
+thông tin. 
+Được mã hóa thông tin, sử dụng 
+SSL/ TSL tiêu chuẩn công nghệ bảo 
+mật, truyền thông mã hóa giữa máy 
+chủ Web server và trình duyệt. 
+Mức độ 
+bảo mật 
+Không mã hóa thông tin 
+nên hacker dễ dàng lấy 
+cắp thông tin. 
+Bảo 
+mật 
+kém hơn, 
+thông tin dễ bị rò rỉ, 
+nghe lén. 
+Hỗ trợ việc xác thực tính đích 
+danh (bằng cách đăng nhập vào tài 
+khoản) của website mà máy khách 
+truy cập thông qua việc kiểm tra xác 
+thực bảo mật. 
+Bảo mật thông tin, an toàn với người 
+dùng. 
+1.9 Giới thiệu công cụ lập trình VSCode 
+Visual Studio Code (VSCode) là một trình soạn thảo mã nguồn miễn phí, 
+nhẹ, mạnh mẽ và đa nền tảng, được phát triển bởi Microsoft. Đây là một trong 
+những công cụ lập trình phổ biến nhất hiện nay, được sử dụng rộng rãi bởi các lập 
+trình viên trên toàn thế giới. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 48 ===
+36 
+ 
+ 
+Đặc điểm nổi bật của VSCode 
+- 
+Miễn phí & Mã nguồn mở: VSCode hoàn toàn miễn phí và có mã nguồn 
+mở trên GitHub. 
+- 
+Nhẹ, nhanh, mượt: Dung lượng nhỏ, khởi động nhanh, phù hợp với nhiều 
+cấu hình máy tính. 
+- 
+Hỗ trợ nhiều ngôn ngữ lập trình: Python, C/C++, JavaScript, Java, PHP, 
+Go, Rust, v.v. 
+- 
+Hệ sinh thái mở rộng mạnh mẽ: Có kho Extensions phong phú giúp tùy 
+chỉnh và mở rộng tính năng. 
+- 
+Tích hợp Git & GitHub: Giúp quản lý mã nguồn dễ dàng. 
+- 
+Debug mạnh mẽ: Hỗ trợ gỡ lỗi trực tiếp ngay trong VSCode. 
+- 
+Tích hợp terminal: Giúp chạy lệnh mà không cần mở cửa sổ terminal bên 
+ngoài. 
+ 
+Các thành phần chính trong giao diện VSCode 
+- Editor: Khu vực chính để chỉnh sửa tệp của bạn. Bạn có thể mở nhiều trình 
+chỉnh sửa cùng lúc theo chiều dọc và chiều ngang. 
+- Primary Side Bar: Chứa các chế độ xem khác nhau, như Explorer, để hỗ trợ 
+bạn làm việc với dự án của mình. 
+- Status Bar: Hiển thị thông tin về dự án đang mở và các tệp bạn đang chỉnh 
+sửa. 
+- Activity Bar: Nằm ở phía bên trái cùng. Cho phép bạn chuyển đổi giữa các 
+chế độ xem và cung cấp các chỉ báo ngữ cảnh bổ sung, như số lượng thay 
+đổi chưa được đẩy khi Git được bật. Bạn có thể thay đổi vị trí của Activity 
+Bar. 
+- Panel: Một không gian bổ sung bên dưới khu vực trình chỉnh sửa. Mặc định, 
+nó chứa đầu ra, thông tin gỡ lỗi, lỗi và cảnh báo, cũng như terminal tích 
+hợp. Panel cũng có thể được di chuyển sang trái hoặc phải để có thêm không 
+gian theo chiều dọc. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 49 ===
+37 
+ 
+ 
+Hình 1.18 Các thành phần chính trong giao diện VSCode 
+ 
+Tính năng nổi bật 
+- Hỗ trợ đa ngôn ngữ: VSCode hỗ trợ hầu hết các ngôn ngữ lập trình như 
+JavaScript, Python, C++, Java, PHP, Go, Ruby, và nhiều ngôn ngữ khác. 
+Điều này giúp trình soạn thảo trở nên linh hoạt cho nhiều loại dự án và công 
+nghệ. 
+- Tích hợp Git và quản lý phiên bản: Tích hợp sẵn tính năng Git giúp người 
+dùng theo dõi lịch sử thay đổi, commit, push, pull và thực hiện các thao tác 
+quản lý phiên bản ngay trong giao diện của VSCode. Điều này đặc biệt hữu 
+ích cho các dự án phát triển phần mềm hiện đại sử dụng Git làm công cụ 
+quản lý mã nguồn. 
+- Debugging mạnh mẽ: VSCode tích hợp trình gỡ lỗi cho nhiều ngôn ngữ lập 
+trình, cho phép đặt breakpoint, theo dõi biến, chạy từng bước và kiểm tra 
+luồng chương trình ngay trong trình soạn thảo. Tính năng này giúp giảm 
+thời gian phát hiện và sửa lỗi trong quá trình phát triển. 
+- Terminal tích hợp: VSCode có terminal tích hợp cho phép thực hiện các 
+lệnh hệ thống hoặc chạy các tác vụ build, test mà không cần chuyển đổi 
+giữa các ứng dụng khác. Điều này tạo sự liền mạch và tiện lợi trong quy 
+trình làm việc của lập trình viên. 
+- Hỗ trợ IntelliSense: Tính năng IntelliSense cung cấp gợi ý mã, thông tin về 
+hàm, định nghĩa biến và tài liệu tham khảo ngay trong quá trình soạn thảo. 
+Điều này giúp tăng tốc độ lập trình và giảm lỗi cú pháp. 
+- Extension Marketplace: Một trong những điểm mạnh của VSCode là khả 
+năng mở rộng qua Extension Marketplace. Người dùng có thể cài đặt hàng 
+ngàn tiện ích mở rộng để bổ sung tính năng, hỗ trợ ngôn ngữ lập trình, giao 
+diện và tích hợp các công cụ phát triển khác như Docker, ESLint, Prettier, 
+Live Server, v.v. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 50 ===
+38 
+ 
+Visual Studio Code là một trình soạn thảo mã nguồn mạnh mẽ, linh hoạt và 
+dễ sử dụng, phù hợp với hầu hết các loại dự án phát triển phần mềm. Với giao diện 
+trực quan, tích hợp các công cụ hỗ trợ lập trình, tính năng mở rộng phong phú và 
+cộng đồng phát triển rộng lớn, VSCode không chỉ giúp tăng hiệu quả công việc 
+mà còn tạo điều kiện cho các nhà phát triển cá nhân và nhóm cải tiến liên tục quy 
+trình làm việc. Dù có một số hạn chế về việc cần cấu hình và tùy biến, những ưu 
+điểm vượt trội của VSCode đã giúp nó trở thành một trong những công cụ phát 
+triển hàng đầu hiện nay. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 51 ===
+39 
+ 
+CHƯƠNG 2. PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG PHẦN CỨNG 
+2.1 Tổng quan hệ thống phần cứng 
+Cách thức hoạt động của hệ thống được thể hiện ở hình dưới đây:  
+ 
+ 
+Hình 2.1 Hình ảnh tổng quan hệ thống 
+- ESP32 và ESP32-CAM: Thu thập dữ liệu từ cảm biến, chụp ảnh xe và gửi 
+lên Firebase. 
+- RFID: Nhận diện thẻ xe để kiểm soát ra/vào. 
+- IR Sensor: Phát hiện phương tiện vào/ra bãi. 
+- Servo: Điều khiển barrier đóng/mở tự động. 
+- Firebase: Lưu trữ và cập nhật trạng thái bãi đỗ xe theo thời gian thực. 
+- Ứng dụng Android: Hiển thị trạng thái chỗ đỗ xe, cho phép người dùng 
+kiểm tra từ xa. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 52 ===
+40 
+ 
+2.2 Phân tích và thiết kế các module phần cứng 
+ 
+Sơ đồ khối 
+ 
+Hình 2.2 Sơ đồ khối hệ thống 
+Hệ thống bãi đỗ xe thông minh sử dụng ESP32 làm trung tâm điều khiển, kết 
+hợp các cảm biến và module hỗ trợ để giám sát, nhận diện và quản lý việc ra/vào 
+của xe một cách tự động. Dưới đây là các khối chức năng chính: 
+- 
+ Khối nguồn: Cung cấp nguồn điện các thiết bị như: vi điều khiển ESP32, 
+màn hình LCD, module RFID, servo, cảm biến hồng ngoại và ESP32-CAM. 
+- 
+Khối xử lý trung tâm (ESP32):  
+• Nhận tín hiệu từ cảm biến hồng ngoại để phát hiện xe ra/vào và kiểm 
+soát chỗ trống. 
+• Giao tiếp với module RFID để đọc mã thẻ của người dùng. 
+• Điều khiển động cơ Servo để mở/đóng barrier tự động. 
+• Kết nối với ESP32-CAM để chụp ảnh xe, phục vụ việc nhận diện biển 
+số hoặc lưu trữ thông tin ra/vào xe. 
+• Gửi/nhận dữ liệu với cơ sở dữ liệu để cập nhật trạng thái và lưu trữ thông 
+tin lịch sử. 
+- Các thành phần ngoại vi kết nối với ESP32 
+• 
+LCD: 
+▪ Thông báo trạng thái: "Xe đã vào", "Hãy quét thẻ", "Chỗ trống còn 
+X". 
+▪ Xác nhận thông tin người dùng sau khi quét thẻ RFID. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 53 ===
+41 
+ 
+• 
+RFID: Đọc mã ID của thẻ từ người dùng. 
+▪ Khi xe đến barrier, người dùng quét thẻ RFID để xác nhận thông tin. 
+▪ ESP32 sẽ xử lý mã RFID, kiểm tra trên cơ sở dữ liệu để xác định 
+người dùng có hợp lệ không. 
+▪ Hỗ trợ quản lý thẻ thành viên (ví dụ: thẻ tháng hoặc thẻ theo lượt). 
+• 
+Servo: Điều khiển barrier tự động. 
+▪ Khi thông tin xe hợp lệ (qua RFID hoặc cơ sở dữ liệu), ESP32 sẽ 
+điều khiển Servo mở barrier cho xe qua. 
+▪ Sau một khoảng thời gian hoặc khi xe đã đi qua (xác định qua cảm 
+biến IR), barrier sẽ tự động đóng lại. 
+• 
+Cảm biến hồng ngoại: Phát hiện xe ra/vào khu vực bãi đỗ và kiểm soát 
+vị trí trống 
+▪ Xác định trạng thái của từng vị trí đỗ: đang có xe hoặc đang trống. 
+▪ Kết hợp với hệ thống, giúp xác định trạng thái barrier hoặc ghi nhận 
+dữ liệu xe. 
+- 
+ESP32-CAM: Chụp ảnh xe ra/vào hoặc nhận diện biển số. 
+• Chụp ảnh xe khi xe quét thẻ RFID. 
+• Hỗ trợ nhận diện biển số. 
+• Dữ liệu hình ảnh được gửi về ESP32 để lưu trữ và truyền tới cơ sở dữ 
+liệu. 
+- 
+Cơ sở dữ liệu: Lưu trữ toàn bộ thông tin liên quan đến hệ thống. 
+• Quản lý thông tin người dùng (ID thẻ, thông tin xe, thời gian vào/ra). 
+• Lưu trữ hình ảnh từ ESP32-CAM. 
+• Theo dõi trạng thái bãi đỗ xe, như số lượng chỗ còn trống. 
+• Hỗ trợ giao tiếp với Web/App để cung cấp dữ liệu. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 54 ===
+42 
+ 
+ 
+Mạch nguyên lý  
+Dựa vào sơ đồ khối, ta có sơ đồ mạch nguyên lý toàn hệ thống:  
+ 
+Hình 2.3 Sơ đồ mạch nguyên lý hệ thống 
+2.2.2.1. Khối nguồn 
+ 
+Hình 2.4 Khối nguồn 
+Khối nguồn trong mạch điện này có chức năng chuyển đổi điện áp xoay chiều 
+220V thành điện áp một chiều ổn định để cung cấp năng lượng cho các mạch điện 
+tử khác. Thành phần chính của khối nguồn bao gồm: 
+- Module chuyển đổi AC-DC HLK-10M05. 
+- Đèn LED chỉ thị (LED1). 
+- Điện trở hạn dòng (R1). 
+Module HLK-10M05 nhận điện áp xoay chiều đầu vào (220V) và chuyển đổi 
+thành điện áp DC đầu ra 5V/10W. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 55 ===
+43 
+ 
+ 
+Hình 2.5 Hi-Link HLK-10M05 
+Điện áp này sau đó được đưa tới mạch điện tử thông qua header JP2. Đèn 
+LED (LED1) cùng với điện trở R được sử dụng để báo hiệu trạng thái hoạt động 
+của mạch nguồn và bảo vệ đèn LED khỏi quá dòng. 
+2.2.2.2. Khối xử lý 
+ 
+Hình 2.6 Khối xử lý 
+Khối xử lý là trung tâm của hệ thống, chịu trách nhiệm: 
+- 
+Thu thập và tiền xử lý dữ liệu: Nhận tín hiệu từ cảm biến và camera. 
+- 
+Xử lý thông tin: Áp dụng thuật toán nhận diện xe, phân tích tín hiệu và tích 
+hợp dữ liệu từ nhiều nguồn để xác định trạng thái và vị trí xe. 
+- 
+Ra quyết định: Tính toán số chỗ trống, xác định vị trí đỗ xe, từ đó gửi lệnh 
+điều khiển cho các thiết bị như cổng vào/ra, bảng hiển thị và ứng dụng di 
+động. 
+- 
+Giao tiếp và lưu trữ: Kết nối nội bộ qua các bus truyền thông và bên ngoài 
+qua các giao thức… 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 56 ===
+44 
+ 
+2.2.2.3. Khối hiển thị 
+ 
+Hình 2.7 Khối hiển thị 
+Khối hiển thị sử dụng LCD 2004 giao tiếp I2C để hiển thị thông tin: 
+- Số chỗ trống. 
+- Biển số xe. 
+- Thời gian xe ra/vào. 
+2.2.2.4. Khối báo hiệu 
+ 
+Hình 2.8 Khối báo hiệu 
+Khối báo hiệu có chức năng phát ra âm thanh thông báo khi quẹt thẻ RFID 
+thành công. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 57 ===
+45 
+ 
+2.2.2.5. Khối cảm biến 
+ 
+Hình 2.9 Khối cảm biến 
+Khối cảm biến gồm ba cảm biến hồng ngoại, mỗi cái có nhiệm vụ riêng trong 
+việc kiểm soát và quản lý bãi đỗ xe: 
+- 1 cảm biến IR ở cổng kiểm soát xe qua lại và đảm bảo barrier đóng/mở đúng 
+thời điểm. 
+- 2 cảm biến IR tại chỗ đỗ giúp cập nhật chính xác số chỗ trống trong bãi. 
+- Tất cả dữ liệu được truyền về bộ xử lý để tự động điều khiển barrier và cập 
+nhật hiển thị. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 58 ===
+46 
+ 
+2.2.2.6. Khối giao tiếp 
+ 
+Hình 2.10 Khối giao tiếp 
+Khối giao tiếp bao gồm module RFID và Servo, đảm nhận vai trò xác thực và 
+điều khiển barrier tự động: 
+- RFID giúp nhận diện xe hợp lệ trước khi vào/ra. 
+- Servo tự động điều khiển barie theo tín hiệu từ bộ xử lý. 
+- Kết hợp với khối cảm biến, hệ thống đảm bảo quản lý bãi đỗ xe chính xác 
+và an toàn. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 59 ===
+47 
+ 
+ 
+Mạch in và sản phẩm thực tế  
+2.2.3.7. Mạch in Layout 
+ 
+Hình 2.11 Mạch in 2 lớp 
+2.2.3.8. Mạch in 3D 
+ 
+Hình 2.12 Mạch in 3D 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 60 ===
+48 
+ 
+2.2.3.9. Sản phẩm thực tế 
+ 
+Hình 2.13 Hình ảnh mạch thực tế 
+  
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 61 ===
+49 
+ 
+CHƯƠNG 3. PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG PHẦN MỀM 
+3.1 Tổng quan hệ thống phần mềm 
+ 
+Giới thiệu về hệ thống 
+Đề tài đồ án tốt nghiệp "Xây dựng mô hình IoT quản lý bãi đỗ xe thông minh" 
+là một hệ thống ứng dụng IoT được phát triển để tối ưu hóa việc quản lý và vận 
+hành bãi đỗ xe. Hệ thống bao gồm một ứng dụng di động dành cho người dùng và 
+một trang web quản lý dành cho người quản lý, được kết nối chặt chẽ với phần 
+cứng thông qua cơ sở dữ liệu thời gian thực. 
+Người dùng sẽ sử dụng ứng dụng di động để kiểm tra tình trạng bãi đỗ xe, 
+tìm kiếm chỗ trống, đặt chỗ trước và xem lịch sử sử dụng dịch vụ. Bên cạnh đó, 
+ứng dụng cung cấp tính năng cá nhân hóa thông tin người dùng, đảm bảo mỗi tài 
+khoản được liên kết với xe cá nhân hoặc các thẻ RFID tương ứng. 
+Người quản lý sẽ sử dụng giao diện website để quản lý toàn bộ bãi đỗ xe, bao 
+gồm việc giám sát camera khi xe ra/vào bãi, số lượng chỗ trống, điều khiển barrier. 
+Trang web cũng cho phép quản lý thông tin người dùng đăng ký thẻ tháng, lịch sử 
+xe ra/vào và tính toán chi phí gửi xe. 
+Hệ thống được thiết kế để đảm bảo các tính năng như: 
+- 
+Người dùng: Dễ dàng truy cập, kiểm tra trạng thái bãi đỗ và sử dụng các 
+dịch vụ thông qua ứng dụng di động với giao diện thân thiện. 
+- 
+Người quản lý: Giám sát và điều hành hệ thống bãi đỗ xe thông minh thông 
+qua website quản lý, bao gồm các chức năng kiểm soát xe ra/vào, quản lý 
+chỗ trống, theo dõi thẻ tháng, tra cứu lịch sử đỗ xe và thực hiện các thao tác 
+cần thiết để đảm bảo bãi đỗ xe hoạt động hiệu quả. 
+- 
+Giao tiếp phần cứng: Tích hợp chặt chẽ với phần cứng IoT (ESP32, 
+ESP32-CAM) để thu thập dữ liệu và thực hiện các lệnh điều khiển. 
+Hệ thống được phát triển với mục tiêu cung cấp giải pháp thông minh, tiết kiệm 
+thời gian và chi phí cho cả người sử dụng và người quản lý. Với thiết kế giao diện 
+đơn giản, dễ sử dụng, cùng việc áp dụng công nghệ IoT, hệ thống mang lại sự tiện 
+lợi và hiệu quả trong quản lý bãi đỗ xe. 
+ 
+Mục tiêu của hệ thống phần mềm: 
+- Quản lý thông tin người dùng, bao gồm thông tin cá nhân, phương tiện và 
+lịch sử sử dụng dịch vụ bãi đỗ xe. 
+- Điều khiển các thiết bị trong bãi đỗ xe như barrier, cảm biến và camera 
+thông qua giao tiếp với phần cứng. 
+- Theo dõi trạng thái bãi đỗ xe theo thời gian thực, bao gồm số lượng chỗ 
+trống, thông tin xe ra/vào. 
+- Lưu trữ và hiển thị lịch sử hoạt động, bao gồm thời gian vào/ra, mã thẻ và 
+thông tin thanh toán (nếu có). 
+- Cung cấp giao diện thân thiện, dễ sử dụng để quản lý và vận hành bãi đỗ 
+xe. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 62 ===
+50 
+ 
+ 
+Yêu cầu chức năng 
+- 
+Đối với người dùng (khách hàng) 
+• 
+Theo dõi trạng thái bãi đỗ xe (còn chỗ hay không). 
+• 
+Đặt chỗ đỗ xe trên ứng dụng di động. 
+• 
+Xem lịch sử sử dụng bãi đỗ xe, bao gồm thời gian ra/vào và chi tiết các 
+lần sử dụng. 
+- 
+Đối với người quản lý 
+• 
+Quản lý đăng ký tài khoản người dùng, thẻ tháng(thêm/xoá). 
+• 
+Theo dõi trạng thái hệ thống (số lượng chỗ trống, thiết bị hoạt động). 
+• 
+Điều khiển thiết bị phần cứng như barrier, camera hoặc hệ thống cảm 
+biến. 
+• 
+Quản lý dữ liệu lịch sử xe ra/vào, bao gồm hình ảnh và thông tin RFID. 
+ 
+Yêu cầu phi chức năng 
+- Hệ thống phải hoạt động ổn định và liên tục. 
+- Giao diện trực quan, dễ sử dụng với mọi đối tượng người dùng. 
+- Hệ thống phải có khả năng mở rộng để hỗ trợ nhiều bãi đỗ xe. 
+- Đảm bảo độ bảo mật cao, đặc biệt với thông tin người dùng và cơ sở dữ 
+liệu. 
+- Dung lượng ứng dụng nhẹ, phù hợp với các thiết bị di động phổ thông. 
+3.2 Phân tích và thiết kế hệ thống phần mềm 
+3.2.1 
+Phân tích hệ thống về mặt xử lý 
+Em chọn sử dụng biểu đồ phân cấp chức năng để biểu diễn cấu trúc phân cấp 
+của hệ thống theo từng chức năng con. 
+3.2.1.1. Mục đích 
+- Phân rã hệ thống thành các chức năng nhỏ hơn để dễ quản lý và phát triển. 
+- Xác định các nhiệm vụ chính mà hệ thống cần thực hiện. 
+- Giúp hiểu rõ mối quan hệ giữa các chức năng trong hệ thống. 
+3.2.1.2. Đặc điểm 
+- Cấu trúc phân cấp: Chia hệ thống thành nhiều mức, trong đó mức cao thể 
+hiện chức năng tổng quát, còn mức thấp thể hiện các chức năng chi tiết hơn. 
+- Tính trực quan: Sử dụng sơ đồ cây giúp dễ dàng quan sát và phân tích các 
+chức năng. 
+- Không thể hiện luồng dữ liệu: Chỉ tập trung vào việc phân cấp chức năng, 
+không mô tả cách dữ liệu di chuyển giữa các chức năng. 
+- Có tính mở rộng: Có thể bổ sung hoặc sửa đổi dễ dàng để phù hợp với yêu 
+cầu của hệ thống. 
+- Mỗi chức năng là một khối đơn lẻ: Không có chức năng nào lặp lại, mỗi 
+chức năng được xác định duy nhất trong hệ thống. 
+3.2.1.3. Biểu đồ phân cấp chức năng 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 63 ===
+51 
+ 
+Biểu đồ phân cấp chức năng của Website quản lý: 
+ 
+Hình 3.1 Biểu đồ phân cấp chức năng Website quản lý 
+Biểu đồ phân cấp chức năng của ứng dụng người dùng: 
+ 
+Hình 3.2 Biểu đồ phân cấp chức năng ứng dụng người dùng 
+3.2.2 
+Phân tích hệ thống về mặt dữ liệu 
+Phân tích Use Case là quá trình xác định, mô tả và phân tích các trường hợp 
+sử dụng trong một hệ thống phần mềm. Ngoài ra, Use Case còn là một kỹ thuật có 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 64 ===
+52 
+ 
+khả năng mô tả sự tương tác giữa hệ thống và người dùng trong cùng một môi 
+trường và vì cùng một mục đích cụ thể.  
+Sự tương tác này có thể là một trong hai trường hợp sau: 
+- 
+Cách thức các đối tượng người dùng bên ngoài tương tác với hệ thống. 
+- 
+Cách thức hệ thống này tương tác với những hệ thống khác. 
+Mục đích của Phân Tích Use Case: 
+- Xác định các chức năng hệ thống cần có. 
+- Giúp giao tiếp giữa khách hàng, người dùng và nhóm phát triển. 
+- Làm cơ sở để thiết kế hệ thống và kiểm thử. 
+- Giúp xác định các yêu cầu của hệ thống. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 65 ===
+53 
+ 
+Bảng 3.1 Các phân tử của Use case 
+Phần tử mô 
+hình 
+Ý nghĩa 
+Cách biểu diễn 
+Ký hiệu trong 
+biểu đồ 
+Use case 
+Biểu 
+diễn 
+một 
+chức năng xác 
+định của hệ thống. 
+Hình elip chứa tên 
+của use case. 
+ 
+Tác nhân 
+Là một đối tượng 
+bên 
+ngoài 
+hệ 
+thống tương tác 
+trực tiếp với các 
+use case. 
+Biểu diễn bởi một 
+lớp kiểu actor. 
+ 
+Mối quan hệ 
+giữa các use case 
+Association: 
+thường được dùng 
+để mô tả mối quan 
+hệ giữa Actor và 
+Use Case hay giữa 
+các Use Case với 
+nhau. 
+Association có 
+dạng nét liền. 
+ 
+Generalization: 
+được sử dụng để 
+thể hiện quan hệ 
+thừa kế giữa các 
+Actor hoặc giữa 
+các Use Case với 
+nhau. 
+Generalization có 
+dạng mũi tên tam 
+giác. 
+ 
+Include: là mối 
+quan hệ giữa các 
+Use Case với nhau 
+mô tả việc một 
+Use case lớn được 
+chia 
+thành 
+các 
+Use Case nhỏ để 
+dễ cài đặt hoặc 
+dùng lại. 
+Include có dạng 
+các mũi tên đứt 
+nét. 
+ 
+Extend: 
+mô 
+tả 
+quan hệ giữa hai 
+Use Case được sử 
+dụng khi có một 
+Use Case tạo ra để 
+bổ sung chức năng 
+cho một Use Case 
+có sẵn và được sử 
+dụng trong một 
+điều 
+kiện 
+nhất 
+định. 
+Extend có dạng 
+các mũi tên đứt 
+nét. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 66 ===
+54 
+ 
+3.2.1.1. Website quản lý 
+Xác định các tác nhân: 
+- Nhân viên quản lý: Quản lý bãi đỗ xe, Giám sát xe ra/vào, kiểm tra chỗ đỗ, 
+hỗ trợ khách hàng. 
+- Khách hàng: Cung cấp thông tin xe. 
+Xác định các Use case chính: 
+- Quản lý xe ra/vào: 
+• 
+Điều khiển barie. 
+• 
+Ghi nhận thời gian vào/ra. 
+• 
+Lịch sử gửi xe. 
+- Quản lý vị trí đỗ xe: 
+• 
+Giám sát số chỗ trống. 
+• 
+Ghi nhận vị trí xe đỗ. 
+- Quản lý khách hàng (chủ xe): 
+• 
+Đăng ký tài khoản, thẻ xe. 
+• 
+Thông tin xe (biển số). 
+- Giám sát: 
+• 
+Giám sát camera. 
+Sơ đồ Use case: 
+ 
+Hình 3.3 Sơ đồ Usecase chính cho website quản lý 
+❖ Đặc tả Use case <Quản lí xe ra/vào> 
+Mô tả: Khi nhận diện biển số xe thành công, mở barie cho xe vào/ra và ghi 
+lại thời gian xe vào/ra, mã thẻ vào hệ thống. 
+Các tác nhân: Nhân viên và hệ thống bãi đỗ xe. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Xe đến khu vực cổng vào/ra. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 67 ===
+55 
+ 
+2. Hệ thống kiểm tra thông tin xe bằng RFID, Camera nhận diện biển số. 
+3. Nhân viên mở Barie cho xe vào( khi barie gặp lỗi không tự động mở 
+được). 
+4. Khi xe vào bãi, hệ thống ghi nhận biển số xe, thời gian vào, mã thẻ. 
+5. Khi xe rời bãi, nhân viên kiểm tra trùng khớp biển số. 
+6. Hệ thống ghi nhận thời gian ra. 
+7. Dữ liệu này được sử dụng để tính phí gửi xe. 
+- Luồng rẽ nhánh: 
+1. Xe không hợp lệ → Hiển thị cảnh báo, barie không mở. 
+2. Xe vào nhưng không có thông tin → Yêu cầu nhập biển số thủ công. 
+3. Mất kết nối với cảm biến → Nhân viên bảo vệ xác nhận thời gian thủ 
+công. 
+Các yêu cầu đặc biệt: 
+Không có. 
+Tiền điều kiện: 
+Cảm biến hoặc camera nhận diện biển số phải hoạt động chính xác. 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+Biểu đồ trình tự: 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 68 ===
+56 
+ 
+ 
+Hình 3.4 Biểu đồ trình tự Use case quản lý xe ra/vào 
+❖ Đặc tả Use case <Giám sát chỗ trống> 
+Mô tả: Hệ thống giám sát số chỗ trống theo thời gian thực. 
+Các tác nhân: Nhân viên và hệ thống bãi đỗ xe. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Cảm biến xác định vị trí đỗ còn trống. 
+2. Hệ thống cập nhật số lượng chỗ trống theo thời gian thực. 
+3. Nhân viên có thể xem thông tin trên giao diện quản lý. 
+- Luồng rẽ nhánh: 
+Lỗi cảm biến → Hệ thống hiển thị dữ liệu cũ, yêu cầu cập nhật thủ công. 
+Các yêu cầu đặc biệt: 
+Không có. 
+Tiền điều kiện: 
+Cảm biến bãi đỗ phải hoạt động chính xác. 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+Biểu đồ trình tự: 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 69 ===
+57 
+ 
+ 
+Hình 3.5 Biểu đồ trình tự Use case giám sát chỗ trống 
+❖ Đặc tả Use case <Ghi nhận vị trí đỗ xe> 
+Mô tả: Hệ thống lưu vị trí xe đỗ để hỗ trợ tìm xe. 
+Các tác nhân: Người dùng. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Khi xe đỗ vào bãi, hệ thống ghi nhận vị trí đỗ xe bằng cảm biến. 
+2. Thông tin này được lưu và cập nhật lại trạng thái sơ đồ chỗ trống. 
+- Luồng rẽ nhánh: 
+Không xác định được vị trí xe → Chủ xe có thể tìm kiếm dựa trên biển số. 
+Các yêu cầu đặc biệt: 
+Không có. 
+Tiền điều kiện: 
+Cảm biến phải hoạt động chính xác 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+Biểu đồ trình tự: 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 70 ===
+58 
+ 
+ 
+Hình 3.6 Biểu đồ trình tự Use case ghi nhận vị trí đỗ xe 
+❖ Đặc tả Use case <Quản lý khách hàng> 
+Mô tả: Hệ thống cho phép đăng ký tài khoản và lưu thông tin khách hàng 
+cũng như thông tin xe. 
+Các tác nhân: Nhân viên và chủ xe. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Nhân viên đăng ký tài khoản bằng email và đăng ký thẻ tháng cho chủ 
+xe. 
+2. Nhập thông tin xe. 
+3. Hệ thống xác nhận và tạo tài khoản. 
+4. Chủ xe có thể đăng nhập vào ứng dụng người dùng bằng tài khoản email, 
+password (đối với thẻ tháng) hoặc bằng mã thẻ (đối với khách vãng lai). 
+5. Sau khi đăng ký thẻ tháng thành công tại quầy, chủ xe thanh toán tại 
+quầy. 
+- Luồng rẽ nhánh: 
+1. Số điện thoại/email đã tồn tại → Hiển thị thông báo lỗi. 
+2. Biển số đã tồn tại → Hiển thị thông báo lỗi. 
+Các yêu cầu đặc biệt: 
+Không có. 
+Tiền điều kiện: 
+Cảm biến phải hoạt động chính xác. 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+Biểu đồ trình tự: 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 71 ===
+59 
+ 
+ 
+Hình 3.7 Biểu đồ trình tự Use case quản lý khách hàng 
+❖ Đặc tả Use case <Giám sát> 
+Mô tả: Giám sát hình ảnh bãi đỗ xe qua camera. 
+Các tác nhân: Nhân viên và hệ thống bãi đỗ xe. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Nhân viên mở giao diện giám sát. 
+2. Hệ thống hiển thị hình ảnh camera theo thời gian thực. 
+3. Khi xe ra/vào hiển thị ảnh chụp biển số xe và các thông tin khi quẹt thẻ 
+RFID. 
+- Luồng rẽ nhánh: 
+Mất kết nối camera → Hiển thị cảnh báo lỗi. 
+Các yêu cầu đặc biệt: 
+Không có. 
+Tiền điều kiện: 
+Hệ thống camera phải hoạt động. 
+Hậu điều kiện: 
+Nhân viên có thể giám sát tình trạng bãi đỗ xe từ xa. 
+Điểm mở rộng: 
+Không có. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 72 ===
+60 
+ 
+3.2.1.2. Ứng dụng người dùng 
+Xác định các tác nhân 
+- Người dùng: Sử dụng app để tìm chỗ đỗ, đặt chỗ trước, thanh toán, xem 
+lịch sử gửi xe. 
+Xác định các Use case chính 
+- Đăng nhập. 
+- Lịch sử gửi xe. 
+- Đặt chỗ trước: 
+• 
+Tìm chỗ trống. 
+• 
+Đặt chỗ đỗ xe. 
+• 
+Thời gian đặt chỗ. 
+- Quản lý thanh toán: 
+• 
+Kiểm tra phí đỗ xe. 
+• 
+Thanh toán phí thẻ tháng. 
+Sơ đồ Use case: 
+ 
+Hình 3.8 Sơ đồ Use case chính cho ứng dụng di động 
+❖ Đặc tả Use case <đăng nhập> 
+Mô tả: Use case cho phép người dùng đăng nhập vào hệ thống bằng tài khoản 
+cá nhân/mã thẻ để đặt chỗ, xem lịch sử gửi xe và thanh toán phí giữ xe. 
+Các tác nhân: Người dùng. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Chủ xe mở ứng dụng. 
+2. Hệ thống hiển thị màn hình đăng nhập. 
+3. Chủ xe nhập email và mật khẩu. 
+4. Hệ thống kiểm tra thông tin đăng nhập: 
+▪ Nếu hợp lệ → chuyển đến trang chính của hệ thống. 
+▪ Nếu không hợp lệ → hiển thị thông báo lỗi. 
+- Luồng rẽ nhánh: 
+1. Mật khẩu sai: Hệ thống thông báo lỗi và yêu cầu nhập lại. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 73 ===
+61 
+ 
+2. Quên mật khẩu: Chủ xe có thể chọn tính năng "Quên mật khẩu" để đặt 
+lại. 
+Các yêu cầu đặc biệt: 
+Không có. 
+Tiền điều kiện: 
+Chủ xe phải có tài khoản hợp lệ. 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+Biểu đồ trình tự: 
+ 
+Hình 3.9 Biểu đồ trình tự Use case đăng nhập 
+❖ Đặc tả Use case <lịch sử gửi xe> 
+Mô tả: Use case cho phép người dùng có thể xem lịch sử gửi xe của mình, 
+bao gồm thời gian vào/ra, vị trí đỗ, chi phí giữ xe, trạng thái thanh toán, v.v. 
+Các tác nhân: Người dùng. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Chủ xe đăng nhập vào hệ thống. 
+2. Chọn mục Lịch sử gửi xe trong menu. 
+3. Hệ thống hiển thị danh sách lịch sử gửi xe của chủ xe, bao gồm: 
+▪ Ngày và giờ vào bãi. 
+▪ Ngày và giờ rời bãi. 
+▪ Biển số xe. 
+▪ Mã thẻ 
+▪ Phí giữ xe. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 74 ===
+62 
+ 
+- Luồng rẽ nhánh: 
+Không có lịch sử gửi xe: Hệ thống hiển thị thông báo "Không tìm thấy lịch 
+sử gửi xe nào." 
+Tiền điều kiện: 
+- Chủ xe đã đăng nhập thành công. 
+- Hệ thống đã có dữ liệu về lịch sử gửi xe của chủ xe. 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+❖ Đặc tả Use case <đặt chỗ trước> 
+Mô tả: Usecase cho phép người dùng có thể kiếm tra danh sách chỗ trống 
+khả dụng và đặt chỗ đỗ xe trước để đảm bảo có vị trí khi đến bãi đỗ. 
+Các tác nhân: Người dùng. 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Chủ xe đăng nhập vào ứng dụng. 
+2. Chọn mục Bản đồ chỗ đỗ xe trong menu. 
+3. Hệ thống hiển thị danh sách các chỗ trống theo thời gian thực.  
+4. Chủ xe có thể chọn đặt vị trí còn trống và chọn thời gian đặt . 
+5. Hệ thống xác nhận đặt chỗ và cập nhật lại trạng thái bản đồ chỗ đỗ. 
+- Luồng rẽ nhánh: 
+Không có chỗ trống → hiển thị thông báo "Hiện không có chỗ trống, vui 
+lòng thử lại sau". 
+Các yêu cầu đặc biệt: 
+1. Hệ thống phải có dữ liệu về trạng thái các chỗ đỗ (trống, đã đặt, đang sử 
+dụng). 
+2. Cảm biến, Camera hoặc hệ thống giám sát phải cập nhật chính xác tình 
+trạng bãi đỗ theo thời gian thực. 
+3. Hệ thống phải lưu lại thời gian đặt chỗ. 
+4. Nếu chủ xe không đến đúng giờ, hệ thống phải tự động hủy đặt chỗ và 
+giải phóng vị trí. 
+Tiền điều kiện: 
+- Chủ xe đã đăng nhập thành công. 
+- Dữ liệu về vị trí đỗ xe phải được cập nhật theo thời gian thực. 
+- Hệ thống lưu trữ và cập nhật thông tin đặt chỗ theo thời gian thực 
+Hậu điều kiện: 
+Không có. 
+Điểm mở rộng: 
+Không có. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 75 ===
+63 
+ 
+Biểu đồ trình tự: 
+ 
+Hình 3.10 Biểu đồ trình tự Use case đặt chỗ trước 
+❖ Đặc tả Use case <quản lý thanh toán> 
+Mô tả: Use case cho phép người dùng thực hiện các chức năng liên quan đến 
+thanh toán phí gửi xe: 
+- Đối với khách vãng lai (thẻ ngày): Người dùng có thể xem giá tiền gửi xe 
+tính từ lúc vào bãi đến thời điểm hiện tại để biết chính xác số tiền phải trả 
+khi rời bãi. 
+- Đối với khách hàng có thẻ tháng: Khi đến hạn, hệ thống sẽ nhắc nhở người 
+dùng thanh toán và hỗ trợ thanh toán trực tiếp trên app bằng mã QR. 
+Các tác nhân: Người dùng (khách vãng lai, khách hàng có thẻ tháng). 
+Luồng sự kiện: 
+- Luồng cơ bản: 
+1. Khách vãng lai xem giá tiền gửi xe: 
+▪ Người dùng mở ứng dụng, đăng nhập bằng mã thẻ. 
+▪ Hệ thống hiển thị tùy chọn “Xem giá tiền gửi xe”. 
+▪ Người dùng chọn chức năng này. 
+▪ Hệ thống kiểm tra thời gian xe vào bãi và tính toán giá tiền đến thời 
+điểm hiện tại. 
+▪ Hệ thống hiển thị số tiền cần thanh toán nếu rời bãi ngay lúc này. 
+2. Khách hàng có thẻ tháng thanh toán/gia hạn vé: 
+▪ Người dùng mở ứng dụng và đăng nhập tài khoản. 
+▪ Hệ thống kiểm tra ngày đến hạn thanh toán vé tháng. 
+▪ Nếu đến hạn, hệ thống gửi thông báo nhắc nhở. 
+▪ Người dùng chọn thanh toán phí thẻ tháng. 
+▪ Hệ thống kiểm tra trạng thái vé tháng và gửi yêu cầu tạo mã QR. 
+▪ Cổng thanh toán tạo mã QR và gửi về hệ thống. 
+▪ Hệ thống hiển thị mã QR cho người dùng. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 76 ===
+64 
+ 
+ 
+- Luồng rẽ nhánh: 
+• Hết hạn thanh toán vé tháng: Nếu quá thời hạn, hệ thống khóa vé tháng 
+và yêu cầu đăng ký lại. 
+• Không tìm thấy thông tin xe của khách vãng lai: Hệ thống thông báo lỗi 
+nếu không thể tìm thấy dữ liệu xe vào bãi. 
+Tiền điều kiện: 
+- Khách vãng lai phải có thẻ RFID hợp lệ khi vào bãi. 
+- Khách hàng có thẻ tháng phải có tài khoản hợp lệ trong hệ thống. 
+Hậu điều kiện: 
+- Nếu thanh toán thành công, hệ thống cập nhật trạng thái vé tháng. 
+- Nếu thất bại, hệ thống tiếp tục nhắc nhở người dùng thanh toán hoặc yêu 
+cầu thử lại. 
+Điểm mở rộng: 
+Không có. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 77 ===
+65 
+ 
+Biểu đồ trình tự: 
+ 
+Hình 3.11 Biểu đồ trình tự Use case quản lý thanh toán 
+ 
+Thiết kế giao diện 
+3.2.2.1. Giao diện Website quản lý 
+- Giao diện chính (Trang chủ) của Website quản lý: 
+ 
+Hình 3.12 Giao diện trang chủ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 78 ===
+66 
+ 
+- Giao diện trang quản lý tài khoản của Website quản lý: 
+ 
+Hình 3.13 Giao diện trang quản lý tài khoản 
+- Giao diện trang giám sát của Website quản lý: 
+ 
+Hình 3.14 Giao diện trang giám sát 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 79 ===
+67 
+ 
+- Giao diện trang lịch sử của Website quản lý: 
+ 
+Hình 3.15 Giao diện trang lịch sử của Website quản lý 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 80 ===
+68 
+ 
+3.2.2.2. Giao diện Ứng dụng người dùng (App) 
+ 
+Hình 3.16 Màn hình Đăng nhập 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 81 ===
+69 
+ 
+ 
+Hình 3.17 Màn hình đặt chỗ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 82 ===
+70 
+ 
+ 
+Hình 3.18 Màn hình Lịch sử đặt chỗ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 83 ===
+71 
+ 
+CHƯƠNG 4. KIỂM THỬ VÀ ĐÁNH GIÁ 
+4.1 Kiểm thử 
+ 
+Kiểm thử hệ thống phần cứng 
+Thực hiện kiểm thử chức năng: 
+- IR sensor: Mô phỏng chuyển động của xe, ghi nhận thời gian phản hồi của 
+sensor qua log trên ESP32. 
+- ESP32-CAM: Kiểm tra chức năng chụp ảnh và truyền dữ liệu, xác minh 
+hình ảnh chụp được có chất lượng đáp ứng yêu cầu giám sát. 
+- RFID module: Quét thẻ RFID và kiểm tra việc hiển thị thông tin lên hệ 
+thống. 
+- Servo: Gửi tín hiệu từ ESP32 để điều khiển servo và xác minh hành động 
+mở/đóng rào diễn ra đúng thời gian. 
+Các kết quả kiểm thử được tổng hợp như sau: 
+Bảng 4.1 Kết quả kiểm thử hệ thống phần cứng 
+STT Tên bài kiểm 
+thử 
+Tiêu chí 
+đánh giá 
+Kết quả đo 
+được 
+Ghi chú 
+1 
+Thời 
+gian 
+phản hồi từ 
+phát hiện đến 
+ghi nhận 
+Thời 
+gian 
+phản hồi từ 
+phát hiện đến 
+ghi nhận 
+Trung bình 
+0.4 giây 
+Đáp ứng yêu cầu 
+(<0.5 giây) 
+2 
+Chụp 
+và 
+truyền 
+hình 
+ảnh đúng lúc 
+Chụp 
+và 
+truyền 
+hình 
+ảnh đúng lúc 
+Hình ảnh rõ 
+nét, truyền 
+tải ổn định 
+Đáp ứng; cần tối 
+ưu 
+trong 
+điều 
+kiện ánh sáng yếu 
+3 
+Đọc chính xác 
+thông tin thẻ 
+RFID 
+Đọc chính xác 
+thông tin thẻ 
+RFID 
+Tỉ lệ thành 
+công 97% 
+Một vài trường 
+hợp đọc không 
+thành công do 
+nhiễu tín hiệu 
+4 
+Thời gian mở, 
+đóng rào sau 
+khi nhận tín 
+hiệu 
+Thời gian mở, 
+đóng rào sau 
+khi nhận tín 
+hiệu 
+0.6 giây mở 
+và 0.7 giây 
+đóng 
+Tốc độ đáp ứng 
+ổn định 
+ 
+Kiểm thử hệ thống phần mềm 
+Thực hiện kiểm thử các chức năng: 
+- Quản lý xe ra/vào: Kiểm tra điều khiển barie, ghi nhận chính xác thời gian 
+vào/ra khi xe quẹt thẻ RFID và đảm bảo lịch sử gửi xe hiển thị đầy đủ. 
+- Quản lý vị trí đỗ xe: Kiểm thử giám sát số chỗ trống, đảm bảo dữ liệu cập 
+nhật đúng khi xe vào/ra. Đồng thời, kiểm tra ghi nhận vị trí xe đỗ để đảm 
+bảo thông tin được lưu trữ chính xác. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 84 ===
+72 
+ 
+- Quản lý khách hàng: Kiểm thử đăng ký và đăng nhập, đảm bảo lưu trữ chính 
+xác thông tin cá nhân và biển số xe, giúp nhân viên dễ dàng truy xuất dữ 
+liệu. 
+- Giám sát camera: Kiểm tra khả năng hiển thị hình ảnh/video theo thời gian 
+thực, đảm bảo hình ảnh rõ nét, không gián đoạn. 
+Bảng 4.2 Testcase kiểm thử chức năng Quản lý xe ra/vào 
+STT 
+Chức 
+năng 
+Trường 
+hợp 
+kiểm thử 
+Bước thực 
+hiện 
+Đầu ra thực 
+tế 
+Đầu ra mong 
+muốn 
+Kết 
+quả 
+1 
+Điều 
+khiển 
+barie 
+ 
+Kiểm tra 
+mở/đóng 
+barie qua 
+web 
+ 
+Nhân viên 
+nhấn 
+nút 
+mở/đóng 
+barie trên 
+giao diện 
+web
+ 
+Barie 
+mở/đóng 
+đúng 
+theo 
+lệnh. 
+Barie 
+mở/đóng 
+đúng 
+theo 
+lệnh. 
+Đạt 
+2 
+Ghi 
+nhận 
+thời 
+gian 
+vào/ra 
+Kiểm tra 
+lưu 
+trữ 
+thời gian 
+vào/ra 
+Khách 
+quẹt 
+thẻ 
+RFID, 
+kiểm 
+tra 
+dữ 
+liệu 
+hiển 
+thị 
+trên 
+hệ 
+thống 
+Thời 
+gian 
+vào/ra 
+ghi 
+nhận 
+chính 
+xác 
+Thời 
+gian 
+vào/ra 
+ghi 
+nhận 
+chính 
+xác 
+Đạt 
+3 
+Lịch 
+sử gửi 
+xe 
+ 
+Kiểm tra 
+hiển thị 
+lịch 
+sử 
+gửi xe 
+ 
+Kiểm tra 
+hiển 
+thị 
+lịch sử gửi 
+xe 
+ 
+Hiển thị đầy 
+đủ lịch sử gửi 
+xe 
+Hiển thị đầy 
+đủ lịch sử gửi 
+xe 
+Đạt 
+- 
+Bảng Testcase kiểm thử chức năng Quản lý vị trí đỗ xe: 
+Bảng 4.3 Testcase kiểm thử chức năng Quản lý vị trí đỗ xe 
+STT 
+Chức 
+năng 
+Trường 
+hợp 
+kiểm thử 
+Bước thực 
+hiện 
+Đầu ra thực 
+tế 
+Đầu ra mong 
+muốn 
+Kết 
+quả 
+1 
+Giám 
+sát chỗ 
+trống 
+ 
+Kiểm tra 
+cập nhật 
+sơ 
+đồ 
+chỗ 
+trống 
+ 
+Xe vào/ra, 
+kiểm 
+tra 
+số 
+chỗ 
+trống trên 
+hệ thống 
+Sơ đồ chỗ 
+trống 
+cập 
+nhật 
+chính 
+xác 
+Sơ đồ chỗ 
+trống 
+cập 
+nhật 
+chính 
+xác 
+Đạt 
+ 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 85 ===
+73 
+ 
+- Bảng: Testcase kiểm thử chức năng Quản lý khách hàng 
+Bảng 4.4 Testcase kiểm thử chức năng Quản lý khách hàng 
+STT 
+Chức 
+năng 
+Trường 
+hợp 
+kiểm thử 
+Bước thực 
+hiện 
+Đầu ra thực 
+tế 
+Đầu ra mong 
+muốn 
+Kết 
+quả 
+1 
+Đăng 
+ký 
+thông 
+tin 
+khách 
+hàng 
+Kiểm tra 
+đăng ký 
+khách 
+hàng mới 
+Nhập 
+thông tin 
+khách 
+hàng, tạo 
+tài khoản, 
+lưu thông 
+tin vào hệ 
+thống. 
+Tạo 
+thành 
+công 
+tài 
+khoản khách 
+hàng để đăng 
+nhập 
+ứng 
+dụng 
+Tạo 
+thành 
+công 
+tài 
+khoản khách 
+hàng để đăng 
+nhập 
+ứng 
+dụng 
+Đạt 
+2 
+Thông 
+tin xe 
+(biển 
+số) 
+ 
+Kiểm 
+tra lưu 
+trữ biển 
+số xe 
+ 
+Nhập biển 
+số xe, lưu 
+vào 
+hệ 
+thống, 
+kiểm 
+tra 
+dữ liệu 
+Biển số xe 
+liên kết đúng 
+với mã thẻ 
+khách hàng 
+Biển số xe 
+liên kết đúng 
+với mã thẻ 
+khách hàng 
+Đạt 
+- Bảng: Testcase kiểm thử chức năng Giám sát và tính phí 
+Bảng 4.5 Testcase kiểm thử chức năng Giám sát và tính phí 
+STT 
+Chức 
+năng 
+Trường 
+hợp kiểm 
+thử 
+Bước thực 
+hiện 
+Đầu ra thực 
+tế 
+Đầu ra mong 
+muốn 
+Kết 
+quả 
+1 
+Giám 
+sát 
+camera 
+ 
+Kiểm 
+tra hiển 
+thị hình 
+ảnh 
+từ 
+camera 
+ 
+Mở giao 
+diện 
+giám sát 
+camera, 
+kiểm tra 
+chất 
+lượng 
+hình ảnh 
+Hình 
+ảnh/video rõ 
+ràng, không 
+gián đoạn 
+Hình 
+ảnh/video rõ 
+ràng, 
+không 
+gián đoạn 
+Đạt 
+2 
+Tính 
+phí 
+gửi 
+xe( đối 
+với 
+khách 
+vãng 
+lai) 
+ 
+Kiểm 
+tra phí 
+gửi 
+xe 
+có đúng 
+không 
+ 
+Khi xe ra, 
+kiểm 
+tra 
+phí gửi xe 
+Phí gửi xe 
+được 
+tính 
+đúng với thời 
+gian gửi xe 
+trong bãi 
+Phí 
+gửi 
+xe 
+được 
+tính 
+đúng với thời 
+gian gửi xe 
+trong bãi 
+Đạt 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 86 ===
+74 
+ 
+4.2 Đánh giá 
+➢ Về hệ thống phần cứng: 
+- Sản phẩm hoạt động ổn định trong suốt quá trình chạy. 
+- Vẫn còn tồn tại một khoảng trễ ngắn trong các hoạt động điều khiển do 
+đường truyền mạng không ổn định. 
+➢ Về hệ thống phần mềm: 
+- Hệ thống tự động hoá quá trình đặt chỗ trước giúp tiết kiệm thời gian và 
+tăng hiệu quả vận hành, giao diện dễ sử dụng giúp người quản lý và khách 
+hàng thao tác nhanh chóng. 
+- Tính ổn định còn phụ thuộc vào các cảm biến, do hệ thống sử dụng Firebase 
+nên cần đảm bảo bảo mật thông tin người dùng và xe. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 87 ===
+75 
+ 
+CHƯƠNG 5. KẾT LUẬN 
+5.1 Kết luận 
+Qua quá trình tìm hiểu lý thuyết, nghiên cứu và thực hiện đề tài “Xây dựng 
+hệ thống bãi đỗ xe thông minh”, nhóm chúng em đã tích lũy được nhiều kiến thức 
+bổ ích và kinh nghiệm thực hành quý giá. Sản phẩm đạt được các yêu cầu chức 
+năng cơ bản với những điểm nổi bật sau: 
+- Phần cứng: 
+• Các linh kiện hoạt động ổn định và không bị nóng quá mức khi vận hành 
+liên tục, đảm bảo hiệu năng lâu dài. 
+• Hệ thống có khả năng nhận diện xe, giám sát hình ảnh và điều khiển rào 
+cửa qua ứng dụng di động một cách chính xác và linh hoạt. 
+- Phần mềm: 
+• Giao diện người dùng thân thiện: Hệ thống cung cấp giao diện trực quan, 
+dễ sử dụng cho cả người quản trị bãi đỗ xe và người sử dụng dịch vụ. 
+Người dùng có thể tra cứu thông tin về tình trạng bãi đỗ xe, xác định vị 
+trí còn trống và nhận thông báo cập nhật kịp thời. 
+• Thu thập và xử lý dữ liệu theo thời gian thực: Phần mềm xử lý dữ liệu 
+từ các cảm biến phần cứng một cách nhanh chóng và chính xác, từ đó 
+đưa ra các quyết định điều phối và hướng dẫn đỗ xe cho người dùng. 
+5.2 Hướng phát triển của đồ án trong tương lai 
+Hướng phát triển phần cứng: 
+- Tích hợp công nghệ AI vào phần cứng: Việc kết hợp các vi xử lý tích hợp 
+AI có thể giúp hệ thống tự động phân tích dữ liệu trực tiếp tại chỗ, giảm tải 
+cho bộ xử lý trung tâm và tăng tốc độ phản hồi. 
+- Thiết kế tiết kiệm năng lượng và bền bỉ: Tiếp tục nghiên cứu các giải pháp 
+về nguồn năng lượng thay thế (như năng lượng mặt trời) và tối ưu hóa tiêu 
+thụ điện năng nhằm đảm bảo hệ thống hoạt động ổn định trong môi trường 
+thực tế lâu dài. 
+- Tích hợp các giao thức truyền thông mới: Nâng cấp phần cứng để hỗ trợ 
+các giao thức truyền thông không dây mới (ví dụ: 5G) giúp tăng tốc độ 
+truyền tải dữ liệu và mở rộng phạm vi kết nối giữa các thiết bị trong hệ 
+thống. 
+Hướng phát triển phần mềm: 
+- Tích hợp trí tuệ nhân tạo: Dự báo lưu lượng xe, nhận diện hành vi đỗ xe bất 
+thường và tự động tối ưu hóa quy trình điều phối chỗ đỗ xe, từ đó nâng cao 
+hiệu quả hoạt động của hệ thống. 
+- Cải thiện giao diện và trải nghiệm người dùng: Tăng cường các tính năng 
+tương tác, cung cấp báo cáo thống kê chi tiết và các công cụ phân tích dữ 
+liệu cho quản trị viên. 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 88 ===
+76 
+ 
+- Tích hợp dữ liệu với hệ thống giao thông thông minh: Liên kết dữ liệu từ 
+hệ thống bãi đỗ xe với các hệ thống giao thông đô thị để tối ưu hóa lộ trình 
+di chuyển và giảm ùn tắc giao thông. 
+- Bảo mật và an toàn dữ liệu: Đầu tư vào việc nâng cao các giải pháp bảo 
+mật, mã hóa và kiểm soát truy cập để bảo vệ thông tin người dùng và đảm 
+bảo an toàn dữ liệu khi hệ thống mở rộng quy mô. 
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831
+
+=== PDF 89 ===
+77 
+ 
+ 
+TÀI LIỆU THAM KHẢO 
+ 
+[1]  "https://viettelidc.com.vn/tin-tuc/iot-la-gi-nhung-ung-dung-noi-bat-cua-
+iot".  
+[2]  "https://sensordynamics.com.au/what-is-smart-parking-how-does-it-
+work".  
+[3]  "https://firebase.google.com/docs/database".  
+[4]  "https://www.espressif.com/sites/default/files/documentation/esp32-
+wroom-32_datasheet_en.pdf".  
+[5]  "https://media.digikey.com/pdf/Data%20Sheets/DFRobot%20PDFs/DFR0
+602_Web.pdf".  
+[6]  "https://iotvn.vn/cong-nghe-rfid/".  
+[7]  https://www.freecodecamp.org/news/what-is-node-js/.  
+[8]  https://aws.amazon.com/vi/compare/the-difference-between-https-and-
+http/.  
+[9]  https://viblo.asia/p/tim-hieu-ve-html-va-css-co-ban-7ymwGXV0R4p1.  
+[10]  https://code.tutsplus.com/developing-an-android-app-with-flutter--cms-
+28270t.  
+ 
+ 
+Downloaded by Trung Phong 2 Nguy?n (caogiangtieuphong@gmail.com)
+lOMoARcPSD|66802831

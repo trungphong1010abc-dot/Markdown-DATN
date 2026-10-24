@@ -1,0 +1,818 @@
+                                                                  Electric Power Systems Research 221 (2023) 109391
+
+
+                                                                       Contents lists available at ScienceDirect
+
+
+                                                            Electric Power Systems Research
+                                                               journal homepage: www.elsevier.com/locate/epsr
+
+
+
+
+Series arc fault identification method based on wavelet transform and
+feature values decomposition fusion DNN
+Quanyi Gong a, Ke Peng a, Qun Gao b, *, Liang Feng a, Chuanliang Xiao a
+a
+    School of Electronic Engineering, Shandong University of Technology, Zibo, China
+b
+    School of Business, Shandong University of Technology, Zibo, China
+
+
+
+
+A R T I C L E I N F O                                         A B S T R A C T
+
+Keywords:                                                     In low voltage distribution systems, AC series arcing is highly random and the fault characteristics are influenced
+Low-voltage series arc                                        by the type of loads. As the variety of loads connected to the system increases, a standard for uniform detection
+Wavelet transform                                             between varieties of loads is difficult to find. For such issues, a neural network algorithm based on wavelet
+Feature value decomposition
+                                                              analysis and feature value decomposition is proposed. Firstly, the DB5 wavelet base is used to decompose the
+Deep neural network
+Fault identification
+                                                              collected data into 5 layers of wavelet and the wavelet coefficients of the first layer are extracted for the con­
+                                                              struction of the Hankel matrix. The first feature extraction and data compression are completed. The matrix is
+                                                              decomposed by Eigenvalue Decomposition (EVD) and used to construct the eigenvector σ , and the second feature
+                                                              extraction and data compression are completed. The mean value d1, the root mean square value d2 and standard
+                                                              deviation value d3 of σ are extracted, the third feature extraction and data compression are completed. The three
+                                                              values are taken as input to the neural network to train the Deep Neural Network (DNN) fault detection model,
+                                                              and the compressed input scale is only 1 × 3. The DNN fault detection model built by this paper is characterized
+                                                              by low complexity and high timeliness. The complexity of the model is reduced in terms of driving data and
+                                                              network structure, and the model can be trained in just 33 s. The model is extremely time efficient because it
+                                                              monitors faults in terms of current half-cycles. The experimental results show that, within the permissible range
+                                                              of GB14287.4–2014 standard, the model has good detection effect on both training set loads and non-training set
+                                                              loads, and the overall recognition rate can reach 98.7%.
+
+
+
+
+1. Introduction                                                                                research and experimental simulation. A new arc model was formed by
+                                                                                               combining a Cassie model and two Mayr models to evaluate the DC
+    In residential places, fault arcs may be caused by the fall of sockets,                    breaking capacity of molded case circuit breakers [5]. A Cassie-Mayr
+aging of power strips or lines, overloading, and interface breakage. Arc                       combination model is constructed through the transition function, and
+faults are an important cause of electrical fires and are a form of self-                      the improved arc model is simulated and verified, which can describe
+sustaining discharge [1]. When the voltage is higher than 12 V and                             the dynamic characteristics of the arc more accurately [6]. The arc
+the current exceeds 0.25 A, the two live conductors are about to touch or                      sound, arc light, temperature, pressure and other physical phenomena
+separate. An arc will be generated in the conductor gap, which will                            accompanying the arc combustion are usually used as the basis for fault
+generate a large amount of heat energy, accompanied by                                         diagnosis. The bimodality of electromagnetic and acoustic waves is used
+high-temperature residue sputtering, which can easily ignite the sur­                          for arc fault detection and localization, which can detect arc faults in the
+rounding combustible and explosive materials, causing fire and explo­                          monitored area [7]. The modulo maximum value of the electromagnetic
+sion accidents, endangering people’s lives and property safety [2].                            radiation signal of the arc fault is extracted to obtain the eigenvalue, and
+However, in practical engineering applications, it is difficult to accu­                       a reasonable threshold is set according to the eigenvalue to judge
+rately detect it due to its characteristics of strong concealment, large                       whether an arc fault occurs [8]. Physical features are used for detection
+randomness, and great influence by load [3,4].                                                 requiring sensor positions to be fixed, and the randomness of the fault
+    At present, the research progress of arc mathematical model used for                       arc causes the position to be uncertain. If the sensor installation position
+fault arc detection is very slow, and more stay in the stage of theoretical                    is far away from the location of the fault, the detection effect will be
+
+
+    * Corresponding author.
+      E-mail address: gqun@sdut.edu.cn (Q. Gao).
+
+https://doi.org/10.1016/j.epsr.2023.109391
+Received 12 January 2023; Received in revised form 23 March 2023; Accepted 4 April 2023
+Available online 11 April 2023
+0378-7796/© 2023 Elsevier B.V. All rights reserved.
+Q. Gong et al.                                                                                                       Electric Power Systems Research 221 (2023) 109391
+
+
+greatly reduced. The method for identifying arcs based on changes in the               In summary, at this stage in the field of low voltage AC arc fault
+circuit voltage signal characteristics when an arc fault occurs in [9]. The        detection, the detection accuracy is the primary of evaluation metric for
+identification method of voltage signal characteristic change is hindered          fault detection algorithms, but not the only. The ease of implementation
+in practical application due to the large change of load position range            in hardware and timeliness of detection are also important. The algo­
+and the difficulty of sampling effective voltage. The methods for iden­            rithm should be simple in structure, small in computation, time efficient
+tifying changes in current signal characteristics include: Methods for             and easy to implement in hardware in order to make the fault detection
+fault identification are always based on one or some characteristics of            algorithm more practical in engineering. Therefore, a series arc fault
+the series arc current, such as time-domain and frequency-domain                   identification method based on based on wavelet transform and feature
+characteristics [10–12], Fourier transform [13,14], wavelet transform              values decomposition fusion DNN is proposed. The specific contribu­
+analysis[15–18], etc. In engineering practice, the model is greatly                tions are as follows:
+affected by [19]. According to the zero-break phenomenon that the arc
+is extinguished near the current zero-crossing point when an arc fault                (1) The dimensionality reduction method by EVD is adopted to
+occurs, the two-dimensional characteristic quantity established by the                    decompose the wavelet coefficients after wavelet transformation.
+information dimension and the zero-rest is used as the characteristic                     Three evaluation indexes based on eigenvector were established
+parameter to identify the arc fault [20]. When the non-linear load is                     and as the input of the DNN, which not only retains the unique
+working normally, there is a similar zero-stop phenomenon in the cur­                     advantages of wavelet transform in arc fault detection, but also
+rent, which will also lead to misjudgment. Wavelet transform has good                     reduces the dimension and redundancy of wavelet coefficients as
+time-frequency localization characteristics, and has the ability to char­                 input.
+acterize local characteristics of signals in both time and frequency do­              (2) An arc fault detection model based on DNN is established. The
+mains. It has more advantages than other methods in dealing with                          proposed model can accurately perform fault identification only
+mutated signals and non-stationary signals. At present, wavelet trans­                    at a sampling rate of 5 kHz, the final drive data scale is only 1 × 3,
+form has been widely studied for series arc fault detection[15–18]. The                   and the number of hidden layers in a neural network is only three,
+wavelet entropy value is used to quantitatively describe the energy                       which greatly reduces the training time and detection time, and
+distribution characteristics of the current signal in the time-frequency                  the calculation cost is reduced.
+domain, so as to realize the extraction of the series arc fault character­            (3) An arc fault detection algorithm based on wavelet transform and
+istics [17]. Morphological filtering combined with the fourth-scale                       EVD fusion DNN is proposed. Traditional algorithms and neural
+wavelet trans-form function is used to realize the identification of load                 networks are well combined. Compared with other methods in
+normal state and arc fault state [18]. With the continuous deepening of                   terms of recognizetion accuracy, identification time, driving data
+wavelet transform in the field of series arc fault detection, it also shows               scale, and applicable load range, the method in this paper has
+some shortcomings: the simple use of wavelet transform is not obvious                     higher comprehensive performance.
+for the distinction between series arc fault and normal state. One is that
+there is a lot of redundant information in the transformed feature signal.         2. Data acquisition and arc characteristic analysis
+Second, there is a characteristic overlap between normal and fault sig­
+nals between different load types. The above shortcomings increase the             2.1. Data collection
+difficulty of analysis and interpretation of wavelet transform results.
+    With the rise of artificial intelligence, various neural networks and             The low-voltage AC series arc fault test platform built according to
+machine learning algorithms have been widely used in the field of arc              the GB/14,287.4–2014 standard is shown in Fig. 1. It is aimed at the civil
+faults. There are certain limitations in the number and reliability of the         voltage level, 220 V/50 Hz and the maximum power level does not
+applicable load types by using the neural network method alone. The                exceed 10 kW. It consists of AC power supply, air switch, current probe,
+total number of parameters and training samples increases with the                 electrical load, arc generator and oscilloscope device.
+number of load types. This leads to high computational cost and poor                  Refer to the commonly used typical loads in the GB/14,287.4 stan­
+robustness of the classifier, and poor recognition of non-training set             dard for data collection, as shown in Table 1.
+loads that have not participated in training.
+    Therefore, in order to satisfy the fault detection among various load          2.2. Analysis of current waveform characteristics
+types, it is necessary to perform data preprocessing and feature extrac­
+tion. The data dimension can be effectively compressed and the fault                   First, digitally filter the collected current signal. The filtering prin­
+features are highlighted. The feature set is used as the driving data of the       ciple is to replace the value of a point in the digital sequence with the
+neural network, which can greatly reduce the computational pressure of             average value of each point value in a neighborhood of the point. It is a
+the classifier, so the training is completed quickly, and the computa­             commonly used nonlinear smoothing filter. To reduce interference and
+tional cost is greatly reduced. The combination of empirical wavelet               noise, the filtered current frequency is 5 kHz. The current waveforms of
+transform, singular value decomposition and support vector machine is              several typical loads after filtering were shown in Fig. 2.
+used in [21]. A recognition method based on kernel principal component                 In Fig. 2, tarc is the time when the fault occurs. The electric heater is a
+analysis and firefly algorithm optimization support vector machine is              resistive load, and its electrical characteristics before and after arcing
+proposed. The kurtosis and skewness of the fifth and sixth principal               are the same as those of the resistive load. In the initial small arc area, it
+components were used as arc fault features using kernel-based principal            is similar to its own normal current. There is a "zero rest" phenomenon
+component analysis. Recognition method combined with support vector                after appear arc fault, similar loads are also microwave oven + resis­
+machine is proposed in[22]. The fundamental wave, the third harmonic,              tance, vacuum cleaner, computer + microwave oven, etc. For electric
+the fifth harmonic, the stagnation at zero-crossing, and the integral of           drills and computers, due to the different operating conditions and
+the time-domain waveform are used as characteristic quantities, which              working principles, the circuit presents different characteristics during
+are combined with the neural network [23]. In [21–23], there are                   normal operation. When the load is working normally, the current also
+problems of few types of training set loads and insufficient generaliza­           has the characteristics of zero rest. When a fault arc occurs in the line,
+tion ability to non-training set loads. Analyze and extract different as­          the fault current will lose its periodicity, and there will be half-wave loss
+pects of arc features through time domain, frequency domain and                    and high harmonic content.
+wavelet packet energy, and use multi-feature fusion to train the arc fault             Affected by the reason of arc fault, load capacity, load nature, etc., it
+detection model [24–26]. In the multi-feature fusion algorithm, the                only depends on a certain parameter in the time domain or frequency
+weight distribution between each feature is a complex problem.                     domain before and after the arc as the basis for fault arc detection.
+
+                                                                               2
+Q. Gong et al.                                                                                                           Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+                   Fig. 1. AC series arc fault test platform. (a) Experimental platform circuit diagram (b) Physical map of experimental platform.
+
+
+                                                                                           The φ is the base wavelet, s is called the scale parameter, stretch or
+Table 1
+                                                                                      stretch the base wavelet. τ is called the translation parameter, determine
+Types of load in experiment.
+                                                                                      the time position at which to analyze the signal x(t).
+  Loads                 Load type    Load name and parameters(220 V)                       The specific method of discretization is to discretize the scale
+  Linear load      Resistive load         Resistor 1000 w                             parameter and the translation parameter:
+  Linear load      Resistive load         Electric heater 800 w                       {
+  Nonlinear load   Capacitor start        Electric drill 2500 w                          s = sj0
+                   motor                                                                             s0 > 1, τ0 ∕
+                                                                                                                = 0, j ∈ Z, k ∈ Z                             (2)
+  Nonlinear load   Vortex                 Induction cooker 2200 w
+                                                                                         τ = kτ0 sj0
+  Nonlinear load   Switching power        Computer 600 w
+                   supply
+                                                                                           The corresponding wavelet family is expressed as:
+  Nonlinear load   Magnetron              Microwave oven 800 w                                           (            )
+  Nonlinear load   Series motor           Vacuum cleaner 1000 w                                   1       t − kτ0 sj0
+                                                                                      φj,k (t) = √̅̅̅̅ φ                                                              (3)
+  Nonlinear load   Combined load          Microwaveoven800 w+resistance800 w                                  sj0
+                                                                                                   sj
+  Nonlinear load   Combined load          Computer 200 w+vacuum cleaner 1 kw                       0
+
+  Nonlinear load   Combined load          Microwave oven 600 w+computer600 w
+                                                                                          The wavelet transform of the signal is:
+                                                                                                                        ∫ +∞       (            )
+Although fault detection can be achieved, it is difficult to find common
+                                                                                                〈              〉   1                t − kτ0 sj0
+                                                                                      wt(j, k) = x(t), φj,k (t) = √̅̅̅̅      x(t)φ               dt                   (4)
+thresholds are prone to misjudgment, especially in the initial small arc                                            sj0 − ∞             sj0
+stage, the time domain signal and frequency domain signal before and
+after arcing are less distinguishable, and the cross-criteria value is prone              The most common form of discrete wavelet transform is the scale
+to occur.                                                                             parameter s0=2, translation parameter τ0 = 1, this discretization form
+                                                                                      makes its wavelet function family constitute an orthonormal basis.
+3. Feature extraction of series arc fault                                                 After the DB5 wavelet base is used to decompose the 5 loads of
+                                                                                      electric heater, vacuum cleaner, computer + microwave oven, computer
+3.1. The analysis of discrete wavelet transform                                       and induction cooker in five layers, the first layer of wavelet coefficients
+                                                                                      are extracted and their absolute values are taken to obtain the parameter
+    The "zero rest" feature alone is not suitable for non-linear loads as a           D, as shown in Fig. 3.
+detection method, and further processing is required. Wavelet transform                   In Fig. 3, the fault occurs at 0.1 s. There is a large variation in the
+is widely used in featureity detection, which is very suitable for the                wavelet coefficients in the first layer before and after the fault arc oc­
+processing of "zero rest" characteristics. It is necessary to introduce               curs, but the values are crossed over in the five loads. When the heater is
+discrete wavelet transform (DWT) to reduce redundancy and improve                     working normally, D is between 0~0.001, and it is between 0.003~0.02
+calculation speed without losing information in the signal [27].                      when it fault. Under the same state, for computer and electric heater,
+    The continuous wavelet transform (CWT) of a continuous signal x(t)                their wavelet coefficient value of the first layer differs by about 100
+is defined as:                                                                        times of. In general, the wavelet coefficient value of the first layer is
+               ∫                                                                      small, which is not conducive to fault analysis. It is difficult to use
+                        (t − τ)
+           1 +∞
+wt(s, τ) = √̅̅     x(t)φ       dt                                       (1)           wavelet transform alone to detect arc faults between various loads.
+            s −∞            s
+
+
+
+                                                                                  3
+Q. Gong et al.                                                                                                          Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+Fig. 2. Typical load normal and fault current waveform. (a) computer. (b) Heater. (c) Computer + Microwave. (d) Microwave + resistance. (e) Vacuum cleaner. (f)
+Electric drill. (g) Computer + Vacuum Cleaner. (h) Induction cooker.
+
+
+
+
+                                               Fig. 3. The first-level detail components after wavelet transform.
+
+
+3.2. The basic principle and fault analysis of EVD
+                                                                                   S = [diag(σ1 , σ2 , σ 3 ⋯σ r ), 0]                                                (7)
+                                      m×n
+  Suppose for a real matrixA ∈ R      , there must be an orthogonal                    TheA = min(m, n),σ1 > σ2 > σ3 ⋯ > σr > 0, the 0 is a zero
+matrix V ∈ Rm×n make Eq. (5) true [28]:                                            matrix,σi (i = 1⋯r)called the feature values of the matrix A, Eq. (7) is
+                                                                                   called the feature value decomposition of A.
+A = VSV − 1                                                              (5)
+                                                                                       Constructing a suitable matrix A is the key to signal processing by
+    In Eq. (5):                                                                    feature value decomposition. The Hankel matrix is constructed accord­
+                                                                                   ing to the signal sampling sequence. After the Hankel matrix is decom­
+V = [v1 , v2 , v3 ⋯vm ] ∈ Rn×n                                           (6)
+                                                                                   posed by EVD, a multi-layer component signal is generated for the
+                                                                                   signal. For a sampled sequence vector of N points:X = (x1 ,x2 ,x3 ⋯xN ). It
+
+                                                                               4
+Q. Gong et al.                                                                                                                       Electric Power Systems Research 221 (2023) 109391
+
+
+is used to construct the Hankel matrix method as follows:                           the first 15 feature points are finally selected.
+
+1) Select a subsequence(x1 , x2 , x3 ⋯xn )of length n from the signal time
+                                                                                    3.3. The feature quantity is extracted
+   series as the first row vector of the matrix.
+2) Move one step to the right and extract(x2 , x3 , x4 ⋯xn+1 )as the second
+                                                                                       In order to more intuitively reflect and evaluate the performance of a
+   row vector of the matrix, and so on, a total of N- n + 1 row vectors
+                                                                                    segment of the signal, there are three characteristic parameters about
+   can be obtained.
+                                                                                    the average value d1 and the root mean square value d2 and standard
+3) These row vectors obtained above are formed into a matrix as shown
+                                                                                    deviation d3 are calculated. The expressions of d1, d2 and d3 are:
+   in Eq. (8), and this matrix is called a Hankel matrix.
+        ⎡                            ⎤                                                     σ1 + σ2 + ⋯ + σr
+            x1        x2   ⋯ xn                                                     d1 =                                                                                          (9)
+        ⎢ x2                                                                                              r
+                      x3   ⋯ xn+1 ⎥
+   A=⎢  ⎣ ⋮
+                                     ⎥                                   (8)               √̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+                      ⋮     ⋮     ⋮ ⎦
+                                                                                            σ 21 + σ22 + ⋯ + σ2r
+          xN− n+1 xN− n+2 ⋯ xN                                                      d2 =                                                                                        (10)
+                                                                                                             r
+                                                                                           √̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅̅
+                                                                                                1 ∑        r
+                                                                                    d3 =                        (σ i − σ )2                                                     (11)
+      The specific meaning of each element in the corresponding formula                     r − 1 i=1
+of EVD: The matrix A represents the feature matrix constructed by the
+                                                                                        The r is the number of eigenquantities in σ, which are 15. GB/
+discrete wavelet coefficient sequence D, The feature valuesσ1 , σ2 , ⋯, σ r ,
+                                                                                    14,287.4 stipulates that if 14 or more half-cycle fault arcs occur within 1
+represents the size of the characteristic quantity of the current signal
+                                                                                    s, the Arcing Fault Detectors (AFD) shall issue an alarm signal within 30
+collected in this time band, and is uniquely determined by the matrix A.
+                                                                                    s, therefore, fault analysis should be performed in units of current half-
+If these non-zero feature values are composed of eigenvectorsσ1 , σ2 , ⋯,
+                                                                                    cycles. The characteristic parameters d1, d2 and d3 are obtained for the
+σ r , the eigenvector uniquely characterizes the characteristics of the
+                                                                                    five loads of electric heater, vacuum cleaner, computer + microwave
+current signal. The Fig. 4 is a comparison diagram of the characteristic
+                                                                                    oven, computer and induction cooker. The fault occurred at the 21st half
+vector σ of different load faults and normal signals.
+                                                                                    cycle, the first 20 half cycles are when the load is in normal operation,
+      It can be seen from Fig. 4 that after the feature value decomposition
+                                                                                    and the last 20 are in the state of arc fault. The results are shown in
+of the first layer wavelet coefficients, the fault state is quite different
+                                                                                    Fig. 5.
+from the eigenvector in the normal state. Through EVD, the high-
+                                                                                        As shown in Fig.5, it can be seen that before and after the arc fault
+dimensional feature matrix A is compressed into a low-dimensional
+                                                                                    occurs, the three evaluation indicators have great changes, but they
+outlier vector reflecting the essential characteristics of matrix A,
+                                                                                    cannot be used as the final detection basis. It can be used as the driving
+compared with the 54-dimension of the discrete wavelet coefficient
+                                                                                    data of neural network for fault detection. The advantage of using it as
+sequence D, the dimension of the feature value vector σ is greatly
+                                                                                    driving data is that the characteristic information in the data is obvious
+reduced to 27-dimensions. In the σ , the characteristic curves of the first
+                                                                                    and the data amount is small, which can effectively reduce the
+15 characteristic points before and after the fault vary greatly and cover
+                                                                                    complexity of neural network.
+more characteristic information, which is called the sensitive area. Then
+the characteristic curves of the last 12 characteristic points almost
+                                                                                    4. DNN structure and establishment of fault detection model
+overlap before and after the fault, covering a very small amount of
+characteristics, which is called the non-sensitive area. This is also
+                                                                                    4.1. The establishment of DNN fault detection model
+another feature after eigenvalue decomposition. In the eigenvalue
+sequence, the first 50% of the eigenvalue sequence will contain more
+                                                                                       The neural network structure applied to arc fault detection is shown
+than 90% of the feature information. It is widely used in image pro­
+                                                                                    in Fig. 6, which is composed of input layer, hidden layer and output
+cessing and can greatly compress the data dimension [29]. Therefore,
+                                                                                    layer. The feature vector d is the input of the network, hidden layer is
+
+
+
+
+                                       Fig. 4. Comparison of feature values in different states of load current half cycle.
+
+                                                                                5
+Q. Gong et al.                                                                                                          Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+Fig. 5. The values of three characteristic parameters of different loads. (a) The d1 value between different loads (b) The d2 value between different loads (c) The d3
+value between different loads.
+
+
+                                                                                             decomposed into 5 layers by the wavelet basis function DB5, and
+                                                                                             the discrete value is extracted. Wavelet coefficient sequence D
+                                                                                             (54 values in total), and construct Hankel characteristic matrix A
+                                                                                             for D.
+                                                                                         (2) Perform EVD on matrix A to get eigenvectors σ (15 values in
+                                                                                             total).
+                                                                                         (3) According to equation (9–11), σ is calculated by the eigenquan­
+                                                                                             tities d1, d2 and d3 to form the eigenvector d.
+
+                                                                                          Through the above steps, the wavelet coefficient sequence D and σ
+                                                                                      are extracted from the current data collected by 10 kinds of loads, and
+             Fig. 6. The structure of the DNN fault detection model.                  the eigenvector d is obtained. Based on the folder where the data file is
+                                                                                      located, there is an arc fault. Marked as 1, no fault is 0. A total of 3300
+composed of neurons with Gaussian activation. The output layer uses                   sets of training data are formed, of which 165 sets are normal and 165
+the sigmoid function as the activation function for binary classification.            sets are faulty for each load.
+The network structure is simple and the computational complexity is                       For a more intuitive representation of the input and output feature
+reduced.                                                                              matrices, a section of vacuum cleaner load current data was captured, as
+   As shown in Fig. 6, the hidden layer of the network contains three                 shown in Fig.7. The feature quantities were also extracted to generate
+layers, which is precisely a type of deep network and is superior to                  the input and output feature matrices, as shown in Table 2.
+shallow perceptrons in terms of performance. The number of nodes of                       The data is read in rows, with each row being a set of training data.
+neurons in the hidden layer was selected according to the empirical                   The first 20 sets are the input and output quantities in the normal state
+formula mentioned in reference [24], and finally, the exact number of                 and the last 20 sets are the input and output quantities in the fault state.
+neurons in the 3-layer hidden layer was determined as 16+32+16.                           Input the preprocessed 3300 groups of data into the DNN model, and
+   The specific steps of extracting current signal features based on the              3000 groups as the training set (1500 normal, 1500 fault), and 300
+combination of discrete wavelet transform and EVD are as follows:                     groups as the test set(150 normal, 150 fault) . Passed the test, it is found
+                                                                                      that the learning rate is set to 0.001, the training effect is better. The
+   (1) The collected current signal is digitally filtered by mean filter, the         training effect of the model is shown in Fig. 8, and the total training time
+       frequency after filtering is 5 kHz, and the collected current signal           is 33 s. After 100 iterations, the training accuracy rate is stable at around
+       per half power frequency cycle (100 values in total) is                        98%. At the same time, the loss value curve of the network also tends to
+
+
+                                                                                  6
+Q. Gong et al.                                                                                                        Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+                                                      Fig. 7. Current waveform diagram for vacuum cleaner.
+
+
+                                                                                     important to adjust the hyperparameters in the model, such as the
+Table 2
+                                                                                     number of nodes in each hidden layer, and the learning rate. The
+Inputs and outputs feature matrix.
+                                                                                     reference [24] similarly demonstrates that DNN outperform shallow
+  Number of rows of the matrix   Inputs                              Outputs         ANN in terms of performance.
+  1                              0.0139      0.0176       0.0109     0
+  2                              0.0132      0.0167       0.0104     0
+  3                              0.0139      0.0173       0.0105     0               4.2. Fault detection algorithm flow
+  …                              …                                   …
+  19                             0.0172      0.0213       0.0127     0
+  20                             0.0168      0.0207       0.0124     0
+                                                                                         GB/14,287.4 standard stipulates that if 14 and more half-cycle fault
+  21                             0.0219      0.0247       0.0116     1               arcs occur within 1 s, the fault arc breaker should issue an alarm signal
+  22                             0.0281      0.0317       0.0151     1               within 30 s. In accordance with the above standard requirements, cur­
+  23                             0.0235      0.0262       0.0119     1               rent data is collected in units of each half-cycle.
+  …                              …                                   …
+                                                                                         As shown in Fig.10, firstly, using the method proposed in this paper,
+  38                             0.0308      0.0353       0.0176     1
+  39                             0.0219      0.0262       0.0147     1               the feature matrix d is extracted from the collected half-cycle current
+  40                             0.0227      0.0276       0.0159     1               data and fed into the DNN fault detection model. If the model prediction
+                                                                                     result is greater than 0.5, the fault half-cycle is judged, and if the model
+                                                                                     prediction result is less than or equal to 0.5, the normal half-cycle is
+be stable, and the model begins to converge.                                         judged. Once the discrimination is complete, the current data is updated.
+    The output result of DNN model is a binary classification problem, so            If the number of fault half-cycles reaches 14 within 1 s (100 current half-
+when the output result is greater than 0.5, the output result is 1, which is         cycles), the arc fault is determined to have occurred and the fault
+judged as half cycle of arc fault. When the output is less than 0.5, it is           detection is complete. When the detection time limit reaches 1 s, but the
+judged to be a normal half-cycle. For part of the verification set, the              number of fault half-cycles has not reached 14, the accumulated results
+comparison between output results, prediction results and real labels is             are cleared and a new round of accumulation takes place.
+shown in Fig. 8 (b). The test results of the verification set are shown in
+Fig. 8 (c). The recognition results of 150 groups of normal half-cycle and
+                                                                                     5. Verification and comparative analysis of DNN fault detection
+fault half-cycle are 149 and 147, respectively.
+                                                                                     model
+    In order to further verify the degree of adaptation between the
+feature vector σ and the network, cross-validation is used to test the
+                                                                                     5.1. DNN fault detection model performance detection
+performance of the model. Re-collect and generate 6000 sets of training
+data for 10 typical loads, randomly select 3000 as the training set and
+                                                                                         In order to further verify the reliability of the DNN model for fault
+300 as the test set for training, repeat 50 times, count the test results on
+                                                                                     detection of the load types in the training set, 100 sets of effective cur­
+the test set. After 50 cross-validations, the range of accurately identified
+                                                                                     rent data were collected for each of the 10 typical loads participating in
+150 sets of normal current half-cycle data ranges from 146 to 150, and
+                                                                                     the model training, totaling 1000 sets. Each set of data contains 100
+the average recognition rate is 98.6%. The range of accurately identified
+                                                                                     normal half-cycles and 100 fault half-cycles (2 s of current data, 1 s as
+150 sets of fault current half-cycle data ranges from 142 to 150, with an
+                                                                                     normal, and 1 s as fault). The arc fault detection performance of the DNN
+average recognition rate of 97.3%.
+                                                                                     model is verified in MATLAB, and the detection results are shown in
+    For neural networks applied to 1-dimensional data processing,
+                                                                                     Table 3.
+single-layer ANN, two-layer ANN, 4-layer DNN and 5-layer DNN were
+                                                                                         The results show that in the detection of 100 arc fault half cycles (1 s)
+constructed for comparison with the 3-layer DNN used in this paper in
+                                                                                     of fault data, except for 4 of the 50 sets of tests on microwave oven loads,
+order to test the effect of network depth on detection results. In which,
+                                                                                     the recognition effect did not reach the standard of 14. And the other 50
+the data sets are used to be the 3000 sets of training set and 300 sets of
+                                                                                     sets of tests for each load were completed efficient identification of 14
+test set established by this paper, the detection results for the test set are
+                                                                                     and more arc half cycles. Models with excellent detection performance,
+shown in Fig. 9.
+                                                                                     such as those recently proposed by reference [23], reference [30] and
+    As shown in Fig. 9, for both faulty and normal half-cycles, when the
+                                                                                     reference [31], have not been tested on microwave ovens. The micro­
+number of the hidden layer is greater than or equal to three, the model is
+                                                                                     wave oven is a "shielded" load and because it contains a large number of
+significantly more accurate in identifying the test set than when the
+                                                                                     functional circuits, the characteristic information in the fault current
+hidden layers are a single layer or two layers. However, when the hidden
+                                                                                     signal is absorbed and the fault characteristic information is weak, so
+layer reaches 3 layers, the accuracy of testing the test set no longer
+                                                                                     there are four missed detections in the test results. During normal
+improves with increasing network depth. At this point it becomes more
+                                                                                     operation of the load, the misjudgment of 100 non-fault arc half cycles
+
+                                                                                 7
+Q. Gong et al.                                                                                                     Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+                                                     Fig. 8. Training effect of DNN model driven by d.
+
+
+
+
+                                   Fig. 9. Detection results of the model on the test set when the hidden layer is changed.
+
+
+for each load does not exceed the standard of 14, and will not cause              of data contained 100 normal half-cycles and 100 fault half-cycles are
+misjudgment. In general, in 100 arc half cycles (1 s) when 10 kinds of            input into the model for detection, and the effects are shown in Table 4.
+loads fault, the overall identification accuracy of the arc half cycle is             The halogen lamp is a load that has a significant impact on the arc
+about 80%, and the accuracy of arc fault identification is 99.6%. The             fault detection algorithm, and its "zero rest" characteristics in the normal
+normal working signal produces misjudgment. The fault detection                   state are stronger than the "zero rest" characteristics of some loads in the
+method using the model can effectively complete the status classifica­            fault state. Therefore, many arc fault interrupters on the market are
+tion of 10 typical loads and realize arc fault identification.                    strictly limited to its use. The test results for halogen lamps show that in
+    In actual work, the types of civil electrical loads are complex and           the detection, and the accuracy can be 76% of fault identification within
+changeable, and there are often unknown loads. In order to further test           the GB/14,287.4 standard. The remaining four loads have good detec­
+the detection performance and universality of the model, 50 sets of               tion results and can be 100% accurate. In the detection of normal data of
+effective current data for each of 5 load types that did not participate in       5 kinds of loads, the misjudgment of the half cycle has not reached the
+model training were collected to detect non-training load types. Each set         standard of 14, and there will be no misjudgment. The overall
+
+
+                                                                              8
+Q. Gong et al.                                                                                                         Electric Power Systems Research 221 (2023) 109391
+
+
+                                                                                       Table 5.
+                                                                                           The change of the overall load power has less impact on the detection
+                                                                                       performance of the DNN model, and more importantly, the impact of the
+                                                                                       characteristics of the load itself. For computer loads, misjudgments all
+                                                                                       come from the influence of control circuits such as internal rectifier
+                                                                                       circuits, which occur in the normal stage of the load. For the fluorescent
+                                                                                       lamp load, due to the small power, the signal is greatly affected by the
+                                                                                       line, equipment and environment, so there are several misjudgments.
+
+                                                                                       5.2. Anti-jamming analysis of DNN fault detection model
+
+                                                                                           Data-driven fault detection algorithms based on data are susceptible
+                                                                                       to anomaly-driven data, such as metering errors, equipment distur­
+                                                                                       bances and start-up process for loads that can generate unfavorable data
+                                                                                       for detecting anomalies. Therefore, it is necessary to test the model
+                                                                                       against interference.
+                                                                                           Fig. 11(a) shows the current data for the start-up process of the
+                                                                                       computer load. The current collection result should be 0 for 175 half
+                                                                                       cycles before the line is connected to the load. Although the power is not
+                                                                                       turned on, but the process is still being collected as smaller raw drive
+                                                                                       data. The reason is that the data comes from other disturbances in the
+                                                                                       line and is a mixture of disturbance data, containing line and equipment
+                                                                                       disturbances etc. The disturbance can be interpreted as a metering error
+                                                                                       introduced by the line and the equipment. It takes approximately 60
+                                                                                       current half-cycles for the load to go from power on to stable operation.
+            Fig. 10. Flowchart of fault detection for the DNN model.
+                                                                                       For the two stages mentioned above, the calculation of the three char­
+                                                                                       acteristic parameters of the computer start-up process was carried out
+Table 3                                                                                and the results are shown in Fig. 11(b). The DNN model classification
+The DNN arc fault model on the load recognition effect of the training set.            results for the computer start-up process are shown in Fig. 11(c). There
+                                                                                       were six false alarm cases in the 175 current half-cycles before the line
+  Load name         Correct             Correct              Comply with GB/
+                    identification      identification       14,287.4,complete         was connected to the load but the power was not turned on. This error is
+                    number range for    number range for     the number of fault       caused by metering errors from line disturbances and equipment dis­
+                    50 groups of        50 groups of fault   identification            turbances. During the period from when the power is switched on to the
+                    normal half-cycle   half-cycles          groups                    computer’s stable operation, a total of 60 current half-cycles, there are
+                    data
+                                                                                       eight cases of misjudgement. The cause is disturbance caused by un­
+  Resistor          98~100              86~96                (50/50)                   stable operation during load start-up. In the following 140 current half-
+    Electric iron   96~100              82~93                (50/50)
+                                                                                       cycles (computer load stabilization phase), there were five misjudge­
+    Electric fan    89~98               68~82                (50/50)
+    Induction       96~100              72~86                (50/50)                   ments. The misjudgements were caused by mixed disturbances during
+    cooker          93~100              85~93                (50/50)                   load stabilization. As required in GB/14,287.4, 14 or more numbers of
+    Computer        97~100              12~33                (46/50)                   arc half-cycles need to be detected in 1 s. Although there are a total of 19
+    Microwave       95~100              86~94                (50/50)                   misjudgements throughout the process, the maximum number of mis­
+    oven            92~100              56~71                (50/50)
+    Vacuum          95~100              65~78                (50/50)
+                                                                                       judgements is 9 within the 1 s time scale and misjudgements of the
+    cleaner         91~100              23~41                (50/50)                   detection results are not caused. The effect of perturbations caused by
+    Microwave                                                                          the start-of the computer load can be effectively ruled out.
+    oven+                                                                                  The process of accessing the microwave oven load during stable
+    resistance
+                                                                                       operation of the electric heater is shown in Fig. 12. The calculation re­
+    Computer+
+    Vacuum                                                                             sults for the three characteristic parameters of the process are shown in
+    Cleaner                                                                            Fig. 12(b). The classification results of the DNN model for the load
+    Fluorescent                                                                        throwing process are shown in Fig. 12(c). During the 2.5 s of stable
+    lamp 36 W                                                                          operation of the electric heater, there were 16 instances of misjudge­
+                                                                                       ment. From the time the microwave oven is connected in the circuit to
+recognition accuracy for non-training set loads more than 90%. In                      the stable operation of the mixed load, approximately 90 current half-
+general, it has high detection accuracy for non-training set loads. In                 cycles are passed and a total of three misjudgements exist. The mis­
+practical engineering applications, the detection range of the model can               judgements were caused by unstable operation of the microwave oven
+be continuously optimized by continuously supplementing the types of                   load when it was connected to the line. In the following 1.6 s, which is
+training sets.                                                                         the smooth running phase of the load, there are 8 false positives. The
+    For 10 typical loads, when an arc fault occurs, the arc voltage values             misjudgements were caused by the effect of mixed disturbances on the
+in different power frequency half cycles are not exactly the same under                drive data. As required in GB/14,287.4, 14 or more numbers of arc half-
+the same load. There is a big difference in the fault current data between             cycles need to be detected in 1 s. In the whole process, although there are
+different groups, but when the load is working normally, the data is                   27 misjudgements, the maximum number of misjudgements is 8 in a
+relatively stable, so it is necessary to change the load power for further             time scale of 1 s, and misjudgements in arc fault detection are not
+method verification. 50 sets of valid data for each of the 10 typical loads            caused. The effects of disturbances generated during load input and
+after the power has been changed are re-collected, of which 25 sets of                 removal can be effectively excluded.
+data are faulty and 25 sets of non-faulty data for each load (1 s for each                 The DNN fault detection model statistics for the typical load start-up
+set of data), a total of 500 sets of data. The detection results are shown in          process or the process of load access circuits are shown in Table 6.
+                                                                                       Current data was collected 10 times for each type of load.
+
+                                                                                   9
+Q. Gong et al.                                                                                                                       Electric Power Systems Research 221 (2023) 109391
+
+
+Table 4
+DNN model load detection results on non-training.
+  Load           Correct          Correct identification number range for 50 groups of fault half-     Comply with GB/14,287.4 standard, complete the number of fault identification
+  name           identification   cycles                                                               groups
+                 number range
+                 for 50 groups
+                 of normal
+                 half-cycle
+                 data
+
+  Air conditioner      91~88      41~62                                                                (50/50)
+    1200 W             98~100     88~97                                                                (50/50)
+    Electric           96~100     8~19                                                                 (38/50)
+    kettle 1500        93~100     63~76                                                                (50/50)
+    W                  97~100     32~57                                                                (50/50)
+    Halogen
+    lamp 55 W
+    Electric fan
+    400 W+
+    computer
+    600 W
+    Electric fan
+    600 W+
+    electric
+    kettle 1 kW
+
+
+
+                                                                                                   The wavelet transform was likewise used as the basis of the method
+Table 5                                                                                        by reference [31] and fused with a ResNet network. Ultimately, an arc
+The detection results of the DNN model that the load power is changed.
+                                                                                               fault detection model was developed. The method is novel in intro­
+  Load name             Correct              Correct               Comply with GB/             ducing the field of computer vision into arc fault detection and has a
+                        identification       identification        14,287.4 standard,
+                                                                                               high fault recognition rate. However, the input to the model is a
+                        number range for     number range for      complete the
+                        50 groups of         50 groups of fault    number of fault             three-channel RGB color image, which would complicate the gradient
+                        normal half-cycle    half-cycles           identification              calculation. The structure of CNN is also very deep compared to DNN
+                        data                                       groups                      (applied to one dimensional data). This makes the training process and
+  Resistor 1200 W       97~100               86~96                 (50/50)                     the computation of the model complex and large, and not suitable for
+    Electric iron       95~100               82~93                 (50/50)                     implementation into hardware development. Therefore, this paper
+    600 W               87~96                68~82                 (50/50)                     chooses a low sampling rate and finalizes the wavelet coefficient matrix
+    Electric fan 600    94~98                72~86                 (50/50)
+                                                                                               to a simple 1 × 3 feature matrix and a DNN. This simplifies the training
+    W                   83~96                85~93                 (46/50)
+    Induction           93~100               12~23                 (50/50)                     process of the fault detection model, reduces the computational
+    cooker1800W         96~100               86~94                 (50/50)                     complexity and thus guarantees detection timeliness. For the fault
+    Computer 300        90~100               56~71                 (50/50)                     detection model proposed in this paper, the arc half-cycle can be
+    W                   93~100               65~78                 (50/50)                     monitored in real time and the calculation is carried out in half-cycle
+    Microwave           91~100               11~26                 (43/50)
+    oven 500 W
+                                                                                               units. Each time a current half-cycle is elapsed, that half-cycle is
+    Vacuum cleaner                                                                             discriminated and the fault is determined after a total of 14 arc
+    400 W                                                                                      half-cycles have been discriminated. The fastest fault detection time is
+    Microwave                                                                                  just 14 current half-cycles, so the model has a high degree of real-time
+    oven 300 W+
+                                                                                               performance. Reference [31], on the other hand, collects 0.5 s of cur­
+    resistor500 W
+    Computer300                                                                                rent data, which is 50 current half-cycles, and then performs fault
+    W + Vacuum                                                                                 discrimination on the entire section of current data, with a fixed
+    400 W                                                                                      detection window size and therefore relatively poor time-efficient per­
+    Fluorescent                                                                                formance. The methods such as those proposed in reference [21] and
+    lamp 12 W
+                                                                                               reference [24] are also built on the basis of DNN, and compress the input
+                                                                                               volume scale and model structure as much as possible during the con­
+   The above statistics show that, according to GB/14,287.4, 14 or more                        struction of the fault detection model. However, the fault detection
+arc half-cycles need to be detected within 1 s before an arc fault is                          model proposed in this paper has the lowest sampling rate, the smallest
+deemed to be a standard requirement. The impact of anomalous data                              scale of inputs and the simplest neural network structure compared to
+due to metering errors, equipment disturbances, load access circuits                           the above references.
+processes etc. can be effectively eliminated by the DNN fault detection                            Comparison results are summerised as follows:
+model.
+                                                                                                     (1) Through comparison, the proposed method is applicable to the
+                                                                                                         most comprehensive range of load types, and all seven load types
+5.3. Method comparison                                                                                   are applicable. The applicable load range is the largest and most
+                                                                                                         comprehensive. In particular, the method proposed in this paper
+    In order to verify the superiority of the proposed method, three                                     enables the identification of faults in microwave oven loads with
+representative methods in this field were selected for comparison with                                   "shielding" characteristics.
+the proposed method. Both the proposed method and the selected                                       (2) The feature vector scale is the scale of the driving data, which is
+method extract feature quantities by traditional algorithms. The feature                                 one of the important factors that determine the training
+quantity is used as the driving data of the artificial intelligence algo­                                complexity of artificial intelligence algorithms and complete
+rithm to train the arc fault detection model. The specific comparison                                    rapid detection. The proposed algorithm has the smallest scale of
+results are shown in Table7.
+
+                                                                                          10
+Q. Gong et al.                                                                                                   Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+                                                      Fig. 11. Analysis of computer start-up process.
+
+
+       driving data, which is only 1 × 3. The requirements for the                      that determines the generalization ability of the model. The
+       complexity of the artificial intelligence algorithm framework are                proposed method considers load power and load types variation
+       low. It has the most convenient training process and the lowest                  to evaluate the performance of the model for detection of non-
+       computational cost.                                                              training set loads.
+   (3) The identification time represents the standard within which 14
+       arc half cycles should be detected as specified by GB/14,287.4.            6. Conclusion
+       The proposed method has the shortest mean recognition time of
+       only 0.18 s, which is the fastest detection response time.                     Aiming at the problem of the low-voltage AC series arc fault has
+   (4) The overall recognition rate represents the average recognition            strong concealment and seriously threatens the safety of electricity use
+       accuracy of the model for the training set load types. The pro­            in civil applications. A series arc fault identification method based on
+       posed method has the highest recognition accuracy of 99.6%.                based on wavelet transform and feature values decomposition fusion
+   (5) And none of the three methods compared are evaluated for                   DNN is proposed. The main conclusions of this paper are as follows:
+       recognition ability on non-training set loads and interference test
+       was carried out either. This is non-negligible evaluation factor
+
+
+                                                                             11
+Q. Gong et al.                                                                                                    Electric Power Systems Research 221 (2023) 109391
+
+
+
+
+                                                     Fig. 12. Analysis of the load access circuit process.
+
+
+   (1) The eigenvector σ is extracted by wavelet transform and eigen­                     standard is satisfied and within its allowable range, and the
+       value decomposition of the collected current signal. The three                     overall recognition rate (training set load and non-training set
+       evaluation indexes d1, d2 and d3 of σ are formed into feature                      load) of arc fault identification is around 98.7%. It provides
+       vector d. It is used as the driving data of DNN, and the arc feature               analytical ideas for the identification of AC arc faults in low-
+       information is effectively amplified. The complexity of feature                    voltage systems.
+       information extraction is greatly simplified, and the input
+       dimension of the model is reduced. With the benefits of tradi­              CRediT authorship contribution statement
+       tional algorithms and neural networks, the training process is
+       simplified.                                                                    Quanyi Gong: Conceptualization, Methodology, Investigation,
+   (2) It is verified that the DNN fault detection model established in            Writing – original draft, Writing – review & editing. Ke Peng: Writing –
+       this paper has a good identification effect for both training set           review & editing. Qun Gao: Investigation, Visualization. Liang Feng:
+       load and non-training set load types. The overall identification            Software, Supervision. Chuanliang Xiao: Validation, Visualization.
+       rate (training set load and non-training set load) of the arc half
+       cycle in the fault current signal can reach 94.5%. GB/14,287.4
+
+
+                                                                              12
+Q. Gong et al.                                                                                                                   Electric Power Systems Research 221 (2023) 109391
+
+
+Table 6                                                                                    [2] J.-R. Riba, M. Moreno-Eguilaz, J.A. Ortega, Arc fault protections for aeronautic
+DNN model detection results of load startup process.                                           applications: a review identifying the effects, detection methods, current progress,
+                                                                                               limitations, future challenges, and research needs, IEEE Trans. Instrum. Meas. 71
+  Load name                    The maximum number of       The number of times the             (2022) 1–14, https://doi.org/10.1109/TIM.2022.3141832.
+                               misjudgments for the arc    DNN model correctly             [3] A. Maqsood, D. Oslebo, K. Corzine, L. Parsa, Y. Ma, STFTcluster analysis for DC
+                               half cycle in 1s            identifies the startup              pulsed load monitoring and fault detection onnaval shipboard power systems, IEEE
+                                                           state                               Trans. Transport. Electrific. 6 (2) (2020) 821–831, https://doi.org/10.1109/
+                                                                                               TTE.2020.2981880. Jun.
+  Air conditioner 1200 W       12                          10                              [4] G. Wang, W.-.H. Kim, H.-.K. Ji, G.-.S. Kil, Detection and analysis of series arc using
+  Resistor 800 W               8                           10                                  non-conventional methods in low-voltage switch-boards, J. Elect. Eng. 69 (4)
+  Electric iron 1000 W         6                           10                                  (2018) 317–322, https://doi.org/10.2478/jee-2018-0045. Aug.
+  Electric fan 400 W           8                           10                              [5] Y. Ogawa, T. Koshizuka, K. Asakusa, et al., Arc model to evaluate D.C. Interruption
+  Induction cooker 2100 W      6                           10                                  performance for molded case circuit breaker, IEEJ Trans. Power Energy 138 (6)
+  Microwave oven 800 W         2                           10                                  (2018) 529–534, https://doi.org/10.1541/ieejpes.138.529.
+  Vacuum cleaner 1000 W        9                           10                              [6] M. Jalil, H. Samet, T. Ghanbari, M. Tajdinian, An enhanced Cassie-Mayr based
+                                                                                               approach for DC series arc modeling in PV systems, IEEE Trans. Instrum. Meas. 70
+  Microwave oven 800 W         7                           10
+                                                                                               (2021), https://doi.org/10.1109/TIM.2021.3124832. Art. no. 9005710.
+    + resistance 800 W
+                                                                                           [7] C. Vasile, C. Ioana, Arc fault detection and localization by electromagnetic-acoustic
+    (start at the same time)
+                                                                                               remote sensing, in: 2016 IEEE Radio and Antenna Days of the Indian Ocean
+  Computer 600 W +             9                           10                                  (RADIO), 2016, pp. 1–2, https://doi.org/10.1109/RADIO.2016.7772044.
+    Vacuum Cleaner 1 kW                                                                    [8] A. Mukherjee, A. Routray, A.K. Samanta, Method for online detection of arcing in
+    (start at the same time)                                                                   low-voltage distribution systems, IEEE Trans. Power Deliv. 32 (3) (2017)
+  The resistance is stable     8                           10                                  1244–1252, https://doi.org/10.1109/TPWRD.2015.2392385. June.
+    and connected to the                                                                   [9] G. Artale, A. Cataliotti, V. Cosentino, D. Di Cara, S. Nuccio, G. Tinè, Arc fault
+    microwave oven                                                                             detection method based on CZT low-frequency harmonic current analysis, IEEE
+  The computer is running      9                           10                                  Trans. Instrum. Meas. 66 (5) (2017) 888–896, https://doi.org/10.1109/
+    steadily and connected                                                                     TIM.2016.2627248. May.
+    to the vacuum cleaner                                                                 [10] M. Atharparvez, K.R. Purandare, Series arc fault detection using novel signal
+  Fluorescent lamp 36W         5                           10                                  processing technique, in: 2018 IEEE Holm Conference on Electrical Contacts, 2018,
+                                                                                               pp. 335–339, 10.119/HOLM.2018.8611761.
+                                                                                          [11] S.A. Saleh, E. Ozkop, Phaselet-based method for detecting electric faults in 3f
+                                                                                               induction motor drives - part I: analysis and development, IEEE Trans. Ind. Appl.
+                                                                                               53 (3) (2017) 2988–2996, https://doi.org/10.1109/TIA.2016.2608945. Sep.
+Table 7                                                                                   [12] S.A. Saleh, A.S. Aljankawey, R. Errouissi, E. Castillo-Guerra, Extracting the phase of
+Comparison of arc fault detection method comparison.                                           fault currents: a new approach for identifying arc flash faults, IEEE Trans. Ind.
+  Method                Reference      Reference      Reference        Proposed                Appl. 52 (2) (2016) 1226–1240, https://doi.org/10.1109/TIA.2015.2483698.
+                                                                                               March-April.
+                        [23]           [30]           [31]             method
+                                                                                          [13] Q. Xiong, et al., Series arc fault detection and localization in DC distribution
+  Applicable load       1,2,3,4        1,2,4,6,7      1,2,3,4,6    1–7                         system, IEEE Trans. Instrum. Meas. 69 (1) (2020) 122–134, https://doi.org/
+   type range           1 × 500        1 × 20,000     5 × 2500     1×3                         10.1109/TIM.2019.2890892. Jan.
+   Eigenvector          Not            1s             0.5 s        0.18 s                 [14] S.A. Saleh, M.E. Valdes, C. Mardegan, B. Alsayid, State-of-the-art methods for
+   scale                introduced     Not            97.91%       99.6%                       detecting and identifying arcing current faults, in: Proc. 55rd IEEE IAS Ind.
+                                                                                               Commercial Power Syst. Tech. Conf, 2019, pp. 1–15, https://doi.org/10.1109/
+   Mean                 99.1%          introduced     Not          Recognition
+                                                                                               ICPS.2019.8733359.
+   recognition time     Not            Not            evaluated    90%
+                                                                                          [15] Z. Wang, S. McConnell, R.S. Balog, J. Johnson, Arc fault signal detection—Fourier
+   Overall              evaluated      evaluated
+                                                                                               transformation vs. wavelet decomposition techniques using synthesized data, in:
+   recognition rate                                                                            Proc. IEEE 40th Photovolt. Spec. Conf, 2014, pp. 3239–3244, https://doi.org/
+   Evaluate on                                                                                 10.1109/PVSC.2014.6925625. Oct.
+   non-training                                                                           [16] G. Ala, et al., A smart sensing method for real- time mon-itoring of low voltage
+   loads                                                                                       series-arc-fault, in: Proc. 20th IEEE Mediterr. Electrotech. Conf, 2020,
+                                                                                               pp. 512–516, https://doi.org/10.1109/MELECON48756.2020.9140599. Jun.
+Notes of applicable load type range: 1. Resistive 2. Capacitor start motor 3.             [17] A. Laib, M. Melit, B. Nekhoul, K. Kerroum, K.E. Drissi, Soft fault identification in
+Vortex 4. Switching power supply 5. Magnetron 6. Series motor 7. Combined                      electrical network using time domaine reflectometry and adaptive neuro-fuzzy
+load.                                                                                          inference systeme, in: 2017 5th International Conference on Electrical Engineering
+                                                                                               - Boumerdes (ICEE-B), 2017, pp. 1–4, https://doi.org/10.1109/ICEE-
+                                                                                               B.2017.8192147.
+Declaration of Competing Interest                                                         [18] H. Ninghui, L. Xiuguang, Z. Xiu, T. Lu, Research on arc fault detection method of
+                                                                                               low voltage shutdown controller, in: 2020 International Conference on Urban
+                                                                                               Engineering and Management Science, 2020, pp. 274–277, https://doi.org/
+    We declare that we have no financial and personal relationships with
+                                                                                               10.1109/ICUEMS50872.2020.00066.
+other people or organizations that can inappropriately influence our                      [19] W. Miao, Z. Wang, F. Wang, K.H. Lam, P.W.T. Pong, Multi-characteristics arc
+work, there is no professional or other personal interest of any nature or                     model and autocorrelation-algorithm based arc fault detector for DC microgrid,
+                                                                                               IEEE Trans. Ind. Electron. (2022), https://doi.org/10.1109/TIE.2022.3186351.
+kind in any product, service and/or company that could be construed as
+                                                                                          [20] H. Zhao, J. Liu, J. Lou, Series arc fault detection based on current fluctuation and
+influencing the position presented in, or the review of, the manuscript                        zero-current features, Electric Power Syst. Res. 202 (2022), https://doi.org/
+entitled, “Series arc fault identification method based on wavelet                             10.1016/J.EPSR.2021.107626. January.
+transform and feature values decomposition fusion DNN”.                                   [21] H. Gao, Z. Wang, C. Han, A. Tang, F. Guo, B. Li, Feature extraction method of series
+                                                                                               arc fault occurred in three-phase motor with inverter circuit, IEEE Trans. Power
+                                                                                               Electron. 37 (9) (2022) 11164–11173, https://doi.org/10.1109/
+Data availability                                                                              TPEL.2022.3164246. Sept.
+                                                                                          [22] C. Han, Z. Wang, A. Tang, H. Gao, F. Guo, Recognition method of AC series arc
+                                                                                               fault characteristics under complicated harmonic conditions, IEEE Trans. Instrum.
+    Please contact the corresponding author if necessary for all data                          Meast 70 (2021) 1–9, https://doi.org/10.1109/TIM.2021.3051669. Art no.
+                                                                                               3509709.
+                                                                                          [23] Y. Wang, F. Zhang, X. Zhang, S. Zhang, Series AC arc fault detection method based
+                                                                                               on hybrid time and frequency analysis and fully connected neural network, IEEE
+Acknowledgements                                                                               Trans. Ind. Inform. 15 (12) (2019) 6210–6219, https://doi.org/10.1109/
+                                                                                               TII.2018.2885945. Dec.
+   This work was supported in part by the funding of project supported                    [24] J. Jiang, W. Li, Z. Wen, Y. Bie, H. Schwarz, C. Zhang, Series arc fault detection
+                                                                                               based on random forest and deep neural network, IEEE Sens. J. 21 (15) (2021)
+by National Natural Science Foundation of China (51807112).                                    17171–17179, https://doi.org/10.1109/JSEN.2021.3082294, 1 Aug.1.
+                                                                                          [25] Q. Gong, K. Peng, W. Wang, et al., Series arc fault identification method based on
+References                                                                                     multi-feature fusion, Front. Energy Res. 9 (2022) 1–14, https://doi.org/10.3389/
+                                                                                               fenrg.2021.824414.
+                                                                                          [26] G. Long, H. Mu, Y. Li, D. Zhang, N. Ding, G. Zhang, Fault identification technology
+ [1] Y.T. Yin, R. He, Low Voltage Electrical Apparatus Technical Manuals, China
+                                                                                               of series arc based on deep learning algorithm, in: 2020 IEEE International
+     Machine Press, Beijing, China, 2014.
+
+
+                                                                                     13
+Q. Gong et al.                                                                                                                      Electric Power Systems Research 221 (2023) 109391
+
+     Conference on High Voltage Engineering and Application (ICHVE), 2020, pp. 1–4,           [29] L. Gao, M. Liu, J. Yue, Y. Tian, Fast separation algorithm of mixed signals based on
+     https://doi.org/10.1109/ICHVE49031.2020.9279366.                                              GEVD, in: 2019 3rd International Conference on Electronic Information
+[27] C. Liu, F. Zhuo, F. Wang, Fault diagnosis of commutation failure using wavelet                Technology and Computer Engineering (EITCE), 2019, pp. 1106–1109, https://doi.
+     transform and wavelet neural network in HVDC transmission system, IEEE Trans.                 org/10.1109/EITCE47263.2019.9095053.
+     Instrum. Meas. 70 (2021) 1–8, https://doi.org/10.1109/TIM.2021.3115574. Art              [30] R. Jiang, G. Bao, Q. Hong, C.D. Booth, A coupling method for identifying arc faults
+     no. 3525408.                                                                                  based on short-observation-window SVDR, IEEE Trans. Instrum. Meas. 70 (2021)
+[28] R.R. Sharma, R.B. Pachori, A new method for non-stationary signal analysis using              1–10, https://doi.org/10.1109/TIM.2021.3067660. Art no. 3513810.
+     eigenvalue decomposition of the Hankel matrix and Hilbert transform, in: 2017 4th        [31] S. Zhang, N. Qu, T. Zheng, C. Hu, Series arc fault detection based on wavelet
+     International Conference on Signal Processing and Integrated Networks (SPIN),                 compression reconstruction data enhancement and deep residual network, IEEE
+     2017, pp. 484–488, https://doi.org/10.1109/SPIN.2017.8049998.                                 Trans. Instrum. Meas. 71 (2022) 1–9, https://doi.org/10.1109/
+                                                                                                   TIM.2022.3158990. Art no. 3508409.
+
+
+
+
+                                                                                         14
+

@@ -1,0 +1,73 @@
+from pathlib import Path
+
+root=Path(__file__).resolve().parents[2]
+p=root/'Chuong-1-Tong-quan-de-tai.md'
+s=p.read_text(encoding='utf8')
+replacements={
+'Những bộ phận cần quan tâm gồm:':'Các bộ phận được xem xét gồm:',
+'một vị trí điển hình cần quan tâm khi theo dõi sự cố hồ quang.':'một vị trí điển hình trong theo dõi sự cố hồ quang.',
+'không gian cần giám sát.':'không gian giám sát.',
+'Khi xác định vùng giám sát, cần xét từng khoang và các vật cản trong tủ, thay vì chỉ xét khoảng cách từ cảm biến đến vị trí có thể xảy ra sự cố.':'Phạm vi giám sát phụ thuộc từng khoang, các vật cản và khoảng cách giữa cảm biến với vị trí sự cố.',
+'khoang tủ là đơn vị cần khảo sát cụ thể khi bố trí đầu thu quang.':'việc phân tích vị trí đầu thu quang được thực hiện theo từng khoang tủ.',
+'Việc cắt nguồn còn cần đến các phần tử bảo vệ và thiết bị đóng cắt bên ngoài. Vì vậy, khi xây dựng yêu cầu, cần xác định rõ đầu vào nào được sử dụng, đầu ra cung cấp thông tin gì và phần chức năng nào thuộc bộ phát hiện.':'Việc cắt nguồn được thực hiện qua các phần tử bảo vệ và thiết bị đóng cắt bên ngoài. Trong phạm vi bộ phát hiện, đồ án phân tích tín hiệu đầu vào, thông tin đầu ra và quan hệ giữa các khối xử lý.',
+'Trong mạch điện, cần phân biệt ba khái niệm thường gặp:':'Ba khái niệm được sử dụng trong chương gồm:',
+'tín hiệu xuất hiện trong quá trình làm việc bình thường phải được xem xét khi đánh giá tác động gây nhầm.':'tín hiệu xuất hiện trong quá trình làm việc bình thường là một nhóm tác động gây nhầm trong đánh giá bộ phát hiện.',
+'cho thấy sự cố cần được xem xét cả về phát hiện lẫn khả năng chịu đựng của kết cấu tủ.':'thể hiện hai khía cạnh của sự cố: dấu hiệu phục vụ phát hiện và tác động lên kết cấu tủ.',
+'Khi tham khảo các công trình trên, cần lựa chọn nội dung phù hợp với nhiệm vụ nghiên cứu.':'Các công trình trên được sử dụng để phân biệt phạm vi và loại tín hiệu nghiên cứu.',
+'khi xét toàn hệ thống phải tính đến thiết bị bảo vệ và máy cắt.':'ở cấp toàn hệ thống, thời gian phản hồi còn bao gồm hoạt động của thiết bị bảo vệ và máy cắt.',
+'Với nhiệm vụ này, hệ thống nhúng cần có khả năng thu nhận tín hiệu, đưa ra quyết định và cung cấp đầu ra để kiểm tra. Những yêu cầu về điện áp, tần số, dòng điện, độ nhạy và thời gian cần được xác định trước khi lựa chọn giải pháp phần cứng.':'Nhiệm vụ của hệ thống nhúng gồm thu nhận tín hiệu, xử lý quyết định và cung cấp đầu ra để đánh giá. Đồ án phân tích điện áp, tần số, dòng điện, độ nhạy và thời gian phản hồi làm cơ sở lựa chọn giải pháp phần cứng.',
+'Trong quá trình thiết kế, cần tách ba loại điện áp:':'Trong phân tích thiết kế, điện áp được chia thành ba nhóm để làm rõ điều kiện làm việc và giao diện của từng khối:',
+'đây là đường tín hiệu cần được kiểm tra về mức điện, cực tính và cách ly.':'đặc tính giao diện gồm mức điện, cực tính và cách ly.',
+'Việc tách các loại điện áp giúp xác định đúng giao diện cần thiết kế.':'Việc phân chia điện áp làm rõ giao diện giữa các khối trong thiết kế.',
+'Mỗi cổng thu nhận hoặc xuất tín hiệu cần được mô tả bằng mức danh định, dải làm việc và điều kiện kết nối với thiết bị ngoài.':'Đặc tính mỗi cổng thu nhận hoặc xuất tín hiệu được mô tả bằng mức danh định, dải làm việc và điều kiện kết nối với thiết bị ngoài.',
+'Tần số cần được xem xét theo từng đại lượng thay vì dùng chung một giá trị cho toàn hệ thống.':'Đồ án phân tích tần số theo từng đại lượng vì tần số nguồn, băng thông và tốc độ lấy mẫu mô tả các đặc tính khác nhau.',
+'**Dải tần tín hiệu cần thu nhận:**':'**Dải tần tín hiệu thu nhận:**',
+'kênh quang cần theo dõi được biến đổi ánh sáng phục vụ phát hiện.':'kênh quang theo dõi biến đổi ánh sáng phục vụ phát hiện.',
+'Đối với hệ thống của đề tài, cần xác định thông tin nào phải được giữ lại trước khi chọn băng thông và tốc độ xử lý. Nếu bộ thu nhận làm mất biến đổi cần nhận biết thì việc tăng tốc xử lý ở phía sau cũng không khôi phục được thông tin đó.':'Việc lựa chọn băng thông và tốc độ xử lý dựa trên đặc điểm tín hiệu mà đồ án sử dụng. Nếu biến đổi mang dấu hiệu sự cố bị mất ở khâu thu nhận, việc tăng tốc xử lý phía sau không khôi phục được thông tin đó.',
+'Khi đánh giá, cần đối chiếu dải đáp ứng của chuỗi thu nhận với tín hiệu tham chiếu, đồng thời xem xét ảnh hưởng của các khối điều hòa và xử lý.':'Phương pháp đánh giá đối chiếu dải đáp ứng của chuỗi thu nhận với tín hiệu tham chiếu và xét ảnh hưởng của các khối điều hòa, xử lý.',
+'Khi xây dựng kênh dòng, cần phân biệt:':'Đối với kênh dòng, đồ án phân biệt ba đại lượng:',
+'Yêu cầu của kênh dòng vì vậy cần nêu rõ vị trí lấy thông tin, dạng tín hiệu và vai trò trong quyết định phát hiện. Nếu sử dụng dòng để xác nhận tín hiệu quang, phải xác định điều kiện phối hợp và quan hệ thời gian giữa hai tín hiệu.':'Kênh dòng được phân tích theo vị trí lấy thông tin, dạng tín hiệu và vai trò trong quyết định phát hiện. Với phương án dùng dòng xác nhận tín hiệu quang, điều kiện phối hợp và quan hệ thời gian giữa hai tín hiệu là cơ sở xây dựng logic xử lý.',
+'Với kênh quang, cần xem xét từ đầu thu đến quyết định của bộ phát hiện. Có ba nội dung phải được mô tả riêng:':'Với kênh quang, độ nhạy được phân tích trên chuỗi từ đầu thu đến quyết định phát hiện, gồm ba nội dung:',
+'các khoang cần bảo vệ':'các khoang được bảo vệ',
+'phép đánh giá độ nhạy cần ghi rõ nguồn kích thích, khoảng cách, hướng thu, vật cản và ánh sáng nền.':'điều kiện đánh giá độ nhạy gồm nguồn kích thích, khoảng cách, hướng thu, vật cản và ánh sáng nền.',
+'Đối với đồ án, điều kiện cần phát hiện và tập tác động gây nhầm phải được xây dựng cùng phương án thu nhận.':'Trong đồ án, tình huống sự cố và tập tác động gây nhầm được xem xét cùng phương án thu nhận.',
+'phần dữ liệu cần bổ sung':'những thông số chưa xác lập',
+'Các khoảng thời gian cần tách trong quá trình đánh giá gồm:':'Đồ án phân tích thời gian phản hồi theo các khoảng sau:',
+'Đối với nguyên mẫu, cần đo kích thích tham chiếu và đầu ra trên cùng cơ sở thời gian. Báo cáo kết quả phải nêu vị trí đặt mốc, điều kiện kích thích và cách xác định trạng thái đầu ra.':'Phương pháp đánh giá nguyên mẫu sử dụng kích thích tham chiếu và đầu ra trên cùng cơ sở thời gian. Vị trí đặt mốc, điều kiện kích thích và cách xác định trạng thái đầu ra là các điều kiện của phép đánh giá.',
+'Việc chọn chu kỳ phải dựa vào tín hiệu và thời gian dành cho quyết định phát hiện.':'Việc lựa chọn chu kỳ dựa trên đặc điểm tín hiệu và thời gian dành cho quyết định phát hiện.',
+'Tùy cách thu nhận, nội dung cần đánh giá có thể khác nhau:':'Nội dung đánh giá tương ứng với từng cách thu nhận như sau:',
+'Cần xác định dải thông tin giữ lại, chu kỳ lấy mẫu và ảnh hưởng của khối điều hòa tín hiệu trước ADC.':'Các đại lượng được phân tích gồm dải thông tin giữ lại, chu kỳ lấy mẫu và ảnh hưởng của khối điều hòa tín hiệu trước ADC.',
+'Cần xác định khả năng nhận cạnh hoặc xung, độ trễ tiếp nhận và điều kiện để không bỏ qua sự kiện.':'Các đặc tính được đánh giá gồm khả năng nhận cạnh hoặc xung, độ trễ tiếp nhận và khả năng bắt sự kiện.',
+'Cần xét đáp ứng của mạch và đường truyền tín hiệu tới bộ xử lý, thay vì mặc định mọi hoạt động đều được mô tả bằng chu kỳ ADC.':'Đáp ứng của mạch và đường truyền tín hiệu tới bộ xử lý là các đặc tính được phân tích; chu kỳ ADC không mô tả cơ chế thu nhận này.',
+'Khi kiểm tra, cần đối chiếu thời điểm nhận sự kiện với tín hiệu tham chiếu và xem xét khả năng tiếp nhận khi bộ xử lý đang thực hiện nhiệm vụ khác.':'Phương pháp kiểm tra đối chiếu thời điểm nhận sự kiện với tín hiệu tham chiếu, đồng thời đánh giá khả năng tiếp nhận khi bộ xử lý đang thực hiện nhiệm vụ khác.',
+'nội dung cần xác định trước khi thiết kế':'các thông số làm cơ sở thiết kế',
+'Giá trị/tiêu chí hoặc dữ liệu cần bổ sung':'Giá trị/tiêu chí hoặc thông số chưa xác lập',
+'Có giá trị nguồn tham chiếu; cần chọn băng thông':'Có giá trị nguồn tham chiếu; chưa chốt băng thông',
+'Cần xây dựng điều kiện đánh giá':'Chưa xác lập điều kiện đánh giá',
+'Việc xác lập yêu cầu còn cần xem xét tiêu chuẩn phù hợp với phạm vi thiết bị.':'Phạm vi thiết bị là cơ sở xem xét tiêu chuẩn áp dụng trong quá trình xác lập yêu cầu.',
+'Lựa chọn bộ tiêu chuẩn cho nguyên mẫu phải dựa trên đối tượng và điều kiện áp dụng cụ thể.':'Việc lựa chọn bộ tiêu chuẩn cho nguyên mẫu dựa trên đối tượng và điều kiện áp dụng cụ thể.',
+'các bộ phận cần xét khi xảy ra phóng điện':'các bộ phận thuộc phạm vi xem xét khi xảy ra phóng điện',
+'Yêu cầu phát hiện phải gắn với những bộ phận được nêu trong hồ sơ và khả năng phối hợp cắt nguồn.':'Phạm vi phát hiện trong hồ sơ gắn với các bộ phận nêu trên và khả năng phối hợp cắt nguồn.',
+'phạm vi hạ thế vẫn cần được xem xét theo các điều kiện ứng dụng tương ứng.':'phạm vi hạ thế được phân tích theo các điều kiện ứng dụng tương ứng.',
+'bộ phận thuộc phạm vi sự cố cần quan tâm':'bộ phận thuộc phạm vi sự cố',
+'trong phạm vi cần bảo vệ':'trong phạm vi bảo vệ',
+'trong các trường hợp phóng điện, ngắn mạch cần xét.':'trong các trường hợp phóng điện, ngắn mạch được xét.',
+'phần chức năng cần đánh giá khi xây dựng nguyên mẫu.':'phạm vi chức năng của nguyên mẫu và phương pháp đánh giá.',
+'Khi kết nối, cần xét đúng cực tính và cấu trúc đầu vào thiết bị nhận.':'Cực tính và cấu trúc đầu vào thiết bị nhận quyết định tính tương thích của kết nối.',
+'để xác định thời gian cắt toàn hệ thống cần thêm đặc tính của rơ-le, mạch tác động và máy cắt.':'thời gian cắt toàn hệ thống còn phụ thuộc đặc tính của rơ-le, mạch tác động và máy cắt.',
+'Như vậy, khi tham khảo 1S23, cần đọc định mức điện cùng sơ đồ ứng dụng và giới hạn đấu nối.':'Định mức điện của 1S23 được đối chiếu cùng sơ đồ ứng dụng và giới hạn đấu nối.',
+'Khi đối chiếu tài liệu, có hai điểm cần làm rõ:':'Đối chiếu các phiên bản tài liệu cho thấy hai khác biệt sau:',
+'Riêng nguồn phụ trợ cần đọc theo từng mức danh định, thay vì chỉ dựa vào cách viết rút gọn 24–250 VDC trên trang giới thiệu. Với thiết bị cụ thể, mã hàng và tài liệu đi kèm vẫn là thông tin cần đối chiếu trước khi áp dụng.':'Nguồn phụ trợ được phân loại theo từng mức danh định, không diễn giải cách viết rút gọn 24–250 VDC thành một dải làm việc liên tục. Mã hàng và tài liệu đi kèm xác định biến thể của thiết bị cụ thể.',
+'Giá trị này cần được xem cùng hình học bố trí và điều kiện quan sát. Khi áp dụng vào tủ có vách ngăn, phải xét từng khoang và đường truyền ánh sáng thực tế.':'Giá trị này gắn với hình học bố trí và điều kiện quan sát. Đối với tủ có vách ngăn, phân tích bao phủ được thực hiện theo từng khoang và đường truyền ánh sáng.',
+'điều kiện dòng liên quan cần được tạo đồng thời.':'hướng dẫn hãng quy định kích thích quang đồng thời với điều kiện dòng liên quan.',
+'Vì vậy, điều kiện nguồn sáng phải được ghi nhận khi đánh giá;':'Điều kiện nguồn sáng là một phần thông tin của phép đánh giá;',
+'Một bộ phát hiện cần được theo dõi không chỉ khi có kích thích mà còn khi lỗi đầu thu hoặc đường tín hiệu có thể làm mất khả năng phát hiện.':'Phạm vi đánh giá gồm phản ứng với kích thích và trạng thái lỗi đầu thu, đường tín hiệu có thể làm mất khả năng phát hiện.',
+'Bố trí đầu thu, ánh sáng nền và điều kiện kích thích phải đi cùng việc đánh giá độ nhạy của YC-04.':'Đánh giá độ nhạy của YC-04 gắn với bố trí đầu thu, ánh sáng nền và điều kiện kích thích.',
+'các yêu cầu về băng thông và chu kỳ thu nhận cần được xây dựng từ tín hiệu và phương pháp lựa chọn cho đồ án.':'băng thông và chu kỳ thu nhận của đồ án được xác lập dựa trên tín hiệu và phương pháp xử lý được lựa chọn.',
+'Những thông số còn thiếu trong Bảng 1.1 cần được cụ thể hóa cùng phương án thiết kế và điều kiện đánh giá của hệ thống.':'Những thông số chưa xác lập trong Bảng 1.1 được phân tích cùng phương án thiết kế và điều kiện đánh giá của hệ thống.'
+}
+for a,b in replacements.items():
+    assert a in s, a
+    s=s.replace(a,b)
+p.write_text(s,encoding='utf8')
+print('Updated',len(replacements),'specific expressions; structure and source data unchanged.')

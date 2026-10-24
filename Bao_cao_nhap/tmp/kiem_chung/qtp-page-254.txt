@@ -1,0 +1,90 @@
+CÔNG TY CỔ PHẦN NHIỆT ĐIỆN QUẢNG NINH 
+DỰ ÁN NÂNG CẤP, CẢI TẠO HỆ THỐNG XỬ LÝ KHÍ THẢI NHÀ MÁY NHIỆT ĐIỆN QUẢNG NINH 
+QUANG NINH THERMAL POWER JOINT STOCK COMPANY 
+PROJECT FOR UPGRADING AND RENOVATING THE FLUE GAS TREATMENT SYSTEM OF QUANG NINH 
+THERMAL POWER PLANT 
+Điều chỉnh Báo cáo Nghiên cứu khả thi/Adjusting the Feasibility Study Report 
+Chương 4: Lựa chọn giải giáp công nghệ - kỹ thuật/ Chapter 4: Choosing Technological and 
+Technical Disarmament Methods 
+Viện Năng lượng/Institute of Energy   Trang/page 171/339 
+- Tiêu chuẩn thiết kế và chế tạo: IEC61800 
+- Tiêu chuẩn an toàn: Biến tần phải được trang bị thiết bị phát hiện hồ quang 
+với thời gian phát hiện và phản hồi nhanh, đảm bảo phát hiện kịp thời sự cố 
+có hồ quang, kết hợp công nghệ đo dòng điện để nâng cao tính tin cậy. Hệ 
+thống  bảo vệ hồ quang phải có khả năng gửi tín hiệu điều khiển đến máy 
+cắt cấp nguồn, đảm bảo cắt mạch ngay lập tức trong trường hợp xảy ra hồ 
+quang do sự cố phóng điện, ngắn mạch tại các khối Power Cell hoặc máy 
+biến áp. Thiết kế tủ điện và các cơ cấu bảo vệ phải tuân thủ đầy đủ các yêu 
+cầu kỹ thuật và an toàn theo các tiêu chuẩn với hệ thống thiết bị điện 6.6kV, 
+bao gồm nhưng không giới hạn: thời gian phản hồi, cấu trúc cách điện, và 
+khả năng giới hạn ảnh hưởng của hồ quang. 
+Choosing between a variable frequency drive or a hydraulic coupling for a 
+new induced draft exhaust fan motor 
+The new induced draft exhaust fan motor will frequently operate at its 
+maximum power, which is 75% of its design capacity. To ensure energy 
+efficiency and operational effectiveness, an optimal drive solution is needed. 
+The table below analyzes and selects the most suitable solution for the factory: 
+Criteria 
+Variable Frequency Drive (VFD) 
+Hydraulic coupling 
+Operating principle 
+Adjusts the frequency and voltage 
+supplied to the motor to change speed 
+Transmits torque through fluid, 
+adjusts output speed 
+Speed adjustment 
+range 
+Wide (0–100%) 
+Limited (~70–100%) 
+Control capability 
+High accuracy, supports PID and 
+automatic control 
+Rough control, usually manual or 
+semi-automatic 
+Transmission 
+efficiency 
+High (95–98%) 
+Medium (90–94%), oil losses 
+Energy saving 
+capability 
+Very good under varying load 
+conditions 
+Less efficient, always has mechanical 
+losses 
+Soft start 
+Integrated, protects electrical 
+equipment 
+Naturally due to torque transmission 
+through oil 
+Torque protection 
+Includes electronic overload and short-
+circuit control 
+Good mechanical vibration damping, 
+mechanical protection 
+Initial investment 
+cost 
+Higher 
+Lower than variable frequency 
+drives (VFDs) 
+Operating cost 
+Low (energy saving, low maintenance) 
+Higher (oil changes, mechanical 
+maintenance) 
+Maintenance 
+Low, mainly cooling and electronics 
+Requires oil changes, leak checks, 
+seals 
+Equipment 
+durability 
+High if environment is suitable 
+Durable, but dependent on oil 
+quality and working conditions 
+Suitable 
+applications 
+Precise control, variable load fan, 
+requires energy saving, automatic 
+control 
+High-power fans, requiring soft 
+start, harsh environments, not 
+requiring frequent adjustment 
+The inverter specifications are as follows: 

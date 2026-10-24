@@ -1,0 +1,1215 @@
+                                                                             Solar Energy 274 (2024) 112588
+
+
+                                                                       Contents lists available at ScienceDirect
+
+
+                                                                                  Solar Energy
+                                                            journal homepage: www.elsevier.com/locate/solener
+
+
+
+
+A DC arc fault location method for PV systems based on redundant antenna
+array and ellipse algorithm
+Liangshi Lin a, Wei Gao a, b, *, Gengjie Yang a
+a
+    College of Electrical Engineering and Automation, Fuzhou University, Fuzhou, China
+b
+    Fujian Province University Engineering Research Center of Smart Distribution Grid Equipment, Fuzhou, China
+
+
+
+
+A R T I C L E I N F O                                        A B S T R A C T
+
+Keywords:                                                    DC arc faults are major causes of electrical fires in photovoltaic (PV) systems. During the operation and main­
+Photovoltaic systems                                         tenance of these systems, it is essential not only to identify arc faults but also to determine their exact locations
+Arc fault location                                           accurately. To address the issue of DC arc fault localization in PV systems, this study investigates the electro­
+Redundant antenna array
+                                                             magnetic radiation (EMR) characteristics of fault arcs and proposes a method for DC arc fault localization using
+Ellipse algorithm
+DBSCAN
+                                                             the redundant antenna array and the ellipse algorithm. Firstly, during arc combustion, the EMR signals collected
+                                                             by antennas are subjected to median filtering to calculate the root mean square (RMS), which serves as the signal
+                                                             strength. An artificial neural network (ANN) model is constructed, which uses the signal strength and irradiance
+                                                             to predict the distance between the fault point and the receiving point. Subsequently, various redundant antenna
+                                                             array configurations are evaluated to assess the impact of different antenna quantities and layouts on localization
+                                                             accuracy. Once the optimal layout is determined, the three antennas with the strongest signal are selected. Their
+                                                             coordinates, along with the predicted distances to the fault point, are input into the ellipse algorithm, which is
+                                                             improved by trilateration, to obtain the locations of arc faults. Finally, the density-based spatial clustering of
+                                                             applications with noise (DBSCAN) method is used to fuse multiple measurement results, eliminate interference,
+                                                             and confirm the final fault coordinates. Experimental results demonstrate that the proposed location method
+                                                             exhibits excellent positioning capability and adaptability, with an average positioning error of 0.365 m.
+
+
+
+
+1. Introduction                                                                                    domain, frequency-domain, or time–frequency-domain features from
+                                                                                                   the voltage and current during arc fault events and applying methods
+    Photovoltaic (PV) power generation realizes the conversion of solar                            such as artificial intelligence and threshold-based techniques for feature
+energy into electrical energy, reducing the reliance on conventional                               recognition and classification. For example, Lu et al. [9] proposed a
+energy sources for electricity supply. It has garnered widespread                                  cross-domain DC series arc fault detection framework based on light­
+attention from countries around the world [1–5]. PV power generation                               weight transfer convolutional neural network with adversarial data
+system comprises components such as PV arrays, combiner boxes, and                                 augmentation (LTCNN-ADA), more comprehensive transfer scenarios
+PV inverters [6]. There are numerous interconnections and joints on the                            were explored and studied, including different types of power sources
+DC side of the arrays, which can easily suffer from insulation damage                              and inverters. Qian et al. [10] analyzed the current noise spectrum
+and poor contacts in outdoor environments, leading to the occurrence of                            before and after the occurrence of DC arc faults, it was found that the
+DC arc faults, with series arc faults being particularly prominent [7,8].                          adjacent multi-segment spectral similarity (AMSSS) characteristic could
+However, conventional protection methods are unbale to detect the                                  identify the event of the mark. Wang et al. [11] proposed fault detection
+location of arc faults. Therefore, tracking the location of arc combustion                         methods based on voltage characteristic energy amplitude and phase
+and conducting maintenance work have become pressing research                                      mapping distribution distance to meet the fault detection for different
+topics.                                                                                            load types.
+    Most existing research primarily focuses on the detection and iden­                               During the formation of a fault arc, it exhibits high-frequency con­
+tification of DC arc faults. This is accomplished by extracting time-                              duction currents and electromagnetic radiation (EMR), along with
+
+
+ * Corresponding author at: College of Electrical Engineering and Automation, Fuzhou University, Fuzhou, China; Fujian Province University Engineering Research
+Center of Smart Distribution Grid Equipment, Fuzhou, China.
+   E-mail address: gaowei0203@fzu.edu.cn (W. Gao).
+
+https://doi.org/10.1016/j.solener.2024.112588
+Received 27 October 2023; Received in revised form 29 March 2024; Accepted 29 April 2024
+Available online 13 May 2024
+0038-092X/© 2024 International Solar Energy Society. Published by Elsevier Ltd. All rights reserved.
+L. Lin et al.                                                                                                                      Solar Energy 274 (2024) 112588
+
+
+macroscopic physical characteristics such as arc sound and arc light.              fingerprint recognition methods, and matched filters. These methods for
+Collecting, statistically analyzing, and calculating these features enable         locating the PD can be used as references, but cannot be fully applied.
+a more precise localization of the arc’s occurrence [12]. For example,                 In existing positioning methods, EMR signals are affected by fading
+using externally installed capacitive current information for determi­             and require high-speed acquisition instruments to collect and restore
+nation. Xiong et al. [13] proposed a novel method with the polarity and            signals. The sampling conditions are rather stringent. The traditional
+amplitude of capacitor currents. The integration of the frequency spec­            trilateral positioning method often faces the problem of being unable to
+trum of capacitor currents is analyzed and identified as crucial attribute         accurately calculate the positioning point. In addition, the environ­
+to differentiate DC series arc faults from other system changes. But it            mental factors that affect the EMR signal of PV arrays are also complex.
+does not fully consider the effects of inverter start-up and environmental         In response to the above issues, this paper proposes a new DC arc fault
+contributions to it. Akbar et al. [14] paralleled capacitors on PV arrays          location method for PV arrays, with the following contributions:
+and extracted capacitor current signals to analyze series DC arc faults.
+Subsequently, by combining fast Fourier transform and artificial neural            1) Replace the traditional location method, trilateration, with the el­
+network signal processing techniques, the fault location is obtained. It is           lipse algorithm to solve the problem of multiple solutions and no
+possible to acquire precise time–frequency-domain information from                    solution, and obtain approximate solutions with smaller errors.
+parallel capacitors, but this necessitates the installation of a relatively        2) Construct the concept of redundant antenna array, analyze the in­
+large number of capacitors across various substrings or branches.                     fluence of the number and layout of antennas in the array on
+Additionally, the exploration of fault localization for DC bus systems is             calculation results and convenience, and obtain the optimal antenna
+also discussed. Wu et al. [15] conducted theoretical analysis on                      layout scheme to reduce the impact of fading.
+extended spectra and time-domain reflection, proposing an extended                 3) Use density-based spatial clustering of applications with noise
+spectrum time-domain reflection method based on the equivalent                        (DBSCAN) to fuse multiple measurement results, eliminate the
+distributed parameters model of transmission lines. It fills the gap in               interference of noise signals and unstable arc data, and further
+detection and localization of DC bus arc faults in PV systems. In order to            improve positioning accuracy.
+locate the fault of the solar power unit in the wind-solar energy storage
+system, a variational mode decomposition (VMD) algorithm in [16] is                   The remainder of this paper is organized as follows. Section 2 in­
+adopted to decompose the voltage signal of the same DC load under                  troduces the experimental platform and analyzes the EMR signal char­
+different working conditions, and the decomposition result is converted            acteristics in PV systems. Section 3 presents ellipse location algorithm
+into a threshold value. It compared the time–frequency-domain features             and redundant antenna array. The proposed algorithm is verified with
+and threshold characteristics under different operating conditions for             measured data and compared with other methods in Section 4. Even­
+fault detection and localization. This method can adaptively determine             tually, Section 5 offers the conclusion of this paper.
+the relevant frequency bands, but VMD has multiple control parameters
+that need to be carefully configured.                                              2. Analysis of PV DC arc EMR signal
+    Compared to other physical characteristics, the higher-frequency
+EMR signals of arcs exhibit stronger resistance to interference, and               2.1. Experimental platform
+with the use of suitable measurement antennas, sufficient sensitivity can
+be achieved. Some researchers have utilized EMR signals for arc faults                 A typical PV system comprises several key components, including PV
+localization, the existing methods mainly use neural networks to replace           array, combiner box, inverter, and protection device, as shown in Fig. 1.
+traditional ranging models for distance prediction. Li et al. [17] adopted         It shows the potential locations of arc faults, denoted as ① to ⑤, cor­
+neural networks and data augmentation techniques to estimate arc                   responding to the DC busbars ends, the head, the middle and the end of
+distance, presenting a planar localization method using only two                   subarrays, and between the PV subarrays, respectively. Considering that
+detection points, which exhibited inherent immunity to normal current              the wiring within the subarrays is often concealed beneath the array and
+fluctuations (NCFs). The triangular localization method is easy to                 relatively well hidden, thus possessing a higher degree of concealment,
+implement but is limited when facing more complex scenarios. For                   while the busbar wiring layout depends on the inverter’s installation
+instance, it can only cover one direction and relatively short distances.          position and may not be as concealed, this paper mainly focuses on the
+Zhao et al. [18] investigated a Bayesian regularized neural network                localization of arc faults within (or between) the PV array subarrays,
+(BRNN) algorithm to establish an EMR model, estimating the distance                namely the four positions: ② to ⑤.
+between the arc and antenna through BRNN, and using antenna topol­                     The PV array structure used in the experiment is configured as 2 ×
+ogy and the estimated distance to calculate the spatial coordinates of the         12, meaning 12 modules are connected in series, and then 2 strings are
+arc. It involves comparing pretest data with data from unknown loca­               connected in parallel (outlined by red and yellow dashed lines). The on-
+tions, so that this method has the issue of requiring frequent database            site scene is depicted in Fig. 2, with a capacity of 6.48 kWp. Some
+updates.                                                                           technical parameters are listed in Table 1, and the first three coefficients
+    Furthermore, it is worth mentioning that utilizing of EMR signals for          represent the values of the inverter in MPPT (maximum power point
+fault source localization has been extensively studied in the field of high-       tracking) state. The structure of Fig. 2 is consistent with that of Fig. 1.
+voltage equipment’s partial discharge (PD). Some of achievements in                    Arc faults are simulated through arc fault generator (AFG). Mean­
+this area are also applicable to fault localization of PV arcs. However, PD        while, the specific structure and operation method of AFG can be found
+typically occurs in switched equipment with higher discharge voltages              in [6].
+and higher EMR signal frequencies. Compared to EMR signals of PV arcs,                 The acquisition process of EMR signal in this article is illustrated in
+PD signals are easier to be detected due to their higher amplitude and             Fig. 3. The parameters of the antenna, amplifier and oscilloscope are
+frequency. Jangjoo et al. [19] used ultra-high-frequency (UHF) based on            listed in Table 2. In all experiments, the antennas and AFG are situated in
+time-of-arrival (TOA) differential equations to locate PD in power                 the same plane.
+transformers. They determined the optimal sensor placement on the
+transformer by measuring the distance between hyperbolic surface                   2.2. Time- frequency- domain analysis of DC arc
+vertices and intersections, thereby reducing the impact of non-line-of-
+sight (NLOS) propagation, reflections, and refractions on electromag­                  The EMR signals are collected both during the normal and the arc
+netic waves. Chaisang et al. [20] introduced commonly used fingerprint-            fault condition. The sampling frequency is 1.0 GHz. The fast Fourier
+based positioning algorithms from indoor localization into PD localiza­            transform (FFT) is applied to observe the frequency-domain components
+tion. They analyzed measurement data using received signal strength,               of the signals, as shown in Fig. 4.
+
+                                                                               2
+L. Lin et al.                                                                                                                                 Solar Energy 274 (2024) 112588
+
+
+
+
+                                                                           Fig. 1. Composition of PV system.
+
+
+
+                                                                                               Table 2
+                                                                                               Parameters of electromagnetic experimental equipment.
+                     1            2                   3                4                        Equipment                 Parament                       Value
+                              5                   6                7
+                                                                                                Antenna                   Frequency band                 20 ~ 500 MHz
+                 8                    9                                          10                                       Gain                           − 5 ~ 2 dB
+                                                                                                                          Noise coefficient              ≤7 dB
+                                                                                                                          Output impedance               50 Ω
+                                                                                                Amplifier                 Frequency band                 50 MHz ~ 6 GHz
+                                                                                                                          Gain                           20 dB
+                                                                                                Filter                    Frequency band                 200 ~ 500 MHz
+                                                                                                Oscilloscope              Bandwidth                      2 GHz
+
+
+
+                Fig. 2. Field scene graph map of PV system.                                    During arc combustion period, the arc length exhibits randomness,
+                                                                                               making it difficult to accurately measure the actual length of the arc.
+                                                                                               Therefore, the impact of arc length is not considered in this paper, and
+Table 1
+                                                                                               instead approximated by using the electrode gap length of AFG, with the
+Parameters of PV module under standard test conditions.
+                                                                                               gap length being randomly assigned.
+  Pmppt              Vmppt                Imppt             Voc                  Isc
+
+  270 W              31.3 V               8.63 A            38.5 V               9.09 A
+                                                                                               2.3. Determination and processing of EMR signals
+
+                                                                                                   In the field of indoor positioning, scholars often use the average
+                                                                                               value of signals received by the receiver within a certain time period to
+                                                            BPF                                calculate signals. For example, Cappelli et al. [23] proposed using the
+                                                                                               average irradiance of indoor visible light as RSSI (received strength
+       PV       Receiving
+                                       Power
+                                                          Band-                                signal indicator) to reduce the impact of irradiance fluctuations on
+       DC        antenna                                   pass            Oscilloscope
+                                      amplifier                                                positioning results. For outdoor PV arrays, the current generated by PV
+       arc        array                                   filter
+                                                                                               modules varies with irradiance and is accompanied by intermittent
+                Fig. 3. Acquisition flowchart of EMR signal.                                   pulse spikes. At this point, directly calculating the average value will
+                                                                                               introduce significant errors, so alternative mathematical statistical
+    It can be observed that the frequency-domain of the arc predomi­                           methods should be sought. To address this issue, the root mean square
+nately concentrates between 200 ~ 700 MHz. Therefore, the filtering                            (RMS) value was studied instead [22]. The specific process involves
+frequency band of the bandpass filter selected in this article is set within                   receiving steady-state EMR signals with antennas, setting a sampling
+this range, and the time-domain signal within this frequency band is                           time window of five milliseconds, and calculating the RMS value within
+applied as the data source for subsequent positioning.                                         this five-millisecond waveform as a positioning feature indicator. But it
+    Accurate modeling is of great significance for studying the charac­                        does not consider the impact of pulse peaks on the subsequent posi­
+teristics of fault arcs [21]. Additionally, Jin et al. [22] further derived                    tioning process. On the other hand, Yu et al. [24] proposed the collection
+the relationship equation between power and arc current and arc length,                        of UHF EMR signals (300 ~ 1500 MHz) at a low sampling rate (2.70
+suggesting that both arc length and current would affect the EMR in­                           MHz), eliminating the need for signal restoration and improving the
+tensity of the arc, with current having a great impact in comparison.                          algorithm’s cost-effectiveness.
+                                                                                                   Furthermore, to investigate the variation of arc EMR signals, AFG
+
+                                                                                           3
+L. Lin et al.                                                                                                                               Solar Energy 274 (2024) 112588
+
+
+                                     7                                                        9
+                                                                                              8
+                                     6
+                                                                                              7
+
+
+
+
+                          Volta ge/m V
+
+
+
+
+                                                                                 Voltage/mV
+                                     5
+                                                                                              6
+                                     4                                                        5
+
+                                     3                                                        4
+                                                                                              3
+                                     2
+                                                                                              2
+                                     1                                                        1
+                                     0                                                        0
+                                         10 20 30 40 50     60 70 80 90 100                       10 20 30 40 50         60 70 80 90 100
+                                                Frequency/kHz                                                  Frequency/kHz
+                                                    (a)                                                            (b)
+                              Fig. 4. EMR signal spectrum before and after fault occurrence. (a) background noise (b) series arc fault.
+
+
+was employed to simulate the process of arc generation, as shown in                           waveform, the median filtering method is introduced to eliminate pulse
+Fig. 5, with a sampling rate of 200 kHz. Fig. 5 compares the current                          interference points. Finally, the RMS value is computed and served as
+signal waveform and EMR signal waveform across four states of a DC                            Erms.
+arc: normal operation, initiating, stable combustion, and arc extinction.                            √̅̅̅̅̅̅̅̅̅̅̅̅
+                                                                                                     √N
+At each state, the current signal waveform exhibits distinct character­                              √∑ 2
+                                                                                                     √ Xv
+istics. In contrast, the arc EMR signal waveform shows a relatively                                  √
+                                                                                              Erms = v=1                                                         (1)
+consistent trend: as the arc ignites, the amplitude of the EMR signal                                     N
+rapidly increases, and upon the arc’s extinction, the EMR signal
+promptly returns to its normal state, displaying minimal transition.                          where Xv is the processed arc EMR signal with a length of N.
+    After an arc fault occurs in PV array, it is advisable to promptly
+disconnect the fault rather than immediately locating the source of the
+fault. The primary objective of fault location is to efficiently identify the                 2.4. Prediction distance of fault location
+fault point during subsequent operation and maintenance. In this paper,
+the waveform during the stable combustion state after the fault occur­                            In the field of wireless communication, fading refers to the phe­
+rence is chosen as the positioning signal.                                                    nomenon of signal attenuation caused by multipath transmission, which
+    The method for obtaining data involves the following steps: Firstly,                      can be divided into large-scale fading (including path loss and shadow
+EMR signals are collected during the stable combustion state of the arc                       fading) and small-scale fading (including multipath and Doppler ef­
+with a sampling rate of 200 kHz. Subsequently, a random selection of                          fects). Fading is a crucial factor in the propagation process of electro­
+waveforms is extracted, with each waveform consisting of a special                            magnetic wave and plays a significant role in analyzing the quality and
+number (a) and having a duration of five milliseconds. For each                               reliability of communication signal. Compared to the commonly used
+                                                                                              log-normal shadow model (LNSM), machine learning models offer better
+
+
+
+
+                                                         Fig. 5. Waveforms of arc current and EMR signal.
+
+                                                                                  4
+L. Lin et al.                                                                                                                                      Solar Energy 274 (2024) 112588
+
+
+fitting performance and they are more powerful tools for analyzing                       centers and d1, d2 and d3 as the radii, circles are drawn as shown in Fig. 6
+fading. For example, different types of environmental features are                       (a). At the same time, the intersection point of these circles represents H.
+extracted to construct an ideal path loss model, which can effectively                       Complex environments can indeed affect the transmission effect of
+cope with the development trends of wireless channel diversity, time-                    electromagnetic wave and introduce measurement errors. If the
+varying nature, and massive characteristics [25,26].                                     measured values are biased toward larger values, situations similar to
+     Since the arc current will affect the intensity of EMR signal, and the              those shown in Fig. 6 (b) and (c) may arise, where circles intersect be­
+irradiance is the main factor to change the output current of PV system.                 tween circles, resulting in a system of equations with multiple solutions.
+When other factors remain unchanged, the greater the irradiance, the                     Conversely, If the measured values are biased toward smaller values,
+larger the output current, resulting in a smaller EMR signal. At the same                meaning that circles do not intersect between circles, as shown in Fig. 6
+time, distance is also a key factor affecting the strength of EMR signal.                (d), the system of equations may have no solution.
+Specifically, the arc EMR density and irradiance were took as input to a                     Given the above circumstances, this study proposes an ellipse algo­
+BP neural network [22], predicting the distances from the observation                    rithm to solve the problems of multiple solutions and no solution in
+points to fault location. Following the similar approach as described in                 traditional trilateration method. Based on the introduction to the prin­
+these references, this paper incorporates Erms and irradiance as input to                ciples of the ellipse algorithm, two lemmas are illustrated [28,29].
+ANN to predict distance values. The internal structures and parameters
+                                                                                         Lemma 1. For the union of ellipsoids, it is possible to compute its
+of the network have been adjusted to achieve better prediction results.
+                                                                                         Löwner-John ellipsoid, which is the smallest volume ellipsoid contain­
+The accuracy of distance prediction plays a crucial role in the posi­
+                                                                                         ing the set. Once the minimum volume ellipsoid containing the union of
+tioning algorithm discussed in the next chapter, ultimately impacting
+                                                                                         ellipsoids ∪mt=1 ε(qt , Qt ) is determined, there exist variables J, b and λi that
+the final positioning results.
+                                                                                         satisfy the convex optimization problem of semi definite programming
+                                                                                         (SDP):
+3. Location method and strategy
+                                                                                         min lg det J− 1
+3.1. Ellipse algorithm
+                                                                                         subject to:
+3.1.1. Algorithm introduction                                                            λt > 0
+    The traditional trilateration method is based on distance measure­
+                                                                                         ⎡                                                             ⎤
+ment algorithm to obtain the distances between an unknown node and
+                                                                                         ⎢ J − λt Qt                   Jb + λt Q−t 1 qt            0 ⎥
+                                                                                               2        − 1
+three reference nodes. Then, using distance equations, the coordinates of
+                                                                                         ⎢                    T                                        ⎥
+the locating node will be solved. In this paper, the locations of three                  ⎢ (Jb + λt Q−t 1 qt )    − 1 − λt (qTt Q−t 1 qt − 1)   (Jb)T ⎥  ≤ 0, t = 1, ⋯, m.   (2)
+                                                                                         ⎣                                                             ⎦
+reference nodes, represented by the coordinates of three antennas, are                            0                           Jb                 − J 2
+
+denoted as A(x1, y1), B(x2, y2) and C(x3, y3). The unknown node’ loca­
+tion, which is the coordinate of the arc fault point, is denoted as H(xo,                after J and b are found,
+yo). In the event of an arc fault, each of the three antennas receives EMR
+signals emitted by the arc combustion. Using the results fitted by ANN                   q = − J− 1 b, Q = (JT J)− 1                                                         (3)
+can obtain the distances from the arc fault point to antennas A, B and C
+as d1, d2 and d3, respectively. With the known positions of three an­                    then, ε(q, Q) can be determined.
+tennas and the distances from the arc fault point to the three antennas, it              Lemma 2. Find a maximum volume ellipsoid, which is located inside a
+is possible to calculate the coordinate of the arc fault location.                       non-empty bounded convex set. It is possible to determine the maximum
+    In the ideal trilateration method, when d1, d2 and d3 are accurately                 volume ellipsoid within a given intersection of ellipsoids ∩mt=1 ε(qt ,Qt ). If
+determined without errors, it is indeed possible to calculate the unique                 there exist variables V, q and λi that satisfy the SDP convex optimization
+and correct coordinate H(xo, yo) [27]. Using points A, B and C as the                    problem:
+
+                                                                                         min lg det V− 1
+
+                                                                                         subject to:
+           A                                        A                                    λt > 0
+            d1   H                                                                       ⎡                              ⎤
+                       d2                                                                 1 − λt       0     (q − qt )T
+                            B                                           B                ⎣ 0          λt I       V      ⎦ ≥ 0, i = 1, ⋯, m.                                  (4)
+            C d3                                                                          q − qt      V          Qt
+                                                        C
+                                                                                         after V and q are found,
+                 (a)                                          (b)
+                                                                                         Q = VT V                                                                            (5)
+
+            A                                A                                           then, ε(q,Q) can be determined. The two lemmas mentioned above
+                                                                                         satisfy affine invariance, and the conclusions in three-dimensional space
+                                                                                         also apply to two-dimensional planes, where the maximum cross-section
+                                B                                       B                of an ellipsoid projected onto a plane forms an ellipse [29]. Specifically,
+                                                                                         the steps of the ellipse algorithm proposed in this article are as follows:
+                 C                                      C
+                                                                                         1) Three antennas, labeled A, B and C, are set up along with the arc fault
+                 (c)                                          (d)                           point H. After Erms is input into ANN to fit the distances, the known
+                                                                                            information includes the coordinates of the three antennas and the
+Fig. 6. Cases analysis of trilateral positioning method. (a) Intersection of three          distances from the arc fault point to each antenna.
+circles at one point (b) Intersection of three circles I (c) Intersection of three
+circles II (d) Three circles without intersection.
+
+                                                                                     5
+L. Lin et al.                                                                                                                                      Solar Energy 274 (2024) 112588
+
+
+2) With antennas A, B, and C as the centers and the respective distance                    3.1.1, which is presented by E. At last, the coordinates of the three cir­
+   from the antennas to the arc fault as the radii, create three circles                   culars are A (-1, 4), B (4, 1.5), C (-0.7, -1), and the ideal intersection
+   using the following equation.                                                           coordinate is H (0, 1).
+                  {                                     }                                      The radius of the three circles and the localization errors for the four
+   εn (xn , Qn ) = xo : (xo − xn )T Q−n 1 (xo − xn ) ≤ 1             (6)                   different scenarios are listed in Table 3. Reasonable radius lengths are
+                                                                                           set to produce the corresponding results for each scenario. The posi­
+   where Qn = d2n I, n = A, B, C.                                                          tioning errors are expressed by the absolute values of the distance dif­
+3) Lemma 1 is used to find the union between the two pairs of the three                    ferences (Euclidean distance) between E and H, where the positioning
+   circles in order, and then find the smallest outsourcing ellipse to                     errors of case (a), (c), and (d) in Fig. 7 are less than 0.5, while the
+   three ellipses, which are represented by the following formula.                         positioning errors of case (b) in Fig. 7 are slightly larger at 0.6483.
+     εα (xα , Qα ) ⊇ εA (xA , QA ) ∪ εB (xB , QB )                                             It is evident that the ellipse algorithm can provide an approximate
+     εβ (xβ , Qβ ) ⊇ εB (xB , QB ) ∪ εC (xC , QC )                               (7)       solution when there are multiple solutions (with intersection) and no
+     εγ (xγ , Qγ ) ⊇ εA (xA , QA ) ∪ εC (xC , QC )                                         solution (without intersection) in the trilateration method, and the
+                                                                                           positioning errors are within an acceptable range, indicating the effec­
+                                                                                           tiveness of this algorithm.
+4) Lemma 2 is used to find the inner ellipse with the largest area of the
+   intersection of the three ellipses in Step 3), expressed by the
+                                                                                           3.2. Redundant positioning strategy
+   following formula.
+     ελ (xλ , Qλ ) ⊇ εα (xα , Qα ) ∪ εβ (xβ , Qβ )                                         3.2.1. Limitation of localization using three antennas
+                                                                                 (8)
+     εμ (xμ , Qμ ) ⊇ εγ (xγ , Qγ ) ∪ ελ (xλ , Qλ )                                            There may be various obstacles under the PV array, including
+                                                                                           brackets, roofs, and various electrical equipment. This area can be
+                                                                                           considered as a NLOS environment, as shown in Fig. 8. Unfortunately,
+5) Finally, the coordinate of the center of the ellipse, εμ(xμ,Qμ), is set as              these obstacles will cause shadow fading and multipath effect of the
+   the location of the arc fault.                                                          EMR signals, affecting the ability of antennas to receive EMR signals.
+
+3.1.2. Algorithm simulation
+                                                                                           Table 3
+    In this paper, the Ellipsoidal Toolbox of MATLAB is used for simu­                     Parameters and errors of the ellipse algorithm.
+lation, and the four cases shown in Fig. 6 are analyzed by drawing, as
+                                                                                                                     Fig. 7 (a)       Fig. 7 (b)      Fig. 7 (c)      Fig. 7 (d)
+shown in Fig. 7. The blue line, the black line, and the purple line rep­
+resents the circle, ellipse, and intersections made according to Step 2),                    Circle A radii          3.1623           2.9             3.2             2
+                                                                                             Circle B radii          4.0311           3.4             5.2             3
+Step 3), and Step 4) of Section 3.1.1, respectively. The orange line
+                                                                                             Circle C radii          2.1191           2.4             2.6             2
+represents the ellipse made according to Step 4) of Section 3.1.1, and the                   Positioning error       0.4901           0.6483          0.3859          0.4918
+asterisk represents the calculation result based on Step 5) of Section
+
+
+
+
+                                                A                                                        A
+
+                                                     H E            B                                                    E        B
+                                                                                                                 H
+                                                                                                                 C
+                                                     C
+
+                                                         (a)                                                             (b)
+
+
+
+                                          A                                                             A
+
+                                                     E                                                               E            B
+                                                               B                                             H
+                                                     H
+                                            C                                                                    C
+
+
+                                                         (c)                                                             (d)
+Fig. 7. Analysis of ellipse algorithm. (a) Intersection of three circles at one point (b) Intersection of three circles I (c) Intersection of three circles II (d) Three circles
+without intersection.
+
+                                                                                       6
+L. Lin et al.                                                                                                                              Solar Energy 274 (2024) 112588
+
+
+                                                                                      Table 4
+                                                                                      Average Erms (V) received from four locations of three antennas.
+                                                                                        Antenna         S1                      S2                  S3
+                                                                                        Location        PV             Open     PV       Open       PV         Open
+
+                                                                                        1               0.0598         0.0635   0.1306   0.1308     0.0611     0.0683
+                                                                                        2               0.0961         0.0962   0.0877   0.0891     0.0889     0.0894
+                Fig. 8. Sketch map of obstacles under PV array.                         3               0.0736         0.0740   0.0656   0.0663     0.0596     0.0712
+                                                                                        4               0.1113         0.1126   0.0279   0.0423     0.0991     0.1221
+    For this reason, to analyze the impact of EMR signals, arc faults are
+set respectively in the PV array area and the open area, with a total of
+                                                                                      interference, the minimum measured Erms value should not be less than
+four locations, as shown in Fig. 9.
+                                                                                      0.03 V. A value below this threshold can be considered as the antenna
+    In the PV array layout area, PV array is projected vertically onto the
+                                                                                      not receiving any signal. It can be seen that for antenna S2 at location 4
+ground, forming a rectangular shape with a length of 8 m and a width of
+                                                                                      under PV array, the measured average Erms value is 0.0279 V, which is
+4.875 m. Using the longer side as the x-axis and the shorter side as the y-
+                                                                                      less than 0.03 V. Therefore, antenna S2 detects little EMR signal at this
+axis, with the lower left corner as the origin, a Cartesian coordinate
+                                                                                      location. In such case, the ellipse algorithm based on three antennas
+system is established. Three antennas are placed with the following
+                                                                                      would fail to meet the requirement.
+coordinates: S1(0, 4.875), S2(8, 2.4375), S3(0, 0). Moreover, at each of
+the four locations, AFG is operated to initiate arcing during the stable
+                                                                                      3.2.2. Redundant antenna array
+combustion phase. Data is collected within a two-second timeframe by
+                                                                                         To address the issue mentioned above, it is necessary to increase the
+sampling 10 waveforms, each lasting five milliseconds. These collected
+                                                                                      number of antennas, forming a redundant antenna array. In the PV array
+data are processed to obtain Erms values. To reduce the influence of
+                                                                                      layout area, n antennas are arranged, each with corresponding coordi­
+randomness or noise, the average Erms value is calculated from these 10
+                                                                                      nate. These antennas are numbered clockwise from the outermost to the
+Erms values.
+                                                                                      innermost as S1, S2, …, Sn, where n ≥ 4. The top three antennas with the
+    Subsequently, the antennas and AFG are moved to an open area. In
+                                                                                      max Erms values are selected:
+this open area, a rectangular region of the same size is defined, main­
+taining the antenna array layout and coordinates consistent with the                  Ermsi , Ermsj , Ermsk , i, j, k ∈ n                                             (9)
+previous setup. Undoubtedly, the same method as described above is
+used to simulate arcing in the open area and obtain the average Erms                  make
+values. These two experiments are conducted under the conditions of an                Ermsi ≥ Ermsj ≥ Ermsk ≥ Ermsm                                                (10)
+irradiance level between 489 to 512 W/m2, a temperature between 25
+and 27 ℃, and no other electromagnetic interference sources in the                    where m ∕ = i, j, k, m ∈ n.
+vicinity. The results are presented in Table 4.                                          The positioning model is illustrated in Fig. 10, where the arc fault
+    It can be observed that EMR signal propagation is affected when                   emits EMR signals to the surrounding area. Firstly, there are obstacles
+compared to the open area in the vicinity of PV array. Antenna S1 at                  between antenna S2 and S7 and the arc. The signal is mainly affected by
+location 1, antenna S2 at location 4, and antenna S3 at locations 1, 3, and           shadow fading, leading to a reduction in amplitude. Secondly, there may
+4 all experience significant signal attenuation. Specifically, under the              be multiple propagation paths between antenna S4 and the arc due to the
+conditions of irradiance ranging from 200 to 1200 W/m2, and temper­                   obstacles. The signal is mainly affected by multipath effects. Then an­
+ature between 15 and 55 ℃, with no external electromagnetic                           tenna S6 is far from the arc, so the signal is mainly affected by path loss.
+
+
+
+
+                                                                  Fig. 9. Layout of three antennas.
+
+                                                                                  7
+L. Lin et al.                                                                                                                                                              Solar Energy 274 (2024) 112588
+
+
+
+
+                                                                              Fig. 10. Example of location model.
+
+
+Finally, after comparison, S1, S3 and S5 are the three antennas with the                                   antenna array. Several commonly used layout options are played in
+strongest signals, receiving a significant portion of the direct signal. The                               Fig. 11, which are named based on a pattern: the first number represents
+final positioning result corresponds to the arc occurrence point calcu­                                    the number of antennas, and the letter R, D, and H respectively denotes
+lated by the algorithm, as indicated in the diagram. However, there may                                    rectangular, diamond, and hexagonal structure. For example, “4R”
+be a positional deviation from the actual arc occurrence point.                                            represents the layout with four antennas in the rectangular structure.
+    In addition, the performance of positioning can also be influenced by                                  The coordinate of each antenna is listed in Table 5. As the number of
+the arrangement of the antenna array [30]. Symmetrical layouts tend to                                     antennas increases, the computational complexity and time overhead
+have relatively better performance and are widely used in engineering                                      grow exponentially, while the improvement in accuracy may not be
+applications. This study will discuss the arrangement of redundant                                         significant. Generally, layout with six antennas is sufficient to meet
+
+
+        y/m                                                             y/m                    S2                                                   y/m
+                                                                    4.875
+   S1                                                      S2                                                                               S1                                                      S2
+
+
+   3.25                                                              3.25                                                                   3.25
+                                                                                                                                                                         S5
+                                                                        S1                                                         S3
+ 1.625                                                              1.625                                                                   1.625
+
+
+   S4                                                      S3                                                                               S4                                                      S3
+        0       1   2    3       4   5   6   7 x/m                        0      1        2   3S             5          6    7 x/m                0        1   2     3        4   5   6    7 x/m
+                                                                                                   4
+
+                         (a)                                                                       (b)                                                                     (c)
+                            y/m                  S2                                                             y/m           S1                          S2
+                        4.875                                                                               4.875
+
+
+
+                         3.25                                                                                3.25
+                                                                                                                S6                                                       S3
+
+                            S1                        S5                             S3
+                        1.625                                                                               1.625
+
+
+
+
+                             0       1   2   3                  5     6       7 x/m                                 0       1 S5        3     4       5 S4         7 x/m
+                                                 S4
+                                                  (d)                                                                                       (e)
+                                                           Fig. 11. Antenna layout. (a) 4R (b) 4D (c) 5R (d) 5D (e) 6H.
+
+                                                                                                       8
+L. Lin et al.                                                                                                                              Solar Energy 274 (2024) 112588
+
+
+Table 5                                                                                    3) Repeat Steps 1) and 2) until all points are within the cluster (core or
+Coordinates of each antenna for five layouts.                                                 edge points) or are noise points.
+  Anteanna         4R          4D           5R            5D             6H
+                                                                                              Clusters with more sample points are selected, and clusters with less
+  S1               (0,4.875)   (0,2.4375)   (0,4.875)     (0,2.4375)     (2,4.875)
+  S2               (8,4.875)   (4,4.875)    (8,4.875)     (4,4.875)      (6,4.875)         sample points and noise points are abandoned [31]. Referring to K-
+  S3               (8,0)       (8,2.4375)   (8,0)         (8,2.4375)     (8,2.4375)        means algorithm, the mean value of each sample point is calculated and
+  S4               (0,0)       (4,0)        (0,0)         (4,0)          (6,0)             taken as the clustering center.
+  S5               −           −            (4,2.4375)    (4,2.4375)     (2,0)
+  S6               −           −            −             −              (0,2.4375)
+                                                                                           3.4. Positioning process
+
+practical application requirement.
+                                                                                              This paper proposes a novel DC arc fault location method for PV
+                                                                                           array. The specific steps are as follows, the flowchart is shown in Fig. 12.
+3.3. Analysis of DBSCAN clustering
+                                                                                           1) Using a single antenna to collect arc EMR signals at different dis­
+    During a single arc development cycle, collecting multiple signal
+                                                                                              tances and irradiances at a sampling rate of 200 kHz, and obtain Erms
+samples and effectively fusing the results can improve the accuracy of
+                                                                                              values after processing.
+fault point localization. In this paper, DBSCAN clustering method is used
+                                                                                           2) Use Erms and irradiance to train ANN in order to predict the output
+to fuse and analyze the multiple measurement results. DBSCAN is a
+                                                                                              distance of the model.
+representative density-based clustering algorithm that defines clusters
+                                                                                           3) Set up a Cartesian coordinate system with PV array as the plane,
+as the largest set of points connected by density. It can partition regions
+                                                                                              determine the number and layout of redundant antenna array, and
+with sufficiently high density into clusters and can discover clusters of
+                                                                                              place the antennas.
+arbitrary shapes in spatial databases with noise. Compared to traditional
+                                                                                           4) Convert the arc EMR signal collected by the antenna array into Erms,
+K-means method, DBSCAN does not require prior knowledge of the
+                                                                                              calculate the average of multiple time windows, and select the an­
+number of clusters to be formed, and can identify clusters of arbitrary
+                                                                                              tenna according to the order of Erms size.
+shapes and recognize noise points.
+                                                                                           5) Input the Erms of the three antennas together with the corresponding
+    DBSCAN has two input parameters: the neighborhood radius Eps and
+                                                                                              irradiance into the trained ANN to obtain the predicted distance from
+the minimum number of data objects in the neighborhood MinPts. Its
+                                                                                              the arc to the antenna array, and apply the ellipse algorithm to obtain
+output is density-connected clusters. Within radius R, data points with a
+                                                                                              the location of the arc fault point.
+count greater than or equal to MinPts are considered core points. Points
+                                                                                           6) Conduct DBSCAN clustering analysis to further reduce errors and
+that are not core points but are within the neighborhood of a core point
+                                                                                              obtain the final coordinates of the arc fault point, completing the
+are considered border points, whereas points that are neither core points
+                                                                                              location.
+nor border points are classified as noise points. The processing flow of
+the clustering algorithm is as follows:
+                                                                                           4. Experimental testing
+1) Randomly select a point p (neither assigned to a class nor specifically
+                                                                                           4.1. Determination of model parameters
+   as a periphery point), and calculate whether the selected data object
+   point is a core point for the parameters Eps and MinPts. If so, find all
+                                                                                           4.1.1. Collection of dataset
+   data object points reachable from the density of p to form a cluster.
+                                                                                               The AFG is interposed between PV modules, and dataset samples are
+2) If the selected data object point p is an edge point, select another data
+                                                                                           collected during the stable combustion of the arc. Moreover, the oscil­
+   object point.
+                                                                                           loscope sampling frequency is set to 200 kHz, and the irradiance range is
+                                                                                           between 200 and 1100 W/m2.
+
+
+
+                                                         Model train section
+                                                                                      Erms
+                                                                                                           Two                                   One
+                                                      EMR                Signal
+                Record the distance and irradiance                                                         input                                output
+                                                      signal           processing
+                 corresponding to arc combustion
+                                                                 One
+                                                               antenna                                                                                   Predict
+                                                                                                                                                         distance
+                                                                                  Irradiance at
+                                                                              corresponding time                            ANN neural
+                    Distance         Irradiance
+                                                                                                                             network
+
+                                                               Location section A                           Trained
+                                                                                                             model
+                                                                                                 MAX
+
+
+                                                                                             B         C
+                                                                                                                            Ellipse               DBSCAN
+                         PV array                 Redundant antenna array             Antenna with strongest signal
+                                                                                                                           algorithm               cluster
+
+                                                                Fig. 12. Integral process of proposed method.
+
+                                                                                       9
+L. Lin et al.                                                                                                                        Solar Energy 274 (2024) 112588
+
+
+    With a step size of 0.5 m, the distance between the antenna and AFG             RMS values of the arc EMR signal under different irradiance gradually
+is gradually increased. Using one antenna, a large amount of arc’s EMR              increase with the increase of the time window. Under the same irradi­
+signal data is collected at different irradiance levels and distances, thus         ance, the dispersion of EMR samples with different arcs decreases with
+forming the training dataset for the ANN. In this study, the maximum                the increase of time window. In other words, the larger the time win­
+distance from the antenna to the arc fault source under the PV array is             dow, the more different the RMS values of arc EMR signals obtained
+8.942 m, and the farthest effective distance at low irradiance in the open          under different irradiance. However, too large time window will not
+area where the antenna could receive EMR signals is 11.389 m. There­                only increase the calculation burden, but also weaken the randomness of
+fore, the range of training samples is set from 0 to 9 m. As for the test           the arc. Overall, the time window size in this paper is set to 5 ms. It
+dataset, antennas are placed at the positions of the antenna layout                 should be noted that in the 5 ms time window, the irradiance can be
+shown in Fig. 11. With varying step sizes, EMR signals are collected at             regarded as constant.
+different irradiance levels and distances, with the distance range still
+being 0 to 9 m.                                                                     4.1.4. DBSCAN cluster
+    In a word, a total of 22,350 samples are obtained in this paper. Out of            DBSCAN is very sensitive to density threshold parameters. According
+these, 16,008 samples are used to train the ANN network, with a ratio of            to the actual application requirements, this paper sets the objective
+5:1 between the training set and validation sets. The remaining 6,342               function and uses the elbow detection method to automatically obtain
+samples are investigated to test the model’s performance. The number of             the optimal scanning radius under different minimum samples, so as to
+iterations is set to 3000, and the Adam is selected as the optimizer.               achieve the optimal optimization of density threshold parameters [31].
+                                                                                       To use the elbow detection method, choose the value of z as:
+4.1.2. Predictive effects of ANN
+                                                                                    z = 2 × dE − 1                                                           (11)
+    Test samples are fed into the trained ANN to test the predictive power
+of the model. Mean absolute error (MAE) is used to characterize the                 where dE indicates the data dimension. And calculate the distance from
+prediction results, as shown in the Fig. 13. It can be seen that among the          each point to the z-th closest point, and then sort these distances in
+19 predicted locations, MAE is smaller when the distance is less than 5             ascending order before plotting. Finally find the distance of the inflec­
+m. When the distance is greater than 7 m, the MAE is larger, and even               tion point position, which is the value of Eps.
+when the distance is 9 m, the MAE is 0.512 m, greater than 0.5 m. For                   The selection method of MinPts is
+this result, it can be interpreted that the farther away the antenna is from
+the arc, the smaller the arc EMR signal received, and the more suscep­              MinPts = z + 1                                                           (12)
+tible it is to interference from other electromagnetic signals around. The
+                                                                                       For this paper, the clustering algorithm calculates two-dimensional
+average error of the prediction results is 0.308 m, which shows that the
+                                                                                    data, so it can be determined that z = 3 and MinPts = 4. The value of
+prediction effect is good.
+                                                                                    Eps is determined according to the inflection point.
+
+4.1.3. Time window
+    To establish the appropriate time window for capturing EMR signals,             4.2. Positioning results and error analysis
+this paper uses a representative distance of 0.25 m between the antenna
+and the arc. Forty groups of samples are selected from the training set,            4.2.1. Initial positioning results
+with each group representing two distinct irradiance levels. The differ­                The electric arc fault locations in this study are set as shown in Fig. 2,
+ence of RMS value of arc EMR signals collected with four time windows               with a total of 10 positions. The locations of the fault points are exactly
+of 1 ms, 2.5 ms, 5 ms and 7.5 ms at the same distance and different                 the same as those in Fig. 2. In Fig. 15, five layout configurations are
+irradiance are shown in Fig. 14. The red mark represents the RMS value              discussed and analyzed. Firstly, the three antennas with the strongest
+distribution of arc EMR signals when the distance is 0.25 m and the                 signals in the redundant antenna array are determined, and then the
+irradiance is 359 W/m2. The blue mark represents the RMS value dis­                 ellipse algorithm is introduced to obtain the positioning results. In these
+tribution of arc EMR signals when the distance is 0.25 m and the irra­              figures, “×” represents the actual coordinates of the electric arc, while
+diance is 510 W/m2.                                                                 circular markers indicate the predicted coordinates obtained by the al­
+    When the distance between the arc and the antenna is constant, the              gorithm. To simulate the arc after the PV array is connected to the grid,
+                                                                                    data are collected when the arc is stably burning. It is worth noting that
+                                                                                    data is collected within a two-second interval, with 10 consecutive five-
+                                                                                    millisecond data segments obtained. The average value is calculated for
+                                                                                    each set of data segments, and this process is repeated for 10 experi­
+                                                                                    ments under different irradiance levels.
+
+                                                                                    4.2.2. Error analysis
+                                                                                        The antennas selected by the algorithm are listed in Table 6. In most
+                                                                                    experimental scenarios, three antennas that receive the strongest EMR
+                                                                                    signals are also the closest to the arc. However, due to the prediction
+                                                                                    errors of ANN, shadow fading, multi-path effects, and site errors, the
+                                                                                    algorithm selects two sets of antennas in the 4R, 4D, and 5R layouts at
+                                                                                    position ⑥. Analyze the situation of the 4R layout: in 10 experiments,
+                                                                                    there are four cases when the antennas S1, S2 and S3 receive the strongest
+                                                                                    signals, and there are six cases when the antennas S2, S3 and S4 receive
+                                                                                    the strongest signals. The reason for choosing two sets of antennas in the
+                                                                                    other two cases is the same. The above situation reflects the flexibility of
+                                                                                    the algorithm in the selection of antennas. It is worth mentioning that at
+                                                                                    location ⑥ in the 5D layout, the algorithm shows that it could not be
+                                                                                    located because the algorithm selects the antennas S2, S4 and S5, but the
+                                                                                    coordinate connections of this set of antennas form a straight line. The
+                     Fig. 13. Predictive effects of ANN.                            ellipse algorithm based on the trilateration method fails. In such case,
+
+                                                                               10
+L. Lin et al.                                                                                                              Solar Energy 274 (2024) 112588
+
+
+
+
+                Fig. 14. Distribution of data points in different time windows. (a) 1 ms (b) 2.5 ms (c) 5 ms (d) 7.5 ms.
+
+
+
+
+                  Fig. 15. Preliminary location results of arc fault in PV system. (a) 4R (b) 4D (c) 5R (d) 5D (e) 6H.
+
+
+
+
+                                                                   11
+L. Lin et al.                                                                                                                             Solar Energy 274 (2024) 112588
+
+
+Table 6                                                                                accuracy. For the corner locations of the array (①, ④, and ⑩), 6H has
+Antenna numbers for five layouts at 10 locations.                                      the smallest error. Next for the edge locations of the array (②, ③, ⑧ and
+  Location      4R         4D          5R           5D                 6H              ⑨), 5R and 6H have the smallest errors, and the variance is also the most
+                                                                                       stable. Eventually, for the central locations of the array (⑤, ⑥ and ⑦),
+  ①             S1,S2,S4   S1,S2,S4    S1,S4,S5     S1,S2,S5           S1,S5,S6
+  ②             S1,S2,S4   S1,S2,S4    S1,S4,S5     S1,S2,S5           S1,S2,S6        5R has the smallest error.
+  ③             S1,S2,S3   S2,S3,S4    S1,S2,S5     S2,S3,S5           S1,S2,S3           To explore the impact of the number of antennas on localization
+  ④             S1,S2,S3   S2,S3,S4    S2,S3,S5     S2,S3,S5           S2,S3,S4        accuracy, this paper conducts 10 experiments at the 10 positions in
+  ⑤             S1,S2,S4   S1,S2,S4    S1,S4,S5     S1,S2,S5           S1,S5,S6        Fig. 2 using the three-antenna layout (refers to as 3T) and repeats them
+                S1,S2,S3   S1,S2,S4    S1,S2,S5
+  ⑥
+                S2,S3,S4   S2,S3,S4    S2,S3,S5
+                                                    Unable to locate   S2,S4,S6        for six different layout configurations, including 3T. The average
+  ⑦             S2,S3,S4   S2,S3,S4    S2,S3,S5     S3,S4,S5           S2,S3,S4        localization error, as shown in Table 7, reveals that the MAE decreases as
+  ⑧             S1,S3,S4   S1,S2,S4    S1,S4,S5     S1,S4,S5           S4,S5,S6        the number of antennas increases. It also illustrates the impact of layout
+  ⑨             S1,S3,S4   S1,S2,S4    S3,S4,S5     S1,S4,S5           S4,S5,S6        configurations on the error. From both an economic and accuracy
+                S2,S3,S4   S2,S3,S4    S2,S3,S5     S3,S4,S5           S2,S3,S4
+  ⑩
+                                                                                       perspective, five antennas are sufficient to meet localization
+                                                                                       requirements.
+the algorithm discards antenna S2 (taken in ascending order) and selects                  In summary, the 5R layout of redundant antenna array can minimize
+the fourth-ranked Erms antenna in descending order, which is S3.                       positioning error, and the majority of positional error is within 0.5 m.
+    Ultimately, the algorithm chooses antennas S3, S4 and S5 for locali­
+zation. For the 10 selected positions in this paper, all antennas have a               4.2.3. Cluster results
+sufficient utilization rate, indicating that the antenna layout is                         The EMR signals received by antenna S1 at location ⑤ in the 5R
+reasonable.                                                                            layout are displayed in Fig. 17, including four possible sampling
+    The MAE of five antenna layouts at 10 locations are shown in Fig. 16,              categories.
+and the real distance between two points is measured by Euclidean                          In sampling category I, the collected data goes through two stages of
+distance. In this paper, an antenna is added at the center of the PV array,            arc ignition and stable combustion. In sampling category II, the data
+which effectively reduces the error. Compared with the layouts of 4R                   only contains information about arc steady combustion. While sampling
+and the 5R, there are seven locations where the error of 4R is signifi­                category III comprises data from both the stable burning and extin­
+cantly greater than that of 5R, and the error of 4R is greater than 1 m at             guishing. If the arc is extinguished quickly, there is a sampling category
+location ① and ⑦. The error of 5R at location ①, ④ and ⑩ is greater                    IV, which includes the arc generation, steady combustion, and extinc­
+than 0.5 m, and the error even reaches 0.989 m at location ④. The                      tion process. For each of these four-sampling category, 10 waveforms
+reason is that in the positioning process, the electromagnetic factors in              are randomly selected, and the average Erms is computed. The same
+the surrounding environment are unstable, which leads to deviation in                  processing is applied to the EMR signal data received by the other four
+the ANN fitting, resulting in noise points in the positioning results and              antennas. The proposed algorithm is used for localization in 10 itera­
+increases in MAE. This is also one of the reasons for using clustering                 tions, and the results are depicted in Fig. 18(a).
+algorithms: to remove noise points and further improve positioning                         The algorithm selects antennas S1, S4 and S5 for localization. Both
+accuracy. Compared with 4D and 5D, there are five locations where the                  sampling category III and IV include data from the arc extinguishing
+error of 4D is greater than 5D. The two layouts are both interfered by                 phase, leading to a lower average Erms than that of sampling category I
+noise at location ⑧, with errors of 1.148 m and 0.692 m, respectively.                 and II. This results in a reduction in the distance predicted by the ANN.
+The newly added antenna is located at the center of the array, and the                 However, the ellipse algorithm exhibits a degree of adaptability to this
+probability of being affected by obstacles when receiving EMR signals is               situation (as seen in Fig. 7(d)), so the localization errors for sampling
+smaller than that of other locations, which is also confirmed by the field             category III and IV remain within a manageable and reasonable range.
+investigation of obstacles in Fig. 8. Therefore, it can be inferred that               Additionally, it can be verified that there is no significant difference
+increasing the number of antennas at appropriate locations is conductive               between data from the arc ignition phase and the arc stable burning
+to improve positioning accuracy.                                                       phase. DBSCAN clustering analysis is applied to the four categories in
+    The location of the fault occurrence also affects the localization                 Fig. 17 to obtain the final localization points. The clustering strategy
+                                                                                       involves identifying the largest cluster and determining its centroid
+                                                                                       coordinates. The localization errors (Euclidean distance) between the
+                                                                                       estimated points and the actual fault points are listed in Table 8.
+                                                                                           To provide a more detailed demonstration of the clustering results,
+                                                                                       analysis is conducted on other experiment outcomes as well.
+                                                                                           A comparison is made regarding the use of clustering algorithm on
+                                                                                       the data from sampling category II, as shown in Fig. 17. Fig. 18(b) il­
+                                                                                       lustrates the error fluctuations for 10 waveform segments. Among these,
+                                                                                       the maximum error can reach 0.412 m, while the minimum error can be
+                                                                                       as low as 0.018 m, indicating that the absolute values of errors vary
+                                                                                       significantly. However, after applying the clustering algorithm, the er­
+                                                                                       rors stabilize at 0.243 m. It is evident that the use of DBSCAN effectively
+                                                                                       reduces error fluctuations.
+                                                                                           Taking the example of location ④ in the 5R layout. In Fig. 15(c),
+                                                                                       there are two noise points at location ④. This indicates that out of the 10
+                                                                                       localization experiments, eight results in accurate localization, while
+                                                                                       two deviates from the fault point due to noise interference. After
+
+                                                                                       Table 7
+                                                                                       Average error for six layouts at 10 locations.
+                                                                                        Layout               3T        4R         4D       5R        5D         6H
+
+                                                                                        Average error/m      1.426     0.722      0.696    0.436     0.613      0.383
+                Fig. 16. Comparison of initial positioning error.
+
+                                                                                  12
+L. Lin et al.                                                                                                                        Solar Energy 274 (2024) 112588
+
+
+
+
+                                                           Fig. 17. Analysis of sampling category.
+
+
+clustering, the results obtained are shown in Fig. 18(c). It can be                 redundant antenna array), again using ellipse algorithm to calculate the
+observed that the DBSCAN clustering algorithm effectively distinguishes             arc coordinates. (III) 5R layout (with a redundant antenna array), using
+core points from noise points. Two data clusters are present in the graph,          ellipse algorithm for initial localization and then employing clustering
+and clustering results in two cluster centroids. The centroid of the largest        analysis to determine the final fault location. In 10 experiments, noise
+cluster is selected as the final localization result, resulting in a locali­        sources similar to the frequency band of EMR signals are added around
+zation error of 0.468 m. This represents a reduction of 0.521 m                     AFG one or two times to simulate real-world noise interference during
+compared to the situation before clustering.                                        the localization process, verifying the feasibility of the clustering algo­
+    For the special case when the algorithm selects two sets of antennas,           rithm. The MAE for the three methods is shown in Fig. 19.
+this study discusses the scenario at location ⑥ in the 5R layout. In 10
+experiments, the algorithm alternately chooses antennas S2, S3 and S5               4.3.2. Algorithm adaptability analysis
+for five times. In this case, the algorithm could not determine the largest             In order to validate the adaptability of the proposed algorithm, ex­
+cluster. To address this problem, the algorithm is adjusted as follows: if          periments are conducted using different inverters which are investigated
+two clusters contain an equal number of data points, the centroids of               for grid-connected power generation. The parameters of the two in­
+both clusters are calculated separately, and then the center coordinates            verters are compared in Table 9. Meanwhile, the experiments are
+of these two centroids as the final fault location (as shown in Fig. 18(d)).        repeated at 10 different locations in Fig. 2, with 5R layout. Both in­
+The localization error for Cluster I is 0.346 m, for Cluster II is 0.420 m,         verters utilize the same training dataset, and the results are presented in
+and the final localization error is 0.233 m. The clustering results can also        Table 10.
+be visually observed in the graph. Therefore, the adjusted algorithm                    It can be seen from Table 10 that the error of inverter I is only greater
+yields improve localization performance.                                            than that of inverter II at location ①, and smaller than that of inverter II
+    For the location ⑥ in the 4R layout, the algorithm similarly selects            at other locations. At location ②, ③, ⑤, ⑧ and ⑨, the difference be­
+two sets of antennas. According to the rule of choosing the largest                 tween the two inverters is relatively small, while the difference between
+cluster, in this case, the data from the set of antennas S1, S2 and S3 are          location ④, ⑥, ⑦ and ⑩ is relatively large, with location ④ being the
+discarded, and the data from the set of antennas S2, S3 and S4 are used             most obvious, possibly ANN has not learned new features. The average
+instead. If the algorithm were to follow the adjusted approach of using             error of inverter I is 0.365 m, and that of inverter II is 0.524 m. When
+both clusters’ data to calculate, it would indeed reduce the error by               different inverters are used to locate arc faults, the error increases
+moving the estimated location closer to the actual fault point. However,            without retraining the prediction model, but only slightly larger than
+this would undoubtedly increase the algorithm’s complexity, and there               0.5 m. The algorithm can still accurately identify the fault location and
+wouldn’t be a consistent standard for determining when to use data from             demonstrate good adaptability.
+both clusters. Therefore, the algorithm continues to follow the previous
+rule.                                                                               4.3.3. Comparison of positioning algorithms
+                                                                                        This paper compares the methods in other five references from the
+                                                                                    perspectives of physical quantities, positioning range, and other aspects,
+4.3. Comparative analysis of algorithm
+                                                                                    in order to demonstrate the application value and excellent positioning
+                                                                                    capability of the proposed algorithm. The comparison results are shown
+4.3.1. Algorithm validity verification
+                                                                                    in Table 11.
+   In order to verify the effectiveness of the proposed algorithm, this
+                                                                                        On one hand, after spectral analysis of capacitive current, faults
+paper conducts a comparative analysis of three location algorithms: (I)
+                                                                                    between components, busbars and loads can be located, making it uni­
+3T layout (no redundant antenna array is adopted), using only ellipse
+                                                                                    versal in applications [13]. However, it struggles to pinpoint faults
+algorithm to calculate the arc coordinates. (II) 5R layout (with
+
+                                                                               13
+L. Lin et al.                                                                                                                                                          Solar Energy 274 (2024) 112588
+
+
+           y/m
+  3.2500
+                                                                                                                           0.412                               0.388
+                                                                                                       0.4
+
+
+                                                                                                                                         0.302                                               0.309
+                                                                                                       0.3                                                                   0.281
+
+
+
+
+                                                                                             Error/m
+                                                                                                                                                   0.241
+  2.4375                                                                                               0.2
+                                                                                                                                                                                     0.205
+                                                                                                                               0.197
+                    Sampling phase I
+                                                                                                       0.1
+                    Sampling phase II
+                                                                                                                                                                       0.077
+                    Sampling phase III                                                                           0.018
+                                                                                                       0.0
+                    Sampling phase IV
+  1.6250 1                                                                       x/m
+                                          2.5                           4                                    1         2           3         4      5       6      7         8           9      10
+                                                                                                                                                 Number of samples
+
+                                          (a)                                                                                                              (b)
+            y/m                                                                                  y/m
+  4.8750                                                                                    3.2500
+
+
+                         Cluster I                                                                                           Cluster I
+                         Cluster II                                                                                         Cluster II
+                         Cluster center
+                                                                                                                            Cluster center
+
+  4.0625                                                                                    2.4375                          Final position
+
+
+
+
+  3.2500                                                                         x/m        1.6250 4                                                                                                   x/m
+                6                         7                              8                                                                             4.5                                         5
+                                          (c)                                                                                                              (d)
+Fig. 18. Positioning results. (a) Comparison of positioning results at different sampling categories (b) Error fluctuations at sampling category II (c) Clusters analysis
+with noise interferences (d) Cluster analysis results of two sets of antennas.
+
+
+Table 8                                                                                                 3.0
+Comparison of positioning results error at different sampling categories.                                                                                  Algorithm I
+  Sampling category             I             II           III              IV                                                                             Algorithm II
+                                                                                                        2.5
+  Error/m                       0.269         0.243        0.513            0.305                                                                          Algorithm III
+
+                                                                                                        2.0
+within the series accurately. On the other hand, the algorithm proposed
+in [15] offers a positioning range limited to the DC bus, displaying a
+                                                                                            MAE/m
+
+
+
+
+small average error. This capability effectively mitigates the impact of                                1.5
+interference noise in the reflected signal but falls short in accurately
+locating faults between PV modules. The algorithm’s immunity to cope
+with inverter switching noise characteristics is addressed in [18]. The                                 1.0
+limited positioning range mentioned in [17,18,22] reflects instances
+when the experiments are conducted in restricted areas without
+considering the entire PV array. Furthermore, even in [17], the experi­                                 0.5
+ments only utilize PV simulators, neglecting potential scenarios
+involving arc faults in actual PV arrays. Additionally, the impact of
+                                                                                                        0.0
+irradiance on positioning accuracy is not considered in [13,17,18].                                                1          2          3         4       5       6     7           8         9       10
+    In contrast, the algorithm introduced in this paper operates at a low
+sampling rate yet offers a wide-ranging capability to locate most areas                                                                          Arc fault location
+within the PV array. This paper takes into account the impact of irra­
+                                                                                                                               Fig. 19. Results of ablation expression.
+diance on the EMR signal. The algorithm exhibits an average error of
+0.365 m, which may seem slightly larger when compared to other
+
+
+                                                                                       14
+L. Lin et al.                                                                                                                                         Solar Energy 274 (2024) 112588
+
+
+Table 9                                                                                             corroborated by the error analysis presented in previous chapters.
+Comparison of inverter models.                                                                      Taking into account various factors such as experimental equipment, the
+  Model                                           SG6KTL-MT                    SGN5400TL            5R layout emerges as the optimal solution for achieving the required
+                                                                                                    positioning accuracy in the PV field studied in this research. For smaller-
+  Type                                            Three-phase                  Single-phase
+  Starting voltage                                250 V                        90 V                 scale PV fields where the impact of fading is relatively minor, four an­
+  MPPT voltage adjustment range                   200 ~ 1000 V                 70 ~ 530 V           tennas may suffice (to demonstrate redundancy, more than three an­
+  Switching frequency                             16 kHz                       19.2 kHz             tennas are used).
+                                                                                                        For larger-scale PV fields, a larger antenna array can be constructed
+                                                                                                    using the 5R layout as the basic configuration. The server parameters
+Table 10                                                                                            used in this paper are: CPU I7-12700H, GPU 1 RTX3050, RAM 24G. The
+Comparison of positioning errors between different inverters.                                       time required for a single fault localization is approximately 1.152 s,
+  Location      Inverter I      Inverter II       Location        Inverter I     Inverter II        indicating that the computational requirements are not demanding and
+                                                                                                    can be handled by an embedded microcontroller. In practical applica­
+  ①             0.403 m         0.394 m           ⑥               0.376 m        0.714 m
+  ②             0.391 m         0.527 m           ⑦               0.428 m        0.613 m
+                                                                                                    tions, a distributed sampling terminal can be designed, consisting of
+  ③             0.572 m         0.639 m           ⑧               0.293 m        0.413 m            modules such as antennas, AD (analog to digital) sampling modules, and
+  ④             0.112 m         0.538 m           ⑨               0.210 m        0.263 m            MCU (microcontroller unit) module. Each measurement point is
+  ⑤             0.257 m         0.312 m           ⑩               0.612 m        0.827 m            equipped with a distributed sampling terminal, which is connected to an
+                                                                                                    edge computing terminal via a bus system. The edge computing terminal
+references. Notably, in [22], experimental conditions are similar to                                runs the proposed algorithm to predict the fault location, as illustrated in
+those in this paper, the error is smaller than that of the proposed algo­                           Fig. 20.
+rithm. However, it’s essential to consider that the antenna used in this                                When an arc fault occurs, a subset of the distributed sampling ter­
+paper possesses a longer receiving range and a more extensive posi­                                 minals captures the electromagnetic signal of the arc and feeds it back to
+tioning range, resulting in superior actual performance compared to                                 the edge computing terminal. The edge computing terminal selects data
+[22]. Additionally, this paper delves into the source of positioning data,                          from the five antennas with the strongest signals to determine the fault
+highlighting the algorithm’s resilience to accidental EMR interference                              block. Subsequently, the proposed method is utilized to pinpoint the
+signals and unstable arcing state data. Furthermore, this paper includes                            exact location of the fault.
+an analysis of antenna array layout and quantity, which offers signifi­
+cant advantage over other algorithms.                                                               4.3.5. Influence of environment temperature on EMR signals
+                                                                                                       This section analyzes the impact of environment temperature and
+4.3.4. Application of the proposed method in other practical PV power                               objectively evaluates it through detailed experimental data. The rele­
+stations                                                                                            vant experiment settings are as follows: the experiment was conducted
+    Positioning accuracy exhibits directionality, with higher accuracy                              from March 21st to March 24th, 2024, during the spring season when
+achieved when the discharge source is located near the normal line of                               there were significant temperature fluctuations within a day. An envi­
+the antenna pair with the maximum spacing. This has also been                                       ronment thermometer was applied as the measurement tool. And the
+
+
+Table 11
+Comparison of localization algorithms.
+  References                 Physical quality          Location range           Consider irradiance?        Average error/m      Anti-interference?       Consider antenna layout?
+
+  Proposed method            EMR                       Array                    Yes                         0.365                Yes                      Yes
+  [13]                       Capacity current          No limit                 No                          −                    Yes                      No
+  [15]                       TD                        Bus                      Yes                         0.344                Yes                      No
+  [17]                       EMR                       Limited                  No                          0.5                  Yes                      No
+  [18]                       EMR                       Limited                  No                          0.352                No                       No
+  [22]                       EMR                       Limited                  Yes                         0.306                No                       No
+
+
+
+
+                                                Fig. 20. Schematic diagram of each monitoring module layout in PV power station.
+
+                                                                                               15
+L. Lin et al.                                                                                                                          Solar Energy 274 (2024) 112588
+
+
+                                                                                      fluctuations intensify. However, this fluctuation primarily affects the
+                                                                                      stability and reliability of the signal rather than its average strength. In
+                                                                                      fact, examining the I-V curve of PV cells, it is evident that irradiance
+                                                                                      primarily influences the short-circuit current, while temperature mainly
+                                                                                      affects the open-circuit voltage, with a negligible impact on output
+                                                                                      current [32]. Additionally, the attenuation formula for EMR signals due
+                                                                                      to atmospheric temperature is typically measured in larger distance
+                                                                                      units such as kilometers [33]. This suggests that attenuation becomes a
+                                                                                      relatively significant factor only when the total area of a PV power plant
+                                                                                      reaches a certain scale. For the smaller distance range involved in this
+                                                                                      experiment, such attenuation can be neglected.
+                                                                                          In summary, although environment temperature has a certain impact
+                                                                                      on the propagation of EMR signals (primarily manifesting in signal
+                                                                                      fluctuations), its significance is far less than that of irradiance in influ­
+                                                                                      encing the strength of EMR signals. In practical applications, it is crucial
+                                                                                      to pay more attention to changes in irradiance to enhance the strength
+                                                                                      and stability of EMR signals.
+
+                                                                                      4.3.6. Influence of current level through AFG on fault localization results
+                                                                                          The UL1699B standard incorporates arc tests that involve seven
+Fig. 21. Influence of temperature on arc EMR signals under different irradian–
+ce levels and distances.
+                                                                                      controllable parameters, including current, voltage, electrode gap,
+                                                                                      arcing rate, etc. [34]. However, this standard employs controllable DC
+                                                                                      sources rather than PV cells. In a fixed-scale PV array, parameters such
+experimental site was chosen as the open area described in Section 3.2.1.
+                                                                                      as maximum power point voltage, current, and impedance are not freely
+In addition, signal measurement distances were set from 0 to 4 m, with
+                                                                                      controllable. Therefore, considering the experimental conditions,
+measurements taken every 0.5 m.
+                                                                                      controlled experiments that align with the UL1699B standard as closely
+    In Fig. 21, from top to button, three clusters of curves are depicted,
+                                                                                      as possible to analyze the impact of arcs generated by different levels of
+representing different irradiance ranges in different colors, named G1,
+                                                                                      current on localization results should be conducted. During the experi­
+G2 and G3 respectively. These clusters of curves are further distinguished
+                                                                                      ments, the primary parameters under control are Imppt (arc current under
+by different types of symbols for various temperature ranges, named T1,
+                                                                                      MPPT conditions), Rate (arcing rate of the AFG) and Gap (electrode gap
+T2 and T3. Specifically, G1 represents the irradiance range of 300 ~ 320
+                                                                                      of the AFG).
+W/m2, G2 represents the irradiance range of 592 ~ 606 W/m2, and G3
+                                                                                          The experimental design is outlined as follows: The first to third
+represents the irradiance range of 937 ~ 949 W/m2. Similarly, T1 rep­
+                                                                                      groups of experiments utilized a single-string PV module. The fourth
+resents the temperature range of 9 ~ 11 ℃, T2 represents the temper­
+                                                                                      group also employed a single-string module but under conditions of
+ature range of 16 ~ 18 ℃, and T3 represents the temperature range of
+                                                                                      extremely low irradiance to investigate scenarios where the arc may not
+26 ~ 28 ℃.
+                                                                                      burn stably. The fifth group, on the other hand, employed a double-
+    It can be observed that as the distance varies from 0 to 4 m, the
+                                                                                      string PV module. The columns labeled Head, Middle, and End repre­
+decreasing trend of Erms aligns with the description of the LNSM model.
+                                                                                      sent the MAE of the localization results. For the single-string experi­
+The closer the distance between the arc and the antenna, the higher the
+                                                                                      ments, the beginning, middle, and end of the string correspond to
+EMR intensity. Especially within the range of 0 to 2 m, there is a
+                                                                                      positions ④, ② and ⑤ in Fig. 2, respectively. For the double-string
+significantly difference in the attenuation rate of EMR signals, with G1
+                                                                                      experiment, they correspond to positions ④, ⑧ and ⑥ in Fig. 2. Other
+exhibiting the fastest attenuation, followed by G2, and then G3. How­
+                                                                                      experimental settings are identical to those described in Section 4.4.1,
+ever, within the range of 2 to 4 m, the rate of signal attenuation is
+                                                                                      and the localization results are summarized in Table 13.
+relatively gradual. Additionally, under the same distance conditions, the
+                                                                                          Comparing the first three groups of experiments, it is evident that
+influence of irradiance on signal strength is significantly greater than
+                                                                                      despite differences in current levels (or irradiance) and arcing rates in
+that of temperature. This implies that irradiance is a more critical factor
+                                                                                      the AFG between the first and second groups, as well as variations in the
+in the propagation of EMR signals. When the distance and irradiance are
+                                                                                      gap in the third group, the localization results did not exhibit significant
+the same, that is, with other factors held constant and only considering a
+                                                                                      errors. This indicates that the localization algorithm maintains relative
+single variable, the impact of temperature variation on EMR signal
+                                                                                      stability despite changes in irradiance, arcing speed, and arc gap. In the
+propagation is relatively smaller.
+                                                                                      fifth group of experiments, the use of higher irradiance levels and a
+    For further analysis, the standard deviation of Erms under three
+                                                                                      parallel connection of two strings, coupled with a higher ambient tem­
+temperature conditions at each distance is calculated, as shown in
+                                                                                      perature, resulted in smaller EMR signals with greater fluctuations
+Table 12. It can be observed that as the temperature increases, signal
+                                                                                      compared to the previous experimental results. As for the fourth group
+                                                                                      of experiments, the lower irradiance levels led to significantly reduced
+                                                                                      current levels, resulting in intermittent arc combustion. In such sce­
+Table 12
+                                                                                      narios, the EMR signals were highly unstable, leading to larger locali­
+Erms (V) standard deviation at different temperatures.
+                                                                                      zation errors, which is a limitation of the proposed method. In other
+  Distance/m               T1                    T2                   T3              words, when the combustion is stable, the current level has little effect
+  0                        0.1267                0.2314               0.3382          on the localization result.
+  0.5                      0.1352                0.2441               0.3473
+  1                        0.1483                0.2499               0.3477
+                                                                                      5. Conclusion
+  1.5                      0.1637                0.2552               0.3504
+  2                        0.1691                0.2726               0.3772
+  2.5                      0.1962                0.2803               0.3859             This study introduces a new method for locating DC arc faults for PV
+  3                        0.2177                0.2869               0.3884          array. After a lot of experiments, the following conclusions are drawn:
+  3.5                      0.2401                0.3001               0.4018             The ellipse algorithm can effectively handle cases with no solution or
+  4                        0.2538                0.3018               0.4155
+                                                                                      multiple solutions in the trilateration method. By employing the
+
+                                                                                 16
+L. Lin et al.                                                                                                                                               Solar Energy 274 (2024) 112588
+
+
+Table 13
+Localization results at different positions under different current levels.
+  Group              Imppt/A            Rate/(mm⋅s− 1)              Gap/mm                 G/[W⋅m-2]                T/℃                Head/m               Middle/m                End/m
+
+  1                   3.2               2.4                         1.0                    476                      18                 0.935                0.468                   0.119
+  2                   7.9               5.1                         1.0                    839                      20                 0.926                0.470                   0.125
+  3                   8.3               4.9                         2.5                    811                      21                 0.944                0.451                   0.127
+  4                   2.1               5.0                         2.4                    248                      14                 1.331                0.912                   1.260
+  5                  15.4               5.1                         1.0                    1038                     27                 0.933                0.287                   0.228
+
+
+
+redundant antenna array, an optimal solution for the number and layout                            [12] D.W. Upton, K.K. Mistry, P.J. Mather, Z.D. Zaharis, R.C. Atkinson, C. Tachtatzis, P.
+                                                                                                       I. Lazaridis, A review of techniques for RSS-based radiometric partial discharge
+of antennas is derived, known as the 5R layout. DBSCAN has the ad­
+                                                                                                       localization, Sensors 21 (3) (2021) 909.
+vantages of eliminating interference from accidental noise and unstable                           [13] Q. Xiong, S. Ji, X. Liu, X. Feng, F. Zhang, L. Zhu, A.L. Gattozzi, R.E. Hebner,
+arc data.                                                                                              Detecting and localizing series arc fault in photovoltaic systems based on time and
+    Ablation experiment showcases the progressive increase in posi­                                    frequency characteristics of capacitor current, Sol. Energy 170 (2018) 788–799.
+                                                                                                  [14] D.R. Akbar, E. Prasetyono, D.O. Anggriawan, Identification of series DC arc fault
+tioning accuracy, achieving an average positioning error as low as 0.365                               location in MPPT photovoltaic system based on fast Fourier transform and artificial
+m. The proposed method shows novelty, adaptability, and stability.                                     neural network, in: 2022 International Electronics Symposium (IES), 2022, pp.
+    However, it’s important to note that the algorithm’s effectiveness                                 26–33.
+                                                                                                  [15] C. Wu, Y. Hu, Z. Li, F. Wang, On-line detection and location of DC bus arc fault in
+and adaptability should still be validated in other types of PV in­                                    PV systems based on SSTDR, Proceedings of the CSEE 40 (8) (2020) 2725–2735.
+stallations, such as large-scale ground PV power stations, industrial and                         [16] X. Li, H. Wang, P. Guo, W. Xiong, J. Huang, Series DC arc fault detection and
+commercial distributed PV power stations, and household PV power                                       location in wind-solar-storage hybrid system based on variational mode
+                                                                                                       decomposition, Electr. Power Syst. Res. 209 (2022) 107991.
+stations. In reality, the accuracy of the ANN model needs further                                 [17] K. Li, S. Zhao, Y. Wang, A planar location method for DC arc faults using dual
+improvement, and more comprehensive consideration of environmental                                     radiation detection points and DANN, IEEE Trans. Instrum. Meas. 69 (8) (2020)
+factors should be required. Therefore, the next steps involve quantita­                                5478–5487.
+                                                                                                  [18] S. Zhao, G. You, X. Hou, X. Xu, Y. Zhang, H. An, A spatial location method for DC
+tively analyzing the optimal antenna layout, antenna quality, and an­                                  series arc faults based on RSSI and Bayesian regularization neural network, IEEE
+tenna selection for various PV field specifications from a theoretical                                 Sens. J. 21 (24) (2021) 27868–27877.
+standpoint. The goal is to explore the key factors that influence the                             [19] M.A. Jangjoo, M. Allahbakhshi, H.R. Mirzaei, UHF sensors positioning on the
+                                                                                                       power transformer tank to enhance the partial discharge localization accuracy,
+signal of DC arc EMR in PV systems and solve them.
+                                                                                                       Electr. Power Syst. Res. 218 (2023) 109174.
+                                                                                                  [20] A. Chaisang, T. Tiengthong, M.M. Maw, S. Promwong, Partial discharge
+CRediT authorship contribution statement                                                               localization model in power transformer with fingerprinting technique, in: 2023
+                                                                                                       9th International Conference on Engineering, Applied Sciences, and Technology
+                                                                                                       (ICEAST), 2023, pp. 51–54.
+   Liangshi Lin: Investigation, Methodology, Software, Validation,                                [21] W. Gao, W. He, R.J. Wai, X. Zeng, M. Guo, High-impedance arc fault modeling for
+Writing – original draft. Wei Gao: Conceptualization, Writing – review                                 distribution networks based on dynamic geometry dimension, Electr. Power Syst.
+& editing. Gengjie Yang: Project administration, Supervision.                                          Res. 229 (2024) 110109.
+                                                                                                  [22] H. Jin, W. Gao, L. Lin, G. Yang, Arc fault location method for photovoltaic array
+                                                                                                       based on grid fingerprint matching, High Volt. Engin. 50 (02) (2024) 805–815.
+Acknowledgements                                                                                  [23] I. Cappelli, F. Carli, A. Fort, M. Intravaia, F. Micheletti, G. Peruzzi, V. Vignoli,
+                                                                                                       Enhanced visible light localization based on machine learning and optimized
+                                                                                                       fingerprinting in wireless sensor networks, IEEE Trans. Instrum. Meas. 72 (2023)
+    This work is financial supported by the Natural Science Foundation                                 1–10.
+of Fujian, China under Award 2021 J01633.                                                         [24] Q. Yu, L. Luo, T. Jia, H. Song, G. Sheng, X. Jiang, Spatial partial discharge
+                                                                                                       localization technology in substation based on RSSI statistical analysis of UHF
+                                                                                                       signals, High Volt. Engin. 46 (12) (2020) 4163–4171.
+References                                                                                        [25] L. Wu, D. He, B. Ai, J. Wang, H. Qi, K. Guan, Z. Zhong, Artificial neural network
+                                                                                                       based path loss prediction for wireless communication network, IEEE Access 8
+ [1] Z. He, P. Chu, C. Li, K. Zhang, H. Wei, Y. Hu, Compound fault diagnosis for                       (2020) 199523–199538.
+     photovoltaic arrays based on multi-label learning considering multiple faults                [26] H.S. Jo, C. Park, E. Lee, H.K. Choi, J. Park. Path loss prediction based on machine
+     coupling, Energy Convers. Manag. 279 (2023) 116742.                                               learning techniques: principal component analysis, artificial neural network, and
+ [2] J.V. Gompel, D. Spina, C. Develder, Satellite based fault diagnosis of photovoltaic               gaussian process, Sensors 20 (7) (2020) 1927.
+     systems using recurrent neural networks, Appl. Energy 305 (2022) 117874.                     [27] B. Yang, L. Guo, R. Guo, M. Zhao, T. Zhao, A novel trilateration algorithm for RSSI-
+ [3] A. Mellit, An embedded solution for fault detection and diagnosis of photovoltaic                 based indoor localization, IEEE Sens. J. 20 (14) (2020) 8164–8172.
+     modules using thermographic images and deep convolutional neural networks,                   [28] T. Wang, B. Yang, RSSI indoor mobile location based on set membership filtering
+     Eng. Appl. Artif. Intell. 116 (2022) 105459.                                                      with event triggering mechanism, Navigation Positioning and Timing 8 (02) (2021)
+ [4] X. Chen, K. Ding, H. Yang, X. Chen, J. Zhang, M. Jiang, R. Gao, Z. Liu, Research on               88–96.
+     real-time identification method of model parameters for the photovoltaic array,              [29] A.A. Kurzhanskiy, P. Varaiya, Ellipsoidal Toolbox (ET), in: Proceedings of the 45th
+     Appl. Energy 342 (2023) 121157.                                                                   IEEE Conference on Decision and Control, 2006, pp. 1498–1503.
+ [5] K. Jia, C. Gu, L. Li, Z. Xuan, T. Bi, D. Thomas, Sparse voltage amplitude                    [30] G. Zhang, M. Zhu, Y. Wang, Q. Liu, Y. Li, J. Deng, H. Mu, Research on detection and
+     measurement based fault location in large-scale photovoltaic power plants, Appl.                  location of substation area discharge source based on mobile UHF antenna array,
+     Energy 211 (2018) 568–581.                                                                        Proceedings of the CSEE 37 (10) (2017) 2761–2773.
+ [6] X. Chen, W. Gao, C. Hong, Y. Tu, A novel series arc fault detection method for               [31] S. Louhichi, M. Gzara, H.B. Abdallah, A density based algorithm for discovering
+     photovoltaic system based on multi-input neural network, Int. J. Electr. Power                    clusters with varied density, in: 2014 World Congress on Computer Applications
+     Energy Syst. 140 (2022) 108018.                                                                   and Information Systems (WCCAIS), 2014, pp. 1–6.
+ [7] S. Lu, B.T. Phung, D. Zhang, A comprehensive review on DC arc faults and their               [32] M. Zaimi, H.E. Achouby, A. Ibral, E.M. Assaid, Determining combined effects of
+     diagnosis methods in photovoltaic systems, Renew. Sust. Energ. Rev. 89 (2018)                     solar radiation and panel junction temperature on all model-parameters to forecast
+     88–98.                                                                                            peak power and photovoltaic yield of solar panel under non-standard conditions,
+ [8] W. Gao, H. Jin, G. Yang, Series arc fault diagnosis method of photovoltaic arrays                 Sol. Energy 191 (2017) 341–359.
+     based on GASF and improved DCGAN, Adv. Eng. Inform. 54 (2022) 101809.                        [33] I. Expósito, M.G. Sánchez, I. Cuiñas, Computing the influence of environment
+ [9] S. Lu, R. Ma, T. Sirojan, B.T. Phung, D. Zhang, Lightweight transfer nets and                     conditions in electromagnetic measurements uncertainty, IEEE T. Antenn. Propag.
+     adversarial data augmentation for photovoltaic series arc fault detection with                    67 (6) (2019) 4084–4090.
+     limited fault data, Int. J. Electr. Power Energy Syst. 130 (2021) 107035.                    [34] K. Park, J. Bang, S. Bang, J. Park, S. Hong, Statistical analysis of ignition time and
+[10] H. Qian, B. Lee, Z. Wu, G. Wang, Research on DC arc fault detection in PV systems                 energy of the TFR-CV cable ignition experiments using 100 W DC arc, J. Electr.
+     based on adjacent multi-segment spectral similarity and adaptive threshold model,                 Eng. Technol. 17 (2022) 3593–3599.
+     Sol. Energy 264 (2023) 112011.
+[11] W. Wang, B. Xu, G. Zou, D. Liang, Arc fault detection method based on voltage
+     characteristic energy amplitude and phase mapping distribution distances, Electr.
+     Power Syst. Res. 225 (2023) 109866.
+
+
+
+
+                                                                                           17
+

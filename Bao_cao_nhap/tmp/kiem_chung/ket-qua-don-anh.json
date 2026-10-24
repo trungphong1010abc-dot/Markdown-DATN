@@ -1,0 +1,30 @@
+{
+  "renamed": {
+    "Hinh_1_8_Cau_truc_tu_trung_the_KMZ_31.jpg": "Hinh_1_1_Cau_truc_tu_trung_the_KMZ_31.jpg",
+    "Hinh_1_6_Thanh_cai_ha_the_nong_chay_do_ho_quang.jpg": "Hinh_1_3_Thanh_cai_ha_the_nong_chay_do_ho_quang.jpg",
+    "Hinh_1_5_Nang_luong_tac_dong_theo_thoi_gian_ho_quang.png": "Hinh_1_4_Nang_luong_tac_dong_theo_thoi_gian_ho_quang.png",
+    "Hinh_1_7_Nguyen_ly_phoi_hop_anh_sang_va_qua_dong.png": "Hinh_1_5_Nguyen_ly_phoi_hop_anh_sang_va_qua_dong.png",
+    "Hinh_1_12_Mo_dun_phat_hien_ho_quang_Mors_Smitt_1S23.png": "Hinh_1_6_Mo_dun_phat_hien_ho_quang_Mors_Smitt_1S23.png"
+  },
+  "deleted": [
+    "Hinh_1_1_Ho_quang_dien_giua_hai_dien_cuc.jpg",
+    "Hinh_1_3_Phan_biet_Arc_Flash_va_Arc_Blast.jpg",
+    "Hinh_1_4_Cac_dang_su_co_ho_quang_noi_tiep_va_song_song.png",
+    "Hinh_1_9_Bo_tri_cam_bien_quang_va_do_dong.png",
+    "Hinh_1_10_He_thu_nghiem_do_dong_phat_hien_ho_quang.jpg",
+    "Hinh_1_11_Nguyen_mau_phat_hien_ho_quang_noi_tiep.jpg",
+    "Hinh_1_13_Phan_loai_giai_phap_bao_ve_ho_quang.jpg",
+    "Hinh_1_14_Nha_may_HEINEKEN_Vung_Tau.jpg"
+  ],
+  "kept_unresolved": [],
+  "remaining": [
+    "Hinh_1_1_Cau_truc_tu_trung_the_KMZ_31.jpg",
+    "Hinh_1_2_Thu_nghiem_ho_quang_noi_bo_tu_KMZ_31.jpg",
+    "Hinh_1_3_Thanh_cai_ha_the_nong_chay_do_ho_quang.jpg",
+    "Hinh_1_4_Nang_luong_tac_dong_theo_thoi_gian_ho_quang.png",
+    "Hinh_1_5_Nguyen_ly_phoi_hop_anh_sang_va_qua_dong.png",
+    "Hinh_1_6_Mo_dun_phat_hien_ho_quang_Mors_Smitt_1S23.png",
+    "Hinh_1_7_Dau_noi_1S23.png",
+    "Hinh_1_8_Vi_du_bo_tri_1S30.png"
+  ]
+}

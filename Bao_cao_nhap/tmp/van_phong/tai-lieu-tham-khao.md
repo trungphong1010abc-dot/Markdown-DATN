@@ -1,0 +1,23 @@
+# Tài liệu tham khảo của Chương 1
+
+**TL1 —** Lauri Kumpulainen, G. Amjad Hussain, Marc Rival, Matti Lehtonen, Kimmo Kauhaniemi, *Aspects of arc-flash protection and prediction*, Electric Power Systems Research 116, 2014, tr. 77–86. DOI: 10.1016/j.epsr.2014.05.011. Tệp: [Aspects of arc-flash protection and prediction.pdf](<Tham khảo/Aspects of arc-flash protection and prediction.pdf>).
+
+**TL2 —** Vytenis Babrauskas, *Electric arc explosions—A review*, Fire Safety Journal 89, 2017, tr. 7–15. DOI: 10.1016/j.firesaf.2017.02.006. Tệp: [Electric arc explosions—A review.pdf](<Tham khảo/Electric arc explosions—A review.pdf>).
+
+**TL3 —** Mahmood Matin, Amir Dehghanian, Mohammad Dastranj, Hossein Darijani, *Explainable artificial intelligence modeling of internal arc in a medium voltage switchgear based on different CFD simulations*, Heliyon 10, 2024, e29594. DOI: 10.1016/j.heliyon.2024.e29594. Tệp: [Explainable artificial intelligence modeling of internal arc in a medium voltage switchgear based on different CFD simulations.pdf](<Tham khảo/Explainable artificial intelligence modeling of internal arc in a medium voltage switchgear based on different CFD simulations.pdf>). CC BY 4.0 ghi tại trang PDF 1.
+
+**TL4 —** Jinmi Lezama, Patrick Schweitzer, Etienne Tisserand, Jean-Baptiste Humbert, Serge Weber, Patrice Joyeux, *An embedded system for AC series arc detection by inter-period correlations of current*, Electric Power Systems Research 129, 2015, tr. 227–234. Tệp: [An embedded system for AC series arc detection by inter-period correlations of current.pdf](<Tham khảo/An embedded system for AC series arc detection by inter-period correlations of current.pdf>).
+
+**TL5 —** KMET, *1S23 Arc Flash Module – 2 point sensors / 1 zone*, trang giới thiệu sản phẩm, không ghi ngày xuất bản trong phần sử dụng. Tệp: [1S23 Arc Flash Module – 2 point sensors _ 1 zone.mhtml](<Tham khảo/1S23 Arc Flash Module – 2 point sensors _ 1 zone.mhtml>). [URL nhận dạng trang nguồn](https://kmet.com.vn/1s23-arc-flash-monitor-2-point-sensors-1-zone). Nội dung trích từ MHTML đã đọc ngày 24/10/2026; thông số đối chiếu W3–W4.
+
+**TL6 —** Liangshi Lin, Wei Gao, Gengjie Yang, *A DC arc fault location method for PV systems based on redundant antenna array and ellipse algorithm*, Solar Energy 274, 2024, 112588. DOI: 10.1016/j.solener.2024.112588. Tệp: [A DC arc fault location method for PV systems based on redundant antenna array and ellipse algorithm.pdf](<Tham khảo/A DC arc fault location method for PV systems based on redundant antenna array and ellipse algorithm.pdf>).
+
+**W1 —** Công ty Cổ phần Nhiệt điện Quảng Ninh; Viện Năng lượng (tư vấn), *Dự án nâng cấp, cải tạo hệ thống xử lý khí thải Nhà máy Nhiệt điện Quảng Ninh — Điều chỉnh Báo cáo Nghiên cứu khả thi*, Chương 4 trong tệp gộp công khai có thông tin hiển thị ký số 11/06/2026 tại trang PDF 1. [Bản sao đã đọc tại CafeF](https://cafef1.mediacdn.vn/download/110626/qtp-tai-lieu-hop-ai-hoi-dong-co-dong-3-619481.pdf); [bản lưu kiểm chứng](nguon_web/qtp-full.pdf). Tệp có 688 trang; trang in 167–171/339 của Chương 4 tương ứng PDF 250–254. Truy cập 24/10/2026. Chưa đối chiếu được cùng tệp tại doanh nghiệp/HNX; CafeF là nơi lưu bản sao, không phải tác giả hồ sơ.
+
+**W2 —** Công ty Cổ phần Nhiệt điện Quảng Ninh, *Giới thiệu Công ty Cổ Phần Nhiệt Điện Quảng Ninh*, trang “Giới thiệu chung”, hiển thị ngày 23/03/2017. [Trang doanh nghiệp đã đọc](https://quangninhtpc.com.vn/c3/gioi-thieu-f/Gioi-thieu-chung-2-204). Truy cập 24/10/2026. Dùng cho bối cảnh doanh nghiệp, không xác nhận hiện trạng bảo vệ hồ quang.
+
+**W3 —** RMS Mors Smitt, *1S23 — ARC Fault Interface Module*, Technical Bulletin v01.0, 24/03/2025, 11 trang. [Trang sản phẩm hãng](https://morssmitt.com/product/1s23/); [PDF qua liên kết tải trên trang hãng](https://wabtecnl.katanapim.com/AttachmentDownload/Download/58?name=1s23-v01-0.pdf); [bản lưu đã đọc](nguon_web/1s23-v01-0-xac-minh.pdf). Truy cập, tải 24/10/2026; phiên bản kiểm tra ở chân trang PDF.
+
+**W4 —** RMS Mors Smitt, *1S23 User Guide*, Iss C, 06/06/2022, 40 trang. [PDF qua liên kết tải trên trang hãng](https://wabtecnl.katanapim.com/AttachmentDownload/Download/568?name=user-guide-1s23-iss-c.pdf); [bản lưu đã đọc](nguon_web/user-guide-1s23-iss-c-xac-minh.pdf). Truy cập, tải 24/10/2026. Trang in trùng trang PDF; phiên bản và phạm vi ở trang 2, thứ tự ưu tiên tài liệu ở trang 5.
+
+**W5 —** RMS Mors Smitt, *1S23 — ARC Fault Interface Module*, Technical Bulletin bản K, 13/06/2024, 11 trang. [Bản tài liệu hãng tại RI-TECH](https://www.ri-tech.cz/wp-content/uploads/2016/12/1s23-k.pdf); [bản lưu đã đọc](nguon_web/1s23-k.pdf). Truy cập, tải 24/10/2026. Chỉ dùng đối chiếu phiên bản với W3; ngày thư mục URL không được dùng thay ngày phiên bản trong PDF.

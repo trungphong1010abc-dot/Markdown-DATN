@@ -1,0 +1,1225 @@
+                                                          Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                                  Contents lists available at ScienceDirect
+
+
+                                                  Electrical Power and Energy Systems
+                                                    journal homepage: www.elsevier.com/locate/ijepes
+
+
+
+
+Multi criteria series arc fault detection based on supervised feature selection                                                                             T
+                        a,b,⁎                        a                                a                      a                          b
+Hien Duc Vu                   , Edwin Calderon , Patrick Schweitzer , Serge Weber , Nicolas Britsch
+a
+    University of Lorraine, Nancy, France
+b
+    Hagergroup, Obernai, France
+
+
+
+
+ARTICLE INFO                                             ABSTRACT
+
+Keywords:                                                As a field of research arc fault detection in domestic appliances has existed for a long time and many detection
+Arc fault detection device                               algorithms have been published, patterned or implemented on commercial products. None of them, however,
+Feature selection                                        guarantees perfect discrimination and all are susceptible to false negatives or false positives (i.e. indicating the
+Series arc fault                                         absence of arcing fault, when in reality it is present, or recognizing normal functioning as an arcing condition).
+Multi features arc fault detection
+                                                         This phenomenon can be explained by the fact that all methods have been based on some features of arc fault
+Machine learning
+                                                         which can be shared with load and network conditions such as noisy loads, the plugging-in or unplugging of
+                                                         appliances, the change of functioning mode of an appliance on a network and so on. A solution for limiting this
+                                                         phenomenon is multi arc-fault feature recognition. This research presents a method for finding and combining
+                                                         arc fault features in order to obtain better performance than using a single arc fault feature. The choice of arc-
+                                                         fault features and the algorithm for combining them are based on machine learning techniques. The method
+                                                         proposed here can be used for different network conditions and loads. The effectiveness of this method has been
+                                                         verified by a number of experimental tests including not only the requirements of standard arc fault detection,
+                                                         but also the most difficult situations such as multiple loads masking and transient loads.
+
+
+
+
+1. Introduction                                                                           fault detection fields, including Fourier transform [5,6], Wavelet
+                                                                                          transform [5–8], filtering [6] and correlation [9]. A variety of de-
+    Arc fault is a harmful condition which may lead to electrical fires.                  scriptors have also been mentioned with either frequency or temporal
+Arc Fault Circuit Interrupters (AFCI) have been introduced in the USA                     analysis [5–13].
+and the National Electrical Code requires their installation in all living                    The classification part can be simple, with a fixed threshold for AFF
+areas. A standard IEC already exists in Europe for arc fault detection                    [14], or more complicated with an artificial neural network (ANN)
+devices. Line to ground and line to line arc faults can be easily detected                [5,15,16] and a support vector machine (SVM) [2,17] Counting tech-
+due to their effect on current level [1]. However, it is more complicated                 niques or fuzzy logic are used as a decision strategy [12,18,19].
+to detect series arc fault and this is an active area of research. No so-                     The main difficulty of series arc fault detection lies in discriminating
+lution has been found so far which guarantees the detection of all arc                    between arcing and normal situations. In general, in order to detect a
+faults without ever producing undesirable tripping.                                       dangerous arcing condition one or more AFFs can be used [4,11]. Some
+    In general an arc fault detection algorithm (Fig. 1) can be divided to                of the most commonly used AFFs include current zero crossing,
+three main parts: Measurement - feature extraction (1), classification                    broadband noise and randomness of current variation [9,20,21].
+between normal and abnormal situation (2) and decision (3). The                           However, these features can also be found in normal functioning net-
+purpose of feature extraction part is: inferring arc fault feature (AFF)                  works. A vacuum cleaner, for example, may produce a number of arc
+from acquired signals. To achieve a good performance at detection,                        features at zero crossing. The randomness of current variation can also
+appropriate AFFs are mandatory.                                                           be mimicked by changing the functioning mode of an appliance, e.g. by
+    Some detection algorithms have a direct feature extraction part such                  switching the power supply to an appliance on and off within a short
+as fractal, current integral and current variation [2–4], thus AFF can be                 space of time. Broadband noise may also be generated by electro-
+inferred without any additional steps. For the others, the feature ex-                    magnetic interference or noisy loads.
+traction part can be divided into two sub-parts - transformation and                          As a result of this problem, every detection algorithm proposes a
+descriptors (Fig. 2). A number of transformations have been used on arc                   threshold for discriminating between dangerous arcing and normal
+
+
+
+    ⁎
+        Corresponding author.
+        E-mail address: hien-duc.vu@univ-lorraine.fr (H.D. Vu).
+
+https://doi.org/10.1016/j.ijepes.2019.05.012
+Received 28 February 2019; Received in revised form 19 April 2019; Accepted 5 May 2019
+Available online 18 May 2019
+0142-0615/ © 2019 Elsevier Ltd. All rights reserved.
+H.D. Vu, et al.                                                                                                                                                                                                                                                          Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+
+
+                                                                                                                                                                                                                                             Micro oven and induction cooker
+                     Measurement of current or
+         1                  voltage
+
+
+
+
+                                                                                                                                            Problematical loads
+
+
+
+
+                                                                                                                                                                                                                                             Vacuum cleaner
+                        Processing data and
+
+
+
+
+                                                                                                                                                                                          Electrical drill
+
+
+
+
+                                                                                                                                                                                                                                                                                       Electrical drill
+                     inferring arc fault features
+
+
+
+
+                                                                                                                                                                                          Computer
+                     Identify abnormal event on
+         2
+
+
+
+
+                                                                                                                                            Lowest prediction accuracy
+                         measured interval
+
+
+         3                        Decision
+
+
+
+
+                                                                                                                                                                                          96.7%
+                                                                                                                                                                                          88%
+
+
+
+                                                                                                                                                                                                                                             98%
+                                                                                                                                                                                                                                             97%
+
+                                                                                                                                                                                                                                                                                       96%
+                    Fig. 1. Arc fault detection algorithm.
+
+
+
+
+                                                                                                                                                                                                                                             Two-dimensional Fourier transform of third-order
+                           Feature extraction
+
+
+
+                      Transform          Descriptors         Feature
+
+
+
+
+                                                                                                                                                                                          CZT transform with low frequency
+         Signal
+
+
+
+
+                                                                                                                                                                                                                                             Short-time Fourier transform
+                    Fig. 2. Arc fault features extraction.
+
+
+situations, thus maintaining a compromise between an unwanted trip (a
+false negative) and failure to detect an arc fault (a false positive). It is
+                                                                                                                                                                         Transform
+
+
+
+
+                                                                                                                                                                                                                                             cumulants
+essential that these errors should be minimized.
+    Table 1 presents several detection methods with different features
+and prediction accuracies and the most problematic type of load for
+                                                                                                                                                                                          –
+
+
+
+                                                                                                                                                                                                                                             –
+
+each method. In the case of a simple load, such as resistive or inductive,
+the prediction accuracy of some methods can reach 100%. Even with
+                                                                                                                                                                                          The mean value of the difference between two subsequent
+
+
+
+
+nonlinear loads (computers, electric drills etc.) some algorithms still
+stay very close to 100% when the detection task becomes more com-
+                                                                                                                                                                                          Box-Counting Dimension and Information dimension
+                                                                                                                                                                                          250 sparse coefficient from every current half cycles
+
+
+
+
+plicated. Each method struggles only with one or several types of load
+and therefore a multi-criteria approach may lead to a state-of-the-art
+result, if all available methods can be correctly combined.
+    The idea of using several AFF to increase detection performance has
+been mentioned in some publications and patents [3,11]. However,
+some very important elements for multi AFF detection are still missing.
+                                                                                                                                                                                                                                                                                       Current integral of one period
+
+
+
+
+Amongst these are the choice of AFFs which should be used together
+and the combination algorithm used to make an efficient detection al-
+                                                                                                                                                                                          observation windows
+
+
+
+
+gorithm from chosen AFFs. This paper presents a methodology for
+achieving multi-feature arc fault detection and the aim of our research
+                                                                                                                                                                         Direct feature
+
+
+
+
+is to take advantage of the numerous arc fault features and to create the
+                                                                                                                                            Feature type
+
+
+
+
+most efficient detection algorithm from them.
+                                                                                     Representative methods and corresponding accuracies.
+
+
+
+
+    The proposed method involves two successive stages of selection
+and combination which are briefly described in Section 2. Section 3
+                                                                                                                                                                                          –
+
+
+
+
+presents the first step for selecting the best set of descriptors for a given
+                                                                                                                                                                                          Chirp Zeta Transform and current difference [12]
+
+
+
+
+                                                                                                                                                                                                                                                                                       High-frequency energy and current variation [3]
+
+
+
+
+transformation and expected performance. Section 4 presents the
+                                                                                                                                                                                          Sparse representation and neural network [16]
+
+
+
+
+second step, which aims to select the features and the best combinations
+                                                                                                                                                                                                                                             Autoregressive Bispectrum Analysis [17]
+
+
+
+
+between them. The experimental results based on transforms and de-
+scriptors found in the literature are presented in Section 5.
+                                                                                                                                                                                                                                             Fractal theory and SVM [2]
+
+
+
+
+2. General description
+
+   The proposed method consists of two main steps: building a pool of
+arc fault features, selecting the relevant features then using them to-
+gether in an efficient way (Fig. 3).
+   A. Arc fault feature pool construction
+                                                                                                                                            Method
+                                                                                     Table 1
+
+
+
+
+   1. Transform and descriptor selection
+   For AFFs which have separate transforms and descriptors, the
+
+                                                                                24
+H.D. Vu, et al.                                                                                                  Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                                                    current measured in two subsequent observation windows and the
+         Chirp Zeta Transform, Fourier      Fractal, Zero crossing,                 differences between the maximum values of spectra in specified fre-
+         Transform, Wavelet Transform,      Current Integrate, etc.                 quency intervals [12]. Hadziefendic et al presented an algorithm which
+         etc.                                                                       used Fourier transform (FT) and the fifth current harmonic [10]. These
+                                            Direct feature                          descriptors are interchangeable between different transforms. The fifth
+                   Transforms                                                       current harmonic may also be worth using with CZT and the other
+                                              extraction
+                                                                                    descriptors with FT.
+                                                                                        Descriptors are often chosen based on the observation of experi-
+                     Wrapper                                                        mental data. A review of the literature shows that descriptor sets are
+                    descriptor               Classification                         frequently chosen with the help of a relatively small (generally less than
+                    selection                                                       10) number of appliances [2,9,12,14,22]. Consequently, the perfor-
+                            Arc fault features and                                  mance of a descriptor set can only be justified by the relevant experi-
+      Step 1                 their performances                                     mental test.
+                                  AFFs pool                                             Further, an arc fault detection method should be able to work on a
+                                                                                    number of different installations. The step for determining the optimal
+                                                                                    set of descriptors is very important for obtaining the desired AFF. It
+                                                                                    should be noted that the optimal descriptor set will be strictly related to
+                         AFFs concatenation and                                     the transform.
+      Step 2               distance evaluation                                          If only a few descriptors from all the available descriptors are used,
+                                                                                    a large amount of information provided by the transform will be
+                                            Concatenated arc fault
+                                                                                    wasted. Conversely, using a large number of descriptors also has dis-
+                                               feature (CAFF)
+                                                                                    advantages, requiring sophisticated detection rules which are hard to
+                                 Classification                                     achieve with the classical heuristic method of observation and multi-
+                                                                                    thresholds. Detection rules based on machine learning can simplify the
+                                                                                    task. However, too many descriptors may induce a loss of general-
+                           Multi feature arc fault                                  ization and an over fitting problem due to noise and redundancy [24].
+                                recognition                                         Therefore only an optimal number of descriptors should be used.
+                                                                                        B. Wrapper descriptor selection
+                  Fig. 3. Multi AFFs detection methodology.
+                                                                                        Technically, both heuristic and machine learning based rules may
+                                                                                    help to establish the optimal descriptor set. The classic observation and
+wrapper selection method was applied in order to guarantee the best set             thresholds technique can perform well if all possible situations are
+of descriptors for a given transformation. Selection was based on a                 taken into account. However, in domestic electrical networks, there are
+classification algorithm, which may be any machine learning technique               a large number of frequently used appliances and network conditions
+such as an artificial neural network, a support vector machine etc.                 and it is unrealistic to perform a sufficient number of tests to cover all
+Prediction mean squared error was used as the criterion for evaluating              cases. Thus, the generalization property of a descriptor must be given
+the chosen classification method. This is the most commonly used cost               priority. For this reason, the machine learning technique was chosen
+function for evaluating classification machine learning based techni-               instead of hand-crafted heuristic rules. The feature selection approach
+ques [23].                                                                          on machine learning was used to determine the best set of descriptors
+    2. Direct feature extraction                                                    for each transformation.
+    Some AFFs can be obtained by the direct feature extraction method                   Machine learning based selection method can be divided into three
+[2,3]. The only information required before adding them into the AFF                categories: supervised, unsupervised and semi-unsupervised.
+pool is their respective accuracy in the detection task. Each AFF should            Supervised selection can be categorized as the filter method, wrapper
+be evaluated using the chosen classification algorithm at the descriptor            method and embedded method. The filter method separates descriptor
+selection stage in order to determine the information required.                     selection from the classification algorithm and relies on the measure-
+    B. Arc fault feature combination                                                ment of general characteristics from data, namely distance, depen-
+    The second step consists in ranking all AFFs, removing the irrele-              dence, mutual information and correlation. The wrapper method uses
+vant ones and keeping only those performing well. The combined arc                  the predictive accuracy of a given classification algorithm to determine
+fault feature (CAFF) is then made by combining the best AFF with the                the quality of the selected subset. The embedded method is a hybrid of
+other AFFs which have passed the ranking stage. Euclidean distance on               the wrapper and filter methods and uses both statistical analysis and
+feature space has been used as the criterion for selecting which AFF                model fitting with a classification algorithm [23,24]. In this case,
+should be combined with the best performing AFF. To be more precise,                wrapper selection is the most appropriate method as it measures the
+the ratios of the distance between the false positive (FP) and the false            usefulness of descriptors rather than the relevance of their correlation
+negative (FN) elements and the correct classified elements of the best              with training data such as principal component analysis and the filter
+performing AFF after concatenation were evaluated. The CAFF was                     method. This property of the wrapper method is very important because
+considered the best if it had the highest ratio of distance. At the end, the        a descriptor which is inefficient by itself can provide a significant im-
+CAFF was used as input for arc fault recognition.                                   provement in performance when taken with others descriptors [24,25].
+                                                                                    Computation costs and the risk of over fitting can be ignored since the
+3. Wrapper descriptor selection                                                     number of descriptors considered for each transform is less than twenty
+                                                                                    for arc fault application.
+    This section explains the necessity for descriptor selection for each               Fig. 4 presents the wrapper descriptor selection principle which
+transform and the development approach with the wrapper method.                     works by generating candidate subsets from all available descriptors
+    A. Transform and optimal descriptor sets                                        and then evaluating each subset with a classification algorithm. Several
+    Many possible descriptors can be used for a given transform. All                strategies for generating subsets can be listed, each with their own
+feature extraction methods employ one or several descriptors. For ex-               advantages and disadvantages, including exhaustive search (brute force
+ample Artale et al. used chirp zeta as transform (CZT) and the mean                 [26], branch and bound [27]), heuristic (hill climbing, best first search)
+value of the differences between the two low-frequency spectra of the               and meta-heuristic (genetic algorithm and particle swarm) [28,29].
+
+                                                                               25
+H.D. Vu, et al.                                                                                                                                Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                                Best training                       TF1, TF2,     TFn
+                  Data                                          descriptor set
+                                                  Subset
+                                                 generator                                                The result obtained after a transformation can be noted as:
+
+                                                                                                                        TF
+                                Descriptor                                                          {y}    with {x }         {y }
+                                                             Accuracy
+                                 subset
+
+                                               Classification
+                                                                                                       For a transform under evaluation k descriptor D can be used, for
+                                                 algorithm                                          example:
+
+                                                                                                                       D1,   Dk
+                               Fig. 4. Wrapper descriptor selection.                                D1,     Dk : {y}                {z k }: =z1, z2 ,   zk
+
+                                                                                                       For a given subset {z i}, {z i} {z k} a classification algorithm can be
+Compared to the other methods, the exhaustive search method guar-
+                                                                                                    deployed on the training data to discriminate between arc and no arc
+antees that the best subset of features will be found. The drawback of
+                                                                                                    samples. Mean square error (MSE) is the objective function used for
+exhaustive search, however, is computation cost, which may increase
+                                                                                                    evaluating trained classifier on test data.
+exponentially with the number of descriptors. This method therefore
+becomes impractical as the number of descriptors increases. In arc fault                                                     NT
+                                                                                                                        1
+application this same drawback can be ignored and in our work ex-                                   MSE ({z i}) =               ( Lm          LPm)2
+                                                                                                                       NT m = 1
+haustive search has been retained. Each generated subset was evaluated
+with the same classification algorithm. The best subset can be obtained
+when every generated subset has been examined.                                                           NT is number of samples on the test dataset.
+    C. Development approach                                                                              LPm is the prediction of label given by the trained classifier of a
+    The method proposed requires a database of electrical signals col-                              sample m.
+lected from experimental domestic networks. This database is divided                                     {z i} is the chosen subset.
+into two datasets - training and test. Ideally the training dataset con-                                 The subset {z opt } is the optimal subset ↔ {z opt }                 {z k}, MSE
+tains a fixed number of appliances and network situations and the test                              ({z opt } ) ≤ MSE ({z i } ) ∀ {z i} {z k } .
+dataset contains more situations and appliances than the training da-                                    The descriptor selection problem consists in finding the {z opt } and
+                                                                                                    MSE ({z opt }) for every transformation.
+taset.
+                                                                                                         One simple solution for obtaining a result consists in evaluating
+    Every feature extraction method which is composed of transform
+                                                                                                    every possible subset of {z k } . However, this solution has the highest
+and descriptor steps is evaluated. For each transform all possible de-
+                                                                                                    computational cost and many unnecessary subsets would be evaluated.
+scriptors are used to create the set of all descriptors. Fig. 5 illustrates the
+                                                                                                    For example, if one of the most relevant descriptors is removed, the
+selection method.
+                                                                                                    classification performance is affected. It is no use evaluating all the
+    The training dataset contains a very large number of labeled
+                                                                                                    subsets without this relevant descriptor. In order to avoid this problem,
+samples Si , each sample containing a discrete time sequence {x } of
+                                                                                                    the search solution, the branch and bound elimination algorithm, can
+current or voltage measured, and the associated label LSi :
+                                                                                                    be deployed.
+ LSi = 1 in case of arc fault                                                                            First the MSE({z k }) is calculated, the bound value θ = MSE ({z k} ) is set
+        LSi = 0 otherwise                                                                           to the child nodes (subset derived from {z k } ) on the first level of depth. On
+                                                                                                    this level, all descriptors will be removed one by one from z1 to z k and the
+    n transformation methods will be considered:                                                    corresponding subset: {z k1}, , {z kk } with {z ki } {z k } = z i (1 < i < k ) is eval-
+                                                                                                    uated. z i can be defined as a significant descriptor if MSE({z i})             or less-
+                                           Training and test data                                   significant descriptor if MSE({z i }) < .
+                                                                                                         After this first level, either depth-first search or breadth-first
+                                                                                                    search algorithms [30] can be used. The depth-first search algorithm
+                                                                                                    gives priority to investigating on branch before backtracking, and the
+                  Transformation                                                                    breadth-first search to exploring neighbor nodes first before going
+                                                                  Transformation
+                     method 1                                        method n                       deeper. If the number of descriptors is too high the breadth-first al-
+                                                                                                    gorithm may help to limit the calculation time by fixing a depth
+                                                                                                    level. Conversely, if a performance has been defined, the depth-first
+                                                                                                    algorithm may converge faster to optimal solution with the lowest
+                                                                                                    number of descriptors. In this paper the depth-first algorithm has
+                                                                                                    been used.
+                  Descriptor
+
+
+
+                                  Descriptor
+
+
+
+
+                                                                  Descriptor
+
+
+
+                                                                                  Descriptor
+
+
+
+
+                                                                                                         The child nodes are created by removing one less-significant de-
+                                                                                     m
+                     1
+
+
+
+                                     k
+
+
+
+
+                                                                      j
+
+
+
+
+                                                                                                    scriptor from the parent nodes. This newly created child node must
+                                                                                                    be different from any node on the left in order to avoid any un-
+                                                                                                    necessary computation. The upper bound for the any child node can
+                        Subset                                           Subset                     be defined as follows: Child = MSE ({zParent }) where {zParent } is the
+                       generator                                        generator                   subset which generates the child node.
+                                                Wrapper                                                  For a given transformation the algorithm stops when every node has
+                                               descriptor                                           been evaluated. As a result both optimal subsets of descriptor - {z opt }
+                   Classification                                                                   and MSE ({z opt }) are determined. Fig. 6 shows an example using a depth-
+                     algorithm
+                                               selection            Classification
+                                                                      algorithm                     first search.
+                                                                                                         Pseudo code for descriptor subset selection based on backward
+                                                                                                    elimination:
+                           AFF 1                                               AFF n
+
+                  Fig. 5. Wrapper method for descriptor selection.
+
+
+                                                                                               26
+H.D. Vu, et al.                                                                                                                                           Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                                    MSE(        ,    ,   ,     )= 0.5
+                                                                                                                          the lowest MSE (MSE({AFF1}) ≤ MSE ({ AFFi } ) ∀ i ≠ 1, {AFFi } P ).
+                                                                                                        Depth 0                If MSE({AFF1}) is higher than the desired error (noted d_mse), a
+                                                                                                                          solution for obtaining the performance we want might be to combine
+              MSE(      ,   ,   )= 0.4                           MSE(   ,   ,       )= 0.4
+                                                                                             MSE(   ,     , )= 0.6
+                                                                                                                          AFF1 with the other AFFs. The simplest method for combining features
+                                         MSE(   ,   ,   )= 0.4
+                                                                                                        Depth 1           without losing any information is concatenation of features to create a
+                                                                                                                          new feature vector. For example in the case of two AFFs, from
+                        MSE(    ,   )= 0.25     MSE(    ,   )= 0.45                                                       {AFF1} = :z1, z2, z i and {AFF2} = :zj , zj + 1, zj + k concatenated feature
+   MSE(   ,    )= 0.3
+                                                                                                        Depth 2           {CAFF } = :z1, z2, z i , zj , z j + 1 zj + k can be formed.
+                                                                                                                               By using the result from AFF1 and its trained classifier, the data set
+       MSE(       )= 0.35
+                                                                                                        Depth 3           {S } can be divided into four groups:
+
+Fig. 6. Example of depth-first branch and bound elimination for descriptor                                                            Si    {TPAFF1}    LSi = 1, LPSi > ThS
+selection. MSE should be minimized. The descriptor subset was evaluated from                                                          Si    {TNAFF 1}   LSi = 0, LPSi ThS
+S1 to S9. After the first depth level evaluation, in the step 5(S5), descriptor 4
+                                                                                                                            Si   {S }
+                                                                                                                                      Si    {FNAFF 1}   LSi = 1, LPSi ThS
+(d4) is considered as a significant descriptor and therefore all subsets without                                                      Si    {FPAFF1}    LSi = 0, LPSi > ThS
+d4 are not evaluated. Red nodes violate the upper bound (MSE of parent node),
+therefore no more child nodes are generated from these nodes. Subset (d3, d4)                                                 TP, FP, FN and TN stand for true positive, false positive, false ne-
+is the optimal subset in this example.                                                                                    gative and true negative groups. The calculated label LPSi is a real
+                                                                                                                          number between 0 and 1, thus a threshold ThS is needed to define these
+                                                                                                                          groups. Since the sensitivity and specificity (proportion of false posi-
+                                                                                                                          tives and false negatives) of the model are not of concern in this paper,
+                                                                                                                          the threshold ThS is fixed at 0.5 (which is analog to the balanced value).
+                                                                                                                              Since AFF1 is insufficient to completely resolve the detection pro-
+                                                                                                                          blem, the four groups FPAFF1, FNAFF1, TPAFF1 and TNAFF1 cannot be easily
+                                                                                                                          distinguished. The groups FPAFF1 and FNAFF1 always overlap with
+                                                                                                                          groups TNAFF1 and TPAFF1. An illustration of group distribution is shown
+                                                                                                                          in Fig. 7.
+                                                                                                                              If any other AFF is more efficient than AFF1 for sensitive elements
+                                                                                                                          (FPAFF1 or FNAFF1), this AFF may help to better separate the groups
+                                                                                                                          FPAFF1, FNAFF1 from TPAFF1 and TNAFF1. As the distance between these
+                                                                                                                          groups and their distribution on feature space are related to prediction
+                                                                                                                          performance [31], higher detection performance can be expected after
+                                                                                                                          this combination. An illustration of group distribution on CAFF feature
+                                                                                                                          space is show in Fig. 7.
+                                                                                                                              If it is assumed that the group TPAFF1 has k element, the centroid of
+                                                                                                                          this group after concatenation (CAFF feature space) can be determined
+                                                                                                                          with the following relation:
+
+                                                                                                                                                 TPAFF 11 + TPAFF12+    + TPAFF 1k
+                                                                                                                          Centroid (TPAFF1) =
+                                                                                                                                                                k
+                                                                                                                              The centroids of the other groups can be determined with the same
+                                                                                                                          formula. Let u , v    Rn be the centroids of group TPAFF1 and TNAFF1, the
+                                                                                                                          inter-group distance d1 between TPAFF1 and TNAFF1 can be calculated:
+
+
+
+
+                                                                                                                                                                                          AFF1
+                                                                                                                                                                                      Feature space
+
+
+
+
+Descriptor selection for AFF pool construction is completed when all
+optimized descriptor sets for every transformation have been found.
+The pool of available arc fault features is noted as P.
+                                                                                                                                           d2                                               CAFF
+                                                                                                                                                                                        Feature space
+                                                                                                                                            d1
+4. Arc fault feature combination
+
+    The combination method consists of 3 steps: the ranking step on P,                                                                                   d3
+the distance evaluation of different generated CAFFs and the classifi-
+cation step which uses the CAFFs with the highest ratio of distance. The
+ranking step helps to find the most relevant arc fault feature ( AFF1) and                                                Fig. 7. Illustrative of group distribution when CAFF provides a better dis-
+to remove the irrelevant (poor detection performance) AFFs. {AFF1} has                                                    crimination than AFF.
+
+
+                                                                                                                     27
+H.D. Vu, et al.                                                                                                                 Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+d1 =    (u1       v1) 2 + (u2     v2 )2 (un   vn) 2                                                In comparison to the wrapper selection method used in the previous
+                                                                                               section, the distance evaluation method greatly reduces the computa-
+    Similarly for the other inter-group distances:                                             tion cost because there is only one classifier which requires training at
+d2: distance (TPAFF 1, FPAFF1)                                                                 each stage. The computation of ratio distance is negligible compared to
+                                                                                               the cost of the training classifier. If the AFF pool has n elements, in the
+                                                                                                                                                              n      n!
+d3: distance (TNAFF 1, FNAFF 1)                                                                worst case scenario the wrapper method needs to train k = 1 k ! (n k ) !
+   The most efficient CAFF is that which has the best separation be-                           classifiers and only n classifiers for the distance evaluation method.
+tween groups TPAFF1 FPAFF1 and TNAFF 1 FNAFF1. In other words, the
+one with highest sum of ratio distances:                                                       5. Experimental result
+
+d2 + d3                                                                                            This section describes in detail how the method presented in this
+   d1                                                                                          paper has been applied. The results obtained can be found at the end of
+    The higher the inter-group distances d2 , d3, the better we can expect                     the section.
+separation. However, it is also important to take into consideration the                           A. Arc fault detection database
+dimensions of different CAFFs feature space and it is for this reason that                         A database is essential for the proposed method and the construc-
+distance d1 has been used as a normalized coefficient.                                         tion of the database is very important as it directly affects how efficient
+    The next step consists in discriminating between arc fault and non-                        the obtained detection method can be. The number of appliances,
+arc situations with the help of a classification method and the most                           combinations and disturbances presented in an electrical network are
+efficient CAFF (created from AFF1 and another AFF).                                            very large and it is impractical to build a universal database that covers
+    If the mse of CAFF is still higher than the desired mse, the number of                     all possible situations. There is no need to make a universal detection
+AFFs used for combination should be increased. More specifically, after                        method for all installations and it is always possible to construct a
+each stage of evaluation if the desired performance is still out of reach,                     useful database for any installation when the number of situations is
+the number of complementary AFFs is increased by one. The algorithm                            narrow.
+stops when the desired error has been achieved or all possible CAFFs                               In this series of experiments the European household network was
+have been examined. In the second case, the pool of arc fault features                         studied. For this installation, the standard IEC 62606 –“General re-
+should be revised (add new transforms and use more suitable de-                                quirements for arc fault detection devices” was used as the main re-
+scriptors).                                                                                    ference for database construction. The database contained the sample
+    Fig. 8 describes the combination method in detail. At the beginning i                      with arc fault and non-arc fault situations.
+is equal to 1 (stage 1). Every possible CAFF (AFF1 concatenate with                                In order to generate arc fault samples, the following configurations
+another AFF) is evaluated. The highest distance CAFF is used to train a                        were used (see Fig. 9):
+classifier and then the classifier’s performance is compared to the de-                            The arc fault is created by a carbonized cable specimen according to
+sired mse. If the current CAFF satisfies the condition, the combination                        standard IEC 62606. To increase the variety of data, two types of
+algorithm reaches its end. Otherwise, CAFF will be noted as R_CAFF and                         household cables (solid-core wire and stranded core) have been used to
+its mse as l_mse. The variable i will be incremented by 1 (stage 2) and                        simulate the arcing condition.
+every CAFF (concatenated from AFF1 and two other AFFs) is evaluated.                               The non-arc samples are also generated with the same configura-
+The process is repeated until a satisfied CAFF has been found or i equals                      tion. In order to guarantee good performance against false positive
+n. In the second scenario, R_CAFF is the most efficient CAFF and l_mse is                      errors, many samples contain the transient state of appliances. In ad-
+the lowest error that can be achieved.                                                         dition, the standard cross-talk test has been also taken into account in
+                                                                                               the database. The following types of appliances were used for con-
+                                                                                               structing the database: masking loads (air conditioner, air compressor,
+                        i =1 Start
+                                   i                                                           computer, dimming lamp, electric drill, vacuum cleaner, halogen lamp,
+                            P
+                                                      i = i+1                                  fluorescent lamp and hair dryer) and resistance. At least two or three
+                                                      yes               no                     different brands were used for each type of appliance. More compli-
+                                 AFF set
+                                generator
+                                                                i<n                            cated situations such as arc fault on transient state, configuration with 2
+                    AFF1                                                                       or 3 masking loads, voltage amplitude variation, have been added to
+                                     Complementary
+                                       AFF /AFFs
+                                                                                               the database.
+
+                                                                                                                       Arc
+                      Concatenation                                                                   Line current
+                                                                                                                      voltage
+
+           CAFF
+                   Distance calculation                     R_CAFF = CAFF
+                     and evaluation                             l_mse = mse                                                           R
+                                                                                                  Line       AC                                   AC
+                                                                                                 voltage    Source                    Or         Source             M        R
+     Highest ratio                                                                                                                    M
+       distance                                                               yes
+                                              no
+         CAFF
+                       Classification                   mse < l_mse
+
+                                  mse
+        yes                                   no
+                       mse < d_mse
+                                                                                                             AC                                   AC
+                  Current CAFF                      R_AFF is the most                                                 R                M                     M               R
+       End          satisfies                          efficient AFF
+                                                                                    End                     Source                               Source
+
+                  the condition                    that can be achieved
+
+Fig. 8. Arc fault feature combination based on inter-group Euclidean distance. L
+mse is the lowest mse up to the current stage, R_CAFF is the best CAFF that can                Fig. 9. R: Resistive load, M: Masking load – list of masking loads can be found
+be achieved up to the current stage, i: the number of complementary AFFs used                  below. Several network disturbances are also added to each configuration. The
+for combination at the current stage, n: the number of complementary AFFs                      AC source (230 V – 50 Hz) generated in accordance with the standard for dis-
+available.                                                                                     tribution networks in Europe.
+
+
+                                                                                          28
+H.D. Vu, et al.                                                                                                                                                                                               Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+   State            Normal               Normal                             Arc         Arc         Arc          Arc                                                                                            Line Current
+                                                                                                                                                                   Period 1           Period 2    Period 3                             Period 5           Period 6           Period 7
+                                                                                                                                                                  Without arc        Without arc Without arc           Period 4          Arc                Arc                Arc
+                                                                    Line Current
+
+
+
+
+                                                                                                                                      Amplitude
+    Amplitude
+
+
+
+
+                                                                                                                                                              0                 20                  40         60                 80                100                120              140
+                                                                                                                                                                                                                    Line Voltage                                               Time (ms)
+
+
+
+
+                                                                                                                                      Amplitude
+                              20                  40               60              80         100         120 Time(ms) 140
+                                                                        Line Voltage
+    Amplitude
+
+
+
+
+                                                                                                                                                              0                 20                  40         60                 80                100                120           140
+                                                                                                                                                                                                                                                                               Time (ms)
+                                                                                                                                                                                                         Spectrum of Line Current
+
+
+
+
+                                                                                                                                      Magnitude
+                              20                  40               60 Arc Voltage80           100         120 Time(ms) 140
+                                                                                                                                                                                                                                                                                          Frequency(KHz)
+                                                                                                                                                                                                                                                                                              10 KHz
+    Amplitude
+
+
+
+
+                                                                                                                                                                                                                                                                                    1
+                                                                                                                                                          0               20               40            60            80               100                120           140        KHz
+                                                                                                                                                                                                                                                                     Time (ms)
+
+
+                                                                                                                                                              Fig. 11. Fourier transform with non-arc and arc fault signal.
+                              20                  40               60              80         100         120 Time(ms) 140
+
+
+
+
+                                                                                                                                   • Wavelet
+                                                  Fig. 10. Example of signal.
+
+                                                                                                                                                                                N 1
+    Each sample contains a measurement of network voltage, current                                                                                                     1             k b
+                                                                                                                                  y (m , k ) =                                 xn. g
+and arc voltage for a fixed duration. It is essential to measure the cur-                                                                                             am m = 0        am
+rent for the method presented.
+    Measuring arc voltage helps to accurately label the samples and                                                                   g (.) is the mother wavelet
+every period of each sample is labelled. If arc voltage stays at noise level                                                          m is the decomposition level, in this paper a = 2.
+for one period, the period is labelled as normal. If the arc voltage wave                                                             For mother wavelet: Daubechies 4 (DB4) and Meyer (Dmey) were
+form corresponds to an arcing situation, the period is labelled as arc                                                            selected with decomposition level 2, 3, 4 and 5 (LVL2, 3, 4, 5) for each
+influenced. The period which is not completely affected by arc fault is                                                           wavelet respectively.
+not labelled (example shown in Fig. 10). There are a total of 16231                                                                   Fig. 11 shows an example of transform with arc fault and non-arc signal.
+samples – 3405 samples with arc fault, and 12826 without arc fault. The                                                               2. Descriptors
+signals were acquired with the sampling frequency of 1 MHz, because                                                                   The results after each transformation are discrete series and they
+all feature extraction methods in this study operated at a frequency                                                              can be noted as {yn}: =y1 , y2 , .,yn . In order to finish the feature ex-
+lower than 1 MHz.                                                                                                                 traction step, every transform needs to be associated with several de-
+    B. AFFs pool construction                                                                                                     scriptors. Based on the literature of arcing detection [32], the groups of
+    After the database was established, the next step consisted in                                                                descriptors were chosen as follows.
+creating an arc fault features pool. This step was accomplished by ap-                                                                The first group of descriptors is based on statistical analysis. In this
+plying different feature extraction methods to the current signature of                                                           paper, the first, second, third and fourth order moment were chosen
+the database. In this series of experiments only those feature extraction                                                         with the aim of measuring the shape of {yn} .
+methods which are composed of transforms and descriptors were used.
+    1. Transformations                                                                                                             • Mean value: y¯ =      y
+                                                                                                                                                                                                1      n
+                                                                                                                                                                                                       i=1 n
+
+                                                                                                                                   •
+                                                                                                                                                                                                n
+    Five different transforms were chosen in this study because they are                                                             Variance: s =      (y   y¯)               2        1         n                    2
+                                                                                                                                                                                        n         i=0 n
+
+                                                                                                                                   • Skewness:
+used in arc fault detection literature [12,18,22,32].
+    All transforms are defined below; {xn} represents the current time                                                                                ( )                      1
+                                                                                                                                                                               n
+                                                                                                                                                                                       n
+                                                                                                                                                                                       i=1
+                                                                                                                                                                                                   yn y¯ 3
+                                                                                                                                                                                                     s
+
+series input and {yk } is the result obtained with the respected transform,                                                        • Kurtosis:       ( )                 1
+                                                                                                                                                                         n
+                                                                                                                                                                                     n
+                                                                                                                                                                                     i=1
+                                                                                                                                                                                                y
+                                                                                                                                                                                                n
+                                                                                                                                                                                                    s
+                                                                                                                                                                                                     y¯ 4
+
+N is the number of elements in a current series:
+                                                                                                                                     The second group of descriptors relates to the analysis of the first
+ • Current finite difference:                                                                                                     peak of {yn} (the peak’s value, location and duration). Finding all the
+                                                                                                                                  points of {yn} around the first peak, which are higher than the average
+yk = |xk + 1             xk |;             1      k        N        1
+                                                                                                                                  value, allows the duration of the signal to be found. An illustration of
+                                                                                                                                  these descriptors can be found in Fig. 12.
+ • Discrete Fourier transform (FFT):
+                                                                                                                                   • The max value: y    {y }, y   y y                                                                            {yn }
+                                                                                                                                   • Normalized index of the max:
+                N                                                                                                                                                                               m        n      m             i        i
+                                     2                                                                                                                                                                                      m
+yk =                  x m . e i N km ;                 1       k          N
+                                                                                                                                   • Normalized highest pulse duration:
+                                                                                                                                                                                                                            n
+                m=1
+
+
+
+ • Chirp Zeta transform (CZT):                                                                                                    k               j
+                                                                                                                                                                  j      m , yi y¯ j i m
+                                                                                                                                                                         yj 1 < y¯ or j = 1
+                N                    2f                                                                                                               ,
+yk =                  xm. e
+                                 i
+                                     fs N
+                                          km
+                                             ;         1       k           N                                                          n                           k     m , yi y¯ m i k
+                m=1                                                                                                                                                    yk + 1 < y¯ or k = n
+
+     Four different frequency bands were considered for FFT and CZT:                                                                    The last group of descriptors gives information about the second
+1kHz             10kHz                                                                                                            peak of data series {yn} . The highest pulse is removed (all points between
+                                                                                                                                  j and k of {yn} ) in order to find the second peak. The truncated series
+10kHz               20kHz                                                                                                         {y'n' } can be defined as:
+                                                                                                                                        {y'n' } : = y'1' , y'2' , , y'n'
+50kHz               80kHz
+                                                                                                                                  = y1 , y2 ,                         yj , yk ,            , yn
+80kHz               100kHz
+                                                                                                                                     The first peak of {y'n' } is now equivalent to the second peak of the
+100kHz                150kHz                                                                                                      data series.
+
+                                                                                                                             29
+H.D. Vu, et al.                                                                                                               Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                                                                                  NT
+                                                                                                              1
+                                                                                             MSE ({z i}) =            ( Lm    LPm)2
+                                                                                                             NT m = 1
+
+                                                                            Original            In this experiment, NT = 16231 and for any given sample m of the
+                                                                             series
+                                                                                             database, the squared error can be calculated as follows
+
+                                                                                                                         (1    LP )2   When an arc occurs
+                                                                                             Squared Error ({z i}) =
+                                                                                                                         (0    LP )2   When no arc occurs
+
+                                                                                                 Fig. 16 shows the results obtained from the error depending on the
+                                                                                             descriptors considered. A « removed descriptor » of 0 indicates that all
+                                                                                             the 10 descriptors have been considered, 1 refers to the fact that the
+                                                                                             first descriptor has been removed and so on. In some cases two or more
+                                                                                             descriptors can be removed with the backward elimination algorithm
+                                                                                             mentioned above.
+                                                                            Truncated
+                                                                              series             The results are presented with respect to the frequency band rather
+                                                                                             than by the type of transform.
+                                                                                                 At the frequency band 1–10 kHz the FFT has lower MSE than CZT.
+                                                                                             For the frequency band 10–20 kHz, FFT and CZT give similar results
+                                                                                             (the red and magenta lines respectively), their respected minimal MSE
+                                                                                             are 0.0171 and 0.0178. The optimized descriptor sets are almost the
+                                                                                             same (all descriptors are important) except for FFT at 10–20 KHz.
+                                                                                             Descriptor 6 should be removed in order to achieve the lowest MSE
+                                                                                             (Fig. 16).
+                                                                                                 The frequency bands 20–50, 50–80 kHz show poorer performance
+                            Fig. 12. Illustrative of customize descriptors 2–7.              compare to the 1–10 kHz and 10–20 kHz band. All descriptor are ne-
+                                                                                             cessary for FFT and CZT at the frequency band 20–50 kHz. The de-
+                                                                                             scriptor 6 needs to be removed for CZT 50–80 kHz. The analysis of the
+         The second peak value is:
+                                                                                             results obtained from FFT in the band 50–80 kHz show that descriptors
+y'm'              {y'n' }, y'm'    y'i    y'i        {y'n' }                                 2, 3, 5, 6, 9 and 10 are relevant for the detection (Fig. 17).
+                                                                                                 It remains to be decided whether the other descriptors should be
+         Normalized index of the second peak: m'
+                                                                        '
+                                                                                             retained or not. The process is illustrated in Fig. 18. By considering the
+                                                                    n                        set that contains all descriptors (z), the mean square error is equal to
+         Normalized second pulse duration:
+                           n'                                                                0.0803. When one of the descriptors 1, 4, 7 or 8 is removed, the error
+         Note that y¯' =
+                         1
+                              y '        i=1    n                                            decreases (z1, z 4 , z7 , z 8). Three subsets, derived from subset z1, can be
+                                    n'
+                                                                                             generated, namely z1,4 , z1,7 , z1,8 (descriptor {1,4}; {1,7} or {1,8} re-
+                      j'     m' , y'i    y¯'    j'       i     m'                            moved). Only subset z1,7 reduces the error (MSE = 0.077 < 0.081) and
+k'           j'             y' j 1 < y¯' or j' = 1                                           subsets z1,4 and z1,8 show higher errors in comparison to the parent
+                  ,                                                                          subset; therefore descriptor 4 or 8 should not be removed with de-
+                                       y¯' m' i k '
+         '
+     n                k'     m', yi
+                                                                                             scriptor 1. As a result, subsets z1,7,4 and z1,7,8 were not evaluated. The
+                                     ¯
+                           y'k + 1 < y or k '= n'
+                                      '
+                                                                                             subsets derived from subset z 4 , that is subsets z 4,1, z 4,7 , z 4,8, can be
+                                                                                             created. Subset z 4,1 was evaluated before and the error of subset z 4,7
+    The Fig. 13 shows an example of 10 descriptors for a given trans-                        andz 4,8 is yet to be found. Since their errors are higher than the error
+form and their numbering.                                                                    obtained with z 4 , there is no need to evaluate further. Similarly, the last
+    3. Neural network wrapper descriptor selection                                           subset z7,8 has a higher error than the error obtained with z 8 . In con-
+    It was our objective to select the set of descriptors that provides the                  clusion, descriptors 1 and 7 should be removed in order to achieve the
+best performance for each transform selected in this article; irrelevant                     best performance.
+descriptors for each transform were eliminated. In order to accomplish                           Fig. 19 shows that the detection performances of frequency bands
+this, a fully connected feed forward artificial neural network (ANN                          80–100 and 100–150 kHz are mostly identical to the results obtained
+comprising four layers) was used as the classifier. The first hidden layer                   with frequency bands 20–50 and 50–80 kHz. Some descriptors, such as
+is composed of 20 neurons and the second one of 8 neurons (Fig. 15).                         8, 6, and 4, are less efficient for this band.
+    The inputs of the neural network are composed of the arc features                            Same as FFT and CZT, wavelet transform shows better performance
+obtained from the different descriptors whose calculation procedure is                       at lower frequency band (high level of decomposition). According to
+explained in Fig. 14.                                                                        the results, the Daubechies 4 wavelet gives better results than the Dmey
+    The analysis is based on the line current without arcing (labeled 0)                     wavelet but overall performance lower than FFT and CZT. For the de-
+or with arc (labeled 1). The calculation is performed in a window of                         composition level 5 of Daubechies 4 and Dmey wavelets the respected
+20 ms for each descriptor. Three successive periods (60 ms) with the                         descriptor 7 and 1 should be removed. For the decomposition level 2, 3
+same label provide three different sets of values (z i , z i + 1, z i + 2 ). Based on        and 4 the descriptor 5, 8 are most the irrelevant (Figs. 20 and 21).
+the ten descriptors selected, the neural network therefore has 30 en-                            Fig. 22 shows the results from the transform based on derivative
+tries. One of the 10 descriptors was subsequently excluded and this was                      analysis. The minimum value of mse (0.016) is obtained when all de-
+done for each of the ten descriptors. In each case, the new generated                        scriptors are used together. The performance of derivative transform is
+subset is composed of 27 values for the ANN input. Two or more de-                           good and only slightly lower than that obtained with FFT at frequency
+scriptors can then be removed from the list for analysis.                                    band 1–10 kHz.
+    For each generated subset, the mean squared error (when the value                            The small variations in error show that some arc fault features
+of the ANN output equals LP) is estimated according to the following                         should be fine-tuned in order to achieve the best performance. As fine-
+equation:                                                                                    tuned elements their associated descriptors must be carefully evaluated
+
+                                                                                        30
+H.D. Vu, et al.                                                                                                                                 Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                   Line Current
+                                                                                                                                                     Arc Voltage
+                                 a                        b                             c
+
+
+
+
+                                                                                                                Amplitude
+    Amplitude
+
+
+
+
+                                           Descriptor 1 -Variance                               Time (s)                                      Descriptor 2 – Max value                  Time (s)
+
+
+
+
+                                                                                                                Magnitude
+    Magnitude
+
+
+
+
+                                 Descriptor 3 –Normalized index of max                          Period                                  Descriptor 4 –Highest pulse duration            Period
+    Magnitude
+
+
+
+
+                                                                                                                Magnitude
+                                      Descriptor 5 – Second peak value                          Period                      Descriptor 6 –Normalized index of second peak              Period
+   Magnitude
+
+
+
+
+                                                                                                                Magnitude
+                                     Descriptor 7 –Second pulse duration                        Period                                        Descriptor 8 –Mean value                  Period
+   Magnitude
+
+
+
+
+                                                                                                                Magnitude
+                                          Descriptor 9 -Sknewness                               Period                                         Descriptor 10 -Kurtosis                  Period
+                                                                                                                Magnitude
+    Magnitude
+
+
+
+
+                                                                                                Period                                                                                  Period
+
+Fig. 13. Example of ten descriptors, DFT frequency band 1–10 KHz with non-arc and arc fault signal a-Current without arc fault at steady state; b-Current with arc
+fault at steady state; c-Current with arc fault and transient (change of functioning mode).
+
+
+                                                Numeric label: 1
+
+
+
+   State              Without                Arc          Arc         Arc         Arc         Arc
+                       arc                         Line Current
+      Amplitude
+
+
+
+
+                                             Feature
+                                           Extraction                                       Time(s)
+                  Window 1 from           with window 1
+                  0.04 to 0.06 (s)                       Feature
+                                                       Extraction
+                  Window 2 from                       with window 2
+                  0.06 to 0.8 (s)                                    Feature
+                                                                   Extraction
+                  Window 3 from                                   with window 3
+                  0.08 to 0.10 (s)
+
+
+
+
+                                               Arc fault feature
+                        Fig. 14. Label and arc fault feature construction.
+
+
+for the specific needs or installation with the corresponding database.
+For a given transform, the optimal subset of descriptor is relative; it                                                     Input                Hidden                Hidden        Output
+depends on different situations and descriptors considered. Table 2                                                          layer               layer 1               layer 2        layer
+summarizes the results obtained for all the analyzed transforms.                                                                 Fig. 15. Neural network for arc fault detection.
+    Many transforms keep all descriptors in order to achieve a superior
+performance. A redundant descriptor was added to demonstrate the
+                                                                                                                be explained by the fact that descriptor 11 contains information on
+efficiency of the selection process. Descriptor 11 is equal to (1 – de-
+                                                                                                                descriptor 2. Removing any other descriptor other than descriptor 11
+scriptor 2); the value 1 was chosen because the value of descriptor 2 is
+                                                                                                                (for example descriptor 9) increases the error. Using redundant de-
+normalized between [0; 1] and the result is shown in Table 3. The MSE
+                                                                                                                scriptor may affect the detection performance. This phenomenon has
+of each transform is increased when the redundant descriptor is added.
+                                                                                                                been studied with theoretical analysis and empirical evidence on
+Removing descriptor 2 may decrease the error in some cases. This may
+
+                                                                                                           31
+H.D. Vu, et al.                                                                                                                       Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+
+
+ Fig. 16. Descriptor selection with low frequency FFT and CZT (1–20 KHz).                              Fig. 19. Descriptor selection for high frequency FFT and CZT (80–150 KHz).
+
+
+
+
+Fig. 17. Descriptor selection with middle frequency FFT and CZT (20–80 KHz).                           Fig. 20. Descriptor selection for wavelet transforms-decomposition level 4 and
+                                                                                                       5.
+
+                                                        0.0803
+
+
+
+
+      0.0801        0.0804 0.0812 0.0771    0.0832 0.0826 0.0788           0.0791 0.0821 0.0806
+
+
+
+
+   0.0815   0.077     0.0804      0.0785     0.0815               0.0798
+
+                                 Best subset : 2,3,4,5,6,8,9,10
+
+                          Fig. 18. Descriptor selection process.
+
+
+several researches [33]. Redundant descriptor does not provide addi-
+tion information and it may confuse the learning algorithm. During the
+learning process, interesting relations between relevant descriptors can
+be ignored because the presence of redundant descriptor (there is a
+chance that the learning algorithm focus on redundant relations)
+therefore a lower performance can be expected.
+    C. Features combination
+    Descriptor selection shows that the most efficient AFF is discrete                                 Fig. 21. Descriptor selection for wavelet transforms- decomposition level 2 and
+Fourier transform with all descriptors at frequency band 1–10 kHz                                      3.
+(noted as AFF1). One way to achieve a better performance on the
+
+
+
+
+                                                                                                  32
+H.D. Vu, et al.                                                                                                             Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+                                                                                            Table 4
+                                                                                            Arc faults features and ratio distance.
+                                                                                             Complement AFF     Shared FP    Shared FN       Sum of       MSE        Accuracy
+                                                                                                                with AFF1    with AFF1       ratio
+                                                                                                                                             distance
+
+                                                                                             CZT 10–20 kHz      21           11              1.51         0.00173    99.81%
+                                                                                             CZT 1–10 kHz       16           13              1.44         0.00293    99.7%
+                                                                                             DB4 LVL5           35           13              1.43         0.00386    99.61%
+                                                                                             Derivative         13           6               1.36         0.00396    99.7%
+                                                                                             FFT 10–20 kHz      30           10              1.34         0.0041     99.58%
+                                                                                             FFT 20–50 kHz      21           27              1.34         0.00452    99.56%
+
+
+
+                                                                                            are much lower than the number of samples in AFF1 (FN and FP)
+                                                                                            groups which means that complementary AFF can provide additional
+                                                                                            information and increase detection performance.
+                                                                                                 The sums of ratio distance are listed in the fourth column; in this
+                                                                                            case AFF1 with the CZT transform 10–20 kHz has the highest sum of
+                                                                                            ratio distance. As expected, this combination has the lowest mean
+                   Fig. 22. Descriptor selection for derivative.
+                                                                                            squared error and the highest accuracy.
+                                                                                                 Combination with the derivate method also gives an exceptional
+Table 2                                                                                     result. Overall, CAFFs always give better results than single AFFs. The
+Arc faults features extraction.                                                             best accuracy can be achieved with a single AFF of 99.11% and an MSE
+  Transform                Optimized descriptor list          MSE          Accuracy         equal to 0.0092. With CAFF the accuracy can go higher, up to 99.81%,
+                                                                                            and lower the MSE to 0.00173.
+  FFT 1–10 kHz             1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0092       99.11%
+                                                                                                 The combination of AFF1 and derivative leads to a higher MSE but
+  CZT 1–10 kHz             1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0234       97.6%
+  FFT 10–20 kHz            1, 2, 3, 4, 5, 7, 8, 9, 10         0.0171       98.13%
+                                                                                            is more accurate compared to Debauchie’s wavelet. This can be ex-
+  CZT 10–20 kHz            1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0178       98.12%           plained by the fact that all classifiers have been trained with MSE as
+  FFT 20–50 kHz            1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0274       96.87%           objective functions and therefore accuracy is not optimized.
+  CZT 20–50 kHz            1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0617       92.07%                The results with two complementary AFFs are shown in Table 5. The
+  FFT 50–80 kHz            2, 3, 4, 5, 6, 8, 9, 10            0.077        91.54%
+                                                                                            best performance combination is composed of CZT 10–20 kHz, DB4
+  CZT 50–80 kHz            1, 2, 3, 4, 5, 7, 8, 9, 10         0.0806       89.68%
+  FFT 80–100 kHz           1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0912       89.68%           LVL5 and FFT 1–10 kHz. As expected, this combination has the highest
+  CZT 80–100 kHz           1, 2, 3, 4, 5, 6, 7, 9, 10         0.0766       90.04%           sum of ratio distance. The overall results are slightly better compared to
+  FFT 100–150 kHz          1, 2, 3, 4, 5, 7, 8, 9, 10         0.0897       89.80%           the combination of two AFFs. Variation in performance gain across
+  CZT 100–150 kHz          1, 2, 3, 5, 6, 7, 8, 9, 10         0.0786       89.56%
+                                                                                            different combinations of AFFs can be observed. In several cases, using
+  DB4 LVL5                 1, 2, 3, 4, 5, 6, 8, 9, 10         0.0233       97.58%
+  Dmey LVL5                2, 3, 4, 5, 6, 7, 8, 9, 10         0.0389       95.57%
+                                                                                            two complementary AFF perform worse than the best performance
+  DB4 LVL4                 1, 2, 4, 5, 6, 7, 8, 9, 10         0.0316       96.34%           combination at the previous stage.
+  Dmey LVL4                1, 2, 3, 4, 6, 7, 8, 9, 10         0.0891       88.59%                In this experiment, the number of AFFs used for combination steps is
+  DB4 LVL3                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0711       91.59%           limited to 3. Using more than three AFFs for combination can give
+  Dmey LVL3                1, 2, 3, 4, 5, 6, 7, 9, 10         0.0957       87.90%
+                                                                                            better results in the training process but the ANN tends to lead to over-
+  DB4 LVL2                 1, 2, 3, 4, 6, 7, 8, 9, 10         0.1009       87.75%
+  Dmey LVL2                1, 2, 3, 4, 5, 6, 7, 9, 10         0.1057       87.20%           fitting (accuracy on the training set is higher than accuracy on the
+  Derivative               1, 2, 3, 4, 5, 6, 7, 8, 9, 10      0.0164       98.26%           testing set). This phenomenon can be explained by the fact that adding
+                                                                                            more AFFs consequently increases the size of input vector and the ANN
+                                                                                            becomes more complex. More data is therefore needed to correctly train
+Table 3                                                                                     the ANN. Approximately 10 min training time is required for each CAFF
+Descriptor selection with redundant descriptor.                                             made from 2 AFFs and 30 min for CAFF when composed of 3 AFFs.
+  Transform          MSE                                                                    Eight and a half hours are required to find the optimal CAFF with the
+                                                                                            exhaustive selection method whilst the distance evaluation method
+                     All descriptor    Descriptor 2 removed     Descriptor 9 removed
+
+  FFT 1–10 kHz       0.0118            0.0117                   0.0145                      Table 5
+  CZT 1–10 kHz       0.0256            0.0262                   0.0347                      Arc faults features and ratio distance.
+  CZT 10–20 kHz      0.0212            0.0239                   0.0280
+  FFT 20–50 kHz      0.0282            0.0289                   0.0320                       Complement AFFs                      Sum of ratio distance   MSE        Accuracy
+  CZT 20–50 kHz      0.0662            0.0636                   0.0689
+  FFT 80–100 kHz     0.0954            0.0928                   0.0955                       CZT 10–20 kHz & DB4 LVL5             1.52                    0.00049    99.85%
+  DB4 LVL3           0.0725            0.0718                   0.0827                       CZT 10–20 kHz & CZT 1–10 kHz         1.49                    0.00066    99.84%
+  Derivative         0.0176            0.0175                   0.0232                       CZT 1–10 kHz & DB4 LVL5              1.43                    0.00100    99.83%
+                                                                                             CZT 10–20 kHz & Derivative           1.41                    0.00112    99.84%
+                                                                                             DB4 LVL5 & FFT 10–20 kHz             1.39                    0.00145    99.82%
+                                                                                             CZT 10–20 kHz & FFT10–20 kHz         1.38                    0.00151    99.81%
+detection task consists in combining arc fault features, including AFF1.
+                                                                                             CZT 1–10 kHz & Derivative            1.37                    0.00158    99.8%
+As mentioned above, the method to find complementary AFF is based                            DB4 LVL5 & Derivative                1.37                    0.00160    99.8%
+on the sum of ratio distances between true and false positives, false                        Derivative & FFT 10–20 kHz           1.37                    0.00160    99.8%
+negatives and true negative groups of AFF1 after concatenation. There                        CZT 10–20 kHz & FFT20-50 kHz         1.36                    0.00163    99.81%
+are 42 FP and 101 FN samples when only AFF1 is used for the classi-                          CZT 1–10 kHz & FFT 20–50 kHz         1.36                    0.00185    99.73%
+                                                                                             CZT 1–10 kHz & FFT 10–20 kHz         1.34                    0.00200    99.75%
+fication.                                                                                    DB4 LVL5 & FFT 20–50 kHz             1.34                    0.00230    99.71%
+    The results with one complementary AFF are shown in Table 4. The                         Derivative & FFT 20–50 kHz           1.33                    0.00300    99.7%
+number of shared FN and FP samples between AFF1 and the other AFFs                           FFT 10–20 kHz & FFT 20–50 kHz        1.24                    0.00402    99.6%
+
+
+
+                                                                                       33
+H.D. Vu, et al.                                                                                                                      Electrical Power and Energy Systems 113 (2019) 23–34
+
+
+requires only 42 min. This demonstrates the usefulness of the proposed                                 on BP neural network. Appl Mech Mater 2014:499–502.
+AFF combination method.                                                                            [5] Yu-Wei L, Chi-Jui W, Yi-Chieh W. Detection of serial arc fault on low-voltage indoor
+                                                                                                       power lines by using radial basis function neural network. Electr Power Energy Syst
+    D. Computational costs and hardware platform                                                       2016:149–57.
+    All calculations in this paper were performed with an average CPU                              [6] Jovanovic S, Chahid A, Lezama J, Schweitzer P. Shunt active power filter-based
+(Core i7-2600); the total time needed to obtain the final results from                                 approach for arc fault detection. Electr Power Syst Res 2016;141:11–21.
+                                                                                                   [7] Wu C-J, Liu Y-W, Hung C-S. Intelligent detection of serial arc fault on low voltage
+raw data is about one day. It varies, depending on the complexity and                                  power lines. J Mar Sci Technol 2017;25:43–53.
+the number of transform-descriptor used. The proposed method can be                                [8] Renjini Raveeendran AT. Series arc fault detection using discrete wavelet transform.
+run in any typical desktop PC; it can also be accelerated with the use of                              Int J Sci Res 2014.
+                                                                                                   [9] Lezama J, Schweitzer P, Tisserand E, Humbert J-B, Weber S, Joyeux P. An em-
+GPU. The final proposed detection solution can be implemented in an                                    bedded system for AC series arc detection by inter-period correlations of current.
+embedded platform for example Xilinx- Zynq7010 without real-time                                       Electr Power Syst Res 2015;129:227–34.
+issues. The idea of integrating directly the time and resources con-                              [10] Hadziefendic N, Radakovic Z. Detection of series arcing in low-voltage electrical
+                                                                                                       installations. Eur Trans Electr Power 2009:423–32.
+straints in the selection and combination process may be interesting for
+                                                                                                  [11] Restrepo C, Henson J. Systems, devices, and methods for detecting arcs. US Patent
+the future work.                                                                                       US7110864B2, 8 3 2004.
+                                                                                                  [12] Artale G, Cataliotti A, Cosentino V, Cara DD, Nuccio S, Tine G. Arc fault detection
+6. Conclusion                                                                                          method based on CZT low-frequency harmonic current analysis. IEEE Trans Instrum
+                                                                                                       Meas 2017;66:888–96.
+                                                                                                  [13] Zhang S, Zhang F, Liu P, Han Z. Identification of low voltage AC series arc faults by
+    In this paper, a methodology for optimizing arc fault detection                                    using kalman filtering algorithm. Elektronika ir Elektrotechnika, ISSN 2014;5.
+performance with plural arc fault features has been presented. The                                [14] Guan H, Wang B, Zhao Z, Bimenyimana S, Wang Q. Arc fault current's power
+                                                                                                       spectrum characteristics and diagnosis based on welch algorithm. Int J Eng Sci
+main originality of the proposed method is the use of supervised feature                               Comput 2016;6.
+selection. The method consists in creating an arc fault feature pool and                          [15] Kawady TA, Elkalashy NI, Ibrahim AE, Taalab A-MI. Arcing fault identification
+finding a combination of those features which satisfy the desired per-                                 using combined gabor transform-neural network for transmission lines. Electr
+                                                                                                       Power Energy Syst 2014:248–58.
+formance. The wrapper selection method was first used on every                                    [16] Wang Y, Zhang F, Zhang S. A new methodology for identifying arc fault by sparse
+transform to find the most efficient descriptor set. This selection step                               representation and neural network. IEEE Trans Instrum Meas 2018;67:2526–37.
+which examines all possible descriptors and removes the irrelevant or                             [17] Yang K, Zhang R, Chen S, Zhang F, Yang J, Zhang X. Series arc fault detection
+                                                                                                       algorithm based on autoregressive bispectrum analysis. Algorithms 2015;8:929–50.
+redundant descriptors was necessary in order to make a reliable arc                               [18] Lesecq S, Barraud A. Arcing fault detection using wavelet transform. IFAC
+fault feature pool. Secondly, a supervised selection method based on                                   Symposium on Fault Detection, Supervision and Safety of Technical Processes
+Euclidean distance was used to find an appropriate combination in the                                  2003;36:345–50.
+                                                                                                  [19] CR Jr. Arc fault detection using fuzzy logic. US Patent 8 054 592 B2, 8 11 2011.
+pool of arc fault features. The combination of several arc fault features
+                                                                                                  [20] Liu Y, Guo F, Ren Z, Wang P, Nguyen TN, Zheng Jia, Zhang X. Feature analysis in
+helps to reach a detection performance that cannot be achieved by                                      time-domain and fault diagnosis of series arc fault. IEEE Holm Conference on
+using only one arc fault feature. Experimental results with basic                                      Electrical Contacts 2017:306–11.
+(standard IEC 62606) and complicated situations (transient, multiple                              [21] Restrepo CE. Arc fault detection and discrimination methods. In: Electrical contacts
+                                                                                                       - 2007 proceedings of the 53rd IEEE holm conference on electrical contacts; 2007.
+masking loads or disturbance on power network etc.) have demon-                                        p. 115–22.
+strated the efficiency of the proposed methods. Twenty-one specific                               [22] Qi P, Jovanovic S, Lezama J, Schweitzer P. Discrete wavelet transform optimal
+transforms associated with 10 different descriptors were evaluated and                                 parameters estimation for arc fault detection in low-voltage residential power
+                                                                                                       networks. Electr Power Syst Res 2017:130–9.
+in terms of accuracy, the combination of FFT, CZT and DB4 can reach                               [23] Tang J, Alelyani S, Liu H. Feature selection for classification: a review. Data
+99.85%.                                                                                                Classification: Algorithms and Applications 2014.
+                                                                                                  [24] Isabelle G, Andre E. An introduction to variable and feature selection. J Mach
+                                                                                                       Learning Res 2003:1157–82.
+Acknowledgement                                                                                   [25] Ang JC, Mirzal A, Haron H, Hamed HNA. Supervised, unsupervised, and semi-su-
+                                                                                                       pervised feature selection: a review on gene selection. IEEE Trans Comput Biol
+    This work was supported by Hager Group.                                                            Bioinformatics 2016;13:971–89.
+                                                                                                  [26] Christiansen MM, Duffy KR, Calmon FdP, Medard M. Brute force searching, the
+                                                                                                       typical set and Guesswork. IEEE Int Symp Information Theory 2013:1257–61.
+Appendix A. Supplementary material                                                                [27] Somol P, Pudi P, Kittler J. Fast branch & bound algorithms for optimal feature
+                                                                                                       selection. IEEE Trans Pattern Anal Mach Intell 2004;26:900–12.
+                                                                                                  [28] Naeini AA, Babadi M, Mirzadeh SMJ, Amini S. Particle swarm optimization for
+    Supplementary data to this article can be found online at https://
+                                                                                                       object-based feature selection of VHSR satellite images. IEEE Geosci Remote Sens
+doi.org/10.1016/j.ijepes.2019.05.012.                                                                  Lett 2018;15:379–83.
+                                                                                                  [29] Liu X-Y, Liang Y, Wang S, Yang Z-Y, Ye H-S. A hybrid genetic algorithm with
+References                                                                                             wrapper-embedded approaches for feature selection. IEEE Access
+                                                                                                       2018;6:22863–74.
+                                                                                                  [30] Webster R. Useful AI tools-a review of heuristic search methods. IEEE Potentials
+ [1] Muller P, Tenbohlen S, Maier R, Anheuser M. Characteristics of series and parallel                1991:51–4.
+     low current arc faults in the time and frequency domain. In: Proceedings of the 56th         [31] L.J.-H., O.S.-Y.. Feature selection based on geometric distance for high-dimensional.
+     IEEE holm conference on electrical contacts; 2010. p. 1–7.                                        Electron Lett 2016;52:473–5.
+ [2] Jieqiu B, Yi Z, Zhiqiang D, Hongqiang Z. Arc fault identification method based on            [32] Lezama J, Schweitzer P, Weber S, Tisserand E, Joyeux P. Arc fault detection based
+     fractal theory and SVM. In: 2014 International conference on power system tech-                   on temporal analysis. IEEE 60th holm conference on electrical contacts. 2014.
+     nology; 2014. p. 1182–7.                                                                          p. 1–5.
+ [3] Yang K, Zhang R, Yang J, Liu C, Chen S, Zhang F. A novel arc fault detector for early        [33] Yu L, Liu H. Efficient feature selection via analysis of relevance and redundancy. J
+     detection of electrical fires. Sensors 2016.                                                      Mach Learning Res 2004:1205–24.
+ [4] Zhang R, Yang K, Wu Q, Yang J. Research on low-voltage arc fault detection based
+
+
+
+
+                                                                                             34
+
