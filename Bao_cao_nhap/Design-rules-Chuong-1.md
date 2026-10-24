@@ -87,11 +87,14 @@ Chỉ học cách tổ chức và nhịp văn. Không sao chép câu chữ, mở
 - Không dùng việc thiếu thông số làm nội dung chính của cả tiểu mục; vẫn giải thích được đại lượng, vai trò kỹ thuật và hướng đánh giá theo D.2.
 - Viết lại toàn bộ phần diễn giải sau khi cập nhật quy tắc; không chỉ thêm vài gạch đầu dòng vào bản cũ.
 
-## B.5. Giọng trình bày của người thực hiện đồ án
+## B.5. Giọng văn khách quan — cập nhật 24/10/2026
 
 Người viết đồng thời là người phân tích và thiết kế hệ thống. Thân báo cáo trình bày đối tượng, cách phân tích, lựa chọn có căn cứ và phương pháp đánh giá của đồ án; không dùng giọng hướng dẫn hoặc giao nhiệm vụ cho một người thiết kế khác. Quy tắc này áp dụng cho tất cả các mục, đoạn dẫn, gạch ý, bảng và kết luận.
 
-- **Dùng chủ thể và hành động rõ ràng.** Viết “đồ án phân biệt…”, “trong thiết kế này, điện áp được chia thành…”, “phép đánh giá sử dụng…”, hoặc mô tả trực tiếp đối tượng. Không lạm dụng “ta”, “chúng ta” hay lặp “đồ án” ở đầu mọi câu.
+- **Trình bày trực tiếp, dứt khoát.** Với kiến thức và dữ kiện đã có căn cứ, nêu thẳng đặc điểm, chức năng hoặc quan hệ kỹ thuật; đặt trích dẫn ở cuối câu/đoạn. Không kể lại nguồn bằng các khuôn “tài liệu tổng quan đề cập…”, “nguồn xem X là…”, “nghiên cứu coi…”, “đây là thông tin do… công bố” khi tên nguồn không giúp giải thích nội dung. Ví dụ: viết “Đầu cáp là một trong các vị trí giám sát sự cố hồ quang trong tủ điện”, thay cho “Tổng quan kỹ thuật của tác giả… xem đầu cáp là một vị trí điển hình…”.
+- **Chắc chắn theo đúng căn cứ.** Giữ tên tác giả khi phân tích công trình cụ thể, điều kiện thử nghiệm và kết quả riêng; giữ “hồ sơ quy định” khi phân biệt yêu cầu thiết kế với hiện trạng vận hành. Không biến phương án thành cấu hình đã chọn, yêu cầu thành kết quả đạt được hoặc khả năng thành kết luận tuyệt đối. Giới hạn dữ liệu được nêu gọn tại đúng mục, không rải lời dè dặt vào mọi câu.
+- **Dùng chủ thể kỹ thuật cụ thể.** Viết “điện áp được chia thành…”, “thời gian phản hồi gồm…”, “cảm biến thu nhận…” hoặc “phương pháp đánh giá xét…”. Không dùng “đề tài này”, “đồ án này”, “đề tài tập trung”, “đồ án phân tích”, “đề tài nhận thấy”, “đối với đề tài” và các cách tự quy chiếu tương tự trong thân báo cáo. Giữ nguyên tên đề tài ở đầu file và tên tài liệu nguồn.
+- **Dẫn phạm vi từ bối cảnh có căn cứ.** Nêu điều kiện ứng dụng, nguy cơ hoặc nhu cầu kỹ thuật trước khi xác định phạm vi. Ví dụ: “Nguy cơ hư hỏng và mất an toàn do hồ quang nội bộ đặt ra nhu cầu phát hiện sớm sự cố trong tủ điện. Từ bối cảnh đó, phạm vi nghiên cứu tập trung vào phát hiện chớp hồ quang điện trong tủ điện hạ thế và trung thế.” Không bịa thống kê về tình hình thực tế để tạo câu dẫn, không lặp máy móc mẫu này ở mọi mục.
 - **Giải thích lý do phân chia.** Thay “cần tách ba loại điện áp” bằng “điện áp được chia thành ba nhóm: điện áp hệ thống, điện áp tín hiệu và nguồn phụ trợ. Cách phân chia này làm rõ điều kiện làm việc và giao diện của từng khối”. Câu viết thể hiện phân tích đang được trình bày và mục đích của nó.
 - **Bỏ giọng sai khiến.** Không dùng các cách viết như “cần xác định”, “cần kiểm tra”, “phải lựa chọn”, “người thiết kế cần” để giao công việc của đồ án. Thay bằng nội dung thực chất: đại lượng được phân tích, yếu tố chi phối, phương pháp đánh giá hoặc trạng thái thông số.
 - **Không thay từ máy móc.** Viết lại cả câu hoặc đoạn để giữ đúng ý và thời điểm. Không chỉ thay mọi chữ “cần” bằng “đồ án thực hiện”. Không biến một thông số chưa xác lập thành lựa chọn đã có, hoặc một phép đánh giá dự kiến thành kết quả đã đo.
@@ -126,7 +129,7 @@ Rà soát toàn văn sau khi biên soạn: tìm các cụm “cần”, “phả
 - Trích gần nhận định: `[TL1, mục 3.2, tr. in 78; tr. PDF 2]` hoặc `[W2, phần “...”]`. Đây là mẫu cú pháp; phải thay bằng vị trí thực sự đã kiểm tra.
 - Nếu trang in và số trang PDF khác nhau, phân biệt hai hệ. Trang PDF đếm từ 1; không lấy chỉ số 0-based của công cụ làm số trang trích dẫn.
 - Nếu một câu có nhiều khẳng định mà nguồn chỉ chứng minh một phần, tách câu hoặc bổ sung nguồn phù hợp.
-- Phân biệt nội dung nguồn với suy luận của tác giả. Trong lời văn dùng “Từ các đặc điểm trên, đề tài nhận thấy...” khi thật sự là phân tích. Không dùng nhãn suy luận để hợp thức hóa chi tiết giả định về nhà máy.
+- Phân biệt nội dung nguồn với suy luận của tác giả. Khi trình bày suy luận, nêu trực tiếp quan hệ giữa căn cứ và nhận định, chẳng hạn “Từ các đặc điểm trên, phạm vi giám sát phụ thuộc vào…”. Không dùng lối tự quy chiếu như “đề tài nhận thấy”. Không dùng nhãn suy luận để hợp thức hóa chi tiết giả định về nhà máy.
 - Không tạo DOI, tác giả, năm, số trang hoặc kết quả thử nghiệm từ trí nhớ. Không chép nguyên đoạn dài của nguồn.
 
 ## C.3. Danh mục cuối chương
@@ -175,7 +178,7 @@ Phần 1.1 chỉ có hai tiểu mục 1.1.1 và 1.1.2. Nội dung số liệu mi
 
 **Lời dẫn sang 1.2:**
 
-> Từ bối cảnh và hậu quả của sự cố, đồ án phân tích các đại lượng và đặc tính kỹ thuật của hệ thống phát hiện. Những nội dung này là cơ sở xây dựng hệ thống nhúng ở các chương sau.
+> Bối cảnh ứng dụng và hậu quả của sự cố đặt ra các yêu cầu về thu nhận tín hiệu, độ nhạy và thời gian phản hồi của bộ phát hiện. Các yêu cầu này là cơ sở lựa chọn phương án thiết kế hệ thống nhúng.
 
 ## D.2. `# 1.2. Phân tích yêu cầu kỹ thuật của bài toán`
 
@@ -226,7 +229,7 @@ Lập bảng: nội dung hồ sơ | ý nghĩa chức năng | trang/mục | giớ
 ### `## 1.3.4. Trình tự chức năng phát hiện và phối hợp tác động`
 Diễn giải bằng danh sách bước đánh số kèm đoạn giải thích ngắn theo B.4, chỉ ở mức tài liệu cho phép. Phân biệt nhận biết sự cố, phối hợp đo dòng và xuất tín hiệu tới máy cắt. Không tự thêm SCADA, DCS, ghi sự kiện, khôi phục tự động hoặc quy trình thao tác người vận hành. Nếu có sơ đồ gốc phù hợp thì trích; nếu không, dùng danh sách và lời văn, không tự vẽ ảnh thay thế. Thiếu dữ liệu phải được nói rõ ở phần giới hạn phù hợp.
 
-### `## 1.3.5. Đối chiếu với yêu cầu của đề tài và giới hạn thông tin`
+### `## 1.3.5. Đối chiếu với yêu cầu kỹ thuật và giới hạn thông tin`
 Đối chiếu với 1.2; phân loại thông tin đã có và chưa có. Liệt kê các khoảng trống cụ thể như số lượng/vị trí cảm biến, ngưỡng, mã thiết bị, sơ đồ đấu dây, dữ liệu nghiệm thu/vận hành. Không dùng tài liệu sản phẩm 1S23 để lấp khoảng trống thành sự thật của nhà máy.
 
 **Lời dẫn sang 1.4:**
@@ -239,7 +242,7 @@ Viết khoảng 2–3 đoạn: kết quả làm rõ bài toán; sáu nhóm yêu 
 
 **Đoạn chuyển sang Chương 2:**
 
-> Chương 1 trình bày bối cảnh, phạm vi nghiên cứu và các yêu cầu kỹ thuật ban đầu của bài toán phát hiện chớp hồ quang điện. Trên cơ sở đó, Chương 2 trình bày lý thuyết về phát hiện, thu nhận và xử lý tín hiệu, đồng thời phân tích, lựa chọn linh kiện. Những thông số chưa xác lập được xem xét cùng phương án thiết kế và điều kiện đánh giá của đồ án.
+> Chương 1 trình bày bối cảnh, phạm vi nghiên cứu và các yêu cầu kỹ thuật ban đầu của bài toán phát hiện chớp hồ quang điện. Trên cơ sở đó, Chương 2 trình bày lý thuyết về phát hiện, thu nhận và xử lý tín hiệu, đồng thời phân tích, lựa chọn linh kiện. Những thông số chưa xác lập được xem xét cùng phương án thiết kế và điều kiện đánh giá của hệ thống.
 
 # E. Nguồn khởi đầu cho việc nghiên cứu tiếp
 
@@ -319,3 +322,9 @@ Với ảnh web: nguồn là tác giả/cơ quan, tiêu đề, [trang gốc](URL
 - [ ] Độ dài hướng tới 10–14 trang nhưng không tuyên bố đã đạt chính xác nếu chưa dàn trang.
 
 Khi kết thúc, báo ngắn gọn: tệp đã sửa; nội dung mới; nguồn bổ sung; ảnh thêm/xóa; các giới hạn chưa giải quyết. Không tuyên bố mọi yêu cầu đã được kiểm chứng nếu vẫn thiếu dữ liệu.
+
+## Quy tắc áp dụng khi viết tiếp
+
+Trước mỗi lần viết mới hoặc chỉnh sửa báo cáo, đọc và tuân thủ Design-rules-Chuong-1.md, đặc biệt B.5. Duy trì quy tắc văn phong khi viết các chương tiếp theo; bố cục riêng Chương 1 chỉ áp dụng cho Chương 1. Yêu cầu mới nhất của người dùng được ưu tiên khi có xung đột. Trước khi hoàn thành, tìm các cụm “đề tài”, “đồ án”, “nghiên cứu này”, “thiết kế này” và đọc từng câu để loại bỏ lối tự quy chiếu; giữ nguyên tên đề tài và tên nguồn. Viết lại câu theo nội dung kỹ thuật và quan hệ nguyên nhân–kết quả, không chỉ thay từ.
+
+Rà soát bổ sung trước khi hoàn thành: tìm “tài liệu tổng quan”, “đề cập”, “xem…là”, “coi…là”, “đây là thông tin”; đọc ngữ cảnh và viết trực tiếp nội dung khi không cần phân tích chính nguồn đó. Giữ đầy đủ trích dẫn sau khi sửa.
