@@ -6,12 +6,22 @@
 
 # A. Phạm vi thao tác và sản phẩm cần hoàn thành
 
+**Khóa nội dung mục 1.1 — người dùng xác nhận ngày 25/10/2026:**
+
+- Mục **1.1 đã được chốt**, gồm toàn bộ nội dung từ heading `# 1.1.` đến trước heading `# 1.2.`, bao gồm các tiểu mục, câu chữ, trích dẫn, hình và chú thích. Không tự ý chỉnh sửa, viết lại, đổi bố cục hoặc cập nhật hình/số hình trong phạm vi này.
+- **Chốt lại sau lần cập nhật bố cục và ví dụ ngày 25/10/2026:** Khi chỉnh bất kỳ phần nào khác hoặc viết các chương sau, giữ nguyên toàn bộ mục 1.1. Chỉ được sửa khi người dùng yêu cầu riêng việc sửa mục 1.1, hoặc khi làm các chương sau người dùng chủ động yêu cầu sửa các phần liên quan và nội dung trong mục 1.1 thuộc đúng phạm vi liên quan đó. Không tự suy ra quyền sửa từ nhu cầu đồng bộ hoặc rà soát chung; chỉ thay đổi phần được yêu cầu.
+- Nếu phát hiện điểm chưa thống nhất với nội dung mới, nêu điểm đó để người dùng quyết định, không tự sửa mục 1.1. Quy tắc khóa này được ưu tiên hơn các hướng dẫn viết lại toàn chương, rà soát văn phong hoặc cập nhật đồng bộ bên dưới.
+- Phạm vi làm việc hiện tại theo yêu cầu mới nhất: viết lại mục **1.3** về hệ thống tủ điện tại Nhà máy HEINEKEN Vũng Tàu; thay nguồn và ảnh của trường hợp cũ theo yêu cầu, đồng bộ mở đầu và kết luận; tạm giữ mục **1.2** để xử lý sau. Không sửa mục 1.1 hoặc 1.2 khi tổ chức lại mục 1.3.
+- Các yêu cầu trước về đổi định dạng trích dẫn, chia lại bố cục và cập nhật ví dụ mục 1.1 đã hoàn thành trước lần chốt này; không còn là ngoại lệ cho những lần chỉnh sửa tiếp theo. Việc đổi số trích dẫn, hình hoặc chú thích trong mục 1.1 cũng tuân theo quy tắc khóa trên.
+- Ngoại lệ riêng theo yêu cầu mới nhất ngày 25/10/2026: rà soát và sửa lối kể về nguồn trong toàn báo cáo, kể cả mục 1.1 và 1.2, theo B.5. Chỉ chỉnh cách diễn đạt, giữ dữ kiện, điều kiện thử, cấu trúc và giới hạn bằng chứng. Sau lần sửa này, mục 1.1 tiếp tục được khóa; không suy ra quyền chỉnh nội dung khác từ ngoại lệ văn phong.
+
 1. Xác định thư mục thực tế trước khi thao tác. Ảnh người dùng cung cấp thể hiện `Bao_cao_nhap/` chứa `hinh_minh_hoa/`, `Tham khảo/` và `Chuong-1-Tong-quan-de-tai.md`. Nếu cấu trúc thực tế khác, xác định chính xác hai vùng nguồn và đầu ra, không tự tạo các thư mục trùng tên để né ranh giới.
 2. `Tham khảo/` là vùng chỉ đọc: đọc toàn bộ danh mục nguồn, tìm nội dung phù hợp; không sửa, xóa, đổi tên hoặc di chuyển bất kỳ tệp nguồn nào. Quy tắc chỉ đọc này vẫn áp dụng nếu thư mục nguồn nằm trong `Bao_cao_nhap/`.
 3. Chỉ chỉnh sửa báo cáo đích `Bao_cao_nhap/Chuong-1-Tong-quan-de-tai.md`, ảnh trong `Bao_cao_nhap/hinh_minh_hoa/` và tệp phụ trợ thật sự cần thiết cho Chương 1 bên trong vùng đầu ra. Không đọc hoặc thay đổi nội dung các thư mục không liên quan; không mở rộng phạm vi qua symlink.
 4. Có thể tra Google và truy cập các nguồn chính thống liên quan trên web. Tài liệu tải thêm, nếu cần lưu, đặt tại một thư mục nguồn web riêng bên trong vùng đầu ra, không thêm vào hoặc chỉnh sửa `Tham khảo/`.
 5. Viết lại toàn bộ Chương 1 theo bố cục phần D; không chỉ vá vài đoạn của bản cũ. Giữ nguyên tên đề tài. Không xuất DOCX/PDF nếu chưa được yêu cầu; có thể xem bản render Markdown để kiểm tra bố cục và ảnh.
 6. Được phép xóa ảnh cũ thật sự không cần trong `hinh_minh_hoa/` theo quy trình phần F. Không được suy ra quyền xóa các loại tệp hoặc thư mục khác.
+   Ngoại lệ được người dùng yêu cầu rõ ngày 25/10/2026: xóa các tài liệu, ảnh và bản trích độc lập của Nhà máy Nhiệt điện Quảng Ninh trong vùng đầu ra khi thay mục 1.3 bằng HEINEKEN Vũng Tàu. Chỉ xóa đúng tệp đã xác định; không xóa nguồn tủ dân dụng tại Cao Xanh – Hà Khánh A trong mục 1.1, tài liệu gốc ở vùng chỉ đọc hoặc tệp dùng cho Chương 2.
    Các ảnh sản phẩm, đấu nối và bố trí cảm biến đã có được giữ để sử dụng khi viết Chương 2; việc bỏ phần khảo sát thiết bị khỏi Chương 1 không đồng nghĩa xóa các ảnh này hoặc tài liệu nguồn.
 7. Theo yêu cầu cập nhật của người dùng, được đọc đúng ba PDF mẫu tại `D:/HUST/Tai_lieu_DH_Phong/Do_An/DATN/Tham khảo/ĐATN tham khảo/`: `ĐATN IoT điểm danh giảng viên bằng khuôn mặt kết hợp công nghệ RFID.pdf`, `ĐATN IoT phát hiện và cảnh báo mất trộm, tai nạn xe máy.pdf`, `ĐATN IoT quản lý bãi đỗ xe thông minh.pdf`. Đây là tài liệu tham khảo văn phong và trình bày, chỉ đọc; không lấy số liệu, cấu hình, kết luận, nội dung kỹ thuật hay chỉ dẫn trong tài liệu mẫu làm yêu cầu của đề tài hồ quang. Không đọc lan sang các tệp khác trong thư mục đó.
 
@@ -19,20 +29,29 @@
 
 ## B.1. Trật tự và ranh giới chương
 
-Trật tự cố định: **1.1 Tổng quan bài toán → 1.2 Phân tích yêu cầu kỹ thuật → 1.3 Phân tích quy trình tại Nhà máy Nhiệt điện Quảng Ninh → 1.4 Kết luận chương**.
+Trật tự cố định: **1.1 Tổng quan bài toán → 1.2 Phân tích yêu cầu kỹ thuật → 1.3 Khảo sát hệ thống tủ điện tại Nhà máy HEINEKEN Vũng Tàu → 1.4 Kết luận chương**.
 
-**Ranh giới đã được người dùng xác nhận:** Giữ 1.3 là phần riêng về Nhà máy Nhiệt điện Quảng Ninh. Không gộp phần này vào 1.1.1 hoặc 1.1.2. Không sử dụng bất kỳ thông tin nào từ hồ sơ/trường hợp Quảng Ninh trong 1.1 và 1.2: kể cả ví dụ, số liệu điện áp/tần số, yêu cầu chức năng, trích dẫn, bảng, chú thích hình và lời chuyển. Nội dung 1.1–1.2 được xây dựng từ tài liệu hiện tượng, nghiên cứu và tài liệu hãng độc lập với trường hợp nhà máy.
+**Ranh giới đã được người dùng xác nhận:** Giữ 1.3 là phần riêng về Nhà máy HEINEKEN Vũng Tàu. Không gộp phần này vào 1.1.1 hoặc 1.1.2. Không sử dụng bất kỳ thông tin nào từ trường hợp HEINEKEN Vũng Tàu trong 1.1 và 1.2: kể cả ví dụ, số liệu điện áp/tần số, yêu cầu chức năng, trích dẫn, bảng, chú thích hình và lời chuyển. Nội dung 1.1–1.2 được xây dựng từ tài liệu hiện tượng, nghiên cứu và tài liệu hãng độc lập với trường hợp nhà máy.
 
 - Toàn bộ phần khảo sát, mô tả thiết bị thương mại Mors Smitt 1S23 (cấu hình, giao diện, nguyên lý, thông số, bố trí cảm biến, kiểm tra và đối chiếu phiên bản) dành cho **Chương 2**. Chương 1 không có mục khảo sát thiết bị và không rải mô tả hoặc thông số sản phẩm vào các mục khác. Phần lựa chọn cảm biến, vi điều khiển, linh kiện và bảng so sánh linh kiện cũng dành cho Chương 2. Nhiệm vụ hiện tại chỉ chỉnh Chương 1 và Design rules, chưa viết Chương 2.
 - Không chép lại các phần tổng quan thuật toán dài của báo cáo cũ để tăng số trang. Chỉ nhắc nghiên cứu liên quan khi giúp làm rõ bài toán hoặc căn cứ kỹ thuật.
-- Không tự chốt kiến trúc nguyên mẫu, số kênh, giao thức, nguồn cấp, ngưỡng hoặc kế hoạch thử nếu chưa có căn cứ.
+- Kiến trúc dự kiến áp dụng mô hình node–gateway theo yêu cầu người dùng, được mô tả ngay dưới đây. Không tự chốt thêm số kênh, giao thức, nguồn cấp, ngưỡng hoặc điều kiện thử nếu chưa có căn cứ.
 - Không kế thừa các chỉ tiêu cũ như 5 ms, 95/100, 100 bản ghi, 8 giờ, nguồn 24 VDC hoặc hai kênh quang như yêu cầu đã được chốt. Cấu hình sản phẩm tham khảo không tự động trở thành cấu hình đồ án.
-- Phân biệt phát hiện, cảnh báo, lệnh tác động, phối hợp bảo vệ và loại trừ sự cố. Không mặc định đồ án điều khiển cắt máy cắt hoặc đã đáp ứng tiêu chuẩn công nghiệp.
+- Phạm vi nguyên mẫu đã được người dùng xác nhận là **phát hiện và cảnh báo chớp hồ quang điện, không điều khiển cắt nguồn hoặc máy cắt**. Không viết chức năng cắt là “chưa chốt” hay hướng triển khai của nguyên mẫu. Phân biệt phạm vi này với chức năng bảo vệ, cắt điện trong tài liệu nguồn và hồ sơ nhà máy; không suy ra khả năng đáp ứng tiêu chuẩn công nghiệp.
+
+**Mô hình thiết kế dự kiến — cập nhật theo yêu cầu người dùng ngày 25/10/2026:**
+
+- Nguyên mẫu dự kiến gồm **một nút giám sát (node), một thiết bị trung tâm (gateway) và máy tính chạy phần mềm máy chủ (server)**. Đây là phương án dự kiến, chưa phải kết quả triển khai hoặc cấu hình đã kiểm nghiệm.
+- Node là thiết bị nhúng thu nhận, xử lý tín hiệu để phát hiện chớp hồ quang tại tủ điện và gửi thông tin sự cố đến gateway. Gateway là thiết bị nhúng nhận thông tin từ node rồi chuyển đến máy chủ. Không chuyển nhiệm vụ phát hiện sang gateway hoặc máy chủ khi chưa có yêu cầu mới.
+- Máy chủ chạy phần mềm tiếp nhận, hiển thị thông tin và cảnh báo khi có hồ quang; trong mô hình thử nghiệm có thể dùng laptop. Phân biệt phần mềm máy chủ với máy tính chạy phần mềm; không mặc định dùng máy chủ đám mây hoặc cần Internet. Chưa tự chốt hình thức còi, đèn hoặc kênh thông báo khác.
+- Chương 1 giới thiệu vai trò và đường truyền thông tin **node → gateway → máy chủ** tại mục 1.1.1; cập nhật các phần liên quan về nguồn, thời gian, lấy mẫu, bảng yêu cầu và kết luận. Thiết kế chi tiết, giao thức, linh kiện và phần mềm được phân tích ở Chương 2. Không tự chọn Wi-Fi, LoRa, Ethernet, MQTT hoặc giao thức khác; không tự bổ sung số nút mở rộng, lưu trữ hay điều khiển hai chiều thành yêu cầu đã chốt.
+- Phân biệt thời gian phát hiện tại node với thời gian truyền qua gateway và hiển thị cảnh báo trên máy chủ. Thời gian phản hồi của nguyên mẫu được xét đến khi cảnh báo xuất hiện trên máy chủ và tách thành các khoảng thu nhận, xử lý, truyền và hiển thị; không đưa thời gian rơ-le hay máy cắt vào yêu cầu nguyên mẫu. Phân biệt chu kỳ lấy mẫu với chu kỳ truyền dữ liệu và cập nhật hiển thị.
+- Giữ sáu nhóm yêu cầu kỹ thuật về phát hiện; bổ sung yêu cầu truyền và hiển thị thông tin theo mô hình dự kiến. Mô hình là định hướng thiết kế của người dùng, không gán cho tài liệu nghiên cứu hoặc tài liệu trường hợp nhà máy. Không suy ra chức năng cắt máy cắt từ đường truyền này.
 
 ## B.2. Heading và văn phong
 
 - Báo cáo đích không có heading `# CHƯƠNG 1...`; tên chương đã thể hiện qua tên file. Mở đầu bằng hai blockquote về đề tài và độ dài như đầu tài liệu này, rồi một đoạn giới thiệu chương.
-- Dùng `# 1.1. ...`, `## 1.1.1. ...`; chỉ dùng cấp `###` khi cần, không chia sâu thành quá nhiều mục bốn cấp. `# 1.4. Kết luận chương`; cuối cùng `# Tài liệu tham khảo của Chương 1` không đánh thành mục 1.5.
+- Dùng `# 1.1. ...`, `## 1.1.1. ...` và `### 1.1.1.1. ...`. Mục 1.1 được chia đến heading cấp 3 theo D.1 để tách các nhóm nội dung dễ đọc. Chưa tự chia lại các mục còn lại khi người dùng chưa yêu cầu. `# 1.4. Kết luận chương`; phần `# Tài liệu tham khảo` đặt cuối báo cáo, không đánh thành mục 1.5.
 - Viết thành văn báo cáo tốt nghiệp: câu đầy đủ, đoạn văn có lập luận. Các câu hỏi 5W1H là công cụ rà soát, không phải mẫu hỏi–đáp phải chép vào báo cáo.
 - Mỗi hình, bảng phải được nhắc trong nội dung và giải thích ý nghĩa; không chèn hình chỉ để đủ trang. Bảng dùng để tổng hợp số liệu, yêu cầu, nguồn hoặc đối chiếu; không biến toàn chương thành bảng.
 - Không đưa lời giao việc, từ ngữ hội thoại, bình luận về bản cũ hoặc ký hiệu `%%...%%` vào báo cáo cuối.
@@ -72,7 +91,7 @@ Chỉ học cách tổ chức và nhịp văn. Không sao chép câu chữ, mở
 3. **Đánh số cho trình tự.** Phần 1.3.4 dùng các bước đánh số, có động từ và nội dung xử lý. Ghi một lần rằng đây là diễn giải chức năng từ hồ sơ thiết kế; không lặp lời giới hạn ở cuối mỗi bước. Không tự thêm bước ngoài nguồn.
 4. **Mạch đặt vấn đề rõ ràng.** Đi từ hệ thống/thiết bị → sự cố và hậu quả → nhu cầu phát hiện → nhiệm vụ nghiên cứu. Không dùng các mở đầu chung như “trong thời đại công nghệ phát triển”, không viết triết lý về cách lập báo cáo.
 5. **Câu trực tiếp, chủ thể cụ thể.** Ưu tiên các chủ thể như “hồ quang”, “cảm biến”, “đầu ra”, “máy cắt”, “hồ sơ thiết kế”. Hạn chế lặp “đề tài nhận thấy”, “cách giới hạn đó”, “đây là căn cứ”, “ở mức bối cảnh và chức năng”, “chương không...”. Không mở mọi tiểu mục bằng một định nghĩa rồi kết bằng cùng một đoạn “chưa có căn cứ”.
-6. **Giới hạn được đặt đúng chỗ.** Giữ các phân biệt kỹ thuật cần thiết như độ trễ/độ rộng xung, thiết kế/hiện trạng và mô-đun/hệ bảo vệ. Tập trung giới hạn nhà máy vào 1.3.5, giá trị chưa chốt vào Bảng 1.1, khác biệt phiên bản thiết bị dành cho Chương 2. Không nhắc lại cùng một phủ định ở đoạn dẫn, chú thích ảnh, bảng và đoạn kết. Không bỏ giới hạn để tạo cảm giác đề tài đã có dữ liệu.
+6. **Giới hạn được đặt đúng chỗ.** Giữ các phân biệt kỹ thuật cần thiết như độ trễ/độ rộng xung, thiết kế/hiện trạng và mô-đun/hệ bảo vệ. Không tạo mục riêng liệt kê thông tin nhà máy chưa xác minh. Chỉ giữ điều kiện và phân biệt thiết kế/hiện trạng ngay tại nội dung thực sự cần; giá trị chưa chốt đặt ở Bảng 1.1, khác biệt phiên bản thiết bị dành cho Chương 2. Không nhắc lại cùng một phủ định ở đoạn dẫn, chú thích ảnh, bảng và đoạn kết. Không bỏ giới hạn để tạo cảm giác đề tài đã có dữ liệu.
 7. **Không tạo tệp kiểm chứng riêng.** Không tạo hoặc khôi phục `Kiem-chung-Chuong-1.md`, không xuất báo cáo kiểm chứng, nhật ký nguồn hoặc bảng kiểm thành một tài liệu giao riêng. Vẫn đọc nguồn, kiểm tra trích dẫn, số trang, bảng và liên kết trước khi hoàn thành; chỉ báo ngắn gọn kết quả trong tin nhắn kết thúc. Chi tiết thao tác tải, hash, giải mã và tìm nguồn không xuất hiện trong thân báo cáo.
 8. **Bảng chỉ để đối chiếu.** Giữ bảng yêu cầu ban đầu và bảng nội dung hồ sơ theo đặc tả. Bảng thông số thiết bị thương mại dành cho Chương 2. Không thay các đoạn giải thích chức năng hoặc trình tự ngắn bằng bảng chỉ để trông có cấu trúc. Không lặp toàn bộ nội dung một bảng trong đoạn ngay sau bảng.
 9. **Nguồn đi cùng nội dung.** Đặt trích dẫn cuối câu/đoạn hoặc cuối từng gạch ý có dữ kiện. Một nguồn có thể hỗ trợ cả danh sách ngắn nếu giới thiệu rõ và tất cả các ý nằm đúng phần nguồn đó. Không bỏ trích dẫn khi đổi đoạn văn thành gạch ý; không thêm dòng “phần liên hệ là phân tích của đề tài” vào trích dẫn, thay bằng lời văn tự nhiên khi thật sự có suy luận.
@@ -92,6 +111,8 @@ Chỉ học cách tổ chức và nhịp văn. Không sao chép câu chữ, mở
 Người viết đồng thời là người phân tích và thiết kế hệ thống. Thân báo cáo trình bày đối tượng, cách phân tích, lựa chọn có căn cứ và phương pháp đánh giá của đồ án; không dùng giọng hướng dẫn hoặc giao nhiệm vụ cho một người thiết kế khác. Quy tắc này áp dụng cho tất cả các mục, đoạn dẫn, gạch ý, bảng và kết luận.
 
 - **Trình bày trực tiếp, dứt khoát.** Với kiến thức và dữ kiện đã có căn cứ, nêu thẳng đặc điểm, chức năng hoặc quan hệ kỹ thuật; đặt trích dẫn ở cuối câu/đoạn. Không kể lại nguồn bằng các khuôn “tài liệu tổng quan đề cập…”, “nguồn xem X là…”, “nghiên cứu coi…”, “đây là thông tin do… công bố” khi tên nguồn không giúp giải thích nội dung. Ví dụ: viết “Đầu cáp là một trong các vị trí giám sát sự cố hồ quang trong tủ điện”, thay cho “Tổng quan kỹ thuật của tác giả… xem đầu cáp là một vị trí điển hình…”.
+- **Không kể cách dùng hoặc thu thập nguồn trong thân báo cáo — yêu cầu ngày 25/10/2026:** Không viết “nội dung sử dụng thông tin dự án”, “nguồn dự án xác định”, “thông tin dự án đã đọc”, “nhà thầu liệt kê”, “phần chức năng được giải thích theo tài liệu” hoặc các câu tương tự. Viết thẳng chủ thể kỹ thuật và dữ kiện, đặt `[n]` cuối câu. Tác giả, nơi công bố, URL, ngày truy cập và thao tác đối chiếu nằm ở danh mục tài liệu, không trở thành nội dung lập luận. Ví dụ: “Gói cung cấp thiết bị của ABB cho dự án mở rộng năm 2018 gồm… [n]”, không viết “Theo thông báo đã đọc, nguồn cho biết…”. Quy tắc áp dụng cho mọi chương về sau.
+- **Không xóa giới hạn kỹ thuật khi bỏ lối kể nguồn:** Giữ rõ phạm vi hợp đồng hoặc thiết kế, mốc thời gian, điều kiện thử và trạng thái chưa xác minh. Viết trực tiếp “Cấu hình bảo vệ hiện tại chưa được xác minh”, không kể quy trình tìm tài liệu. Tập trung giới hạn hiện trạng vào mục riêng, tránh lặp sau mỗi dữ kiện.
 - **Chắc chắn theo đúng căn cứ.** Giữ tên tác giả khi phân tích công trình cụ thể, điều kiện thử nghiệm và kết quả riêng; giữ “hồ sơ quy định” khi phân biệt yêu cầu thiết kế với hiện trạng vận hành. Không biến phương án thành cấu hình đã chọn, yêu cầu thành kết quả đạt được hoặc khả năng thành kết luận tuyệt đối. Giới hạn dữ liệu được nêu gọn tại đúng mục, không rải lời dè dặt vào mọi câu.
 - **Dùng chủ thể kỹ thuật cụ thể.** Viết “điện áp được chia thành…”, “thời gian phản hồi gồm…”, “cảm biến thu nhận…” hoặc “phương pháp đánh giá xét…”. Không dùng “đề tài này”, “đồ án này”, “đề tài tập trung”, “đồ án phân tích”, “đề tài nhận thấy”, “đối với đề tài” và các cách tự quy chiếu tương tự trong thân báo cáo. Giữ nguyên tên đề tài ở đầu file và tên tài liệu nguồn.
 - **Dẫn phạm vi từ bối cảnh có căn cứ.** Nêu điều kiện ứng dụng, nguy cơ hoặc nhu cầu kỹ thuật trước khi xác định phạm vi. Ví dụ: “Nguy cơ hư hỏng và mất an toàn do hồ quang nội bộ đặt ra nhu cầu phát hiện sớm sự cố trong tủ điện. Từ bối cảnh đó, phạm vi nghiên cứu tập trung vào phát hiện chớp hồ quang điện trong tủ điện hạ thế và trung thế.” Không bịa thống kê về tình hình thực tế để tạo câu dẫn, không lặp máy móc mẫu này ở mọi mục.
@@ -120,29 +141,32 @@ Rà soát toàn văn sau khi biên soạn: tìm các cụm “cần”, “phả
 - Đọc các nguồn liên quan trước khi viết; đối với nguồn không dùng, chỉ cần xác định phạm vi. Không cần trích tất cả tài liệu chỉ vì có sẵn.
 - Ưu tiên bài báo gốc cho hiện tượng và phương pháp; tài liệu chủ đầu tư/đơn vị vận hành cho nhà máy; Technical Bulletin/User Guide chính hãng cho sản phẩm; nguồn cơ quan nhà nước, EVN hoặc công bố doanh nghiệp để xác minh bối cảnh.
 - Google là công cụ tìm kiếm, không phải nguồn trích dẫn. Mở trang hoặc PDF gốc trước khi dùng; không dựa hoàn toàn vào đoạn trích tìm kiếm, ảnh thu nhỏ hay phần trả lời tự động.
+- Khi tìm sự cố hồ quang trong tủ hạ thế tại Việt Nam, kiểm tra riêng điện áp, loại thiết bị, vị trí hồ quang và diễn biến sự cố. Không đổi một tin cháy nổ, chập điện hoặc tủ xuống cấp thành vụ chớp hồ quang nếu nguồn chưa xác nhận. Nếu chưa có trường hợp đủ căn cứ, nêu giới hạn của các nguồn đã kiểm tra; không khẳng định Việt Nam không có sự cố. Ví dụ quốc tế dùng hồ sơ có điện áp và diễn biến rõ, ưu tiên cơ quan điều tra an toàn lao động.
+- Thông tin về tủ điện dân dụng tại Cao Xanh – Hà Khánh A là bối cảnh độc lập với Nhà máy HEINEKEN Vũng Tàu ở mục 1.3; chỉ dùng để minh họa tình trạng tủ hạ thế xuống cấp, không xem là vụ hồ quang đã được xác nhận.
 - Không dùng đường dẫn tìm được nhưng chưa đọc làm bằng chứng cho một kết luận kỹ thuật. Nếu liên kết lỗi, tìm bản chính thức khác hoặc bản sao cùng tài liệu có thể kiểm tra xuất xứ; ghi đúng nơi truy cập.
-- Nguồn riêng về Quảng Ninh chỉ phục vụ phần 1.3, kết luận tổng hợp phù hợp và danh mục tài liệu; không đưa lên phần 1.1–1.2. Trong hệ mã hiện tại, không dùng W1 hoặc W2 tại 1.1–1.2; nếu đánh lại mã thì vẫn giữ ranh giới theo bản chất nguồn, không chỉ theo mã.
+- Nguồn riêng về Nhà máy HEINEKEN Vũng Tàu chỉ phục vụ phần 1.3, kết luận tổng hợp phù hợp và danh mục tài liệu; không đưa lên phần 1.1–1.2. Trong danh mục hiện tại, các nguồn này mang số [19], [20] và [21]; nếu đánh lại số thì vẫn giữ ranh giới theo bản chất nguồn.
 
-## C.2. Mã nguồn và trích dẫn trong văn bản
+## C.2. Đánh số nguồn và trích dẫn trong văn bản — cập nhật 25/10/2026
 
-- Gán mã ổn định `TL1`, `TL2`… cho tài liệu có sẵn và `W1`, `W2`… cho nguồn web bổ sung. Mã chỉ được gán sau khi kiểm kê, không giữ nguyên mã cũ một cách máy móc.
-- Trích gần nhận định: `[TL1, mục 3.2, tr. in 78; tr. PDF 2]` hoặc `[W2, phần “...”]`. Đây là mẫu cú pháp; phải thay bằng vị trí thực sự đã kiểm tra.
-- Nếu trang in và số trang PDF khác nhau, phân biệt hai hệ. Trang PDF đếm từ 1; không lấy chỉ số 0-based của công cụ làm số trang trích dẫn.
+- Trong thân báo cáo, bảng và ghi nguồn hình, chỉ dùng số nguồn dạng `[1]`, `[2]`…; bỏ mã TL/W và thông tin mục, trang khỏi dấu trích dẫn. Mỗi ngoặc vuông chứa một số; câu có nhiều nguồn dùng `[1], [2]`. Đặt số nguồn cuối câu hoặc đoạn có dữ kiện, giữ thống nhất vị trí dấu câu.
+- Đánh số theo thứ tự xuất hiện lần đầu trong toàn báo cáo; cùng một tài liệu luôn dùng lại cùng một số. Các chương sau tiếp tục danh mục chung, không bắt đầu lại từ `[1]`. Khi thêm nguồn làm thay đổi thứ tự, đồng bộ số nguồn và danh mục; việc này không cho phép viết lại nội dung đã khóa.
+- Ghi tác giả, tên nguồn, năm, DOI/URL và ngày truy cập tại phần `Tài liệu tham khảo` cuối báo cáo. Một mục tương ứng một tài liệu hoặc trang web; không gộp nhiều trang web độc lập thành một số.
+- Vẫn kiểm tra chính xác mục, hình, trang in và trang PDF khi đọc nguồn. Nếu cần giữ vị trí tra cứu chi tiết, đưa vào mục tài liệu tương ứng ở danh mục cuối báo cáo; không chèn chuỗi tra cứu dài vào thân bài. Trang PDF đếm từ 1.
 - Nếu một câu có nhiều khẳng định mà nguồn chỉ chứng minh một phần, tách câu hoặc bổ sung nguồn phù hợp.
 - Phân biệt nội dung nguồn với suy luận của tác giả. Khi trình bày suy luận, nêu trực tiếp quan hệ giữa căn cứ và nhận định, chẳng hạn “Từ các đặc điểm trên, phạm vi giám sát phụ thuộc vào…”. Không dùng lối tự quy chiếu như “đề tài nhận thấy”. Không dùng nhãn suy luận để hợp thức hóa chi tiết giả định về nhà máy.
 - Không tạo DOI, tác giả, năm, số trang hoặc kết quả thử nghiệm từ trí nhớ. Không chép nguyên đoạn dài của nguồn.
 
-## C.3. Danh mục cuối chương
+## C.3. Tài liệu tham khảo ở cuối báo cáo
 
-Mỗi mục có đủ thông tin xác minh được: mã, tác giả/cơ quan, tiêu đề chính xác, năm hoặc phiên bản, tạp chí/đơn vị xuất bản, DOI nếu đã xác minh; tên tệp thực tế cho nguồn nội bộ. Nguồn web có URL tới trang/PDF đã đọc và ngày truy cập thực tế. Không bịa ngày xuất bản nếu trang không ghi.
+Đặt phần `# Tài liệu tham khảo` sau chương cuối cùng, dùng chung cho toàn báo cáo. Khi mới có Chương 1, đặt tạm phần này ở cuối file hiện tại; khi ghép các chương, chuyển xuống cuối báo cáo. Mỗi mục bắt đầu bằng `[n]` và khớp số trích dẫn trong nội dung. Ghi đủ tác giả/cơ quan, tên tài liệu, năm hoặc phiên bản, tạp chí/đơn vị xuất bản, DOI nếu có; giữ liên kết tệp nguồn để tra cứu. Nguồn trực tuyến ghi URL và ngày truy cập thực tế; không bịa ngày xuất bản.
 
 Mẫu:
 
-`**TLx —** Tác giả, *Tên tài liệu*, tạp chí/đơn vị, năm, DOI đã kiểm chứng. Tệp: \`tên-tệp-thực-tế.pdf\`.`
+`[1] Tác giả, “Tên tài liệu,” tên tạp chí/đơn vị xuất bản, năm, trang. DOI: ...`
 
-`**Wx —** Cơ quan, *Tên trang hoặc tài liệu*, phiên bản/ngày nếu có. [Trang nguồn](URL). Truy cập ngày thực tế.`
+`[2] Cơ quan, “Tên trang hoặc tài liệu,” ngày xuất bản nếu có. [Trực tuyến]. Có tại: [Trang nguồn](URL). [Truy cập ngày dd/mm/yyyy].`
 
-Mọi mã trong nội dung phải tồn tại trong danh mục; mọi nguồn trong danh mục phải thực sự được dùng.
+Mọi số trong nội dung phải tồn tại trong danh mục; mọi nguồn trong danh mục phải thực sự được dùng. Quy tắc số nguồn này thay thế các mẫu mã TL/W hoặc trích dẫn kèm mục/trang trong những hướng dẫn cũ bên dưới.
 
 # D. Đặc tả chi tiết nội dung Chương 1
 
@@ -150,11 +174,14 @@ Mọi mã trong nội dung phải tồn tại trong danh mục; mọi nguồn tr
 
 Viết một đoạn xác định mục tiêu và trình tự của chương. Lời dẫn gợi ý, có thể điều chỉnh câu chữ nhưng giữ ý:
 
-> Chương này trình bày bối cảnh và tính cấp thiết của bài toán phát hiện chớp hồ quang điện trong hệ thống điện hạ thế và trung thế. Trên cơ sở xác định đối tượng nghiên cứu, chương phân tích các yêu cầu kỹ thuật ban đầu, phân tích quy trình phát hiện và phối hợp bảo vệ theo hồ sơ thiết kế tại Nhà máy Nhiệt điện Quảng Ninh. Các nội dung này tạo căn cứ cho việc nghiên cứu cơ sở lý thuyết và lựa chọn linh kiện ở chương tiếp theo.
+> Chương này trình bày bối cảnh và tính cấp thiết của bài toán phát hiện chớp hồ quang điện trong hệ thống điện hạ thế và trung thế. Trên cơ sở xác định đối tượng nghiên cứu, chương phân tích các yêu cầu kỹ thuật ban đầu, khảo sát hệ thống tủ điện tại Nhà máy HEINEKEN Vũng Tàu và phân tích nhu cầu giám sát hồ quang điện. Các nội dung này tạo căn cứ cho việc nghiên cứu cơ sở lý thuyết và lựa chọn linh kiện ở chương tiếp theo.
 
 ## D.1. `# 1.1. Tổng quan bài toán phát hiện chớp hồ quang điện`
 
-### `## 1.1.1. Đối tượng nghiên cứu và bối cảnh ứng dụng`
+### `## 1.1.1. Đặt vấn đề`
+
+- `### 1.1.1.1. Đối tượng nghiên cứu`: giới thiệu tủ điện hạ thế, trung thế; cấu tạo chung và chức năng các bộ phận. Hình minh họa được giải thích bằng tên tiếng Việt kèm tiếng Anh khi có nhãn gốc.
+- `### 1.1.1.2. Bối cảnh ứng dụng`: trình bày nguy cơ, nhu cầu phát hiện và cảnh báo; giới thiệu vai trò node–gateway–máy chủ và các nội dung đánh giá nguyên mẫu.
 
 - Trả lời: đối tượng chịu tác động là gì, ở đâu trong hệ thống, chức năng và cấu trúc nào liên quan đến bài toán?
 - Giới thiệu trạm biến áp và phân phối hạ thế, trung thế; thu hẹp đến tủ điện, thiết bị đóng cắt, thanh cái, đầu cáp và các khoang cần quan tâm theo nguồn.
@@ -165,16 +192,18 @@ Viết một đoạn xác định mục tiêu và trình tự của chương. L�
 
 ### `## 1.1.2. Hiện tượng hồ quang điện và chớp hồ quang điện`
 
+- `### 1.1.2.1. Khái niệm và tác động`: giải thích thuật ngữ, phân biệt hồ quang đóng cắt và hồ quang sự cố; trình bày hậu quả, hình thử nghiệm và quan hệ năng lượng–thời gian với điều kiện nguồn đầy đủ.
+- `### 1.1.2.2. Các trường hợp thực tế`: chia thành **a) Tại Việt Nam** và **b) Trên thế giới**. Ưu tiên các trường hợp chớp hồ quang trong tủ hạ thế có căn cứ. Phần Việt Nam nêu đúng giới hạn dữ liệu khi chưa xác định được vụ phù hợp; không lấy ví dụ khác điện áp hoặc khác hiện tượng để thay thế mà không giải thích.
 - Định nghĩa, thống nhất thuật ngữ electric arc, arc fault, arc flash theo nguồn; giải thích phạm vi đề tài.
 - Trình bày nguyên nhân, điều kiện hình thành và các biểu hiện liên quan đến phát hiện; nêu tác động đến thiết bị, con người và hoạt động nhà máy.
 - Phân biệt hồ quang đóng cắt được thiết kế kiểm soát với sự cố ngoài vùng chức năng đó.
-- Phân biệt nghiên cứu hồ quang nối tiếp AC, hồ quang DC/PV với bài toán chớp hồ quang trong tủ điện; không chuyển nguyên chỉ số phát hiện giữa các phạm vi.
+- Không đưa nghiên cứu hồ quang nối tiếp dân dụng AC hoặc định vị hồ quang DC/PV vào phần ví dụ thực tế của mục 1.1.2. Những nghiên cứu còn được dùng ở mục khác giữ đúng phạm vi, không chuyển nguyên chỉ số phát hiện sang bài toán chớp hồ quang trong tủ điện.
 - Chỉ trình bày nền tảng vừa đủ; cơ chế chi tiết, công thức và thuật toán dành cho Chương 2.
 - Lồng số liệu minh chứng vào phần giải thích hiện tượng và hậu quả: ảnh hư hỏng, điều kiện thử và quan hệ năng lượng–thời gian được đặt cạnh nội dung chuyên môn tương ứng.
 - Mỗi số liệu ghi rõ đại lượng, đơn vị, phạm vi và điều kiện nguồn. Không biến thử nghiệm thành thống kê tai nạn hoặc suy ra tần suất khi không có mẫu số, thời gian quan sát và phương pháp phù hợp.
 - Nếu thiếu thống kê tần suất, nêu giới hạn ngắn tại đoạn minh chứng, không biến phần này thành nhật ký nguồn. Kết nối hậu quả với nhiệm vụ phát hiện và lời dẫn sang 1.2.
 
-Phần 1.1 chỉ có hai tiểu mục 1.1.1 và 1.1.2. Nội dung số liệu minh chứng và tính cấp thiết được tích hợp vào hai tiểu mục trên, không giữ hoặc tạo lại heading 1.1.3. Khi sắp xếp lại nội dung, giữ trích dẫn sát nhận định và số hình liên tục theo thứ tự xuất hiện.
+Phần 1.1 có hai tiểu mục 1.1.1 và 1.1.2, mỗi tiểu mục chia tiếp thành hai heading cấp 3 như trên; không tạo heading 1.1.3. Các mục a), b) trong 1.1.2.2 dùng nhãn in đậm, không tạo thêm cấp heading. Khi sắp xếp lại nội dung, giữ trích dẫn sát nhận định và số hình liên tục theo thứ tự xuất hiện.
 
 **Lời dẫn sang 1.2:**
 
@@ -183,6 +212,8 @@ Phần 1.1 chỉ có hai tiểu mục 1.1.1 và 1.1.2. Nội dung số liệu mi
 ## D.2. `# 1.2. Phân tích yêu cầu kỹ thuật của bài toán`
 
 Mỗi tiểu mục phải có: đại lượng/đối tượng xét → ý nghĩa → căn cứ → giá trị hoặc giới hạn nếu đủ bằng chứng → cách đánh giá. Chưa xác định bộ tiêu chuẩn áp dụng không có nghĩa lĩnh vực không có tiêu chuẩn. Nếu Đồ án 1–2 không có trong vùng nguồn được phép, không viện dẫn nội dung giả định của chúng.
+
+**Cập nhật theo yêu cầu người dùng ngày 25/10/2026:** Giữ sáu mục điện áp, tần số, dòng điện, độ nhạy, thời gian phản hồi và chu kỳ lấy mẫu; thêm mục 1.2.7 về truyền thông và cảnh báo, chuyển tổng hợp thành 1.2.8. Mỗi phần đi từ yêu cầu thực tế đến căn cứ tiêu chuẩn/nghiên cứu có trích dẫn `[n]`, sau đó nêu phạm vi nguyên mẫu. Viết ngắn gọn, giải thích thuật ngữ và số liệu, không liệt kê tiêu chuẩn không liên quan. Phân biệt yêu cầu tiêu chuẩn, kết quả nghiên cứu, ví dụ tính toán và lựa chọn của nhóm. Chỉ viện dẫn điều khoản chi tiết đã đọc; trang giới thiệu tiêu chuẩn chỉ dùng để xác nhận phạm vi. Không suy ra nguyên mẫu đạt chuẩn công nghiệp từ phép thử mô hình.
 
 ### `## 1.2.1. Yêu cầu về điện áp`
 Phân biệt điện áp hệ thống giám sát, tín hiệu đo và nguồn phụ trợ. Không suy ra cảm biến hoặc vi điều khiển tiếp xúc trực tiếp với điện áp trung thế. Chưa có căn cứ không chốt dải điện áp nguyên mẫu.
@@ -197,44 +228,39 @@ Làm rõ dòng điện được theo dõi, vai trò phát hiện/xác nhận, v�
 Định nghĩa độ nhạy đối với tín hiệu nào và trong điều kiện gì. Phân biệt ngưỡng quang, độ nhạy cảm biến và xác suất phát hiện. Nếu chỉ tiêu chưa định lượng, trình bày những dữ kiện cần có để xác định; không viết “độ nhạy cao” như tiêu chí hoàn chỉnh.
 
 ### `## 1.2.5. Yêu cầu về thời gian phản hồi`
-Nêu rõ hai mốc đo; phân biệt thu nhận, xử lý, xuất đầu ra, rơ-le ngoài, cơ cấu máy cắt và thời gian loại trừ toàn sự cố. Không đồng nhất thời gian của mô-đun với thời gian cắt toàn hệ thống; không nhầm độ rộng xung với độ trễ.
+Đánh giá thời gian từ kích thích tham chiếu đến khi cảnh báo hiển thị trên máy chủ; tách các khoảng thu nhận, xử lý tại node và truyền, hiển thị qua gateway–máy chủ. Nêu rõ mốc đo và cơ sở thời gian. Không đưa rơ-le, cơ cấu máy cắt hoặc thời gian loại trừ sự cố vào yêu cầu nguyên mẫu chỉ phát hiện và cảnh báo. Nếu dùng xung trong phép thử, phân biệt độ rộng xung với độ trễ phản hồi.
 
 ### `## 1.2.6. Yêu cầu về chu kỳ lấy mẫu`
 Xác định kênh nào thực sự lấy mẫu và nhu cầu thông tin của kênh đó. Nếu kiến trúc chưa chọn, để đây là yêu cầu cần xác định theo cơ chế thu nhận, không mặc định mọi kênh dùng ADC. Khi có số liệu, kiểm tra đơn vị và quan hệ `f_s = 1/T_s`; không chọn tần số chỉ bằng cách gấp đôi tần số điện lưới.
 
-### `## 1.2.7. Tổng hợp yêu cầu kỹ thuật ban đầu`
-Bảng bắt buộc: mã yêu cầu | nội dung | giá trị/tiêu chí hoặc thông số chưa xác lập | căn cứ | cách đánh giá | trạng thái. Sáu yêu cầu trên là trục chính; bảng tổng hợp không phải yêu cầu thứ bảy. Dùng căn cứ độc lập với hồ sơ Quảng Ninh. Không dùng thông số thiết bị thương mại làm ví dụ hoặc chỉ tiêu; khảo sát sản phẩm dành cho Chương 2. Việc đối chiếu trường hợp nhà máy được thực hiện tại chính 1.3, không đưa dữ liệu hoặc trích dẫn từ đó lên bảng này.
+### `## 1.2.7. Yêu cầu về truyền thông và cảnh báo`
+Giải thích đường truyền node → gateway → máy chủ và vai trò từng khối. Trình bày thông tin nhận diện node, trạng thái sự kiện, cách đối chiếu thông tin nhận và trạng thái kết nối. Không mặc định dùng Internet, đám mây hoặc chốt giao thức. Chỉ có phát hiện và cảnh báo, không điều khiển cắt điện.
+
+### `## 1.2.8. Tổng hợp yêu cầu kỹ thuật ban đầu`
+Bảng bắt buộc mang tên **Các yêu cầu thiết kế được lựa chọn cho nguyên mẫu**, gồm bốn cột: **Nội dung | Yêu cầu nhóm lựa chọn | Căn cứ lựa chọn | Cách kiểm tra**. Trước bảng giải thích đây là phạm vi nhóm lựa chọn theo điều kiện đồ án tốt nghiệp, không phải tuyên bố đáp ứng đầy đủ tiêu chuẩn công nghiệp. Yêu cầu chức năng có thể được xác định trước; thông số chưa đủ căn cứ được cụ thể hóa ở Chương 2, không đặt số tùy ý. Dùng căn cứ độc lập với hồ sơ nhà máy. Không dùng thông số thiết bị thương mại làm chỉ tiêu mặc định; khảo sát sản phẩm dành cho Chương 2. Việc đối chiếu trường hợp nhà máy được thực hiện tại chính 1.3.
 
 **Lời dẫn sang 1.3:**
 
 > Sau phần phân tích yêu cầu kỹ thuật, mục 1.3 trình bày một trường hợp nghiên cứu riêng ở cấp hệ thống. Kết luận chương tổng hợp phạm vi và các yêu cầu làm cơ sở cho Chương 2.
 
-## D.3. `# 1.3. Phân tích quy trình phát hiện và phối hợp bảo vệ hồ quang theo hồ sơ thiết kế tại Nhà máy Nhiệt điện Quảng Ninh`
+## D.3. `# 1.3. Khảo sát hệ thống tủ điện tại Nhà máy HEINEKEN Vũng Tàu`
 
-### D.3.a. Giới hạn bằng chứng phải giữ
+**Phạm vi được người dùng lựa chọn ngày 25/10/2026:** Thay toàn bộ trường hợp nhà máy cũ bằng HEINEKEN Vũng Tàu. Giữ nguyên mục 1.1 và 1.2; chỉ đồng bộ phần mở đầu, kết luận, nguồn và ảnh liên quan đến thay đổi này. Không viết Chương 2 trong đợt sửa này.
 
-Trường hợp đã chọn: Công ty Cổ phần Nhiệt điện Quảng Ninh, phạm vi thiết bị trong dự án nâng cấp, cải tạo hệ thống xử lý khí thải. Hồ sơ đã được đọc ở giai đoạn lập dàn ý là tài liệu điều chỉnh Báo cáo nghiên cứu khả thi, Chương 4, trang in 170–171/339, có yêu cầu phát hiện hồ quang, kết hợp đo dòng điện và gửi tín hiệu điều khiển tới máy cắt cấp nguồn; đề cập sự cố tại Power Cell hoặc máy biến áp và thiết bị 6,6 kV. Codex phải mở lại, kiểm tra phạm vi và vị trí trước khi trích vào báo cáo.
+### Giới hạn bằng chứng
 
-Đây là **yêu cầu hồ sơ thiết kế**, chưa đủ để kết luận **đã lắp đặt/đang vận hành**. Giữ tên mục “theo hồ sơ thiết kế” trừ khi có tài liệu hiện trạng được xác thực. Không gán công nghệ cảm biến quang hoặc logic AND cụ thể cho nhà máy nếu hồ sơ không nói. Không thay bằng HEINEKEN chỉ vì file cũ có sẵn nội dung và ảnh.
+- Thông cáo HEINEKEN ngày 24/9/2022 xác nhận địa điểm, quy mô tại thời điểm khánh thành và cung cấp ảnh đúng nhà máy.
+- Thông báo ABB ngày 21/5/2018 xác nhận phạm vi hợp đồng có tủ 22 kV, tủ 0,4 kV và các thiết bị liên quan; không biến thông báo hợp đồng thành danh mục hoàn công hoặc cấu hình hiện tại.
+- Sea Power liệt kê hạng mục lắp đặt tủ trung thế ABB, máy biến áp, máy phát và tủ hòa đồng bộ tại dự án. Không suy ra mã tủ, tỷ số biến áp, cấu hình bảo vệ hoặc sơ đồ đấu nối từ danh mục ngắn.
+- Phần nguy cơ và phương án giám sát là phân tích dựa trên tài liệu kỹ thuật độc lập; không nhận là quan sát hiện trường hoặc hệ thống đã lắp tại nhà máy. Chưa có bằng chứng HEINEKEN Vũng Tàu sử dụng 1S23, cảm biến quang, logic AND hoặc một ngưỡng phát hiện cụ thể.
 
-### `## 1.3.1. Giới thiệu nhà máy và cơ sở lựa chọn trường hợp nghiên cứu`
-Giới thiệu ngắn từ nguồn doanh nghiệp/EVN/cơ quan chính thức; nêu lý do chọn gắn với tài liệu kỹ thuật thực sự. Không viết lịch sử doanh nghiệp dài hoặc cam kết đã có đủ bản vẽ và dữ liệu vận hành.
+### Bố cục
 
-### `## 1.3.2. Phạm vi hệ thống và thiết bị được phân tích`
-Khoanh vùng hệ biến tần trung thế trong dự án; chỉ mô tả quan hệ nguồn cấp, máy cắt, máy biến áp, khối công suất và bảo vệ khi có nguồn. Không suy rộng sang toàn nhà máy hoặc phía hạ thế nếu tài liệu chỉ mô tả một phạm vi trung thế. Một trường hợp trung thế không tự chứng minh toàn bộ yêu cầu hạ thế của đề tài.
-
-### `## 1.3.3. Yêu cầu phát hiện và phối hợp bảo vệ trong hồ sơ`
-Lập bảng: nội dung hồ sơ | ý nghĩa chức năng | trang/mục | giới hạn thông tin. Phân biệt nội dung hồ sơ quy định với giải thích của người viết. Không tự tạo ngưỡng, mã rơ-le, loại cảm biến, vị trí lắp hoặc thời gian định lượng.
-
-### `## 1.3.4. Trình tự chức năng phát hiện và phối hợp tác động`
-Diễn giải bằng danh sách bước đánh số kèm đoạn giải thích ngắn theo B.4, chỉ ở mức tài liệu cho phép. Phân biệt nhận biết sự cố, phối hợp đo dòng và xuất tín hiệu tới máy cắt. Không tự thêm SCADA, DCS, ghi sự kiện, khôi phục tự động hoặc quy trình thao tác người vận hành. Nếu có sơ đồ gốc phù hợp thì trích; nếu không, dùng danh sách và lời văn, không tự vẽ ảnh thay thế. Thiếu dữ liệu phải được nói rõ ở phần giới hạn phù hợp.
-
-### `## 1.3.5. Đối chiếu với yêu cầu kỹ thuật và giới hạn thông tin`
-Đối chiếu với 1.2; phân loại thông tin đã có và chưa có. Liệt kê các khoảng trống cụ thể như số lượng/vị trí cảm biến, ngưỡng, mã thiết bị, sơ đồ đấu dây, dữ liệu nghiệm thu/vận hành. Không dùng tài liệu sản phẩm 1S23 để lấp khoảng trống thành sự thật của nhà máy.
-
-**Lời dẫn sang 1.4:**
-
-> Trường hợp nhà máy làm rõ quan hệ giữa phát hiện sự cố, thông tin dòng điện và tác động cắt nguồn. Phần kết luận tổng hợp bài toán, các yêu cầu kỹ thuật và giới hạn thông tin của chương.
+- `## 1.3.1. Giới thiệu nhà máy`: một đoạn ngắn về địa điểm, quy mô theo mốc nguồn và bối cảnh cấp điện; không chia nhỏ. Giữ ảnh đúng nhà máy, tên hình và nguồn, không thêm giải thích ảnh toàn cảnh dài dòng.
+- `## 1.3.2. Phạm vi hệ thống tủ điện`: viết liền mạch, không chia nhỏ hoặc lập bảng chỉ để liệt kê nhà cung cấp. Tập trung hai nhóm tủ 22 kV và 0,4 kV, vai trò và giới hạn đối tượng giám sát. Trạm điện, máy biến áp và tủ hòa đồng bộ chỉ nêu ngắn để làm rõ phạm vi.
+- `## 1.3.3. Nhu cầu giám sát hồ quang điện`: chia `### 1.3.3.1. Các vị trí có nguy cơ` và `### 1.3.3.2. Ý nghĩa của phát hiện và cảnh báo`. Nhận định nguy cơ không đồng nghĩa nhà máy đã xảy ra sự cố.
+- `## 1.3.4. Liên hệ với hệ thống thiết kế`: chia `### 1.3.4.1. Chuỗi phát hiện và cảnh báo` và `### 1.3.4.2. Nội dung đánh giá nguyên mẫu`. Node phát hiện, gateway chuyển thông tin, máy chủ hiển thị; không điều khiển cắt điện.
+- Theo yêu cầu mới nhất, bỏ toàn bộ mục 1.3.5; mục 1.3 kết thúc tại 1.3.4. Không tạo lại mục kiểm chứng hoặc danh sách thông tin chưa xác minh. Chương 2 khảo sát 1S23 như thiết bị tham khảo độc lập; không mặc định thiết bị được dùng tại nhà máy.
 
 ## D.4. `# 1.4. Kết luận chương`
 
@@ -252,11 +278,8 @@ Các URL sau là đầu mối để mở và kiểm tra lại, không phải dan
 |---|---|
 | Các bài *Aspects of arc-flash protection and prediction*, *Electric arc explosions—A review*, *Explainable artificial intelligence modeling of internal arc in a medium voltage switchgear based on different CFD simulations* trong `Tham khảo/` | Ưu tiên rà soát cho hiện tượng, hậu quả và hình; kiểm tra tác giả, năm, hình và trang từ chính file. |
 | Các bài phát hiện hồ quang AC, DC/PV và triển khai nhúng trong `Tham khảo/` | Nguồn hỗ trợ; phải ghi đúng loại sự cố và điều kiện nghiên cứu. |
-| https://quangninhtpc.com.vn/d6/news/Thong-bao-moi-hop-Dai-hoi-dong-co-dong-thuong-nien-2026-5-217-1976 | Đầu mối trang doanh nghiệp; có thể lỗi truy cập. Không mặc định tài liệu đại hội thường niên này chính là hồ sơ công bố tháng 6. |
-| https://hnx.vn/vi-vn/ModuleIssuer/UC_Issuer/Details/QTP/UC | Công bố thông tin QTP, kiểm tra tài liệu ngày 11/06/2026 và đường dẫn gốc liên quan. |
-| https://cafef1.mediacdn.vn/download/110626/qtp-tai-lieu-hop-ai-hoi-dong-co-dong-3-619481.pdf | Bản sao công khai tài liệu doanh nghiệp đã tải và đọc ở giai đoạn lập dàn ý. Đầu mối nội dung kỹ thuật Chương 4, trang in 170–171/339. Ưu tiên tìm cùng tài liệu trên trang doanh nghiệp/HNX; nếu dùng bản sao, ghi đúng tác giả tài liệu và nơi lưu bản sao, không gọi CafeF là chủ đầu tư hoặc nguồn xuất bản gốc. |
 
-Nếu không thể truy cập hoặc xác thực một đầu mối, tiếp tục hoàn thiện phần có bằng chứng và báo giới hạn; không dựng quy trình vận hành thực tế cho đủ mục. Không đổi nhà máy tùy ý; chỉ đề xuất đổi khi có lý do và bằng chứng tốt hơn.
+Nếu không thể truy cập hoặc xác thực một đầu mối, tiếp tục hoàn thiện phần có bằng chứng và báo giới hạn; không dựng quy trình vận hành thực tế cho đủ mục. Việc thay nhà máy chỉ thực hiện theo yêu cầu người dùng; trường hợp hiện tại đã được lựa chọn rõ là HEINEKEN Vũng Tàu.
 
 # F. Quy tắc ảnh và xử lý `hinh_minh_hoa/`
 
@@ -276,21 +299,34 @@ Không ấn định số lượng bắt buộc. Khoảng 3–5 hình có ích l�
 |---|---|---|
 | 1.1 | Cấu trúc tủ/trạm; ảnh thử nghiệm hoặc hậu quả hồ quang | Đúng ngữ cảnh, chú thích điều kiện, không lạm dụng ảnh hàn điện. |
 | 1.2 | Hình gốc về quan hệ tín hiệu hoặc thời gian nếu thật sự hỗ trợ lập luận | Không suy thành yêu cầu nguyên mẫu; thiếu thì dùng bảng. |
-| 1.3 | Ảnh chính thức Nhà máy Nhiệt điện Quảng Ninh; sơ đồ đúng phạm vi nếu có trong hồ sơ | Ảnh toàn cảnh chỉ chứng minh bối cảnh, không chứng minh có thiết bị phát hiện cụ thể. |
+| 1.3 | Ảnh chính thức Nhà máy HEINEKEN Vũng Tàu; ảnh tủ/sơ đồ chỉ dùng khi xác minh đúng dự án | Ảnh toàn cảnh chỉ chứng minh bối cảnh, không chứng minh có thiết bị phát hiện cụ thể. |
+
+**Hình mục 1.3 cập nhật ngày 25/10/2026:** Hình 1.7 dùng ảnh toàn cảnh đầu tiên trong thông cáo khánh thành năm 2022 của HEINEKEN Việt Nam. Không dùng ảnh Campuchia trong bài ABB; không gán ảnh tủ sản phẩm chung thành ảnh tại nhà máy. Gỡ ảnh và tài liệu độc lập của trường hợp nhà máy cũ theo yêu cầu; không xóa nguồn đã khóa tại mục 1.1 hoặc tài liệu 1S23 dành cho Chương 2.
+
+**Ảnh mục 1.3 — yêu cầu mới nhất:** Chỉ chèn ảnh hoặc sơ đồ đã xác minh thuộc chính Nhà máy HEINEKEN Vũng Tàu. Không có ảnh đúng đối tượng thì bỏ, không dùng ảnh sản phẩm hoặc sơ đồ ứng dụng chung của hãng để thay thế. Đã gỡ hai hình minh họa chung khỏi 1.3.2–1.3.3; các tệp có thể giữ làm tư liệu Chương 2, không xem là hình hiện trường nhà máy.
 
 ## F.3. Cú pháp và chú thích
+
+Mục 1.3.1 giới thiệu ngắn nhà máy, không chia tiểu mục. Ảnh toàn cảnh Hình 1.7 chỉ giữ tên và nguồn; các hình kỹ thuật khác vẫn có lời giải thích ngắn, đủ ý.
+
+**Giải thích hình và đặt tên hình — cập nhật theo yêu cầu người dùng ngày 25/10/2026:**
+
+- Mỗi hình có đoạn giải thích ngắn ngay trước hoặc sau hình, thường 2–3 câu: hình thể hiện gì, chi tiết nào đáng chú ý và chi tiết đó giúp hiểu nội dung đang trình bày như thế nào. Chỉ rõ vị trí, màu sắc hoặc nhãn khi cần để người đọc đối chiếu; dùng từ dễ hiểu, không chỉ viết “Hình ... minh họa ...” rồi bỏ qua ý nghĩa.
+- Tên hình dưới ảnh chỉ gồm số hình và tên nội dung ngắn gọn, ưu tiên một dòng. Không nhét phần giải thích cấu tạo, diễn biến, dịch nhãn, địa điểm hay điều kiện thử thành một đoạn dài trong tên hình. Ví dụ: “Hình 1.2. Hồ quang giữa các tiếp điểm máy cắt.” Phần giải thích đặt trong thân bài; nguồn đặt ở dòng riêng.
+- Hình nhiều ảnh thành phần có lời giải thích ngắn theo từng vị trí hoặc nhãn để người đọc nhận ra từng trường hợp. Giữ các điều kiện thử và giới hạn có ý nghĩa trong đoạn giải thích hoặc ghi nguồn, không loại bỏ để rút ngắn tên hình.
+- Áp dụng quy tắc cho hình mới và phần được người dùng yêu cầu sửa; quy tắc này không tự mở khóa các nội dung đã chốt tại mục 1.1.
 
 Đánh số liên tục theo thứ tự xuất hiện, không giữ số cũ nếu đã đổi bố cục. Tên file không dấu, gọn, phản ánh nội dung; đường dẫn tương đối từ báo cáo:
 
 ```markdown
 ![Mô tả chính xác nội dung hình](hinh_minh_hoa/Hinh_1_1_Mo_ta_noi_dung.png)
 
-*Hình 1.1. Nội dung và phạm vi minh họa.*
+*Hình 1.1. Tên hình ngắn gọn.*
 
-*Nguồn: TLx, Hình y, tr. in a (tr. PDF b). Cắt từ tài liệu, giữ nguyên nhãn và số liệu. Điều kiện thử hoặc giới hạn liên quan nếu có.*
+*Nguồn: [1]. Cắt từ tài liệu, giữ nguyên nhãn và số liệu. Điều kiện thử hoặc giới hạn liên quan nếu có.*
 ```
 
-Với ảnh web: nguồn là tác giả/cơ quan, tiêu đề, [trang gốc](URL), [ảnh gốc](URL) nếu truy được, ngày truy cập thực tế, thông tin giấy phép/ghi công nếu có. Không trích trang kết quả Google làm nguồn ảnh. Đối với ảnh sản phẩm không có số hình, mô tả vị trí trên trang thay vì tạo số hình nguồn giả.
+Trong ghi nguồn hình, thay [1] bằng số tài liệu tương ứng; chi tiết số hình, trang in/PDF được đặt tại mục tài liệu đó trong danh mục cuối báo cáo. Với ảnh web, ghi tác giả/cơ quan, tiêu đề, URL trang gốc và ảnh gốc nếu truy được, ngày truy cập và thông tin giấy phép tại danh mục. Không trích trang kết quả Google làm nguồn ảnh. Đối với ảnh sản phẩm không có số hình, mô tả vị trí trên trang trong danh mục thay vì tạo số hình nguồn giả.
 
 ## F.4. Quy trình giữ/xóa ảnh cũ
 
@@ -299,7 +335,7 @@ Với ảnh web: nguồn là tác giả/cơ quan, tiêu đề, [trang gốc](URL
 3. Ảnh có nội dung phù hợp và xác minh được nguồn có thể giữ; kiểm chứng lại hình/trang nguồn, không kế thừa chú thích cũ.
 4. Viết xong bản mới và cập nhật các đường dẫn trước khi dọn ảnh. Kiểm tra ảnh còn được các tệp văn bản khác trong vùng đầu ra tham chiếu hay không; ảnh dùng cho tệp khác hoặc chưa rõ vai trò thì giữ và báo rõ.
 5. Xóa từng ảnh xác định không dùng, không còn tham chiếu, trong đúng `hinh_minh_hoa/`. Không xóa cả thư mục, không dùng wildcard quét rộng, không lần theo symlink ra ngoài vùng cho phép.
-6. Ảnh HEINEKEN cũ không được dùng để minh họa nhà máy Quảng Ninh. Nếu không còn mục đích hoặc tham chiếu nào khác, đó là ứng viên xóa; không xóa tự động chỉ vì tên có HEINEKEN.
+6. Không kế thừa ảnh HEINEKEN từ bản cũ nếu chưa kiểm tra xuất xứ. Ảnh mới dùng đúng nhà máy Vũng Tàu; không dùng ảnh cơ sở khác chỉ vì cùng thương hiệu.
 7. Kiểm tra lại toàn bộ liên kết ảnh sau khi xóa và báo danh sách ảnh đã xóa/giữ/thêm cùng lý do ngắn gọn.
 
 # G. Điều kiện nghiệm thu bản báo cáo do Codex tạo
@@ -307,8 +343,8 @@ Với ảnh web: nguồn là tác giả/cơ quan, tiêu đề, [trang gốc](URL
 - [ ] Đúng đề tài, bố cục bốn phần 1.1–1.4 và cấp heading; có hai blockquote mở đầu.
 - [ ] Có đoạn mở chương, chuyển 1.1→1.2, 1.2→1.3, 1.3→1.4 và kết nối Chương 1→Chương 2.
 - [ ] Sáu nội dung yêu cầu ở 1.2 được định nghĩa; giá trị nào thiếu căn cứ không được tự chốt.
-- [ ] Phần 1.3 đúng Nhà máy Nhiệt điện Quảng Ninh và phạm vi hồ sơ; không khẳng định đã khảo sát hiện trường, đã lắp hoặc vận hành khi chưa có bằng chứng.
-- [ ] Giữ riêng mục 1.3; toàn bộ 1.1–1.2, kể cả bảng và chú thích, không có thông tin hoặc trích dẫn lấy từ trường hợp Quảng Ninh.
+- [ ] Phần 1.3 đúng Nhà máy HEINEKEN Vũng Tàu và phạm vi nguồn dự án; không khẳng định đã khảo sát hiện trường, đã lắp hoặc vận hành khi chưa có bằng chứng.
+- [ ] Giữ riêng mục 1.3; toàn bộ 1.1–1.2, kể cả bảng và chú thích, không có thông tin hoặc trích dẫn lấy từ trường hợp HEINEKEN Vũng Tàu.
 - [ ] Toàn văn dùng giọng trình bày của người thực hiện đồ án theo B.5; không dùng “cần xác định”, “cần tách”, “cần kiểm tra” như lời giao việc cho người khác.
 - [ ] Phần 1.4 là kết luận chương; không còn mục khảo sát hoặc thông số thiết bị thương mại trong Chương 1. Nội dung đó dành cho Chương 2.
 - [ ] Lựa chọn linh kiện dành cho Chương 2; không đưa cấu hình hoặc kết quả thử của bản cũ thành dữ kiện mới.
