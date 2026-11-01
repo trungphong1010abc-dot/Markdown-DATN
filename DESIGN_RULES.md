@@ -1,6 +1,6 @@
-# Quy tắc thiết kế và trình bày
+# Quy tắc ưu tiên
 
-## Quy tắc ưu tiên
+- **Không để một file Markdown chỉ có duy nhất một heading cấp 1 (`#`).** Không dùng H1 làm tiêu đề bao toàn file; dùng H1 cho các phần nội dung chính. Khi gặp cấu trúc một H1 tiêu đề và các phần bên dưới bắt đầu từ H2, bỏ tiêu đề bao ngoài và nâng các heading còn lại một cấp (`##` → `#`, `###` → `##`, …), giữ nguyên nội dung và số thứ tự. Quy tắc áp dụng cho toàn bộ tài liệu trong dự án.
 
 **Phần người dùng đã xóa phải tiếp tục được để xóa. Không tự thêm lại, kể cả dưới cách diễn đạt hoặc vị trí khác. Chỉ khôi phục khi người dùng yêu cầu rõ ràng.**
 
@@ -8,7 +8,7 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 
 **Giữ nguyên những phần người dùng đã tự chỉnh sửa.** Trước mỗi lần sửa file, đọc bản hiện tại trên đĩa. Nếu nhận thấy một phần đã được người dùng chỉnh sửa từ trước, không tự ý sửa lại, viết lại, định dạng lại hoặc ghi đè phần đó, trừ khi người dùng yêu cầu chỉnh sửa chính phần đó. Không dùng bản cũ để thay thế nội dung hiện tại. Nếu không chắc phần đó có phải do người dùng chỉnh sửa hay không, giữ nguyên; nếu cần thay đổi để thực hiện yêu cầu, hỏi rõ trước.
 
-## Cấu hình đã chọn
+# Cấu hình đã chọn
 
 - Mạch quang cố định: TIA_LIGHT → R6 1 kΩ → X → R7 1 kΩ → ADC_LIGHT/PA1; C5 10 nF từ X xuống GND, C6 10 nF từ ADC_LIGHT xuống GND (ký hiệu theo ảnh module). Hai trở và hai tụ là linh kiện lắp cố định. Không trình bày lựa chọn hoặc phép so sánh L0/L2; không hướng dẫn nối thẳng hoặc bỏ lọc. Kiểm đáp ứng xung trên nguyên mạch đã lắp.
 
@@ -23,14 +23,15 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 - Node–gateway dùng RS485; gateway–laptop dùng USB. Không tự bổ sung LoRa, pin, cloud hoặc chức năng ngắt điện.
 - Mạch thực của module MAX13487E chưa được xác nhận; không đoán header hoặc mặc định mức UART tương thích ESP32.
 
-## Lưu trữ phụ lục
+# Lưu trữ phụ lục
 
 - Khi người dùng yêu cầu tạo file phụ lục, lưu tại thư mục `Phu_luc/` ở gốc dự án. Không tạo trong `module/` hoặc `module/Phu_luc/`, trừ khi người dùng yêu cầu vị trí khác. Dùng đường dẫn ảnh và liên kết tương đối phù hợp với vị trí file.
 
-## Trình bày tài liệu module
+# Trình bày tài liệu module
 
 - Công thức toán phải dùng LaTeX trong Markdown: `$...$` cho công thức trong dòng, `$$` trên các dòng riêng để bao công thức đứng riêng; chừa dòng trống trước và sau khối công thức. Không đặt công thức trong khối mã hoặc dấu backtick. Viết đúng cú pháp chỉ số, phân số và đơn vị; không escape dấu `_` bên trong công thức thành `\_`.
 - Viết tiếng Việt ngắn, dễ hiểu; mỗi bước một thao tác.
+- Khi giải thích nguyên lý hoặc kết luận thiết kế, viết trực tiếp quan hệ nguyên nhân–kết quả và tác dụng của lựa chọn. Không dùng câu khuyến nghị như “cần kiểm tra”, “cần đo”, “cần chọn” để thay cho lời giải thích. Hướng dẫn thao tác đặt trong phần kiểm thử. Diễn đạt dứt khoát theo căn cứ hiện có, giữ đúng sự khác nhau giữa kết quả tính và số đo thực.
 - Tiêu đề mục và tiêu đề in đậm dùng cụm từ cô đọng, ngắn gọn, thể hiện đúng nội dung; không dùng câu hỏi làm tiêu đề. Khi chỉ yêu cầu đổi tiêu đề, giữ nguyên từng chữ trong nội dung bên dưới.
 - Trình bày trực tiếp nội dung kỹ thuật và đặt trích dẫn dạng [n] ngay sau ý được dẫn nguồn. Không thêm lời dẫn như “tài liệu cho biết”, “theo tài liệu” hoặc “phù hợp với quy luật trong tài liệu”; thông tin nguồn đặt ở mục tài liệu tham khảo.
 - Phần 1 chỉ có ba mục: **1.1 Node**, **1.2 Gateway**, **1.3 Các phần bên ngoài**.
@@ -42,7 +43,7 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 - Giữ đủ linh kiện phụ trợ; phân biệt lắp cố định, có điều kiện và dự phòng. Không cộng trùng linh kiện trên module hoặc đồ tái sử dụng.
 - Khi yêu cầu bảng mua bổ sung, dùng bốn cột: **Linh kiện cần bổ sung | Giai đoạn phục vụ | Số lượng mua mới | Lý do**.
 
-## Tính chính xác và hình minh họa
+# Tính chính xác và hình minh họa
 
 - Không tự đổi thông số để rút gọn tài liệu. Lỗi kỹ thuật phải được chỉ rõ và sửa có căn cứ.
 - Phân biệt cấu hình đề xuất, phép tính, giới hạn datasheet và số đo thực. Không tự điền kết quả hoặc ghi “đạt chuẩn”.

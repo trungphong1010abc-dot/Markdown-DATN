@@ -1,8 +1,6 @@
-# Giải thích chọn linh kiện, nguyên lý schematic và kiểm chứng PCB
+# 1. Khối nguồn: J1, U1, C1, C2
 
-## 1. Khối nguồn: J1, U1, C1, C2
-
-### 1.1. Vì sao chọn các linh kiện này?
+## 1.1. Vì sao chọn các linh kiện này?
 
 J1 nhận adapter 5 V–2 A, phích DC 5.5 mm. Kích thước 5.5 mm chưa xác định đường kính lỗ trong hoặc cực tính. Chọn jack thực khớp phích và kiểm tiếp điểm bằng đồng hồ trước khi khóa footprint.
 
@@ -10,7 +8,7 @@ U1 LD1117S33TR tạo 3,3 V cho MCU và các IC node. LDO điều chỉnh phần 
 
 Dòng ghi 2 A trên adapter là khả năng cấp của adapter, không phải dòng có thể lấy từ rail 3V3. Ước lượng công suất LDO: `P ≈ (Vin − Vout) × Iout + Vin × Iq`. Ví dụ tính với 5 V, 3,3 V, Iout=0,2 A, chưa kể Iq: P≈0,34 W. Dòng 0,2 A là điểm tính thử, chưa phải dòng node đã đo. Tản nhiệt còn phụ thuộc diện tích đồng, nhiệt độ môi trường và package.
 
-### 1.2. Đo để chứng minh
+## 1.2. Đo để chứng minh
 
 1. Tắt nguồn, kiểm chập +5V–GND và +3V3–GND; chờ tụ nạp khi đo điện trở, không kết luận chập chỉ từ một tiếng bíp ngắn.
 2. Kiểm cực jack và cực C1/C2, cấp nguồn lần đầu bằng nguồn bàn giới hạn dòng nếu có.
@@ -27,9 +25,9 @@ Dòng ghi 2 A trên adapter là khả năng cấp của adapter, không phải d
 
 Đối chiếu nguồn đo với dải làm việc của từng IC và sai số U1 theo điều kiện datasheet. Nếu rail sụt khi phát, dùng ảnh scope và số dòng để phân biệt thiếu nguồn/tản nhiệt với lỗi firmware. Không kết luận ổn định chỉ từ điện áp DC trung bình.
 
-## 2. Khối MCU: U2, nguồn, Y1, reset và SWD
+# 2. Khối MCU: U2, nguồn, Y1, reset và SWD
 
-### 2.1. Chọn MCU và ngoại vi tối thiểu
+## 2.1. Chọn MCU và ngoại vi tối thiểu
 
 STM32F103C8T6 LQFP-48 có ADC, DMA, UART và SWD phù hợp hai kênh đo và truyền RS485. Cấu hình tài nguyên theo 64 KiB Flash, 20 KiB SRAM; kiểm lượng RAM thật qua linker map. Ba tụ C3/C4/C5 đặt gần ba VDD để cấp dòng xung cục bộ; C9 bổ sung điện dung rail. C6/C10 lọc VDDA phục vụ ADC. C7 thuộc NRST, C11 thuộc thạch anh. [ST DS5319](https://www.st.com/resource/en/datasheet/stm32f103c8.pdf)
 
@@ -37,7 +35,7 @@ Y1=8 MHz, CL=18 pF; C8/C11=27 pF. Hai tụ tải và ký sinh tạo tải nhìn 
 
 R1 kéo BOOT0 về thấp để chọn khởi động Flash. BT1 kéo NRST xuống GND khi nhấn; C7 hỗ trợ lọc nhiễu reset. H1 đưa SWDIO/SWCLK/NRST và nguồn tham chiếu ra đầu nạp. Dùng nhầm đầu ra nguồn của ST-Link làm VTref có thể cấp chồng nguồn; kiểm đầu nạp thực trước khi nối.
 
-### 2.2. Đo clock, ADC và khả năng chạy
+## 2.2. Đo clock, ADC và khả năng chạy
 
 1. Nạp firmware kiểm tra qua SWD; ghi mã phiên bản và dung lượng Flash/RAM từ bản build.
 2. Cho firmware xuất thông tin nguồn clock, PLL, tần số timer và cờ khởi động HSE. Nếu đo MCO/timer ở chân có thể truy cập thì ghi cấu hình chia tần; không suy tần số chỉ từ biến cấu hình.
@@ -55,9 +53,9 @@ ADC 12 bit: `V ≈ count × VDDA/4095`, VDDA lấy từ phép đo thực. Với 
 | fs từng kênh | … sample/s | … sample/s | … % | … mẫu thiếu | … |
 | Bật nguồn/reset | … lần | … lần thành công | — | … lỗi | … |
 
-## 3. Khối dòng và BIAS: U3, P1, R2–R5, C12, C13
+# 3. Khối dòng và BIAS: U3, P1, R2–R5, C12, C13
 
-### 3.1. Bản chất mạch
+## 3.1. Bản chất mạch
 
 R5 từ 3V3 xuống M và R4 từ M xuống GND tạo cầu chia. `VM=V3V3×R4/(R4+R5)`; hai trở 10 kΩ cho VM≈1,65 V khi nguồn 3,3 V, dòng chia≈0,165 mA. U3B hồi tiếp điện áp đầu ra vào đầu đảo tạo bộ đệm: đầu ra bám VM nhưng có khả năng cấp/nhận dòng tốt hơn cầu chia. BIAS là mức nền của tín hiệu, không phải GND. Sai số trở, offset op-amp và tải làm BIAS thực lệch giá trị lý tưởng.
 
@@ -67,7 +65,7 @@ Ví dụ tính với Ip=5 A RMS, R2=150 Ω, dòng sin: Is=5 mA, Vburden,RMS=0,75
 
 R3=1 kΩ và C12=100 nF tạo lọc bậc một: `fc=1/(2πRC)≈1,59 kHz`; `|H(f)|=1/sqrt(1+(f/fc)²)`. Tại 50 Hz mô hình gần 1; tại 9 kHz còn khoảng 0,174, tương đương −15,2 dB. Nếu cần đặc trưng quanh 9 kHz, phải dùng dữ liệu để đánh giá giới hạn mạch hiện hành trước khi quyết định sửa thiết kế. Tăng fs không khôi phục thành phần analog đã suy giảm.
 
-### 3.2. Đo và hiệu chuẩn dòng
+## 3.2. Đo và hiệu chuẩn dòng
 
 1. Khi chưa có dòng sơ cấp, đo VM, BIAS, U3.1 và PA0; ghi nhiễu RMS và min/max. Probe dùng GND của bo làm tham chiếu.
 2. Dùng lại bộ thử cách ly 12 VAC và các nhánh tải trong [file module](../module/01_Huong_dan_test_va_kiem_thu_module.md). Burden luôn nối vào CT trước khi chạy dòng; tắt dòng sơ cấp trước khi tháo thứ cấp.
@@ -88,9 +86,9 @@ Với N mẫu điện áp sau ADC, trừ trung bình: `vAC[i]=v[i]−mean(v)`; `
 
 Dữ liệu này chứng minh độ nhạy, độ lặp và sai lệch trong dải đã thử. Muốn khẳng định dải dòng lớn hơn hoặc đáp ứng tần số phải có phép thử tương ứng; phép đo 50 Hz không xác nhận băng thông CT.
 
-## 4. Khối quang: D1, U4, R6/C15 và hai tầng RC
+# 4. Khối quang: D1, U4, R6/C15 và hai tầng RC
 
-### 4.1. Photodiode và TIA
+## 4.1. Photodiode và TIA
 
 D1 trong BOM mới là ams OSRAM BPW 34 S-Z, tên thư viện BPW_34_S-Z; kiểm symbol A/K và footprint đúng mã này. Photodiode tạo dòng phụ thuộc phổ và công suất ánh sáng nhận. Nó thu vùng nhìn thấy/cận hồng ngoại; không dùng số lux hoặc khoảng cách đơn lẻ thay cho năng lượng quang tới cảm biến. [ams OSRAM BPW 34 S-Z](https://ams-osram.com/products/photodetectors/photodiodes/osram-dil-smt-bpw-34-s/)
 
@@ -98,13 +96,13 @@ U4A dùng hồi tiếp âm qua R6 để giữ đầu đảo gần BIAS; dòng qu
 
 C15=100 pF song song R6 làm trở kháng hồi tiếp giảm ở tần số cao, hỗ trợ ổn định với điện dung photodiode và đầu vào. `1/(2πR6C15)≈159 kHz` chỉ là tần số đặc trưng mạng hồi tiếp; băng thông toàn TIA còn phụ thuộc op-amp, cảm biến và ký sinh. MCP6002 có GBW điển hình 1 MHz, không đồng nghĩa TIA đạt băng thông 1 MHz. U4B cấu hình follower ở BIAS, không cấp tải ngoài. [Microchip MCP6002](https://www.microchip.com/en-us/product/MCP6002)
 
-### 4.2. Hai tầng lọc quang cố định
+## 4.2. Hai tầng lọc quang cố định
 
 Đường tín hiệu: `U4.1 → R11 → X → R12 → PA1`; C17 từ X xuống GND, C18 từ PA1 xuống GND. Mỗi tầng 1 kΩ/10 nF. Hai tầng không có bộ đệm giữa nên tải lẫn nhau. Mô hình lý tưởng, bỏ qua trở kháng ra U4 và tải ADC: `H(s)=1/[1+3sRC+(sRC)²]`.
 
 Mỗi RC xét riêng có fc≈15,9 kHz; toàn mạng có điểm −3 dB khoảng 6,0 kHz. Tại 25 kHz và 50 kHz, độ suy giảm tính khoảng 13,9 dB và 22,2 dB. Các số này chưa đủ chứng minh chống alias cho mọi dạng tín hiệu. Đo trước/sau lọc trên nguyên mạch đã lắp để xác định xung mục tiêu có bị thấp đỉnh hoặc kéo dài cạnh không.
 
-### 4.3. Đo nền, độ nhạy và bão hòa
+## 4.3. Đo nền, độ nhạy và bão hòa
 
 1. Ghi mã D1 thực, R6/C15, nguồn 3V3, khoảng cách, góc và nguồn sáng. Giữ nguyên vị trí khi so các lượt.
 2. Che kín cảm biến, đo BIAS, TIA_LIGHT và PA1; lưu min/max và nhiễu.
@@ -118,7 +116,7 @@ Mỗi RC xét riêng có fc≈15,9 kHz; toàn mạng có điểm −3 dB khoản
 | Phòng / … | … | … | … / … | … | … | … |
 | Chiếu đèn / … | … | … | … / … | … | … | … |
 
-### 4.4. Đo đáp ứng xung
+## 4.4. Đo đáp ứng xung
 
 1. Dùng LED ngoài bo với điện trở hạn dòng, máy phát mức phù hợp LED; kiểm dòng kích. Bắt đầu xung 1 ms, tiếp đến 100 µs, ví dụ lặp 10 Hz; đây là điều kiện khảo sát ban đầu.
 2. Với scope hai kênh, lượt 1 đo kích LED và TIA_LIGHT; lượt 2 đo TIA_LIGHT và PA1. Giữ nguyên mạch hai RC trong mọi lượt.
@@ -134,15 +132,15 @@ Tỷ lệ giữ đỉnh: `K%=100×ΔVPA1/ΔVTIA`, dùng nền riêng của mỗi
 
 Phép thử LED kiểm chứng đáp ứng với nguồn sáng và xung đã dùng. Để kết luận khả năng nhận dạng hồ quang cần dữ liệu đại diện và đánh giá thuật toán riêng; không đổi kết quả thử LED thành khoảng cách phát hiện hồ quang.
 
-## 5. Khối RS485: U5, C16, R7–R10, J2
+# 5. Khối RS485: U5, C16, R7–R10, J2
 
-### 5.1. Vì sao cần từng linh kiện?
+## 5.1. Vì sao cần từng linh kiện?
 
 U5 MAX3485 biến TX/RX logic 3,3 V thành tín hiệu vi sai A/B. Receiver quyết định theo điện áp chênh A−B; dây GND tham chiếu giúp kiểm soát điện áp common-mode trong cấu hình đang dùng. PB0 điều khiển chung DE và /RE: thấp để nhận, cao để phát. R7 10 kΩ kéo trạng thái mặc định về nhận khi MCU chưa chủ động điều khiển; C16 là tụ nguồn cục bộ U5. [ADI MAX3485](https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf)
 
 R9 là termination khi node nằm ở đầu tuyến và cấu hình cáp yêu cầu. R8/R10 330 Ω lắp theo schematic mới: R8 kéo A lên 3V3, R10 kéo B xuống GND. Kiểm mạng bias thực trên gateway trước khi ghép bus; không suy rằng gateway đã có bias chỉ từ tên module. Termination hấp thụ phản xạ, bias đặt trạng thái bus lúc không phát; hai chức năng khác nhau. Trạng thái lắp R9 cần ghi cùng loại/chiều dài cáp và phần cứng hai đầu. [TI RS485 Design Guide](https://www.ti.com/lit/an/slla272d/slla272d.pdf)
 
-### 5.2. Đo điện và kiểm bản tin
+## 5.2. Đo điện và kiểm bản tin
 
 1. Tắt nguồn hai đầu, ghi trạng thái R9 và các linh kiện thực đã có trên bus; kiểm A/B/GND. Điện trở đo giữa A/B có thể bị ảnh hưởng mạng bias và IC, không chỉ termination.
 2. Nếu biết hai đầu đều có 120 Ω và bỏ qua nhánh khác, điện trở tương đương là 60 Ω. Đây là giá trị tính để đối chiếu, không phải yêu cầu ép mọi bus đo đúng 60 Ω.
@@ -157,15 +155,15 @@ R9 là termination khi node nằm ở đầu tuyến và cấu hình cáp yêu c
 
 Không có lỗi trong N gói chỉ chứng minh phiên thử N gói với cấu hình đã ghi, chưa chứng minh xác suất lỗi bằng 0 cho mọi môi trường.
 
-## 6. Kiểm tích hợp và lưu bằng chứng
+# 6. Kiểm tích hợp và lưu bằng chứng
 
-### 6.1. Kiểm băng thông dữ liệu trước khi chạy
+## 6.1. Kiểm băng thông dữ liệu trước khi chạy
 
 115200 baud, khung 8N1 có tối đa lý thuyết `115200/10=11.520 byte/s`, còn phải trừ overhead và thời gian đổi chiều. Hai kênh 50 ksample/s, mỗi mẫu 2 byte tạo 200.000 byte/s. Vì vậy truyền các đại lượng tóm tắt định kỳ; waveform ngắn lưu buffer và tải riêng theo khả năng firmware. Hai buffer 2048 mẫu uint16 chiếm 8192 byte, cần cộng thêm DMA, stack và các cấu trúc khác trong SRAM 20 KiB.
 
 Không tự ghi cấu hình 32 ksample/s cho CT đồng thời 50 ksample/s cho quang nếu firmware chưa thực hiện được lịch đó. Khi dừng thu để truyền phải ghi khoảng thời gian mất quan sát.
 
-### 6.2. Chạy một phiên có mốc thao tác
+## 6.2. Chạy một phiên có mốc thao tác
 
 1. Ghi mã PCB, mã linh kiện thực, firmware, fs từng kênh, sample time ADC, baudrate, cáp, trạng thái R9/R8/R10, dụng cụ và ngày đo.
 2. Chạy không tải; lần lượt bật tải, tắt tải, bật lại, chiếu/che cảm biến. Ghi thời điểm từng thao tác.
@@ -175,7 +173,7 @@ Không tự ghi cấu hình 32 ksample/s cho CT đồng thời 50 ksample/s cho 
 
 CSV tóm tắt nên có: thời gian PC, node_id, boot_id/uptime, SEQ, trạng thái kết nối, tuổi dữ liệu, dòng RMS hoặc count chưa hiệu chuẩn, mức quang, min/max ADC, cờ sự kiện và số lỗi/mất mẫu. Waveform cần trục thời gian hoặc fs, đơn vị, kênh đo, số mẫu, VDDA và hệ số hiệu chuẩn đã áp dụng.
 
-### 6.3. Chứng minh từng kết luận bằng dữ liệu nào?
+## 6.3. Chứng minh từng kết luận bằng dữ liệu nào?
 
 | Kết luận muốn đưa vào báo cáo | Bằng chứng cần có | Giới hạn phải ghi |
 |---|---|---|
@@ -196,7 +194,7 @@ Trước mỗi phép thử, ghi mục tiêu cần đạt của dự án: sai s�
 | Quang tĩnh/xung | … | … | … | … |
 | RS485/tích hợp | … | … | … | … |
 
-## 7. Đối chiếu tài liệu
+# 7. Đối chiếu tài liệu
 
 - [01 — BOM_LIST và hướng dẫn vẽ schematic](01_BOM_LIST_va_huong_dan_ve_schematic_PCB.md): Designator, giá trị, package và các bảng nối chân.
 - [Hướng dẫn test và kiểm thử module](../module/01_Huong_dan_test_va_kiem_thu_module.md): bộ tải cách ly, cách thử dòng/quang và lưu số liệu trước PCB.

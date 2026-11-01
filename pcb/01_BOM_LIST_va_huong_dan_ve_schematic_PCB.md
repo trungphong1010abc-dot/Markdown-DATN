@@ -1,12 +1,6 @@
-# BOM_LIST và hướng dẫn vẽ schematic PCB node
+# 1. BOM chia theo khối
 
-## 1. BOM chia theo khối
-
-SL cho **một PCB**. Đây là cấu hình thiết kế ban đầu khi chưa điền kết quả test; không tuyên bố đã thử đạt hoặc đã mua đủ. Giá trị Rb/Rf/Cf/lọc đối chiếu kết quả trong [hướng dẫn kiểm thử module](../module/01_Huong_dan_test_va_kiem_thu_module.md). Khi thay giá trị, cập nhật đồng bộ file này và schematic. DNP là có vị trí trên schematic/PCB nhưng không lắp, không phải linh kiện bị bỏ quên.
-
-Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1/C2 tantalum 16 V có phân cực. 0805/1206 là package hệ inch. Xác nhận **mã đặt hàng và kích thước thực**; C9 10 µF–16 V/0805 chưa có mã hãng cụ thể. Không tự đổi footprint cho vừa tên generic trên cửa hàng.
-
-### 1.1. Khối nguồn
+## 1.1. Khối nguồn
 
 | Mã | Linh kiện / giá trị / mã hãng | Package | SL | Căn cứ lựa chọn / lưu ý |
 |---|---|---|---:|---|
@@ -15,7 +9,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 | C1 | Tụ tantalum: 10 µF (106), 16 V | 3528, cần xác nhận mã thực | 1 | Tụ đầu vào; có phân cực |
 | C2 | Tụ tantalum: 22 µF (226), 16 V; tham chiếu TAJC226M016RNJ | 6032 (C case) | 1 | Tụ đầu ra; có phân cực; chọn điện dung cao hơn mức tối thiểu 10 µF (106) nêu trong datasheet LD1117 |
 
-### 1.2. Khối MCU
+## 1.2. Khối MCU
 
 | Mã | Linh kiện / giá trị / mã hãng | Package | SL | Cơ sở lựa chọn / lưu ý |
 |---|---|---|---:|---|
@@ -31,7 +25,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 | BT1 | Nút nhấn RESET: 2 chân SMD 3 × 6 × 2,5 mm, thường hở, nhấn nhả; mã hãng chưa xác nhận | SMD 3 × 6 × 2,5 mm; pad cần đối chiếu nút thực | 1 | Khởi động lại MCU thuận tiện khi chạy thử; mã hãng và footprint cần xác nhận theo nút thực |
 | H1 | Header SWD: 1×5, bước 2,54 mm | Header | 1 | Đưa ra 3V3, GND, SWDIO, SWCLK và NRST |
 
-### 1.3. Khối dòng
+## 1.3. Khối dòng
 
 | Mã | Linh kiện / giá trị / mã hãng | Package | SL | Cơ sở lựa chọn / lưu ý |
 |---|---|---|---:|---|
@@ -43,7 +37,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 | R3 | Điện trở: 1 kΩ, 1 %, 0,125 W | 0805 | 1 | Cùng C12 tạo lọc trước ADC |
 | C12 | Tụ gốm: 100 nF (104), X7R, 50 V | 0805 | 1 | Phối hợp R3 tạo lọc trước ADC dòng |
 
-### 1.4. Khối quang
+## 1.4. Khối quang
 
 | Mã | Linh kiện / giá trị / mã hãng | Package | SL | Cơ sở lựa chọn / lưu ý |
 |---|---|---|---:|---|
@@ -55,7 +49,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 | R11, R12 | Điện trở: 1 kΩ, 1 %, 0,125 W | 0805 | 2 | Nối tiếp tạo hai tầng lọc thông thấp sau U4A, trước ADC_LIGHT |
 | C17, C18 | Tụ gốm: 10 nF (103), X7R, ±10%, 50 V; GRM216R71H103KA01D | 0805 | 2 | Tụ shunt lọc; C17 tại nút R11/R12 và C18 tại ADC_LIGHT, đều xuống GND |
 
-### 1.5. Khối truyền thông
+## 1.5. Khối truyền thông
 
 | Mã | Linh kiện / giá trị / mã hãng | Package | SL | Cơ sở lựa chọn / lưu ý |
 |---|---|---|---:|---|
@@ -66,7 +60,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 | R9 | Điện trở: 120 Ω, 1 %, 0,25 W | 1206 | 1 | Kết thúc đường truyền dùng cáp 120 Ω; lắp theo vị trí đầu cuối; DNP nếu không dùng theo cấu hình bus |
 | R8, R10 | Điện trở: 330 Ω, 1 %, 0,125 W; CRCW0805330RFKEA | 0805 | 2 | Lắp mạng bias tại node; kiểm mạng bias gateway trước khi ghép bus |
 
-### 1.6. Tổng R/C để kiểm số lượng
+## 1.6. Tổng R/C để kiểm số lượng
 
 | Giá trị/package | Vị trí | SL vị trí | Trạng thái |
 |---|---|---:|---|
@@ -86,7 +80,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 
 **Kiểm tổng vị trí:** U1–U5: 5 IC; R1–R12: 12 điện trở; C1–C18: 18 tụ; Y1, D1, BT1, J1, J2, H1, P1: 7 linh kiện/đầu nối khác. Tổng 42 vị trí trên bo. R8/R10 lắp theo schematic mới; R9 lắp khi node là đầu cuối bus theo cấu hình cáp. Nếu lắp cả R9 thì có 42 linh kiện, nếu R9 DNP thì có 41 linh kiện. Không cộng CT ngoài bo hoặc module gateway vào 42 vị trí. SL mua dự phòng để riêng.
 
-### 1.7. Thiết bị ngoài PCB và phần dùng lại
+## 1.7. Thiết bị ngoài PCB và phần dùng lại
 
 | Phần | SL | Cách dùng |
 |---|---:|---|
@@ -98,7 +92,7 @@ Tụ gốm theo BOM mới: C9 10 µF–16 V; các tụ gốm còn lại 50 V. C1
 | USB–RS485 hiện có | 1 | Chỉ debug; không mua mới và không thay gateway chính |
 | Blue Pill, hai MCP6002 DIP và MAX3485 module cũ | 1 bộ | Để đối chiếu/dự phòng, không cắm chồng lên node PCB |
 
-### 1.8. Đối chiếu BOM mới xuất từ Altium
+## 1.8. Đối chiếu BOM mới xuất từ Altium
 
 Nguồn: `D:/HUST/Tai_lieu_DH_Phong/Do_An/DATN/PCB_DATN.xlsx`, sheet đầu tiên. Đã kiểm các cột Comment, Description, Designator, Footprint, LibRef và Quantity: **42 vị trí duy nhất**, số lượng từng dòng khớp Designator.
 
@@ -118,7 +112,7 @@ Nguồn: `D:/HUST/Tai_lieu_DH_Phong/Do_An/DATN/PCB_DATN.xlsx`, sheet đầu tiê
 
 Các tên footprint trên là dữ liệu xuất từ Altium; vẫn cần kiểm bản vẽ pad, cực tính và pin-to-pad với linh kiện thực. File Excel không chứa dữ liệu đo hoạt động của mạch.
 
-### 1.9. Linh kiện bổ sung so với danh sách cũ
+## 1.9. Linh kiện bổ sung so với danh sách cũ
 
 | Linh kiện cần bổ sung | Giai đoạn phục vụ | Số lượng mua mới | Lý do |
 |---|---|---|---|
@@ -127,7 +121,7 @@ Các tên footprint trên là dữ liệu xuất từ Altium; vẫn cần kiểm
 
 Linh kiện đã kê trong Excel vẫn cần kiểm tồn kho và package; linh kiện chân cắm dùng ở module không thay trực tiếp linh kiện SMD trong bảng.
 
-## 2. Hướng dẫn vẽ schematic trong Altium
+# 2. Hướng dẫn vẽ schematic trong Altium
 
 Ký hiệu `U2.30` là chân 30 của U2. Giữ Designator theo BOM mục 1; không đổi số chân trong symbol để khớp hình minh họa.
 
@@ -137,7 +131,7 @@ Ký hiệu `U2.30` là chân 30 của U2. Giữ Designator theo BOM mục 1; kh�
 4. Đặt năm khối nguồn, MCU, dòng/BIAS, quang và RS485; nối theo các bảng dưới đây.
 5. Dùng Wire để nối điện; đặt Power Port và Net Label chạm đúng dây. Chạy Validate/ERC và kiểm netlist sau khi hoàn tất.
 
-### 2.1. Đặt các khối và quy ước nối
+## 2.1. Đặt các khối và quy ước nối
 
 Đặt các khối trên một sheet trước để dễ kiểm. Nếu tách sheet, dùng Port/Sheet Entry đúng cấu trúc dự án và kiểm net đã biên dịch; không mặc định Net Label cùng tên nối xuyên sheet.
 
@@ -153,7 +147,7 @@ Ký hiệu `U2.30` là chân 30 của U2. Giữ Designator theo BOM mục 1; kh�
 
 Đặt đủ hai unit op-amp và chân nguồn của mỗi U3/U4 nếu thư viện tách unit. R8/R10 lắp theo schematic mới để tạo bias tại node. Trước khi ghép bus, kiểm mạng bias thực trên gateway để đánh giá tải và điện áp nghỉ của cả tuyến.
 
-### 2.2. Vẽ nguồn J1–U1
+## 2.2. Vẽ nguồn J1–U1
 
 ![Khối nguồn PCB](hinh_minh_hoa_pcb/01_khoi_nguon.png)
 
@@ -170,11 +164,11 @@ U1 là LD1117S33TR SOT-223. Chân tab có thể được thư viện biểu di�
 
 **J1.3 chưa được khóa kết nối:** bản cũ ghi nối GND nhưng chưa xác nhận tiếp điểm chuyển mạch của jack. Đánh dấu “xác nhận jack thực”, đo/tra datasheet rồi mới quyết định nối GND hay để hở. Không nối vào GND chỉ vì jack có ba chân; chưa xác nhận thì schematic chưa hoàn tất phần nguồn.
 
-### 2.3. Vẽ MCU STM32F103C8T6, U2 LQFP-48
+## 2.3. Vẽ MCU STM32F103C8T6, U2 LQFP-48
 
 ![Khối MCU PCB](hinh_minh_hoa_pcb/02_khoi_mcu.png)
 
-#### 2.3.1. Nguồn và các tụ
+### 2.3.1. Nguồn và các tụ
 
 | Chân U2 | Tên | Nối |
 |---:|---|---|
@@ -190,7 +184,7 @@ U1 là LD1117S33TR SOT-223. Chân tab có thể được thư viện biểu di�
 
 C3/C4/C5/C6=100 nF; C10=1 µF. C9=10 µF từ +3V3 xuống GND. Đặt tụ ở đúng cụm nguồn trên schematic và kiểm mã/package theo BOM; không gộp ba tụ VDD thành một linh kiện.
 
-#### 2.3.2. ADC và USART1
+### 2.3.2. ADC và USART1
 
 | Chân U2 | Chức năng | Nối bằng Net Label / dây |
 |---:|---|---|
@@ -202,7 +196,7 @@ C3/C4/C5/C6=100 nF; C10=1 µF. C9=10 µF từ +3V3 xuống GND. Đặt tụ ở 
 
 TX là từ MCU đi DI; RX là từ RO về MCU. Không đổi UART_TX/UART_RX thành một nhãn chung.
 
-#### 2.3.3. Thạch anh, BOOT0 và reset
+### 2.3.3. Thạch anh, BOOT0 và reset
 
 | Điểm / linh kiện | Kết nối |
 |---|---|
@@ -217,7 +211,7 @@ TX là từ MCU đi DI; RX là từ RO về MCU. Không đổi UART_TX/UART_RX t
 
 Y1=ABM3B-8.000MHZ-B2-T. Giữ chân/pad theo thư viện đúng mã. Không thêm nút BOOT. Không nối nút RESET lên +3V3; không nhầm C11 thạch anh với C7 reset. Kéo lên NRST dùng cấu hình nội của MCU theo thiết kế hiện hành, không tự bổ sung điện trở ngoài vào BOM.
 
-#### 2.3.4. Header H1 SWD
+### 2.3.4. Header H1 SWD
 
 | H1 | Nối |
 |---:|---|
@@ -229,7 +223,7 @@ Y1=ABM3B-8.000MHZ-B2-T. Giữ chân/pad theo thư viện đúng mã. Không thê
 
 H1.1 là tham chiếu điện áp mạch đích nếu đầu nạp hỗ trợ VTref. Đối chiếu đầu nạp thực: không nối đầu ra nguồn ST-Link vào H1.1 khi node đang cấp adapter.
 
-#### 2.3.5. Chân chưa dùng
+### 2.3.5. Chân chưa dùng
 
 | Chân | Tên |
 |---|---|
@@ -243,7 +237,7 @@ H1.1 là tham chiếu điện áp mạch đích nếu đầu nạp hỗ trợ VT
 
 Không nối tất cả thành một net NC. Đặt No ERC riêng theo chính sách dự án; ghi PB2/BOOT1 là chân boot phụ cần cấu hình firmware phù hợp, không tự thêm nối/chân BOOT khác với BOM. Bảng nguồn, ADC, clock/SWD và chưa dùng phải bao phủ đủ 48 chân U2, không trùng hoặc bỏ sót.
 
-### 2.4. Vẽ dòng và BIAS: U3, P1
+## 2.4. Vẽ dòng và BIAS: U3, P1
 
 ![Khối dòng và BIAS](hinh_minh_hoa_pcb/03_khoi_dong.png)
 
@@ -265,7 +259,7 @@ Không nối tất cả thành một net NC. Đặt No ERC riêng theo chính s�
 
 Đặt BIAS_1V65 tại U3.7, P1.2/R2.2 và U4.3/U4.5. Nút M trước buffer **không phải** BIAS sau buffer. Hồi tiếp U3.2 lấy ngay U3.1 **trước R3**. P1.2 về BIAS, không GND. Chữ Red/Black cạnh P1 là chú thích dây đỏ/đen của CT: đỏ vào P1.1, đen vào P1.2. CT là linh kiện ngoài PCB; không đưa đường tải 12 VAC vào schematic mạch analog.
 
-### 2.5. Vẽ TIA quang và hai RC: U4, D1
+## 2.5. Vẽ TIA quang và hai RC: U4, D1
 
 ![Khối quang với hai tầng RC](hinh_minh_hoa_pcb/04_khoi_quang.png)
 
@@ -289,11 +283,11 @@ Không nối tất cả thành một net NC. Đặt No ERC riêng theo chính s�
 
 D1 là BPW 34 S-Z, tên thư viện BPW_34_S-Z; dùng chân A/K theo symbol và pad đúng mã. Không nối U4.2 trực tiếp với BIAS. Không nối U4.7 với U3.7. Đường TIA_LIGHT → ADC_LIGHT đi qua R11 rồi R12, với C17/C18 xuống GND tại hai nút tương ứng. TIA_LIGHT và X chỉ là tên mô tả nút nội bộ nếu giữ quy ước sáu Net Label.
 
-### 2.6. Vẽ RS485: U5, J2
+## 2.6. Vẽ RS485: U5, J2
 
 ![Khối truyền thông RS485 PCB](hinh_minh_hoa_pcb/05_khoi_truyen_thong.png)
 
-#### 2.6.1. IC và điện trở
+### 2.6.1. IC và điện trở
 
 | Chân U5 MAX3485ESA+ | Nối |
 |---:|---|
@@ -316,7 +310,7 @@ D1 là BPW 34 S-Z, tên thư viện BPW_34_S-Z; dùng chân A/K theo symbol và 
 
 Giữ R8/R10 trong danh sách lắp theo BOM mới; ghi lại mạng bias thực ở cả hai đầu khi thử bus. Không nối A hoặc B vào 5 V node; 5 V bias gateway nằm ngoài PCB, không đưa vào J2.
 
-#### 2.6.2. Terminal J2 và chú thích ngoài bo
+### 2.6.2. Terminal J2 và chú thích ngoài bo
 
 | J2 | Net nội bộ | Ghi chú cáp ngoài PCB |
 |---:|---|---|
@@ -326,7 +320,7 @@ Giữ R8/R10 trong danh sách lắp theo BOM mới; ghi lại mạng bias thực
 
 J2 chỉ có ba chân, **không có J2.5**. Cáp A/B dùng cặp xoắn; gateway giữ module cấp nguồn USB riêng. Không vẽ USB–RS485 như thiết bị nhận chính. Không đổi U5 thành MAX13487E 5 V vì gateway dùng IC đó. Việc chuyển mức UART gateway nằm ngoài schematic node.
 
-### 2.7. Kiểm schematic trước khi xuất sang PCB
+## 2.7. Kiểm schematic trước khi xuất sang PCB
 
 - [ ] U1–U5, R1–R12, C1–C18 và các đầu nối đúng BOM mục 1; không có Designator trùng.
 - [ ] U2 đúng LQFP-48, đủ nguồn/GND; ba tụ VDD, tụ VDDA và tụ reset đúng vị trí chức năng.
@@ -341,7 +335,7 @@ J2 chỉ có ba chân, **không có J2.5**. Cáp A/B dùng cặp xoắn; gateway
 - [ ] Pin Designator symbol khớp Pad Designator footprint; chưa biết mã/package thì đánh dấu cần xác nhận, không tự chọn gần giống.
 - [ ] Compile/Validate/ERC theo phiên bản Altium; xem từng lỗi thay vì đặt No ERC để che lỗi thật.
 
-## 3. Kiểm BOM và footprint trước khi chuyển sang PCB
+# 3. Kiểm BOM và footprint trước khi chuyển sang PCB
 
 | Phần cần kiểm | Điều kiện hoàn tất |
 |---|---|
@@ -358,7 +352,7 @@ Xuất BOM có các cột: **Khối, Designator, Comment/giá trị, Description
 
 Khi cập nhật sang PCB bằng Update PCB Document, đọc từng thay đổi trong ECO và kiểm pad/net sau khi thực thi. Hướng dẫn này chưa thay cho kiểm tra dự án Altium thực tế.
 
-## 4. Nguồn đối chiếu
+# 4. Nguồn đối chiếu
 
 - [02 — Giải thích linh kiện, nguyên lý và kiểm thử PCB](02_Giai_thich_linh_kien_nguyen_ly_va_kiem_thu_PCB.md): tính toán và cách lấy số liệu kiểm chứng từng khối.
 
