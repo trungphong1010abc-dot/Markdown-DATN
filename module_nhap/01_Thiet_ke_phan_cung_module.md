@@ -4,40 +4,40 @@
 
 **Khối nguồn, MCU**
 
-| Tên linh kiện/thông số               | Số lượng       | Vị trí sử dụng          | Ghi chú                                           |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 | ------------------------------------ | -------------- | ----------------------- | ------------------------------------------------- |
-| Ổn áp 3,3 V trên Blue Pill           | Có sẵn trên bo | Cấp MCU, AFE và MAX3485 | Có sẵn; kiểm dòng và độ nóng                      |
-| Điện trở 10 kΩ, ưu tiên 1%, ≥0,125 W | 2              | Cầu chia BIAS           | Tạo mức nền khoảng 1,65 V                         |
-| Blue Pill STM32F103C8T6              | 1 bo           | Thu ADC, xử lý và UART  | Bo có sẵn nguồn, thạch anh và nút reset  [5], [6] |
+| Ổn áp 3,3 V (Blue Pill) | Có sẵn trên bo | Cấp MCU, AFE và MAX3485 | Có sẵn trên bo |
+| Điện trở 10 kΩ, 1%, ≥0,125 W | 2 | Cầu chia BIAS | Tạo mức nền khoảng 1,65 V |
+| Blue Pill STM32F103C8T6 | 1 bo | Thu ADC, xử lý và UART | Tích hợp nguồn, clock, reset [5], [6] |
 
 **Khối dòng**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
 | CT DL-CT08CL6-1000/1 | 1 | Cảm biến dòng ngoài bo | Tỷ số 1000:1; dùng lại với PCB |
-| MCP6002 dòng (MCP6002-I/P, DIP-8) | 1 IC | Kênh A đệm dòng; kênh B đệm BIAS | Dùng chung IC để đệm BIAS  [2] |
-| Điện trở burden 150 Ω–2 W | 1 | Song song thứ cấp CT | Đổi dòng CT thành điện áp |
-| Điện trở 1 kΩ, 1%, ≥0,125 W | 1 | Lọc dòng trước PA0 | Nối giữa đầu ra đệm và PA0 |
+| MCP6002-I/P, DIP-8 | 1 IC | Kênh A đệm dòng; kênh B đệm BIAS | Đệm dòng và BIAS [2] |
+| Điện trở 150 Ω–2 W | 1 | Song song thứ cấp CT | Đổi dòng CT thành điện áp |
+| Điện trở 1 kΩ, 1%, ≥0,125 W | 1 | Lọc dòng trước PA0 | Lọc trước PA0 |
 | Tụ 100 nF (104), gốm 50 V | 1 | PA0 xuống GND | Tụ lọc tín hiệu |
-| Tụ 100 nF (104), gốm 50 V | 1 | Nguồn MCP6002 dòng | Tụ nguồn riêng, sát chân 8–4 |
+| Tụ 100 nF (104), gốm 50 V | 1 | Nguồn MCP6002 dòng | Sát chân 8–4 |
 
 **Khối quang**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
-| BPW34 chân cắm | 1 | Cảm biến quang | Kiểm đúng hai cực A/K  [4] |
-| MCP6002 quang (MCP6002-I/P, DIP-8) | 1 IC | TIA đổi dòng quang thành áp | Kênh B không nối tải ngoài  [2], [3] |
-| Điện trở hồi tiếp 10 kΩ, ưu tiên 1%, ≥0,125 W | 1 | Hồi tiếp TIA | Trở riêng của mạch quang |
-| Tụ hồi tiếp 100 pF (101), ưu tiên C0G, 50 V | 1 | Hồi tiếp TIA | Song song điện trở 10 kΩ |
+| BPW34 chân cắm | 1 | Cảm biến quang | Đúng cực A/K [4] |
+| MCP6002-I/P, DIP-8 | 1 IC | TIA đổi dòng quang thành áp | Kênh B không tải [2], [3] |
+| Điện trở 10 kΩ, 1%, ≥0,125 W | 1 | Hồi tiếp TIA | Trở riêng của mạch quang |
+| Tụ 100 pF (101), C0G, 50 V | 1 | Hồi tiếp TIA | Song song điện trở 10 kΩ |
 | Tụ 100 nF (104), gốm 50 V | 1 | Nguồn MCP6002 quang | Đặt sát chân 8–4 |
 | Điện trở 1 kΩ, 1%, ≥0,125 W | 2 | Hai tầng lọc quang | Lắp cố định sau TIA |
-| Tụ 10 nF (103), gốm 50 V | 2 | Hai tầng lọc quang | Mỗi tụ sau một trở, xuống GND |
+| Tụ 10 nF (103), gốm 50 V | 2 | Hai tầng lọc quang | Tụ lọc xuống GND |
 
 **Khối truyền thông**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
-| Module MAX3485 3,3 V | 1 | RS485 node | Dùng nguyên bo; PA9/PA10/PB0  [7] |
+| Module MAX3485 3,3 V | 1 | RS485 node | Dùng nguyên bo [7] |
 
 ## 1.2. Gateway
 
@@ -45,57 +45,58 @@ Giữ nguyên bộ ESP32 + MAX13487E dạng module khi node chuyển sang PCB.
 
 **Khối nguồn**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
-| Đường 5V/VBUS và ổn áp 3,3 V trên ESP32 DevKit | Có sẵn trên bo | 5 V cho MAX13487E; 3,3 V cho ESP32 | Lấy nguồn từ USB laptop  [9] |
+| Nguồn 5 V/3,3 V (ESP32 DevKit) | Có sẵn trên bo | 5 V cho MAX13487E; 3,3 V cho ESP32 | Nguồn USB laptop [9] |
 
 **Khối MCU**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
-| ESP32-DevKitC V4, WROOM-32E tham chiếu | 1 bo | Hỏi node, kiểm bản tin và gửi USB | Bo khác cần kiểm lại chân  [9] |
+| ESP32-DevKitC V4, WROOM-32E | 1 bo | Hỏi node, kiểm bản tin và gửi USB | Bo tham chiếu [9] |
 
 **Khối truyền thông**
 
-| Tên linh kiện/thông số   | Số lượng | Vị trí sử dụng                 | Ghi chú                             |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 | ------------------------ | -------- | ------------------------------ | ----------------------------------- |
-| Module MAX13487E hiện có | 1 module | RS485 gateway, tự chuyển chiều | Dùng nguyên bo; kiểm nhãn chân  [8] |
+| Module MAX13487E | 1 module | RS485 gateway, tự chuyển chiều | Dùng nguyên bo [8] |
 
 ## 1.3. Các phần bên ngoài — nguồn, bộ tải và đồ dùng lại khi thử PCB
 
 **Nguồn cấp ngoài, dây và đầu nối**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
-| Adapter cách ly 5 VDC–2 A, phích DC 5.5 mm | 1 | Cấp node module, sau đó PCB node | Nguồn cấp riêng cho node |
-| Jack DC cái 5.5 mm ra cọc vít | 1 bộ | Đưa nguồn vào bàn thử | Khớp phích adapter; kiểm cỡ lỗ trong và cực tính |
-| Cáp USB có dữ liệu | 1 | Gateway–laptop | Cáp Micro-B có truyền dữ liệu |
-| Cáp RS485 cặp xoắn A/B + GND đi cùng | Khoảng 1 m | Node–gateway | Ưu tiên cáp RS485 120 Ω  [17] |
+| Adapter cách ly 5 VDC–2 A | 1 | Cấp node module, sau đó PCB node | Nguồn riêng node; phích 5,5 × 2,1 mm |
+| Jack DC cái 5,5 × 2,1 mm | 1 bộ | Đưa nguồn vào bàn thử | Ra cọc vít; đúng cực tính |
+| Cáp USB có dữ liệu | 1 | Gateway–laptop | Micro-B, có dữ liệu |
+| Cáp RS485 cặp xoắn và GND | Khoảng 1 m | Node–gateway | Trở kháng 120 Ω [16] |
 | Breadboard, jumper, dây cứng ngắn, header | 1 bộ | Đấu thử module và debug | Đường quang giữ dây ngắn |
 | ST-Link V2 và dây SWD | 1 bộ | Nạp Blue Pill, sau đó PCB | Không nối thêm nguồn từ ST-Link |
-| USB–RS485 CH340 hiện có | 1 dụng cụ | Debug module hoặc PCB | Chỉ dùng thay gateway khi debug |
+| USB–RS485 CH340 | 1 dụng cụ | Debug module hoặc PCB | Chỉ dùng debug |
 
 **Bộ tải thử CT**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
 | Nguồn cách ly 12 VAC–1,5 A | 1 | Cấp tải thử CT, dùng lại khi thử PCB | Không cấp MCU hoặc ADC |
-| Điện trở sứ 50 Ω–25 W | 3 | Tải sơ cấp CT | Mắc 1, 2 hoặc 3 nhánh song song |
+| Điện trở sứ 50 Ω–25 W | 3 | Tải sơ cấp CT | 1–3 nhánh song song |
 | Dây silicone 20 AWG, cọc vít, đế chịu nhiệt | 1 bộ | Vòng tải ngoài thiết bị | Không dẫn tải qua breadboard |
 
 **Nguồn sáng và dụng cụ đo**
 
-| Tên linh kiện/thông số | Số lượng | Vị trí sử dụng | Ghi chú |
+| Linh kiện | Số lượng | Vị trí sử dụng | Ghi chú |
 |---|---|---|---|
-| Đồng hồ DC và đồng hồ AC phù hợp dòng nhỏ | Có/mượn | Nguồn và tải module/PCB | Đo được dòng nhỏ 0,24–0,72 A |
-| Oscilloscope ≥2 kênh, 2 probe | Có/mượn | Tín hiệu trước/sau lọc | Cần lưu được ảnh hoặc CSV |
-| Đèn pin, tấm che, thước | 1 bộ | Quang tĩnh module/PCB | Giữ cố định khoảng cách và góc |
+| Đồng hồ AC/DC | Có/mượn | Nguồn và tải module/PCB | Đo được dòng nhỏ 0,24–0,72 A |
+| Oscilloscope ≥2 kênh, 2 probe | Có/mượn | Tín hiệu trước/sau lọc | Lưu ảnh hoặc CSV |
+| Đèn pin, tấm che, thước | 1 bộ | Quang tĩnh module/PCB | Cố định khoảng cách, góc |
 | LED trắng 5 mm | 1 | Nguồn sáng ngoài thiết bị | Không phải LED cảnh báo |
 | Điện trở 330 Ω, ≥0,125 W | 1 | Hạn dòng LED thử | Trở riêng cho LED thử |
-| Máy phát xung mức phù hợp LED | Có/mượn | Quang xung module/PCB | Kiểm dòng LED khi kích 0–3,3 V |
-| Laptop, phần mềm nạp/log, USB lưu dữ liệu | 1 bộ | Lưu hồ sơ module/PCB | Kiểm tra mở và lưu được CSV |
+| Máy phát xung | Có/mượn | Quang xung module/PCB | Kích LED 0–3,3 V |
+| Laptop, phần mềm nạp/log, USB lưu dữ liệu | 1 bộ | Lưu hồ sơ module/PCB | Lưu CSV |
 
-# 2. Hướng dẫn nối dây từng phần
+
+# 2. Thiết kế và nối dây từng phần
 
 ## 2.1. Nhận diện hai MCP6002 DIP-8
 
@@ -144,9 +145,37 @@ BPW34 là photodiode: khi nhận ánh sáng, nó sinh ra dòng điện nhỏ. Ha
 
 **Vai trò trong mạch TIA**
 
-Khối quang dùng mạch **TIA (Transimpedance Amplifier — bộ khuếch đại chuyển dòng thành điện áp)**. Có thể hiểu TIA là “phiên dịch viên”: chuyển dòng điện nhỏ do BPW34 sinh ra thành mức điện áp để ADC của vi điều khiển đọc được. Trong mạch đang dùng, **A nối GND, K nối chân 2 (IN−) của MCP6002 quang**; cách hoạt động và mạng hồi tiếp được giải thích ở khối quang trong mục 2.3. [1], [3]
+Khối quang dùng mạch **TIA (Transimpedance Amplifier — bộ khuếch đại chuyển dòng thành điện áp)**. Có thể hiểu TIA là “phiên dịch viên”: chuyển dòng điện nhỏ do BPW34 sinh ra thành mức điện áp để ADC của vi điều khiển đọc được. Trong mạch đang dùng, **A nối GND, K nối chân 2 (IN−) của MCP6002 quang**; cách hoạt động và mạng hồi tiếp được giải thích ở khối quang trong mục 2.4. [1], [3]
 
-## 2.3. Nối dây node
+## 2.3. Nối dây bộ tải thử dòng
+
+Bộ tải ngoài gồm **nguồn cách ly 12 VAC–1,5 A, điện trở sứ 50 Ω–25 W và dây dẫn**. Nó tạo dòng đi qua CT để thử khối dòng.
+
+1. Tắt nguồn 12 VAC trước khi đấu dây. Đặt điện trở tải trên đế chịu nhiệt.
+2. Nối **đầu ra thứ nhất của nguồn 12 VAC** vào một dây, luồn dây này **một lượt qua lỗ CT**, rồi nối đến một đầu điện trở 50 Ω–25 W.
+3. Nối đầu còn lại của điện trở về **đầu ra thứ hai của nguồn 12 VAC**, tạo thành vòng kín. Dây về đi ngoài lỗ CT; không luồn cả dây đi và dây về cùng qua CT.
+4. Nối **hai dây thứ cấp của CT** vào khối dòng node theo mục 2.4. Điện trở burden 150 Ω phải mắc kín vào thứ cấp CT trước khi bật tải; không tháo dây CT khi dòng sơ cấp đang chạy.
+
+| Từ | Đến | Ghi chú |
+|---|---|---|
+| Đầu ra 1 của nguồn 12 VAC | Một đầu điện trở tải | Dây nối đi qua lỗ CT một lượt |
+| Đầu còn lại của điện trở tải | Đầu ra 2 của nguồn 12 VAC | Dây về đi ngoài CT |
+| Hai dây thứ cấp CT | Hai đầu burden 150 Ω của mạch dòng | Đây là đường tín hiệu về node |
+
+Bài kiểm ở phần 3 tăng lần lượt từ **1 → 2 → 3 điện trở 50 Ω–25 W mắc song song**. Đặt dây xuyên CT **trước chỗ chia nhánh** để đo tổng dòng. **Đo tổng dòng tải bằng đồng hồ ở từng mức 1–2–3 tải để kiểm tra: dòng thực tăng thì biên độ tín hiệu CT tại PA0 cũng tăng.**
+
+Không dẫn dòng tải qua breadboard hoặc đưa 12 VAC vào các chân nguồn/ADC của node.
+
+> [!note] Cách đo dòng tải bằng đồng hồ vạn năng (nguồn cách ly 12 VAC)
+>
+> 1. Kiểm đồng hồ có chế độ **A~ (đo dòng xoay chiều)**; chỉ có V~ thì không đo trực tiếp dòng AC theo cách này được.
+> 2. **Tắt nguồn tải.** Cắm que đen vào **COM**, que đỏ vào cổng **A/10A** theo hướng dẫn đồng hồ; chọn đo **A~**, thang đủ lớn hơn 0,72 A (thường bắt đầu ở thang 10 A). Không dùng cổng mA nếu giới hạn cổng thấp hơn dòng tải.
+> 3. Tháo một đầu dây cấp chung khỏi đầu ra 1 của nguồn 12 VAC. Nối que đỏ vào đầu ra 1, que đen vào đầu dây vừa tháo; dùng kẹp giữ chắc. Đồng hồ lúc này nằm **nối tiếp**, toàn bộ dòng tải đi qua đồng hồ.
+> 4. Đường nối: **đầu ra 1 nguồn → que đỏ → đồng hồ → que đen → dây qua CT → các tải song song → đầu ra 2 nguồn**. Không chạm hai que trực tiếp vào hai đầu nguồn khi đang chọn đo dòng, vì sẽ gây ngắn mạch.
+> 5. Bật nguồn, đọc số ở đơn vị **A** và ghi vào bảng 3.3. Tuân thủ giới hạn thời gian đo ở cổng A/10A ghi trên đồng hồ; tắt nguồn trước mỗi lần thêm tải hoặc đổi thang/cổng que.
+> 6. Đo xong, tắt nguồn, tháo đồng hồ và nối lại dây cấp tải. Chuyển que đỏ về cổng **V/Ω** để tránh nhầm khi đo điện áp lần sau.
+
+## 2.4. Nối dây node
 
 ### Khối nguồn, MCU
 
@@ -166,7 +195,7 @@ Khối quang dùng mạch **TIA (Transimpedance Amplifier — bộ khuếch đ�
 
 ### Khối dòng
 
-![Khối dòng và BIAS](../pcb/hinh_minh_hoa_pcb/03_khoi_dong.png)
+![Khối dòng và BIAS](../pcb/Chuong_3_Thiet_ke_phan_cung/hinh_minh_hoa_pcb/03_khoi_dong.png)
 
 **Chuyển đổi dòng điện thành điện áp (Biến dòng CT và R2)**
 Biến dòng (CT) loại DL-CT08CL6-1000/1 có tỷ số biến dòng là 1000:1. Khi có dòng điện chạy qua cuộn sơ cấp, cuộn thứ cấp sẽ sinh ra một dòng điện nhỏ hơn 1000 lần. Dòng thứ cấp này đi qua điện trở gánh R2 có giá trị 150 Ω, biến đổi thành một điện áp xoay chiều:
@@ -253,7 +282,7 @@ Tín hiệu đầu ra từ U3A đi qua mạch lọc thông thấp gồm điện 
 $$f_c = \frac{1}{2\pi \times R3 \times C12} \approx 1{,}59\,\mathrm{kHz}$$
 
 
-==Thành phần tín hiệu 50/60 Hz== gần như giữ nguyên biên độ sau lọc. Các thành phần nhiễu trên 1,59 kHz bị suy giảm trước khi tín hiệu vào PA0 (ADC_CURRENT); tần số càng cao, mức suy giảm càng lớn. Tụ C13 (100 nF) mắc giữa chân nguồn 3V3 và GND của MCP6002 để giảm nhiễu trên đường cấp nguồn. [14], [18]
+==Thành phần tín hiệu 50/60 Hz== gần như giữ nguyên biên độ sau lọc. Các thành phần nhiễu trên 1,59 kHz bị suy giảm trước khi tín hiệu vào PA0 (ADC_CURRENT); tần số càng cao, mức suy giảm càng lớn. Tụ C13 (100 nF) mắc giữa chân nguồn 3V3 và GND của MCP6002 để giảm nhiễu trên đường cấp nguồn. [14], [17]
 > [!note] Lý do chọn tụ 100 nF để lọc nhiễu nguồn
 > **Tụ 104 (Ký hiệu 104 = 100 nF) - Lọc nhiễu nguồn (Decoupling Capacitor)**
 > **100 nF là giá trị nằm trong dải khuyến nghị của Microchip cho MCP6002.** Datasheet **MCP6001/1R/1U/2/4, DS20001733L**, mục **4.4 “Supply Bypass”**, khuyến nghị tụ lọc nguồn cục bộ **0,01–0,1 µF (10–100 nF)**, đặt cách chân nguồn không quá **2 mm** [2].
@@ -268,7 +297,7 @@ $$f_c = \frac{1}{2\pi \times R3 \times C12} \approx 1{,}59\,\mathrm{kHz}$$
 
 ### Khối quang
 
-![Khối quang với hai tầng RC](../pcb/hinh_minh_hoa_pcb/04_khoi_quang.png)
+![Khối quang với hai tầng RC](../pcb/Chuong_3_Thiet_ke_phan_cung/hinh_minh_hoa_pcb/04_khoi_quang.png)
 
 **Nhận ánh sáng và tạo dòng quang (D1 – BPW34)**
 
@@ -312,19 +341,31 @@ Nếu ban đầu đầu ra là 1,65 V thì sau đó sẽ tăng lên khoảng 1,7
 
 > [!NOTE] Vai trò của C15 và bộ lọc trước ADC_LIGHT
 >
-> **Điện dung của BPW34:** Cảm biến có cấu trúc bán dẫn PIN, gồm vùng P và N ở hai phía, giữa là lớp I gần như không pha tạp. Vùng nghèo ít hạt mang điện tự do ngăn cách hai phía có thể tích điện, nên cấu trúc này có điện dung tương tự tụ điện. Đây là **điện dung tiếp giáp bên trong cảm biến**, không phải do hai chân anode và cathode đặt gần nhau [3]. Điện dung điển hình là **70 pF khi không phân cực** và **25 pF khi phân cực ngược 3 V**, ở tần số thử 1 MHz; datasheet không nêu giá trị cụ thể tại 1,65 V [4].
+> **Điện dung của BPW34:** Cảm biến có cấu trúc bán dẫn PIN, gồm vùng P và N ở hai phía, giữa là lớp I gần như không pha tạp. Vùng nghèo ít hạt mang điện tự do ngăn cách hai phía có thể tích điện, nên cấu trúc này có điện dung tương tự tụ điện. Đây là **điện dung tiếp giáp bên trong cảm biến**[3]. Điện dung điển hình là **70 pF khi không phân cực** và **25 pF khi phân cực ngược 3 V**, ở tần số thử 1 MHz; datasheet không nêu giá trị cụ thể tại 1,65 V [4].
 >
-> **Lý do dùng R6–C15:** Gọi tổng điện dung của cảm biến, đầu vào op-amp và dây nối là $C_{\mathrm{in}}$. Khi xét đường hồi tiếp và tạm chưa có C15, **R6 cùng $C_{\mathrm{in}}$ tạo một mạng RC thông thấp từ đầu ra về chân đảo (−)**, có **hàm truyền một tầng** $H_1(s)=1/(1+sR6\,C_{\mathrm{in}})$, cùng dạng công thức (8), mục 2.2 trong [Bộ lọc thông thấp](../Phu_luc/Bo_loc_thong_thap.md), khi thay $R=R6$, $C=C_{\mathrm{in}}$. Trong đường hồi tiếp, hàm truyền này được gọi là hệ số hồi tiếp $\beta(s)=H_1(s)$. **Tần số cắt** của mạng là $f_c=1/(2\pi R6\,C_{\mathrm{in}})$, theo công thức (1), mục 1.1 của phụ lục. Mạng làm điện áp hồi tiếp trễ pha theo đặc tính một tầng ở công thức (4), mục 1.3; tần số cắt này thuộc mạng R6–$C_{\mathrm{in}}$ đang xét, khác mốc RC của R6–C15 bên dưới. Độ trễ đó cộng với độ trễ bên trong op-amp có thể khiến **đầu ra điều chỉnh quá mức rồi đổi chiều liên tiếp**, thay vì ổn định ngay sau cạnh xung; đó là ringing. Mạng RC riêng lẻ không tự gây ringing: hiện tượng xuất hiện do tương tác với op-amp trong vòng hồi tiếp khi dự trữ pha thấp. Nếu tổng độ trễ pha đạt khoảng 180° trong khi độ lợi vòng vẫn từ 1 trở lên, mạch có thể tự dao động dù ánh sáng không đổi [1], [3]. R6 chuyển dòng quang thành điện áp; C15 mắc song song với R6 để bù pha, hỗ trợ hạn chế dao động [1], [3]. Chọn **100 pF** nhằm hạn chế làm chậm tín hiệu: với **R6 = 10 kΩ**, hằng số thời gian $\tau=R6\,C15=1\,\mathrm{\mu s}$. Tăng tụ lên 10 nF sẽ làm $\tau$ tăng lên 100 µs, khiến đầu ra thay đổi chậm hơn và xung ngắn dễ bị giảm biên độ. Đây là lựa chọn thiết kế của đồ án; các phép tính đáp ứng được trình bày trong phụ lục.
+> **Lý do dùng R6–C15:**
+>
+> - **Điện dung đầu vào:** $C_{\mathrm{in}}$ là tổng điện dung của cảm biến, đầu vào op-amp và dây nối.
+>
+> - **Mạng hồi tiếp:** Khi chưa có C15, R6 và $C_{\mathrm{in}}$ tạo mạng RC thông thấp từ đầu ra về chân đảo (−). Hệ số hồi tiếp là $\beta(s)=H_1(s)=1/(1+sR6\,C_{\mathrm{in}})$, tương ứng công thức (8), mục 2.2 của [phụ lục](../Phu_luc/Bo_loc_thong_thap.md), với $R=R6$, $C=C_{\mathrm{in}}$.
+>
+> - **Tần số cắt và trễ pha:** $f_c=1/(2\pi R6\,C_{\mathrm{in}})$, theo công thức (1), mục 1.1. Mạng gây trễ pha theo công thức (4), mục 1.3. Đây là tần số cắt của R6–$C_{\mathrm{in}}$, khác mốc RC của R6–C15 bên dưới.
+>
+> - **Ringing và tự dao động:** Trễ pha của mạng cộng với trễ bên trong op-amp có thể làm đầu ra nhấp nhô sau cạnh xung (ringing) khi dự trữ pha thấp. Nguyên nhân là tương tác trong vòng hồi tiếp; mạng RC riêng lẻ không tự gây ringing. Nếu tổng trễ pha khoảng 180° và độ lợi vòng còn từ 1 trở lên, mạch có thể tự dao động dù ánh sáng không đổi [1], [3].
+>
+> - **Vai trò R6–C15:** R6 chuyển dòng quang thành điện áp. C15 mắc song song R6 để bù pha, giúp hạn chế dao động [1], [3].
+>
+> - **Chọn C15 = 100 pF:** Với **R6 = 10 kΩ**, $\tau=R6\,C15=1\,\mathrm{\mu s}$. Dùng 10 nF sẽ tăng $\tau$ lên 100 µs, làm đầu ra chậm hơn và dễ giảm biên độ xung ngắn. Đồ án chọn 100 pF để hạn chế làm chậm tín hiệu; phép tính đáp ứng nằm trong phụ lục.
 >
 > **C15 = 100 pF** mắc song song với **R6 = 10 kΩ** trong mạng hồi tiếp, **tạo đặc tính lọc thông thấp cho TIA** và hỗ trợ ổn định vòng hồi tiếp. Với DC và tín hiệu tần số thấp, dòng hồi tiếp chủ yếu qua R6, tạo điện áp đầu ra theo dòng quang. Khi tần số tăng, phần dòng qua C15 tăng, làm biên độ điện áp đầu ra giảm. Mốc RC của mạng R6–C15 trong mô hình TIA lý tưởng khoảng **159 kHz**, với hằng số thời gian **1 µs** [3], [4].
 >
-> Sau TIA, tín hiệu qua **hai tầng RC nối trực tiếp**: R11/C17 và R12/C18, mỗi tầng **1 kΩ/10 nF**, rồi tới **PA1 (ADC_LIGHT)**. Tần số cắt tính cho cả hai tầng khoảng **5,96 kHz**. Đây là bộ lọc giảm nhiễu trước ADC; C15 thuộc mạng hồi tiếp TIA, không thay thế hai tầng này [15], [18].
+> Sau TIA, tín hiệu qua **hai tầng RC nối trực tiếp**: R11/C17 và R12/C18, mỗi tầng **1 kΩ/10 nF**, rồi tới **PA1 (ADC_LIGHT)**. Tần số cắt tính cho cả hai tầng khoảng **5,96 kHz**. Đây là bộ lọc giảm nhiễu trước ADC; C15 thuộc mạng hồi tiếp TIA, không thay thế hai tầng này [15], [17].
 >
 > **Xem thêm:** [Bộ lọc thông thấp](../Phu_luc/Bo_loc_thong_thap.md)
 
 > [!NOTE] Khác biệt giữa lọc quang và lọc dòng
 >
-> **Khối quang** cần nhận biết xung sáng ngắn nên dùng tụ **10 nF** ở mỗi tầng để hạn chế làm chậm tín hiệu; hai tầng giúp giảm nhiễu cao tần mạnh hơn một tầng cùng R, C. **Khối dòng** chủ yếu đo thành phần **50/60 Hz**, dùng **một tầng 1 kΩ/100 nF**, tần số cắt khoảng **1,59 kHz**, để giảm nhiễu và hạn chế suy giảm các sóng hài cần quan sát [1], [14], [15], [18].
+> **Khối quang** cần nhận biết xung sáng ngắn nên dùng tụ **10 nF** ở mỗi tầng để hạn chế làm chậm tín hiệu; hai tầng giúp giảm nhiễu cao tần mạnh hơn một tầng cùng R, C. **Khối dòng** chủ yếu đo thành phần **50/60 Hz**, dùng **một tầng 1 kΩ/100 nF**, tần số cắt khoảng **1,59 kHz**, để giảm nhiễu và hạn chế suy giảm các sóng hài cần quan sát [1], [14], [15], [17].
 >
 > **Xem thêm:** [Bộ lọc thông thấp](../Phu_luc/Bo_loc_thong_thap.md).
 
@@ -352,11 +393,11 @@ Blue Pill gửi và nhận dữ liệu qua UART; module MAX3485 chuyển dữ li
 
 **Đường phát và nhận dữ liệu**
 
-| Nhãn (chân MCU)     | Chân module                                         | Chức năng                                                                                                                                                                                                                                                                         |
-| ------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nhãn (chân MCU)     | Chân module                                         | Chức năng                                                                                                                                                                                                                                                                                        |
+| ------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **UART_TX (PA9)**   | **DI — Driver Input:** đầu vào bộ phát              | **USART1 (Universal Synchronous/Asynchronous Receiver/Transmitter)** là bộ thu/phát nối tiếp đồng bộ hoặc không đồng bộ số 1 bên trong STM32. Trong mạch này, USART1 dùng chế độ không đồng bộ (UART), đưa dữ liệu ra chân **PA9 (TX)** rồi vào DI của module để gửi tới gateway.  [5], [6], [7] |
-| **UART_RX (PA10)**  | **RO — Receiver Output:** đầu ra bộ thu             | Dữ liệu nhận từ gateway được module chuyển về chân nhận USART1 của Blue Pill.                                                                                                                                                                                                      [5], [7] |
-| **RS485_DIR (PB0)** | **DE — Driver Enable** và **/RE — Receiver Enable** | Chọn chiều phát hoặc nhận của module; hai chân điều khiển nối chung vào PB0.                                                                                                                                                                                                       [7] |
+| **UART_RX (PA10)**  | **RO — Receiver Output:** đầu ra bộ thu             | Dữ liệu nhận từ gateway được module chuyển về chân nhận USART1 của Blue Pill.                                                                                                                                                                                                      [5], [7]      |
+| **RS485_DIR (PB0)** | **DE — Driver Enable** và **/RE — Receiver Enable** | Chọn chiều phát hoặc nhận của module; hai chân điều khiển nối chung vào PB0.                                                                                                                                                                                                       [7]           |
 
 **Chọn chiều truyền bằng PB0**
 
@@ -371,7 +412,7 @@ Khi gửi xong byte cuối, chương trình phải chờ **cờ TC (Transmission
 
 **Truyền dữ liệu trên cặp A/B**
 
-RS485 truyền dữ liệu bằng **chênh lệch điện áp giữa hai dây**, $V_{\mathrm{AB}}=V_A-V_B$. Bộ thu dựa vào chênh lệch này để khôi phục dữ liệu UART. Nối **A với A, B với B** ở gateway; dây **GND đi cùng cáp** làm mốc chung giữa hai bên. Dùng nguyên module và kiểm tra điện trở kết thúc đường truyền (termination), mạch đặt mức chờ (bias) đã tích hợp trên bo thực. [17]
+RS485 truyền dữ liệu bằng **chênh lệch điện áp giữa hai dây**, $V_{\mathrm{AB}}=V_A-V_B$. Bộ thu dựa vào chênh lệch này để khôi phục dữ liệu UART. Nối **A với A, B với B** ở gateway; dây **GND đi cùng cáp** làm mốc chung giữa hai bên. Dùng nguyên module và kiểm tra điện trở kết thúc đường truyền (termination), mạch đặt mức chờ (bias) đã tích hợp trên bo thực. [16]
 
 **Tốc độ truyền UART**
 
@@ -395,7 +436,7 @@ $$
 
 **Trước khi nối ADC:** đo nguồn, BIAS và đầu ra hai đường đo; chỉ nối khi điện áp nằm trong dải ADC. Node dùng adapter riêng; ST-Link không cấp thêm nguồn khi node đang chạy bằng adapter. [5]
 
-## 2.4. Nối dây gateway
+## 2.5. Nối dây gateway
 
 ![Khối gateway ESP32 DevKit V1 và module MAX13487E](hinh_minh_hoa_module/05_gateway_module.png)
 
@@ -426,7 +467,7 @@ MAX13487E có chức năng **tự điều khiển chiều truyền**, nên ESP32
 
 **Nối cặp A/B về node**
 
-Nối **A với A, B với B**, kèm dây **GND làm mốc chung**. Dữ liệu được truyền bằng chênh lệch điện áp giữa A và B. Giữa node và gateway chỉ nối **A, B và GND**; node dùng adapter riêng, gateway dùng USB laptop. [17]
+Nối **A với A, B với B**, kèm dây **GND làm mốc chung**. Dữ liệu được truyền bằng chênh lệch điện áp giữa A và B. Giữa node và gateway chỉ nối **A, B và GND**; node dùng adapter riêng, gateway dùng USB laptop. [16]
 
 **Tốc độ truyền và chu kỳ hỏi**
 
@@ -438,7 +479,7 @@ $$
 
 Trong đó, $L$ là tổng số byte của bản tin, gồm cả phần dữ liệu và các byte đóng khung; $N_{\mathrm{bit}}$ là số bit truyền cho một byte, $B$ là tốc độ bit (bit/s), còn $t_{\mathrm{khung}}$ tính bằng giây. Công thức giả sử các byte được phát liên tiếp, không có khoảng nghỉ.
 
-**UART2** dùng **115200 baud, 8N1**, tương tự phía node: mỗi byte gồm 1 bit bắt đầu, 8 bit dữ liệu và 1 bit kết thúc, không có bit kiểm tra chẵn lẻ. Thay $N_{\mathrm{bit}}=10$ và $B=115200$ bit/s: [10]
+**UART2** dùng **115200 baud, 8N1**, giống phía node. **8 = 8 bit dữ liệu; N (None) = không dùng bit kiểm tra chẵn lẻ; 1 = 1 bit dừng (kết thúc)**. Cộng thêm 1 bit bắt đầu, mỗi byte truyền cần tổng cộng 10 bit. Thay $N_{\mathrm{bit}}=10$ và $B=115200$ bit/s: [10]
 
 $$
 t_{\mathrm{khung}}=\frac{10L}{115200}.
@@ -453,221 +494,6 @@ t_{\mathrm{khung}}=\frac{10\times20}{115200}
 $$
 
 Thời gian này chưa gồm thời gian node xử lý, đổi chiều và gửi phản hồi. **Chu kỳ hỏi** là khoảng thời gian giữa các lần gateway yêu cầu dữ liệu; **chu kỳ lấy mẫu ADC** là khoảng thời gian giữa các lần node đọc tín hiệu. Gateway nhận kết quả đo, không quyết định trực tiếp tốc độ lấy mẫu ADC của node.
-
-# 3. Kiểm thử module và chốt số liệu chuyển sang PCB
-
-Các lượt test đều chạy theo đường **node → RS485 → gateway → USB laptop**, lưu kết quả thành CSV. Ghi kèm ngày đo, firmware, giá trị linh kiện, tần số lấy mẫu thực từng kênh và điều kiện tải/ánh sáng. Các ô kết quả dưới đây để điền sau khi đo.
-
-## 3.1. Kiểm tra trước khi test
-
-1. Chưa bật tải 12 VAC; kiểm cực nguồn và burden CT đã kín. Giữ PA0/PA1 và RO gateway tách khỏi đầu nhận khi chưa kiểm điện áp.
-2. Cấp nguồn, đo các điểm trong bảng bằng đồng hồ; dùng scope kiểm thêm sụt nguồn và dao động. Chỉ ghép đầy đủ khi điện áp phù hợp giới hạn IC/ADC/GPIO thực.
-3. Cho gateway hỏi–đáp node qua RS485 ở 115200 baud, 8N1; kiểm nhận được bản tin hợp lệ và mở được CSV trước khi test cảm biến.
-
-| Điểm cần kiểm | Cần xác nhận | Số đo thực |
-|---|---|---|
-| 5 V node; VCC MAX13487E từ USB | Nguồn đúng cực, đủ điện áp khi nghỉ và truyền dữ liệu | … V / … V |
-| 3V3 Blue Pill, MCP6002, MAX3485 | Nguồn ổn định, không reset khi truyền | … V; thấp nhất … V |
-| Điểm giữa cầu chia và BIAS | Gần nửa nguồn 3V3; đầu ra đệm không dao động | … V / … V |
-| Đầu ra dòng, TIA quang, PA0/PA1 | Trong dải ADC và còn biên cho tín hiệu | Min/max … V |
-| RO MAX13487E | Tương thích GPIO 3,3 V trước khi nối GPIO16 | Mức thấp/cao … V |
-
-## 3.2. Test dòng qua RS485
-
-1. Giữ burden 150 Ω–2 W và lọc dòng 1 kΩ/100 nF; che BPW34 để giữ điều kiện quang ổn định.
-2. Đo không tải, rồi lần lượt dùng 1, 2, 3 điện trở 50 Ω–25 W mắc song song với nguồn cách ly 12 VAC. Tắt tải trước mỗi lần đổi; không để hở thứ cấp CT hoặc dẫn dòng tải qua breadboard.
-3. Ở mỗi mức, đo dòng tham chiếu bằng đồng hồ AC và tín hiệu trước/sau lọc bằng scope. Thu mẫu ADC, gửi kết quả qua RS485 và lưu CSV; lặp ba lần.
-
-Với $n$ điện trở bằng nhau $R=50\,\Omega$ mắc song song, điện trở tương đương và dòng tải được tính theo:
-
-$$
-\frac{1}{R_{\mathrm{tđ}}}=\frac{n}{R}
-\quad\Rightarrow\quad
-R_{\mathrm{tđ}}=\frac{50}{n}\,\Omega,
-\qquad I_{\mathrm{tải}}=\frac{U_{\mathrm{tải}}}{R_{\mathrm{tđ}}}.
-$$
-
-Nếu điện áp thực trên bộ tải là **12 V RMS**, kết quả tính lý tưởng là:
-
-| Bộ tải | Điện trở tương đương | Dòng tải tính toán (RMS) |
-|---|---|---|
-| 1 điện trở 50 Ω | $R_{\mathrm{tđ}}=50\,\Omega$ | $I=12/50=0{,}24\,\mathrm A$ |
-| 2 điện trở 50 Ω song song | $R_{\mathrm{tđ}}=50/2=25\,\Omega$ | $I=12/25=0{,}48\,\mathrm A$ |
-| 3 điện trở 50 Ω song song | $R_{\mathrm{tđ}}=50/3\approx16{,}67\,\Omega$ | $I=12/(50/3)=0{,}72\,\mathrm A$ |
-
-Mỗi nhánh tiêu tán $P=U^2/R=12^2/50=2{,}88\,\mathrm W$; tổng công suất của ba nhánh là $3\times2{,}88=8{,}64\,\mathrm W$. Điện trở đang dùng có định mức 25 W mỗi chiếc.
-
-Điện áp nguồn có thể sụt khi có tải và điện trở thực có sai số. Vì vậy cần ghi điện áp tải và dòng đo thực để đối chiếu, không dùng các giá trị tính thay kết quả đo.
-
-**Cần ghi:** dòng tham chiếu, RMS dòng node, BIAS, min/max PA0, nhiễu khi không tải, clipping (bẹt/cắt đỉnh), lỗi bản tin và tên CSV.
-
-Điền mỗi dòng cho một lượt đo; lặp bảng cho lần 2 và 3. Các ô “…” là số đo thực, không phải giá trị dự kiến.
-
-| Điều kiện | I tham chiếu (A RMS) | I node (A RMS) | BIAS (V) | PA0 min/max (V) | Nhiễu/clipping | CRC/timeout; CSV |
-|---|---|---|---|---|---|---|
-| Không tải | … | … | … | … / … | … | … |
-| 1 điện trở 50 Ω | … | … | … | … / … | … | … |
-| 2 điện trở 50 Ω song song | … | … | … | … / … | … | … |
-| 3 điện trở 50 Ω song song | … | … | … | … / … | … | … |
-
-Ghi RMS trước/sau lọc (V) và file scope kèm từng lượt: … / …; … .
-
-## 3.3. Test quang qua RS485
-
-1. Giữ hồi tiếp 10 kΩ/100 pF và cả hai tầng lọc 1 kΩ/10 nF. Giữ tải dòng ở trạng thái không tải.
-2. Đo lần lượt khi che BPW34, dưới ánh sáng phòng và chiếu đèn ở khoảng cách/góc cố định; lặp ba lần, ghi điện áp TIA và PA1.
-3. Nếu cần đánh giá xung, kích LED qua điện trở hạn dòng 330 Ω bằng nguồn xung phù hợp; thử 1 ms rồi 100 µs. Đo xung kích, TIA và PA1 bằng scope; ghi số xung phát/nhận với ngưỡng đã chọn. Chưa có dụng cụ thì ghi “chưa thử”.
-4. Trong các lượt đo, giữ RS485 hoạt động và lưu CSV, kể cả lúc thay đổi sáng/che.
-
-**Cần ghi:** mức nền, mức sáng, nhiễu, min/max PA1, clipping, điều kiện đèn; với xung thêm độ rộng thực, số nhận/phát, độ trễ và tần số lấy mẫu. Giữ nguyên hai tầng lọc khi đo trước/sau lọc.
-
-Lặp bảng quang tĩnh cho ba lần đo; ghi khoảng cách/góc đèn: … cm / …°.
-
-| Điều kiện | TIA trung bình (V) | PA1 trung bình (V) | PA1 min/max (V) | Nhiễu (mVpp)/clipping | CRC/timeout; CSV |
-|---|---|---|---|---|---|
-| Che BPW34 | … | … | … / … | … | … |
-| Ánh sáng phòng | … | … | … / … | … | … |
-| Chiếu đèn cố định | … | … | … / … | … | … |
-
-| Xung đặt | Độ rộng thực (µs) | fs PA1 (mẫu/s) | ΔV TIA/PA1 (V) | Số nhận/phát | Trễ (µs) | CRC/timeout; CSV |
-|---|---|---|---|---|---|---|
-| 1 ms | … | … | … / … | … / … | … | … |
-| 100 µs | … | … | … / … | … / … | … | … |
-
-Ngưỡng nhận xung và mốc đo trễ: … . Nếu chưa thử xung, ghi “chưa thử” trong bảng.
-
-## 3.4. Test dòng và quang đồng thời qua RS485
-
-1. Thu cả PA0 và PA1, ghi tần số lấy mẫu thực từng kênh; chạy liên tục 10 phút và lưu CSV qua gateway.
-2. Thử bốn trạng thái: không tải/che, có tải/che, không tải/chiếu sáng, có tải/chiếu sáng. Đánh dấu thời điểm đổi trạng thái để kiểm hai kênh có ảnh hưởng lẫn nhau không.
-3. Theo dõi nguồn, BIAS, reset, mất mẫu, CRC và timeout. Rút cáp RS485 rồi nối lại một lần; kiểm gateway báo mất kết nối và nhận lại số liệu mới, không coi dữ liệu cũ là dữ liệu đang đo.
-
-Ghi tải đang dùng: …; thời gian chạy: … phút; fs PA0/PA1: … / … mẫu/s.
-
-| Trạng thái | Thời điểm (s) | I node (A RMS) | PA1 trung bình (V) | 3V3/BIAS (V) | CRC/timeout/reset/mất mẫu | CSV |
-|---|---|---|---|---|---|---|
-| Không tải / che | … | … | … | … / … | … | … |
-| Có tải / che | … | … | … | … / … | … | … |
-| Không tải / chiếu sáng | … | … | … | … / … | … | … |
-| Có tải / chiếu sáng | … | … | … | … / … | … | … |
-
-| Thử liên kết | Thời điểm (s) | Trạng thái gateway | Tuổi dữ liệu (s) | Thời gian phát hiện/phục hồi (s) | CSV |
-|---|---|---|---|---|---|
-| Rút cáp RS485 | … | … | … | … | … |
-| Nối lại cáp | … | … | … | … | … |
-
-**CSV tóm tắt:** thời gian PC, node_id, uptime/phiên chạy, SEQ, trạng thái kết nối/tuổi dữ liệu, dòng RMS, mức quang, min/max hai kênh, cờ sự kiện, số mất mẫu và lỗi truyền. Ghi đơn vị; dòng chưa hiệu chuẩn phải ghi rõ hoặc lưu điện áp/count.
-
-Mẫu nhanh dùng tính RMS trên node hoặc lưu thành CSV waveform riêng có chỉ số mẫu, kênh và tần số lấy mẫu. Log tóm tắt chậm không dùng để tính lại RMS hoặc chứng minh bắt được xung ngắn. Nếu dừng thu để tải waveform qua RS485, ghi khoảng mất quan sát.
-
-## 3.5. Xử lý số liệu, kết quả và điều kiện chuyển sang PCB
-
-Tính riêng từng lượt đo, ghi tên CSV/ảnh scope tương ứng. Các ví dụ dưới đây chỉ minh họa phép tính; điền số đo thực vào bảng kết quả phía dưới.
-
-**Đổi ADC thành điện áp và tính RMS**
-
-Lấy $c_i$ là mẫu ADC thứ $i$ từ **CSV waveform PA0 ở 3.2 hoặc 3.4**; $N$ là số mẫu trong cửa sổ, $V_{\mathrm{DDA}}$ là nguồn tham chiếu đo tại node ở **3.1**. Nếu CSV đã ghi volt thì dùng trực tiếp $v_i$:
-
-$$
-v_i=\frac{c_i}{4095}V_{\mathrm{DDA}},\qquad
-\bar v=\frac{1}{N}\sum_{i=1}^{N}v_i,\qquad
-V_{\mathrm{AC}}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}(v_i-\bar v)^2}.
-$$
-
-$\bar v$ là nền trung bình; trừ nền để RMS chỉ còn phần biến thiên của tín hiệu. Dùng cửa sổ chứa nhiều chu kỳ dòng, không tính RMS từ CSV tóm tắt chậm. Ví dụ $c_i=2048$, $V_{\mathrm{DDA}}=3{,}3$ V cho $v_i\approx1{,}6504$ V; một mẫu này chưa đủ tính RMS.
-
-**Tính dòng, hiệu chuẩn và sai số — dùng số liệu 3.2**
-
-Lấy $I_{\mathrm{ref}}$ từ cột **I tham chiếu**, $V_{\mathrm{AC}}$ từ waveform PA0 vừa tính; $R_b=150\,\Omega$ là burden đang dùng. Với một lượt dây sơ cấp, tỷ số CT $k=1000$ đã chốt theo xác nhận người dùng:
-
-$$
-I_{\mathrm{lý\ thuyết}}\approx\frac{kV_{\mathrm{AC}}}{R_b},\qquad
-S=\frac{V_{\mathrm{AC,cal}}}{I_{\mathrm{ref,cal}}},\qquad
-I_{\mathrm{đo}}=\frac{V_{\mathrm{AC}}}{S},\qquad
-\varepsilon_I=\frac{I_{\mathrm{đo}}-I_{\mathrm{ref}}}{I_{\mathrm{ref}}}\times100\%.
-$$
-
-Chọn một mức dòng khác 0 để tính độ nhạy $S$ (V/A), ký hiệu “cal”; giữ mức khác để kiểm sai số, không dùng cùng điểm hiệu chuẩn để chứng minh độ chính xác. Công thức lý thuyết coi độ lợi gần 1; hiệu chuẩn tại PA0 tính cả ảnh hưởng đường đo và bộ lọc trong điều kiện đã thử. Tại không tải, ghi $V_{\mathrm{AC,0}}$ làm mức nền nhiễu; không tính sai số phần trăm khi $I_{\mathrm{ref}}=0$.
-
-Ví dụ $V_{\mathrm{AC,cal}}=0{,}108$ V, $I_{\mathrm{ref,cal}}=0{,}72$ A cho $S=0{,}15$ V/A. Ở điểm kiểm độc lập, nếu $V_{\mathrm{AC}}=0{,}0735$ V và $I_{\mathrm{ref}}=0{,}48$ A thì $I_{\mathrm{đo}}=0{,}49$ A, $\varepsilon_I\approx+2{,}08\%$.
-
-Lấy hai giá trị **RMS trước/sau lọc** và file scope ở **3.2**, cùng cửa sổ đo:
-
-$$
-G_{\mathrm{dòng}}=\frac{V_{\mathrm{AC,sau}}}{V_{\mathrm{AC,trước}}}.
-$$
-
-$G_{\mathrm{dòng}}$ cho biết biên độ còn lại sau lọc trong điều kiện thử; không chia khi tín hiệu trước lọc bằng hoặc quá gần 0.
-
-**Tính đáp ứng ánh sáng và xung — dùng số liệu 3.3**
-
-Lấy $V_{\mathrm{sáng}}$, $V_{\mathrm{che}}$ từ cột **TIA trung bình**, cùng cách đặt đèn và cùng lượt thử; điện trở hồi tiếp $R_f=10\,\mathrm{k}\Omega$:
-
-$$
-\Delta V_{\mathrm{TIA}}=V_{\mathrm{sáng}}-V_{\mathrm{che}},\qquad
-\Delta I_{\mathrm{quang}}\approx\frac{\Delta V_{\mathrm{TIA}}}{R_f}.
-$$
-
-Ví dụ $V_{\mathrm{sáng}}=1{,}75$ V và $V_{\mathrm{che}}=1{,}65$ V cho $\Delta V_{\mathrm{TIA}}=0{,}10$ V, $\Delta I_{\mathrm{quang}}\approx10$ µA. Chỉ dùng khi TIA chưa bão hòa; đây là thay đổi dòng quang, chưa phải độ rọi lux.
-
-Với phép thử xung, lấy biên độ **ΔV TIA/PA1** và **số nhận/phát** từ bảng xung **3.3**; mỗi biên độ là điện áp đỉnh trừ nền tại chính điểm đo:
-
-$$
-K_{\mathrm{đỉnh}}=\frac{\Delta V_{\mathrm{PA1}}}{\Delta V_{\mathrm{TIA}}}\times100\%,\qquad
-p_{\mathrm{bỏ}}=\frac{N_{\mathrm{phát}}-N_{\mathrm{nhận}}}{N_{\mathrm{phát}}}\times100\%.
-$$
-
-Ví dụ 0,08 V/0,10 V cho $K_{\mathrm{đỉnh}}=80\%$; nhận 98/100 xung cho $p_{\mathrm{bỏ}}=2\%$. Chỉ tính khi mẫu số khác 0 và các xung nhận đã ghép đúng với xung phát; ghi riêng phát hiện nhầm nếu có. Lấy độ trễ $t_d$ từ scope/bảng xung, theo mốc và ngưỡng đã ghi ở 3.3; không dùng thời gian nhận USB làm độ trễ cảm biến.
-
-**Tính lỗi RS485 và phục hồi — dùng số liệu 3.4**
-
-Lấy $N_{\mathrm{hỏi}}$ từ bộ đếm yêu cầu gốc của gateway và $N_{\mathrm{lỗi}}$ là số yêu cầu không có phản hồi hợp lệ trong thời hạn. Ghi hai bộ đếm này kèm CSV; lần retry không tính thành yêu cầu mới. CRC và timeout chỉ là nguyên nhân lỗi, không cộng trùng cùng một yêu cầu:
-
-$$
-p_{\mathrm{RS485}}=\frac{N_{\mathrm{lỗi}}}{N_{\mathrm{hỏi}}}\times100\%,\qquad
-t_{\mathrm{mất}}=t_{\mathrm{OFFLINE}}-t_{\mathrm{rút}},\qquad
-t_{\mathrm{phục\ hồi}}=t_{\mathrm{hợp\ lệ\ mới}}-t_{\mathrm{nối}}.
-$$
-
-Lấy thời điểm rút/nối từ bảng **Thử liên kết 3.4**, thời điểm báo OFFLINE/nhận dữ liệu mới từ CSV gateway, dùng cùng mốc thời gian. Ví dụ 2 yêu cầu lỗi trong 1200 yêu cầu cho $p_{\mathrm{RS485}}\approx0{,}167\%$. Ghi số reset và mất mẫu từ bộ đếm firmware ở CSV; không suy số mất mẫu ADC từ số gói RS485 bị mất.
-
-**Bảng điền kết quả tính**
-
-Lặp bảng cho từng lượt/điều kiện cần so sánh; đơn vị phải giống công thức. Chưa có dữ liệu thì ghi “chưa đo/chưa thử”.
-
-| Kết quả và ký hiệu | Giá trị điền | Nguồn số liệu dùng tính |
-|---|---|---|
-| Dòng — điều kiện/lần đo | … / … | Bảng 3.2; CSV/ảnh: … |
-| Nguồn tham chiếu $V_{\mathrm{DDA}}$ (V) | … | Số đo node ở 3.1 |
-| Nền PA0 $\bar v$ (V); nhiễu không tải $V_{\mathrm{AC,0}}$ (V RMS) | … / … | Waveform PA0 có tải/không tải 3.2 |
-| RMS PA0 $V_{\mathrm{AC}}$ (V) | … | Waveform 3.2 hoặc 3.4 |
-| Dòng tham chiếu $I_{\mathrm{ref}}$ (A RMS) | … | Đồng hồ AC, bảng 3.2 |
-| Điểm hiệu chuẩn $(I_{\mathrm{ref,cal}},V_{\mathrm{AC,cal}})$ (A; V) | … ; … | Lượt hiệu chuẩn 3.2; file: … |
-| Độ nhạy $S$ (V/A) | … | Tính từ điểm hiệu chuẩn trên |
-| Dòng tính được $I_{\mathrm{đo}}$ (A RMS) | … | $V_{\mathrm{AC}}/S$ ở điểm kiểm độc lập |
-| Sai số $\varepsilon_I$ (%); giữ biên độ $G_{\mathrm{dòng}}$ (V/V) | … / … | Điểm kiểm và RMS scope trước/sau lọc 3.2 |
-| Quang — điều kiện/lần đo | … / … | Bảng 3.3; CSV/ảnh: … |
-| TIA sáng/che $(V_{\mathrm{sáng}},V_{\mathrm{che}})$ (V) | … ; … | Cột TIA trung bình 3.3 |
-| Đáp ứng $\Delta V_{\mathrm{TIA}}$ (V); $\Delta I_{\mathrm{quang}}$ (µA) | … / … | Hiệu sáng–che; chia $R_f$, đổi A sang µA |
-| Giữ đỉnh $K_{\mathrm{đỉnh}}$ (%) | … | Cột ΔV TIA/PA1, bảng xung 3.3 |
-| Số xung $(N_{\mathrm{nhận}},N_{\mathrm{phát}})$; bỏ sót $p_{\mathrm{bỏ}}$ (%) | … ; … / … | Bảng xung 3.3 |
-| Xung ngắn nhất đã thử $t_{\mathrm{xung}}$ (µs); trễ $t_d$ (µs) | … / … | Độ rộng thực, trễ và ngưỡng nhận 3.3 |
-| Đồng thời — thời gian chạy $T$ (phút) | … | Phiên đo 3.4; CSV: … |
-| Yêu cầu $(N_{\mathrm{hỏi}},N_{\mathrm{lỗi}})$; tỷ lệ $p_{\mathrm{RS485}}$ (%) | … ; … / … | Bộ đếm gateway và CSV 3.4 |
-| Phát hiện mất liên kết $t_{\mathrm{mất}}$ (s); phục hồi $t_{\mathrm{phục\ hồi}}$ (s) | … / … | Bảng liên kết và CSV 3.4 |
-| Reset $N_{\mathrm{reset}}$; mất mẫu ADC $N_{\mathrm{mất\ mẫu}}$ | … / … | Bộ đếm firmware trong phiên 3.4 |
-
-**Bảng chốt:** điền giới hạn cần đạt theo mục tiêu đề tài trước khi kết luận; không tự xem số đo “có tín hiệu” là đạt.
-
-| Hạng mục | Kết quả đo cần chốt | Điều kiện để chuyển sang PCB |
-|---|---|---|
-| Nguồn và BIAS | Điện áp min/max …; reset … | Đúng dải hoạt động, BIAS ổn định khi thu và truyền đồng thời. Nguồn PCB phải tính riêng theo IC rời. |
-| Dòng | Dải đã thử … A; S … V/A; sai số lớn nhất …%; nhiễu … | Đáp ứng dải và sai số mục tiêu …; không clipping. Ghi căn cứ giữ burden 150 Ω và lọc 1 kΩ/100 nF, kiểm tải CT/công suất burden ở dòng mục tiêu. |
-| Quang | Mức che/sáng …; xung ngắn nhất đã thử …; bỏ sót …%; trễ … | Phân biệt được các mức cần đo, không bão hòa trong điều kiện mục tiêu; đạt yêu cầu xung … nếu đề tài cần. Chốt hồi tiếp 10 kΩ/100 pF và hai RC cố định. |
-| Đồng thời và RS485 | Thời gian chạy …; mất mẫu …; CRC/timeout …; phục hồi … | Hai kênh và truyền dữ liệu cùng hoạt động, không còn lỗi chưa giải thích; CSV có đủ dữ liệu kiểm tra. |
-| Hồ sơ PCB | CSV, ảnh scope, firmware/cấu hình …; việc còn mở … | Có số liệu truy lại được và quyết định giữ/đo thêm rõ ràng trước khi khóa BOM/schematic. |
-
-Chỉ chốt phần đã được đo trong đúng điều kiện thử: tải khoảng 0,72 A chưa xác nhận dải 5 A; đèn/LED chưa chứng minh phát hiện hồ quang thật. Phần chưa đạt mục tiêu hoặc chưa thử phải ghi rõ để đo bổ sung trước khi khóa thiết kế. Khi chuyển PCB, BPW 34 S-Z, nguồn và bố trí mạch thực vẫn cần kiểm lại sau hàn.
 
 # Tài liệu tham khảo
 
@@ -702,8 +528,6 @@ Chỉ chốt phần đã được đo trong đúng điều kiện thử: tải k
 
 [15] Analog Devices University Program, [Activity: Cascaded RC Low Pass Filters — ADALM2000](https://wiki.analog.com/university/labs/cascaded_rc_adalm2000), mục “Objective”, “Background” và sơ đồ hai tầng RC. Căn cứ ảnh hưởng tải giữa các tầng RC nối trực tiếp; nguồn này không xác nhận phép nhân hai hàm truyền RC không tải cho cấu hình không có bộ đệm giữa hai tầng.
 
-[16] Analog Devices University Program, [ADALM1000 SMU Training Topic 4: Transient Response of RC Circuit](https://ez.analog.com/adiacademy/university-program/a/studentzone-articles/SA1046/adalm1000-smu-training-topic-4-transient-response-of-rc-circuit), phần đáp ứng nạp/xả và Table 1 về điện áp theo hằng số thời gian. Cơ sở quan hệ bậc một 1 − exp(−t/τ). Ví dụ xung dòng 10 µs được suy ra cho mạng hồi tiếp R6–C15 lý tưởng trong tài liệu này, không phải phép thử hồ quang hoặc phép đo TIA do Analog Devices công bố.
+[16] Thomas Kugelstadt, Texas Instruments, [The RS-485 Design Guide — SLLA272D](https://www.ti.com/lit/an/slla272d/slla272d.pdf), mục “Standard and Features”, “Bus Topology”, “Cable Type”, “Bus Termination” và phần nối đất. Cơ sở truyền vi sai, cáp cặp xoắn có trở kháng đặc tính khoảng 120 Ω, tham chiếu chung và termination. Không dùng các mạch ví dụ để mặc định thêm điện trở termination hoặc bias rời vào hai module đã chọn.
 
-[17] Thomas Kugelstadt, Texas Instruments, [The RS-485 Design Guide — SLLA272D](https://www.ti.com/lit/an/slla272d/slla272d.pdf), mục “Standard and Features”, “Bus Topology”, “Cable Type”, “Bus Termination” và phần nối đất. Cơ sở truyền vi sai, cáp cặp xoắn có trở kháng đặc tính khoảng 120 Ω, tham chiếu chung và termination. Không dùng các mạch ví dụ để mặc định thêm điện trở termination hoặc bias rời vào hai module đã chọn.
-
-[18] [Bộ lọc thông thấp](../Phu_luc/Bo_loc_thong_thap.md), phần bộ lọc một tầng, hai tầng nối trực tiếp và đáp ứng xung. Nguồn tính toán nội bộ cho hàm truyền có xét tải, mốc 5,96 kHz của hai tầng 1 kΩ/10 nF và mức giữ biên độ của một tầng 1 kΩ/100 nF; không phải datasheet hoặc số đo thực nghiệm. Tỷ số CT 1000:1, số lượng linh kiện và giá trị lắp theo yêu cầu dự án không được xác nhận bởi phụ lục này.
+[17] David M. Alter, Texas Instruments, [Using PWM Output as a Digital-to-Analog Converter on a TMS320F280x Digital Signal Controller](https://www.ti.com/lit/an/spraa88a/spraa88a.pdf), SPRAA88A, tháng 9/2008; mục 4.1–4.2, trang 8–10, công thức (7)–(11), Hình 5–6; mục 5, trang 12, Hình 8–9. Cơ sở chính thức về hàm truyền, băng thông −3 dB, tải giữa các tầng RC và đáp ứng biên độ/pha. Các giá trị 1,59 kHz, 5,96 kHz và tỷ lệ giữ biên độ trong nội dung là kết quả tính khi thay R/C của mạch vào công thức, không phải số đo thực nghiệm do TI công bố.

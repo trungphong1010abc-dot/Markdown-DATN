@@ -18,7 +18,7 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 
 - Một node: Blue Pill STM32F103, CT, BPW34, hai MCP6002 và module MAX3485 ở giai đoạn thử.
 - PCB node dùng cấu hình trong BOM/schematic hiện hành; không tự đổi mã, giá trị, chân hoặc footprint.
-- Một gateway: ESP32 DevKit và module MAX13487E hiện có. Gateway tiếp tục dùng module khi node chuyển sang PCB.
+- Một gateway: ESP32 DevKit và module MAX13487E. Cấu hình gateway của hệ thống PCB gồm hai bo này.
 - Node dùng adapter 5 V riêng; gateway lấy nguồn USB laptop.
 - Node–gateway dùng RS485; gateway–laptop dùng USB. Không tự bổ sung LoRa, pin, cloud hoặc chức năng ngắt điện.
 - Mạch thực của module MAX13487E chưa được xác nhận; không đoán header hoặc mặc định mức UART tương thích ESP32.
@@ -38,13 +38,16 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 - Phần 2 chỉ có ba mục: **2.1 Nhận diện MCP6002 DIP-8**, **2.2 Nối dây node**, **2.3 Nối dây gateway**. Trong node chỉ chia nhóm bằng tiêu đề ngắn; giải thích R/C bằng chức năng, công thức và ví dụ tính cần thiết, không tách thành nhiều mục nhỏ lặp thao tác.
 - Ảnh dùng trong Markdown chỉ giữ PNG; không tự tạo lại SVG hoặc ảnh không được sử dụng. Sau khi thay hình hoặc rút gọn nội dung, kiểm và xóa ảnh hết tham chiếu trong thư mục minh họa.
 - Trong Node/Gateway, nhóm theo khối nguồn nếu có, MCU, dòng, quang và truyền thông. Không tạo khối không có trong thiết bị.
-- Phần bên ngoài gồm nguồn cấp, dây, tải thử, nguồn sáng, dụng cụ và dự phòng; ghi rõ đồ dùng lại khi thử PCB.
+- Phần bên ngoài gồm nguồn cấp, dây, tải thử, nguồn sáng, dụng cụ và dự phòng; ghi trực tiếp chức năng trong hệ thống hoặc phép kiểm thử.
+- Tài liệu báo cáo trình bày độc lập với giai đoạn dựng thử module; tài liệu module nháp không đưa vào báo cáo. Không mô tả linh kiện hoặc thiết bị trong báo cáo bằng các cụm “dùng lại”, “tái sử dụng”, “vẫn dùng”, “tiếp tục dùng” từ giai đoạn module; chỉ nêu cấu hình, chức năng và kết nối hiện tại.
 - Ghi chú trong bảng phải ngắn, dùng từ dễ hiểu. Không lặp lại cả hướng dẫn đấu dây trong ô ghi chú.
-- Giữ đủ linh kiện phụ trợ; phân biệt lắp cố định, có điều kiện và dự phòng. Không cộng trùng linh kiện trên module hoặc đồ tái sử dụng.
+- Giữ đủ linh kiện phụ trợ; phân biệt lắp cố định, có điều kiện và dự phòng. Không cộng trùng linh kiện đã có trên bo hoặc đếm một thiết bị nhiều lần.
 - Khi yêu cầu bảng mua bổ sung, dùng bốn cột: **Linh kiện cần bổ sung | Giai đoạn phục vụ | Số lượng mua mới | Lý do**.
 
 # Tính chính xác và hình minh họa
 
+- **Trong báo cáo, chỉ trình bày nội dung có căn cứ và viết rõ ràng, dứt khoát. Nội dung chưa xác nhận hoặc chưa đủ căn cứ thì bỏ khỏi phần trình bày; không viết lấp lửng và không đổi thành khẳng định chắc chắn bằng cách xóa từ ngữ dè dặt.** Quy tắc áp dụng cho cả module, PCB, bảng linh kiện, ghi chú và phần giải thích nguyên lý.
+- Ghi chú BOM nêu trực tiếp chức năng linh kiện. Không dùng các câu như “xác nhận pad thực”, “đúng pad A/K”, “DNP nếu không dùng” để thay cho thông tin thiết kế đã xác định. Không tự chốt chân, footprint hoặc trạng thái lắp khi chưa có căn cứ; không tự xóa linh kiện hay đổi thông số, số lượng để loại phần chưa rõ. Thao tác đối chiếu và đo kiểm chỉ đặt trong phần hướng dẫn hoặc kiểm thử tương ứng khi thuộc phạm vi yêu cầu.
 - Không tự đổi thông số để rút gọn tài liệu. Lỗi kỹ thuật phải được chỉ rõ và sửa có căn cứ.
 - Phân biệt cấu hình đề xuất, phép tính, giới hạn datasheet và số đo thực. Không tự điền kết quả hoặc ghi “đạt chuẩn”.
 - Vẽ sơ đồ điện bằng SVG/công cụ kỹ thuật; không dùng ảnh AI hoặc pinout module phỏng đoán.
