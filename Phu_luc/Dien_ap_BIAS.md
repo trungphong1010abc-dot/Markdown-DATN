@@ -10,7 +10,7 @@ Sau khi cộng BIAS, tín hiệu dao động quanh mức nền mới, còn **bi�
 
 # 2. Ảnh hưởng của BIAS đến dạng sóng
 
-![Tín hiệu xoay chiều trước và sau khi cộng điện áp nền DC](hinh_minh_hoa/07_tin_hieu_AC_truoc_va_sau_BIAS.png)
+![Tín hiệu xoay chiều trước và sau khi cộng điện áp nền DC](hinh_minh_hoa/04_tin_hieu_AC_truoc_va_sau_BIAS.png)
 
 *Hình 1. Ví dụ tín hiệu AC trước và sau khi cộng DC bias [2, trang 13].*
 

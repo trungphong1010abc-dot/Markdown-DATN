@@ -490,7 +490,7 @@ Hình 4 theo dõi **cùng một xung** tại ba vị trí: dòng qua cảm biế
 
 >  ==Phần này sau đo thì lấy ảnh chụp thực nghiệm thực tế điền vào
 
-![Dòng quang, điện áp trước và sau hai tầng lọc RC](hinh_minh_hoa/09_dap_ung_xung_duong_do_quang.png)
+![Dòng quang, điện áp trước và sau hai tầng lọc RC](hinh_minh_hoa/06_dap_ung_xung_duong_do_quang.png)
 
 *Hình 4. Đáp ứng tính toán của đường đo quang, từ hàm truyền (17), (37) và đáp ứng RC [3], [11].*
 

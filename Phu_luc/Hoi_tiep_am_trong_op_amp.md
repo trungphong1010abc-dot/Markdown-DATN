@@ -10,7 +10,7 @@ $V_{\mathrm{out}}$ là điện áp đầu ra; $V_+$ và $V_-$ là điện áp t�
 
 **Hồi tiếp âm** được thực hiện bằng cách đưa điện áp đầu ra trở về **đầu vào đảo (−)** để giảm chênh lệch với **đầu vào không đảo (+)** [1]. Cách hoạt động này được minh họa bằng mạch đệm điện áp dưới đây.
 
-![Mạch khuếch đại không đảo và cấu hình bộ đệm điện áp](hinh_minh_hoa/08_hoi_tiep_am_mach_dem_op_amp.png)
+![Mạch khuếch đại không đảo và cấu hình bộ đệm điện áp](hinh_minh_hoa/05_hoi_tiep_am_mach_dem_op_amp.png)
 
 *Hình 1. Từ mạch khuếch đại không đảo (trái) đến mạch đệm điện áp (phải). Ảnh do người dùng cung cấp.*
 

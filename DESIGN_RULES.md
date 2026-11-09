@@ -1,5 +1,7 @@
 # Quy tắc ưu tiên
 
+- **Giải thích thiết kế bằng câu khẳng định, nêu thẳng lý do chọn và tác dụng trong mạch.** Áp dụng cho toàn bộ tài liệu module và PCB. Không chèn câu phủ định hoặc tự bình luận về mức độ chứng minh như “chưa phải yêu cầu tốc độ”, “không phải căn cứ lựa chọn”, “chỉ là khả năng cấu hình” vào đoạn giải thích. Viết rõ linh kiện đáp ứng yêu cầu nào, thông số hoặc phép tính dẫn đến tác dụng gì và tác dụng đó phục vụ hệ thống ra sao. Khi kết luận phụ thuộc điều kiện, nêu trực tiếp điều kiện bằng cấu trúc “Với… thì…”. Chỉ trình bày kết luận có căn cứ; nội dung thiếu căn cứ xử lý theo quy tắc tính chính xác bên dưới.
+
 - **Không để một file Markdown chỉ có duy nhất một heading cấp 1 (`#`).** Không dùng H1 làm tiêu đề bao toàn file; dùng H1 cho các phần nội dung chính. Khi gặp cấu trúc một H1 tiêu đề và các phần bên dưới bắt đầu từ H2, bỏ tiêu đề bao ngoài và nâng các heading còn lại một cấp (`##` → `#`, `###` → `##`, …), giữ nguyên nội dung và số thứ tự. Quy tắc áp dụng cho toàn bộ tài liệu trong dự án.
 
 **Phần người dùng đã xóa phải tiếp tục được để xóa. Không tự thêm lại, kể cả dưới cách diễn đạt hoặc vị trí khác. Chỉ khôi phục khi người dùng yêu cầu rõ ràng.**
@@ -21,6 +23,7 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 - Một gateway: ESP32 DevKit và module MAX13487E. Cấu hình gateway của hệ thống PCB gồm hai bo này.
 - Node dùng adapter 5 V riêng; gateway lấy nguồn USB laptop.
 - Node–gateway dùng RS485; gateway–laptop dùng USB. Không tự bổ sung LoRa, pin, cloud hoặc chức năng ngắt điện.
+- **Cáp RS485 RBTF 2P22L2 có trở kháng đặc trưng 120 Ω, đã chốt theo xác nhận của người dùng.** Dùng giá trị này khi giải thích lựa chọn điện trở kết thúc đường truyền. Nguồn chốt thông số cáp là người dùng; không gọi là kết quả đo hoặc thông số đã kiểm chứng từ datasheet hãng. Cơ sở nguyên tắc kết thúc đường truyền là Texas Instruments, *The RS-485 Design Guide — SLLA272D*, mục 6 “Bus Termination and Stub Length”.
 - Mạch thực của module MAX13487E chưa được xác nhận; không đoán header hoặc mặc định mức UART tương thích ESP32.
 
 # Lưu trữ phụ lục
@@ -31,7 +34,10 @@ Bản hiện tại trên đĩa là cơ sở chỉnh sửa. Quy tắc này áp d�
 
 - Công thức toán phải dùng LaTeX trong Markdown: `$...$` cho công thức trong dòng, `$$` trên các dòng riêng để bao công thức đứng riêng; chừa dòng trống trước và sau khối công thức. Không đặt công thức trong khối mã hoặc dấu backtick. Viết đúng cú pháp chỉ số, phân số và đơn vị; không escape dấu `_` bên trong công thức thành `\_`.
 - Viết tiếng Việt ngắn, dễ hiểu; mỗi bước một thao tác.
+- Giải thích trực tiếp bằng câu khẳng định: đại lượng biểu thị gì, linh kiện có tác dụng gì và kết quả dẫn đến quyết định nào. Bỏ câu phủ định thừa như “không phải thời gian reset cố định” khi chỉ cần nói rõ ý nghĩa đúng của đại lượng; chỉ dùng phủ định khi cần nêu giới hạn kỹ thuật hoặc ngăn hiểu sai cụ thể.
+- Mỗi phép tính phải có lời giải thích ngắn về ý nghĩa kết quả và mối liên hệ với thiết kế. Phân biệt phép tính mô tả hoạt động với căn cứ chọn linh kiện; nếu giá trị được chọn theo khuyến nghị hãng thì nêu và trích nguồn khuyến nghị đó, không dùng một kết quả tính minh họa để suy thành bằng chứng lựa chọn.
 - Khi giải thích nguyên lý hoặc kết luận thiết kế, viết trực tiếp quan hệ nguyên nhân–kết quả và tác dụng của lựa chọn. Không dùng câu khuyến nghị như “cần kiểm tra”, “cần đo”, “cần chọn” để thay cho lời giải thích. Hướng dẫn thao tác đặt trong phần kiểm thử. Diễn đạt dứt khoát theo căn cứ hiện có, giữ đúng sự khác nhau giữa kết quả tính và số đo thực.
+- Khi giải thích một lựa chọn thiết kế, nêu rõ lựa chọn đó đáp ứng yêu cầu nào, có tác dụng gì và phù hợp với cấu hình hiện tại ra sao. Không viết “không bắt buộc dùng”, “có thể dùng loại khác” hoặc diễn đạt tương tự làm trọng tâm của phần giải thích. Nếu so sánh phương án, dùng tiêu chí cụ thể để làm rõ tính hợp lý và đánh đổi của lựa chọn đã chọn. Chỉ khẳng định mức phù hợp có căn cứ; không suy thành ưu thế vượt trội hoặc tính tối ưu khi chưa có bằng chứng.
 - Tiêu đề mục và tiêu đề in đậm dùng cụm từ cô đọng, ngắn gọn, thể hiện đúng nội dung; không dùng câu hỏi làm tiêu đề. Khi chỉ yêu cầu đổi tiêu đề, giữ nguyên từng chữ trong nội dung bên dưới.
 - Trình bày trực tiếp nội dung kỹ thuật và đặt trích dẫn dạng [n] ngay sau ý được dẫn nguồn. Không thêm lời dẫn như “tài liệu cho biết”, “theo tài liệu” hoặc “phù hợp với quy luật trong tài liệu”; thông tin nguồn đặt ở mục tài liệu tham khảo.
 - Phần 1 chỉ có ba mục: **1.1 Node**, **1.2 Gateway**, **1.3 Các phần bên ngoài**.
